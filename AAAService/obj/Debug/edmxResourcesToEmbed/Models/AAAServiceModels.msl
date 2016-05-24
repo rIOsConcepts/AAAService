@@ -1,0 +1,585 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="aaahelpModelStoreContainer" CdmEntityContainer="aaahelpEntities">
+    <EntitySetMapping Name="email_queue">
+      <EntityTypeMapping TypeName="aaahelpModel.email_queue">
+        <MappingFragment StoreEntitySet="email_queue">
+          <ScalarProperty Name="guid" ColumnName="guid" />
+          <ScalarProperty Name="who_from" ColumnName="who_from" />
+          <ScalarProperty Name="who_to" ColumnName="who_to" />
+          <ScalarProperty Name="subject" ColumnName="subject" />
+          <ScalarProperty Name="msgbody" ColumnName="msgbody" />
+          <ScalarProperty Name="date_in" ColumnName="date_in" />
+          <ScalarProperty Name="sender_guid" ColumnName="sender_guid" />
+          <ScalarProperty Name="processed" ColumnName="processed" />
+          <ScalarProperty Name="is_html" ColumnName="is_html" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="locationinfoes">
+      <EntityTypeMapping TypeName="aaahelpModel.locationinfo">
+        <MappingFragment StoreEntitySet="locationinfo">
+          <ScalarProperty Name="guid" ColumnName="guid" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="addressline1" ColumnName="addressline1" />
+          <ScalarProperty Name="addressline2" ColumnName="addressline2" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="zip" ColumnName="zip" />
+          <ScalarProperty Name="parentguid" ColumnName="parentguid" />
+          <ScalarProperty Name="cf_location_num" ColumnName="cf_location_num" />
+          <ScalarProperty Name="cf_company_num" ColumnName="cf_company_num" />
+          <ScalarProperty Name="region" ColumnName="region" />
+          <ScalarProperty Name="email_all_members" ColumnName="email_all_members" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PriorityLists">
+      <EntityTypeMapping TypeName="aaahelpModel.PriorityList">
+        <MappingFragment StoreEntitySet="PriorityList">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="list_num" ColumnName="list_num" />
+          <ScalarProperty Name="active" ColumnName="active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Regions">
+      <EntityTypeMapping TypeName="aaahelpModel.Region">
+        <MappingFragment StoreEntitySet="Regions">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="list_num" ColumnName="list_num" />
+          <ScalarProperty Name="active" ColumnName="active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ST_SL_Edits">
+      <EntityTypeMapping TypeName="aaahelpModel.ST_SL_Edits">
+        <MappingFragment StoreEntitySet="ST_SL_Edits">
+          <ScalarProperty Name="guid" ColumnName="guid" />
+          <ScalarProperty Name="Address_Line_1" ColumnName="Address_Line_1" />
+          <ScalarProperty Name="Address_Line_2" ColumnName="Address_Line_2" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Zip" ColumnName="Zip" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="ticket_guid" ColumnName="ticket_guid" />
+          <ScalarProperty Name="region" ColumnName="region" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StatusLists">
+      <EntityTypeMapping TypeName="aaahelpModel.StatusList">
+        <MappingFragment StoreEntitySet="StatusList">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="list_num" ColumnName="list_num" />
+          <ScalarProperty Name="active" ColumnName="active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="service_boardNew">
+      <EntityTypeMapping TypeName="aaahelpModel.service_boardNew">
+        <MappingFragment StoreEntitySet="service_boardNew">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="cost_code" ColumnName="cost_code" />
+          <ScalarProperty Name="cust_po_num" ColumnName="cust_po_num" />
+          <ScalarProperty Name="accepted_datetime" ColumnName="accepted_datetime" />
+          <ScalarProperty Name="dispatch_datetime" ColumnName="dispatch_datetime" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="service_provider" ColumnName="service_provider" />
+          <ScalarProperty Name="category" ColumnName="category" />
+          <ScalarProperty Name="region" ColumnName="region" />
+          <ScalarProperty Name="complete_datetime" ColumnName="complete_datetime" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
+          <ScalarProperty Name="parent_company_guid" ColumnName="parent_company_guid" />
+          <ScalarProperty Name="service_location_guid" ColumnName="service_location_guid" />
+          <ScalarProperty Name="company_name" ColumnName="company_name" />
+          <ScalarProperty Name="problem_summary" ColumnName="problem_summary" />
+          <ScalarProperty Name="order_datetime" ColumnName="order_datetime" />
+          <ScalarProperty Name="job_number" ColumnName="job_number" />
+          <ScalarProperty Name="service_location_name" ColumnName="service_location_name" />
+          <ScalarProperty Name="age" ColumnName="age" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user_viewable_locations_view">
+      <EntityTypeMapping TypeName="aaahelpModel.user_viewable_locations_view">
+        <MappingFragment StoreEntitySet="user_viewable_locations_view">
+          <ScalarProperty Name="parentguid" ColumnName="parentguid" />
+          <ScalarProperty Name="user_guid" ColumnName="user_guid" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="location_guid" ColumnName="location_guid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bid_Requests_View">
+      <EntityTypeMapping TypeName="aaahelpModel.Bid_Requests_View">
+        <MappingFragment StoreEntitySet="Bid_Requests_View">
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="service_location_guid" ColumnName="service_location_guid" />
+          <ScalarProperty Name="parent_company_guid" ColumnName="parent_company_guid" />
+          <ScalarProperty Name="Order_Date" ColumnName="Order_Date" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
+          <ScalarProperty Name="Parent_Location_Name" ColumnName="Parent_Location_Name" />
+          <ScalarProperty Name="Service_Location_Name" ColumnName="Service_Location_Name" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <ScalarProperty Name="problem_summary" ColumnName="problem_summary" />
+          <ScalarProperty Name="bid_num" ColumnName="bid_num" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comments_view">
+      <EntityTypeMapping TypeName="aaahelpModel.Comments_view">
+        <MappingFragment StoreEntitySet="Comments_view">
+          <ScalarProperty Name="addr2" ColumnName="addr2" />
+          <ScalarProperty Name="addr1" ColumnName="addr1" />
+          <ScalarProperty Name="phone_night" ColumnName="phone_night" />
+          <ScalarProperty Name="phone_day" ColumnName="phone_day" />
+          <ScalarProperty Name="rating" ColumnName="rating" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="closed" ColumnName="closed" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="is_manager" ColumnName="is_manager" />
+          <ScalarProperty Name="primary_contact_bit" ColumnName="primary_contact_bit" />
+          <ScalarProperty Name="service_location" ColumnName="service_location" />
+          <ScalarProperty Name="parent_location" ColumnName="parent_location" />
+          <ScalarProperty Name="fileupload" ColumnName="fileupload" />
+          <ScalarProperty Name="comments" ColumnName="comments" />
+          <ScalarProperty Name="comment_type" ColumnName="comment_type" />
+          <ScalarProperty Name="comment_datetime" ColumnName="comment_datetime" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="user_full_name" ColumnName="user_full_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Emails_Log_ViewMVC">
+      <EntityTypeMapping TypeName="aaahelpModel.Emails_Log_ViewMVC">
+        <MappingFragment StoreEntitySet="Emails_Log_ViewMVC">
+          <ScalarProperty Name="who_to" ColumnName="who_to" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
+          <ScalarProperty Name="sent_to_full_name" ColumnName="sent_to_full_name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="location_name" ColumnName="location_name" />
+          <ScalarProperty Name="date_in_no_time" ColumnName="date_in_no_time" />
+          <ScalarProperty Name="date_in" ColumnName="date_in" />
+          <ScalarProperty Name="msgbody" ColumnName="msgbody" />
+          <ScalarProperty Name="subject" ColumnName="subject" />
+          <ScalarProperty Name="who_from" ColumnName="who_from" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Location_Mgt_ViewMVC">
+      <EntityTypeMapping TypeName="aaahelpModel.Location_Mgt_ViewMVC">
+        <MappingFragment StoreEntitySet="Location_Mgt_ViewMVC">
+          <ScalarProperty Name="primary_contact_bit" ColumnName="primary_contact_bit" />
+          <ScalarProperty Name="parent_name" ColumnName="parent_name" />
+          <ScalarProperty Name="phone_night" ColumnName="phone_night" />
+          <ScalarProperty Name="phone_day" ColumnName="phone_day" />
+          <ScalarProperty Name="user_guid" ColumnName="user_guid" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="lname" ColumnName="lname" />
+          <ScalarProperty Name="fname" ColumnName="fname" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
+          <ScalarProperty Name="parentguid" ColumnName="parentguid" />
+          <ScalarProperty Name="region" ColumnName="region" />
+          <ScalarProperty Name="cf_company_num" ColumnName="cf_company_num" />
+          <ScalarProperty Name="cf_location_num" ColumnName="cf_location_num" />
+          <ScalarProperty Name="zip" ColumnName="zip" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="addressline2" ColumnName="addressline2" />
+          <ScalarProperty Name="addressline1" ColumnName="addressline1" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LocationEmails_ViewMVC">
+      <EntityTypeMapping TypeName="aaahelpModel.LocationEmails_ViewMVC">
+        <MappingFragment StoreEntitySet="LocationEmails_ViewMVC1">
+          <ScalarProperty Name="account_status" ColumnName="account_status" />
+          <ScalarProperty Name="email_all_members" ColumnName="email_all_members" />
+          <ScalarProperty Name="LocationGUID" ColumnName="LocationGUID" />
+          <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+          <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User_Assigned_Locations_View">
+      <EntityTypeMapping TypeName="aaahelpModel.User_Assigned_Locations_View">
+        <MappingFragment StoreEntitySet="User_Assigned_Locations_View">
+          <ScalarProperty Name="parentguid" ColumnName="parentguid" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="location_guid" ColumnName="location_guid" />
+          <ScalarProperty Name="user_guid" ColumnName="user_guid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User_Info_ViewMVC">
+      <EntityTypeMapping TypeName="aaahelpModel.User_Info_ViewMVC">
+        <MappingFragment StoreEntitySet="User_Info_ViewMVC">
+          <ScalarProperty Name="account_status" ColumnName="account_status" />
+          <ScalarProperty Name="parent_location_guid" ColumnName="parent_location_guid" />
+          <ScalarProperty Name="location_guid" ColumnName="location_guid" />
+          <ScalarProperty Name="phone_night" ColumnName="phone_night" />
+          <ScalarProperty Name="phone_day" ColumnName="phone_day" />
+          <ScalarProperty Name="user_guid" ColumnName="user_guid" />
+          <ScalarProperty Name="location_name" ColumnName="location_name" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="lname" ColumnName="lname" />
+          <ScalarProperty Name="fname" ColumnName="fname" />
+          <ScalarProperty Name="acct_status" ColumnName="acct_status" />
+          <ScalarProperty Name="company_name" ColumnName="company_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ParentLocationInfoFromUsrGUID" FunctionName="aaahelpModel.Store.ParentLocationInfoFromUsrGUID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="aaahelpModel.ParentLocationInfoFromUsrGUID_Result">
+          <ScalarProperty Name="guid" ColumnName="guid" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="addressline1" ColumnName="addressline1" />
+          <ScalarProperty Name="addressline2" ColumnName="addressline2" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="zip" ColumnName="zip" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ReturnParentLocations" FunctionName="aaahelpModel.Store.ReturnParentLocations">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="aaahelpModel.ReturnParentLocations_Result">
+          <ScalarProperty Name="guid" ColumnName="guid" />
+          <ScalarProperty Name="parentguid" ColumnName="parentguid" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="addressline1" ColumnName="addressline1" />
+          <ScalarProperty Name="addressline2" ColumnName="addressline2" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="zip" ColumnName="zip" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="Location_Service_Provider">
+      <EntityTypeMapping TypeName="aaahelpModel.Location_Service_Provider">
+        <MappingFragment StoreEntitySet="Location_Service_Provider">
+          <ScalarProperty Name="location_specific_notes" ColumnName="location_specific_notes" />
+          <ScalarProperty Name="last_modified_by" ColumnName="last_modified_by" />
+          <ScalarProperty Name="last_modified" ColumnName="last_modified" />
+          <ScalarProperty Name="date_in" ColumnName="date_in" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="service_provider_guid" ColumnName="service_provider_guid" />
+          <ScalarProperty Name="service_category_guid" ColumnName="service_category_guid" />
+          <ScalarProperty Name="location_guid" ColumnName="location_guid" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user_to_location">
+      <EntityTypeMapping TypeName="aaahelpModel.user_to_location">
+        <MappingFragment StoreEntitySet="user_to_location">
+          <ScalarProperty Name="primary_contact_bit" ColumnName="primary_contact_bit" />
+          <ScalarProperty Name="location_guid" ColumnName="location_guid" />
+          <ScalarProperty Name="user_guid" ColumnName="user_guid" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="service_ticket_files">
+      <EntityTypeMapping TypeName="aaahelpModel.service_ticket_files">
+        <MappingFragment StoreEntitySet="service_ticket_files">
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="date_in" ColumnName="date_in" />
+          <ScalarProperty Name="ticket_guid" ColumnName="ticket_guid" />
+          <ScalarProperty Name="user_guid" ColumnName="user_guid" />
+          <ScalarProperty Name="file_ext" ColumnName="file_ext" />
+          <ScalarProperty Name="file_size" ColumnName="file_size" />
+          <ScalarProperty Name="file_name" ColumnName="file_name" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="email_log">
+      <EntityTypeMapping TypeName="aaahelpModel.email_log">
+        <MappingFragment StoreEntitySet="email_log">
+          <ScalarProperty Name="error" ColumnName="error" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="sender_guid" ColumnName="sender_guid" />
+          <ScalarProperty Name="date_in" ColumnName="date_in" />
+          <ScalarProperty Name="msgbody" ColumnName="msgbody" />
+          <ScalarProperty Name="subject" ColumnName="subject" />
+          <ScalarProperty Name="who_to" ColumnName="who_to" />
+          <ScalarProperty Name="who_from" ColumnName="who_from" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="bid_requests">
+      <EntityTypeMapping TypeName="aaahelpModel.bid_requests">
+        <MappingFragment StoreEntitySet="bid_requests">
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <ScalarProperty Name="PriorityID" ColumnName="PriorityID" />
+          <ScalarProperty Name="PriorityStatus" ColumnName="PriorityStatus" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="closed_datetime" ColumnName="closed_datetime" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="location_contact_phone_night" ColumnName="location_contact_phone_night" />
+          <ScalarProperty Name="location_contact_phone" ColumnName="location_contact_phone" />
+          <ScalarProperty Name="location_contact_name" ColumnName="location_contact_name" />
+          <ScalarProperty Name="problem_details" ColumnName="problem_details" />
+          <ScalarProperty Name="problem_summary" ColumnName="problem_summary" />
+          <ScalarProperty Name="last_updated_by_user_guid" ColumnName="last_updated_by_user_guid" />
+          <ScalarProperty Name="created_by_user_guid" ColumnName="created_by_user_guid" />
+          <ScalarProperty Name="service_location_guid" ColumnName="service_location_guid" />
+          <ScalarProperty Name="parent_company_guid" ColumnName="parent_company_guid" />
+          <ScalarProperty Name="last_update_datetime" ColumnName="last_update_datetime" />
+          <ScalarProperty Name="complete_datetime" ColumnName="complete_datetime" />
+          <ScalarProperty Name="order_datetime" ColumnName="order_datetime" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
+          <ScalarProperty Name="bid_num" ColumnName="bid_num" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="service_tickets">
+      <EntityTypeMapping TypeName="aaahelpModel.service_tickets">
+        <MappingFragment StoreEntitySet="service_tickets">
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <ScalarProperty Name="PriorityID" ColumnName="PriorityID" />
+          <ScalarProperty Name="PriorityStatus" ColumnName="PriorityStatus" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="ServiceCategory" ColumnName="ServiceCategory" />
+          <ScalarProperty Name="total_billing" ColumnName="total_billing" />
+          <ScalarProperty Name="cust_po_num" ColumnName="cust_po_num" />
+          <ScalarProperty Name="internal_notes" ColumnName="internal_notes" />
+          <ScalarProperty Name="accepted_datetime" ColumnName="accepted_datetime" />
+          <ScalarProperty Name="dispatch_datetime" ColumnName="dispatch_datetime" />
+          <ScalarProperty Name="service_provider" ColumnName="service_provider" />
+          <ScalarProperty Name="EQProbDesc" ColumnName="EQProbDesc" />
+          <ScalarProperty Name="EQserial" ColumnName="EQserial" />
+          <ScalarProperty Name="EQmodel" ColumnName="EQmodel" />
+          <ScalarProperty Name="cost_code" ColumnName="cost_code" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="closed_datetime" ColumnName="closed_datetime" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="location_contact_phone_night" ColumnName="location_contact_phone_night" />
+          <ScalarProperty Name="location_contact_phone" ColumnName="location_contact_phone" />
+          <ScalarProperty Name="location_contact_name" ColumnName="location_contact_name" />
+          <ScalarProperty Name="problem_details" ColumnName="problem_details" />
+          <ScalarProperty Name="problem_summary" ColumnName="problem_summary" />
+          <ScalarProperty Name="last_updated_by_user_guid" ColumnName="last_updated_by_user_guid" />
+          <ScalarProperty Name="created_by_user_guid" ColumnName="created_by_user_guid" />
+          <ScalarProperty Name="service_location_guid" ColumnName="service_location_guid" />
+          <ScalarProperty Name="parent_company_guid" ColumnName="parent_company_guid" />
+          <ScalarProperty Name="last_update_datetime" ColumnName="last_update_datetime" />
+          <ScalarProperty Name="complete_datetime" ColumnName="complete_datetime" />
+          <ScalarProperty Name="order_datetime" ColumnName="order_datetime" />
+          <ScalarProperty Name="job_number" ColumnName="job_number" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user_viewable_locations">
+      <EntityTypeMapping TypeName="aaahelpModel.user_viewable_locations">
+        <MappingFragment StoreEntitySet="user_viewable_locations">
+          <ScalarProperty Name="location_guid" ColumnName="location_guid" />
+          <ScalarProperty Name="user_guid" ColumnName="user_guid" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="phone_num">
+      <EntityTypeMapping TypeName="aaahelpModel.phone_num">
+        <MappingFragment StoreEntitySet="phone_num">
+          <ScalarProperty Name="phone_night" ColumnName="phone_night" />
+          <ScalarProperty Name="phone_day" ColumnName="phone_day" />
+          <ScalarProperty Name="user_guid" ColumnName="user_guid" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Phone_Numbers">
+      <EntityTypeMapping TypeName="aaahelpModel.Phone_Numbers">
+        <MappingFragment StoreEntitySet="Phone_Numbers">
+          <ScalarProperty Name="last_modified" ColumnName="last_modified" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="phone_type" ColumnName="phone_type" />
+          <ScalarProperty Name="phone_num" ColumnName="phone_num" />
+          <ScalarProperty Name="owner_guid" ColumnName="owner_guid" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="errors_and_comments">
+      <EntityTypeMapping TypeName="aaahelpModel.errors_and_comments">
+        <MappingFragment StoreEntitySet="errors_and_comments">
+          <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+          <ScalarProperty Name="ratings" ColumnName="ratings" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="closed" ColumnName="closed" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="fileupload" ColumnName="fileupload" />
+          <ScalarProperty Name="comments" ColumnName="comments" />
+          <ScalarProperty Name="userguid" ColumnName="userguid" />
+          <ScalarProperty Name="comment_type" ColumnName="comment_type" />
+          <ScalarProperty Name="comment_datetime" ColumnName="comment_datetime" />
+          <ScalarProperty Name="REMOTE_USER" ColumnName="REMOTE_USER" />
+          <ScalarProperty Name="REMOTE_HOST" ColumnName="REMOTE_HOST" />
+          <ScalarProperty Name="REMOTE_ADDR" ColumnName="REMOTE_ADDR" />
+          <ScalarProperty Name="HTTP_USER_AGENT" ColumnName="HTTP_USER_AGENT" />
+          <ScalarProperty Name="HTTP_REFERER" ColumnName="HTTP_REFERER" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CommentRatings">
+      <EntityTypeMapping TypeName="aaahelpModel.CommentRating">
+        <MappingFragment StoreEntitySet="CommentRatings">
+          <ScalarProperty Name="RatingValue" ColumnName="RatingValue" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Site_Lists_Hide_Item">
+      <EntityTypeMapping TypeName="aaahelpModel.Site_Lists_Hide_Item">
+        <MappingFragment StoreEntitySet="Site_Lists_Hide_Item">
+          <ScalarProperty Name="date_in" ColumnName="date_in" />
+          <ScalarProperty Name="list_item_guid" ColumnName="list_item_guid" />
+          <ScalarProperty Name="parent_company_guid" ColumnName="parent_company_guid" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmailSetups">
+      <EntityTypeMapping TypeName="aaahelpModel.EmailSetup">
+        <MappingFragment StoreEntitySet="EmailSetup">
+          <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+          <ScalarProperty Name="EnableSSL" ColumnName="EnableSSL" />
+          <ScalarProperty Name="Port" ColumnName="Port" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Host" ColumnName="Host" />
+          <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+          <ScalarProperty Name="EmailTitle" ColumnName="EmailTitle" />
+          <ScalarProperty Name="EmailedForm" ColumnName="EmailedForm" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LocationEmails_viewMVC1">
+      <EntityTypeMapping TypeName="aaahelpModel.LocationEmails_viewMVC1">
+        <MappingFragment StoreEntitySet="LocationEmails_viewMVC">
+          <ScalarProperty Name="account_status" ColumnName="account_status" />
+          <ScalarProperty Name="email_all_members" ColumnName="email_all_members" />
+          <ScalarProperty Name="LocationGUID" ColumnName="LocationGUID" />
+          <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+          <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="service_tickets_viewMVC">
+      <EntityTypeMapping TypeName="aaahelpModel.service_tickets_viewMVC">
+        <MappingFragment StoreEntitySet="service_tickets_viewMVC">
+          <ScalarProperty Name="total_billing" ColumnName="total_billing" />
+          <ScalarProperty Name="category_value" ColumnName="category_value" />
+          <ScalarProperty Name="cust_po_num" ColumnName="cust_po_num" />
+          <ScalarProperty Name="service_location_guid" ColumnName="service_location_guid" />
+          <ScalarProperty Name="parent_company_guid" ColumnName="parent_company_guid" />
+          <ScalarProperty Name="internal_notes" ColumnName="internal_notes" />
+          <ScalarProperty Name="accepted_datetime" ColumnName="accepted_datetime" />
+          <ScalarProperty Name="dispatch_datetime" ColumnName="dispatch_datetime" />
+          <ScalarProperty Name="service_provider" ColumnName="service_provider" />
+          <ScalarProperty Name="EQProbDesc" ColumnName="EQProbDesc" />
+          <ScalarProperty Name="EQserial" ColumnName="EQserial" />
+          <ScalarProperty Name="EQmodel" ColumnName="EQmodel" />
+          <ScalarProperty Name="cost_code" ColumnName="cost_code" />
+          <ScalarProperty Name="Service_Location_Zip" ColumnName="Service_Location_Zip" />
+          <ScalarProperty Name="Service_Location_State" ColumnName="Service_Location_State" />
+          <ScalarProperty Name="Service_Location_City" ColumnName="Service_Location_City" />
+          <ScalarProperty Name="Service_Location_AddressLine2" ColumnName="Service_Location_AddressLine2" />
+          <ScalarProperty Name="Service_Location_Addressline1" ColumnName="Service_Location_Addressline1" />
+          <ScalarProperty Name="Service_Location_Name" ColumnName="Service_Location_Name" />
+          <ScalarProperty Name="category" ColumnName="category" />
+          <ScalarProperty Name="location_contact_phone_night" ColumnName="location_contact_phone_night" />
+          <ScalarProperty Name="closed_datetime" ColumnName="closed_datetime" />
+          <ScalarProperty Name="cf_location_num" ColumnName="cf_location_num" />
+          <ScalarProperty Name="cf_company_num" ColumnName="cf_company_num" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="complete_datetime" ColumnName="complete_datetime" />
+          <ScalarProperty Name="Order_Date" ColumnName="Order_Date" />
+          <ScalarProperty Name="Order_Time" ColumnName="Order_Time" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
+          <ScalarProperty Name="Parent_Location_Zip" ColumnName="Parent_Location_Zip" />
+          <ScalarProperty Name="Parent_Location_State" ColumnName="Parent_Location_State" />
+          <ScalarProperty Name="Parent_Location_City" ColumnName="Parent_Location_City" />
+          <ScalarProperty Name="Parent_Location_AddressLine2" ColumnName="Parent_Location_AddressLine2" />
+          <ScalarProperty Name="Parent_Location_AddressLine1" ColumnName="Parent_Location_AddressLine1" />
+          <ScalarProperty Name="Parent_Location_Name" ColumnName="Parent_Location_Name" />
+          <ScalarProperty Name="Updated_By_User_Lname" ColumnName="Updated_By_User_Lname" />
+          <ScalarProperty Name="Updated_By_User_fname" ColumnName="Updated_By_User_fname" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <ScalarProperty Name="location_contact_phone" ColumnName="location_contact_phone" />
+          <ScalarProperty Name="location_contact_name" ColumnName="location_contact_name" />
+          <ScalarProperty Name="problem_details" ColumnName="problem_details" />
+          <ScalarProperty Name="problem_summary" ColumnName="problem_summary" />
+          <ScalarProperty Name="PriorityStatus" ColumnName="PriorityStatus" />
+          <ScalarProperty Name="last_update_datetime" ColumnName="last_update_datetime" />
+          <ScalarProperty Name="order_datetime" ColumnName="order_datetime" />
+          <ScalarProperty Name="job_number" ColumnName="job_number" />
+          <ScalarProperty Name="Created_By_User_lname" ColumnName="Created_By_User_lname" />
+          <ScalarProperty Name="Created_By_User_fname" ColumnName="Created_By_User_fname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Companies">
+      <EntityTypeMapping TypeName="aaahelpModel.Company">
+        <MappingFragment StoreEntitySet="Company">
+          <ScalarProperty Name="AcctMgrEmail" ColumnName="AcctMgrEmail" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="email_all_members" ColumnName="email_all_members" />
+          <ScalarProperty Name="region" ColumnName="region" />
+          <ScalarProperty Name="cf_location_num" ColumnName="cf_location_num" />
+          <ScalarProperty Name="cf_company_num" ColumnName="cf_company_num" />
+          <ScalarProperty Name="zip" ColumnName="zip" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="addressline2" ColumnName="addressline2" />
+          <ScalarProperty Name="addressline1" ColumnName="addressline1" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServiceCategories">
+      <EntityTypeMapping TypeName="aaahelpModel.ServiceCategory">
+        <MappingFragment StoreEntitySet="ServiceCategory">
+          <ScalarProperty Name="AlertMessage" ColumnName="AlertMessage" />
+          <ScalarProperty Name="isAlert" ColumnName="isAlert" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="list_num" ColumnName="list_num" />
+          <ScalarProperty Name="OldCode" ColumnName="OldCode" />
+          <ScalarProperty Name="CfdataCode" ColumnName="CfdataCode" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

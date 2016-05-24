@@ -1,0 +1,326 @@
+﻿@model AAAService.Models.service_tickets
+
+
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h3>Edit AAA Service Request: @ViewBag.TicketNumber   Created by @ViewBag.CreatedBy</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Administrator Edit</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.service_location_guid,"Location", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+               @Html.DropDownList("LocationDD", null, "", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.service_location_guid, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.StatusID, "StatusID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("StatusID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.StatusID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.accepted_datetime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.accepted_datetime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.accepted_datetime, "", new { @class = "text-danger" })
+               
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.dispatch_datetime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.dispatch_datetime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.dispatch_datetime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.complete_datetime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.complete_datetime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.complete_datetime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.service_provider, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.service_provider, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.service_provider, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div id="monikersam" style = "display:none";>
+            <div class="form-group">
+                @Html.Label("Status", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextArea("mStatusName", htmlAttributes: new {@value = ViewBag.StatusName, @class = "form-control" })
+
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Location", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextArea("mLocationName", htmlAttributes: new {@Value = ViewBag.LocationName, @class = "form-control" })
+
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.cost_code, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.cost_code, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.cost_code, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.cust_po_num, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.cust_po_num, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.cust_po_num, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.total_billing, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.total_billing, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.total_billing, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.location_contact_name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.location_contact_name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.location_contact_name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.location_contact_phone, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.location_contact_phone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.location_contact_phone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.location_contact_phone_night, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.location_contact_phone_night, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.location_contact_phone_night, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PriorityStatus, "Priority Level", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PriorityStatus, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly"} })
+                @Html.ValidationMessageFor(model => model.PriorityStatus, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ServiceCategory, "Service Category", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ServiceCategory, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.ServiceCategory, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.problem_summary, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.problem_summary, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.problem_summary, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.problem_details, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.problem_details, htmlAttributes: new { @class = "form-control", @rows = "7", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.problem_details, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Add Details", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextArea("ProbSum", htmlAttributes: new { @class = "form-control", @rows = "3" })
+
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.notes, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.notes, htmlAttributes: new { @class = "form-control", @rows = "7", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.notes, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Add Note", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextArea("ResNotes", htmlAttributes: new { @class = "form-control", @rows = "3" })
+
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.closed_datetime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.closed_datetime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.closed_datetime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.active, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.active)
+                    @Html.ValidationMessageFor(model => model.active, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.internal_notes, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.internal_notes, htmlAttributes: new { @class = "form-control", @rows = "7"})
+                @Html.ValidationMessageFor(model => model.internal_notes, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        
+        
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+        <h3>Uploaded Files</h3>
+        <table class="table">
+            <tr>
+                <th>
+                    File Name
+                </th>
+                <th>
+                    Date Uploaded
+                </th>
+                <th>
+                    File Size
+                </th>
+                <th>
+                </th>
+            </tr>
+            @if (ViewBag.FileList != null)
+            {
+                foreach (var myfile in ViewBag.FileList)
+
+                {
+                    <tr>
+                        <td>@myfile.file_name</td>
+                        <td>@myfile.date_in.ToString()</td>
+                        <td>@myfile.file_size.ToString()</td>
+                        <td>
+                            @Html.ActionLink("Download", "Download", new { id = @myfile.guid })
+
+                        </td>
+                    </tr>
+
+                }
+            }
+
+
+
+
+        </table>
+}
+
+@using (Html.BeginForm("Upload", "AdminTickets", FormMethod.Post,
+                            new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>Upload new File</legend>
+        <div class="editor-field">
+            @Html.TextBox("file", "", new { type = "file" })
+        </div>
+        <div class="editor-field">
+            <input type="submit" value="Upload" />
+        </div>
+    </fieldset>
+}
+
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $('#accepted_datetime').datetimepicker({
+                defaultDate: '@Model.accepted_datetime',
+                showClose: true,
+                showClear: true,
+                toolbarPlacement: 'top'
+            });
+            $('#dispatch_datetime').datetimepicker({
+                defaultDate: '@Model.dispatch_datetime',
+                showClose: true,
+                showClear: true,
+                toolbarPlacement: 'top',
+                
+            });
+            $('#complete_datetime').datetimepicker({
+                defaultDate: '@Model.complete_datetime',
+                showClose: true,
+                showClear: true,
+                toolbarPlacement: 'top',
+               
+            });
+            $('#closed_datetime').datetimepicker({
+                defaultDate: '@Model.closed_datetime',
+                showClose: true,
+                showClear: true,
+                toolbarPlacement: 'top',
+              
+            });
+        });
+    </script>
+}
+<script>
+$(document).ready(
+  function() {
+  $("#monikersam").hide();
+  $("#StatusID").change(function () {
+      $(this).find("option:selected");
+      var newText = $("#StatusID option:selected").text();
+      $('#mStatusName').text(newText);
+      $("#monikersam").hide();
+  })
+  });
+$(document).ready(
+function () {
+    $("#monikersam").hide();
+    $("#LocationDD").change(function () {
+        $(this).find("option:selected");
+        var newText = $("#LocationDD option:selected").text();
+        $('#mLocationName').text(newText);
+        $("#monikersam").hide();
+    })
+});
+    </script>
+

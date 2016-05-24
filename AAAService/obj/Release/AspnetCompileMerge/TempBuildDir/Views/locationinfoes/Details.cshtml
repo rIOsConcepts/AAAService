@@ -1,0 +1,130 @@
+﻿@model AAAService.Models.locationinfo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>locationinfo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.addressline1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.addressline1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.addressline2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.addressline2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.city)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.city)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.state)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.state)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.zip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.zip)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cf_location_num)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cf_location_num)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cf_company_num)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cf_company_num)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.region)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.region)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email_all_members)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email_all_members)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RegionID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegionID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Company.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Company.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location_Service_Provider.guid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location_Service_Provider.guid)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.guid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

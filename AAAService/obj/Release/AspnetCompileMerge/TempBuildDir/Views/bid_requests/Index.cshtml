@@ -1,0 +1,62 @@
+﻿@model IEnumerable<AAAService.Models.bid_requests>
+
+@{
+    ViewBag.Title = "Bid Request Board";
+}
+
+<h2>Bid Request Board</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Company
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bid_num)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.order_datetime)
+        </th>
+        <th>
+            Service Location
+        </th>       
+        <th>
+            @Html.DisplayNameFor(model => model.problem_summary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StatusName)
+        </th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Company.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bid_num)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.order_datetime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.locationinfo.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.problem_summary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StatusName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.guid }) |
+            @Html.ActionLink("Details", "Details", new { id = item.guid }) |
+         </td>
+    </tr>
+}
+
+</table>

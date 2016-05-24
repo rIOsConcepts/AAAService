@@ -1,0 +1,64 @@
+﻿<script src="@Url.Content("~/Scripts/jquery.min.js")" type="text/javascript"> </script>
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")" type="text/javascript"> </script>
+@model IEnumerable<AAAService.Models.bid_requests>
+@using GridMvc.Html
+
+@{
+    ViewBag.Title = "Bid Request Board";
+}
+
+<h2>Administrator - Bid Request Board</h2>
+
+
+@Html.Grid(Model).Columns(columns =>
+{
+    /* Adding not mapped column, that renders body, using inline Razor html helper */
+    columns.Add()
+            .Encoded(false)
+            .Sanitized(false)
+            .SetWidth(30)
+            .RenderValueAs(d =>
+           @<b>
+                @Html.ActionLink("Edit", "Index")
+            </b>);
+
+    /* Adding "Company" column: */
+    columns.Add(o => o.Company.name)
+            .Titled("Company")
+            .Filterable(true)
+            .SetWidth(200);
+
+    /* Adding "BidNum" column: */
+    columns.Add(o => o.bid_num)
+            .Titled("Bid Request#")
+            .Filterable(true)
+            .SetWidth(100);
+
+
+    /* Adding "RequestDate" column: */
+    columns.Add(o => o.order_datetime)
+            .Titled("Request Date")
+            .Format("{0:MM/dd/yyyy}")
+            .Filterable(true)
+            .SetWidth(110);
+
+    /* Adding "Location" column: */
+    columns.Add(o => o.locationinfo.name)
+            .Filterable(true)
+            .Titled("Location");
+
+    /* Adding "Problem Summary" column: */
+    columns.Add(o => o.problem_summary)
+            .Titled("Request Summary")
+            .SetWidth(250);
+
+
+    /* Adding "Status" column: */
+    columns.Add(o => o.StatusName)
+            .Titled("Request Status")
+            .Filterable(true)
+            .SetWidth(150);
+
+
+}).WithPaging(20).Sortable(true).Filterable(true).WithMultipleFilters()

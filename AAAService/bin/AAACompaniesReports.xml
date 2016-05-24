@@ -1,0 +1,509 @@
+﻿<DataModel name="AAACompaniesReports" formatVersion="13" modelVersion="2" defQuery="" id="75192464-39b8-40c2-be9e-2c9dc11f8636">
+  <Description>aaahelp reports</Description>
+  <CustomInfo />
+  <DMEOptions>
+    <listBoxTablesWidth>385</listBoxTablesWidth>
+    <FormWidth>1203</FormWidth>
+    <FormHeight>580</FormHeight>
+  </DMEOptions>
+  <DBParams>
+    <SqlDialect>MS SQL</SqlDialect>
+    <ConnectionString>Data Source=JIM-HP\MSSQLSERVER12;Initial Catalog=aaahelp;Integrated Security=True</ConnectionString>
+    <LoginPrompt>False</LoginPrompt>
+    <GateClass>Korzh.EasyQuery.DataGates.SqlClientGate</GateClass>
+  </DBParams>
+  <Tables>
+    <Table class="db" alias="bid_requests" schema="dbo" db="" dsgnLayout="" priority="1000" name="bid_requests" hints="" quote="False" />
+    <Table class="db" alias="Company" schema="dbo" db="" dsgnLayout="" priority="1000" name="Company" hints="" quote="False" />
+    <Table class="db" alias="locationinfo" schema="dbo" db="" dsgnLayout="" priority="1000" name="locationinfo" hints="" quote="False" />
+    <Table class="db" alias="PriorityList" schema="dbo" db="" dsgnLayout="" priority="1000" name="PriorityList" hints="" quote="False" />
+    <Table class="db" alias="service_tickets" schema="dbo" db="" dsgnLayout="" priority="1000" name="service_tickets" hints="" quote="False" />
+    <Table class="db" alias="ServiceCategory" schema="dbo" db="" dsgnLayout="" priority="1000" name="ServiceCategory" hints="" quote="False" />
+    <Table class="db" alias="StatusList" schema="dbo" db="" dsgnLayout="" priority="1000" name="StatusList" hints="" quote="False" />
+  </Tables>
+  <Links>
+    <Link table1="locationinfo" table2="Company" type="Inner" QF="False">
+      <Condition type="FF" expr1="parentguid" expr2="guid" op="=" />
+    </Link>
+    <Link table1="service_tickets" table2="locationinfo" type="Inner" QF="False">
+      <Condition type="FF" expr1="service_location_guid" expr2="guid" op="=" />
+    </Link>
+    <Link table1="service_tickets" table2="ServiceCategory" type="Inner" QF="False">
+      <Condition type="FF" expr1="CategoryID" expr2="ID" op="=" />
+    </Link>
+    <Link table1="service_tickets" table2="PriorityList" type="Inner" QF="False">
+      <Condition type="FF" expr1="PriorityID" expr2="ID" op="=" />
+    </Link>
+  </Links>
+  <Editors>
+    <Editor id="_DTE" type="EDIT" resType="String" defValue="" />
+    <Editor id="_DPDE" type="DATETIME" resType="Unknown" subType="Date" />
+    <Editor id="_DPTE" type="DATETIME" resType="Unknown" subType="Time" />
+  </Editors>
+  <Operators>
+    <Operator id="Equal" caption="is equal to" expr="{expr1} = {expr2}" format="{expr1} [[is equal to]] {expr2}" constFmt="{const}" kind="Scalar" caseIns="False" group="Common operators" cond="False" tables="">
+      <Types>String,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</Types>
+      <Operands defType="Unknown" />
+    </Operator>
+    <Operator id="NotEqual" caption="is not equal to" expr="{expr1} &lt;&gt; {expr2}" format="{expr1} [[is not equal to]] {expr2}" constFmt="{const}" kind="Scalar" caseIns="False" group="Common operators" cond="False" tables="">
+      <Types>String,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</Types>
+      <Operands defType="Unknown" />
+    </Operator>
+    <Operator id="LessThan" caption="is less than" expr="{expr1} &lt; {expr2}" format="{expr1} [[is less than]] {expr2}" constFmt="{const}" kind="Scalar" caseIns="False" group="Common operators" cond="False" tables="">
+      <Types>String,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</Types>
+      <Operands defType="Unknown" />
+    </Operator>
+    <Operator id="LessOrEqual" caption="is less than or equal to" expr="{expr1} &lt;= {expr2}" format="{expr1} [[is less than or equal to]] {expr2}" constFmt="{const}" kind="Scalar" caseIns="False" group="Common operators" cond="False" tables="">
+      <Types>String,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</Types>
+      <Operands defType="Unknown" />
+    </Operator>
+    <Operator id="GreaterThan" caption="is greater than" expr="{expr1} &gt; {expr2}" format="{expr1} [[is greater than]] {expr2}" constFmt="{const}" kind="Scalar" caseIns="False" group="Common operators" cond="False" tables="">
+      <Types>String,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</Types>
+      <Operands defType="Unknown" />
+    </Operator>
+    <Operator id="GreaterOrEqual" caption="is greater than or equal to" expr="{expr1} &gt;= {expr2}" format="{expr1} [[is greater than or equal to]] {expr2}" constFmt="{const}" kind="Scalar" caseIns="False" group="Common operators" cond="False" tables="">
+      <Types>String,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</Types>
+      <Operands defType="Unknown" />
+    </Operator>
+    <Operator id="IsNull" caption="is null" expr="{expr1} IS NULL" format="{expr1} [[is null]] " constFmt="{const}" kind="Scalar" caseIns="False" group="Common operators" cond="False" tables="">
+      <Types>String,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</Types>
+      <Operands defType="Unknown" />
+    </Operator>
+    <Operator id="IsNotNull" caption="is not null" expr="{expr1} IS NOT NULL" format="{expr1} [[is not null]] " constFmt="{const}" kind="Scalar" caseIns="False" group="Common operators" cond="False" tables="">
+      <Types>String,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</Types>
+      <Operands defType="Unknown" />
+    </Operator>
+    <Operator id="IsTrue" caption="is true" expr="{expr1} = ${true}" format="{expr1} [[is true]]" constFmt="{const}" kind="Scalar" caseIns="False" group="Boolean operators" cond="False" tables="">
+      <Types>Bool</Types>
+      <Operands defType="Unknown" />
+    </Operator>
+    <Operator id="NotTrue" caption="is not true" expr="(({expr1} &lt;&gt; ${true}) OR ({expr1} IS NULL))" format="{expr1} [[is not true]]" constFmt="{const}" kind="Scalar" caseIns="False" group="Boolean operators" cond="False" tables="">
+      <Types>Bool</Types>
+      <Operands defType="Unknown" />
+    </Operator>
+    <Operator id="InList" caption="is in list" expr="{expr1} in ({expr2})" format="{expr1} [[is in list]] {expr2}" constFmt="{const}" kind="List" caseIns="False" group="Common operators" cond="False" tables="">
+      <Types>String,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</Types>
+      <Operands defType="Unknown" />
+    </Operator>
+    <Operator id="NotInList" caption="is not in list" expr="NOT ({expr1} in ({expr2}))" format="{expr1} [[is not in list]] {expr2}" constFmt="{const}" kind="List" caseIns="False" group="Common operators" cond="False" tables="">
+      <Types>String,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</Types>
+      <Operands defType="Unknown" />
+    </Operator>
+    <Operator id="Between" caption="is between" expr="{expr1} BETWEEN {expr2} AND {expr3}" format="{expr1} [[is between]] {expr2} and {expr3}" constFmt="{const}" kind="Scalar" caseIns="False" group="Common operators" cond="False" tables="">
+      <Types>String,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</Types>
+      <Operands defType="Unknown" />
+    </Operator>
+    <Operator id="NotBetween" caption="is not between" expr="NOT ({expr1} BETWEEN {expr2} AND {expr3})" format="{expr1} [[is not between]] {expr2} and {expr3}" constFmt="{const}" kind="Scalar" caseIns="False" group="Common operators" cond="False" tables="">
+      <Types>String,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</Types>
+      <Operands defType="Unknown" />
+    </Operator>
+    <Operator id="StartsWith" caption="starts with" expr="{expr1} LIKE {expr2}" format="{expr1} [[starts with]] {expr2}" constFmt="{const}{ws}" kind="Scalar" caseIns="False" editor="_DTE" group="String operators" cond="False" tables="">
+      <Types>String,Memo,FixedChar</Types>
+      <Operands defType="Unknown" />
+    </Operator>
+    <Operator id="NotStartsWith" caption="does not start with" expr="NOT ({expr1} LIKE {expr2})" format="{expr1} [[does not start with]] {expr2}" constFmt="{const}{ws}" kind="Scalar" caseIns="False" editor="_DTE" group="String operators" cond="False" tables="">
+      <Types>String,Memo,FixedChar</Types>
+      <Operands defType="Unknown" />
+    </Operator>
+    <Operator id="Contains" caption="contains" expr="{expr1} LIKE {expr2}" format="{expr1} [[contains]] {expr2}" constFmt="{ws}{const}{ws}" kind="Scalar" caseIns="False" editor="_DTE" group="String operators" cond="False" tables="">
+      <Types>String,Memo,FixedChar</Types>
+      <Operands defType="Unknown" />
+    </Operator>
+    <Operator id="NotContains" caption="does not contain" expr="NOT ({expr1} LIKE {expr2})" format="{expr1} [[does not contain]] {expr2}" constFmt="{ws}{const}{ws}" kind="Scalar" caseIns="False" editor="_DTE" group="String operators" cond="False" tables="">
+      <Types>String,Memo,FixedChar</Types>
+      <Operands defType="Unknown" />
+    </Operator>
+    <Operator id="InSubQuery" caption="in sub query" expr="{expr1} IN ({expr2})" format="{expr1} [[in sub query]] {expr2}" constFmt="{const}" kind="Query" caseIns="False" group="Common operators" cond="False" tables="">
+      <Types>String,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</Types>
+      <Operands defType="Unknown" />
+    </Operator>
+    <Operator id="DateWithinToday" caption="today" expr="${{Today}} &lt;= {expr1} AND {expr1} &lt; ${{Tomorrow}}" format="{expr1} [[within today]]" constFmt="{const}" kind="Scalar" caseIns="False" group="Date/time operators" cond="False" tables="">
+      <Types>Date,DateTime</Types>
+      <Operands defType="Unknown" />
+    </Operator>
+    <Operator id="DateWithinThisWeek" caption="this week" expr="${{FirstDayOfWeek}} &lt;= {expr1} AND {expr1} &lt; ${{FirstDayOfNextWeek}}" format="{expr1} [[within this week]]" constFmt="{const}" kind="Scalar" caseIns="False" group="Date/time operators" cond="False" tables="">
+      <Types>Date,DateTime</Types>
+      <Operands defType="Unknown" />
+    </Operator>
+    <Operator id="DateWithinThisMonth" caption="this month" expr="${{FirstDayOfMonth}} &lt;= {expr1} AND {expr1} &lt; ${{FirstDayOfNextMonth}}" format="{expr1} [[within this month]]" constFmt="{const}" kind="Scalar" caseIns="False" group="Date/time operators" cond="False" tables="">
+      <Types>Date,DateTime</Types>
+      <Operands defType="Unknown" />
+    </Operator>
+    <Operator id="DateWithinPrevMonth" caption="previous month" expr="${{FirstDayOfPrevMonth}} &lt;= {expr1} AND {expr1} &lt; ${{FirstDayOfMonth}}" format="{expr1} [[within previous month]]" constFmt="{const}" kind="Scalar" caseIns="False" group="Date/time operators" cond="False" tables="">
+      <Types>Date,DateTime</Types>
+      <Operands defType="Unknown" />
+    </Operator>
+    <Operator id="DateWithinThisYear" caption="this year" expr="${{FirstDayOfYear}} &lt;= {expr1} AND {expr1} &lt; ${{FirstDayOfNextYear}}" format="{expr1} [[within this year]]" constFmt="{const}" kind="Scalar" caseIns="False" group="Date/time operators" cond="False" tables="">
+      <Types>Date,DateTime</Types>
+      <Operands defType="Unknown" />
+    </Operator>
+    <Operator id="DateBeforePrecise" caption="before" expr="{expr1} &lt; {expr2}" format="{expr1} [[before]] {expr2}" constFmt="{const}" kind="Scalar" caseIns="False" editor="_DPDE" group="Date/time operators" cond="False" tables="">
+      <Types>Date,DateTime</Types>
+      <Operands defType="Unknown" defDefValue="${Today}" />
+    </Operator>
+    <Operator id="DateAfterPrecise" caption="after" expr="{expr1} &gt;= {expr2}" format="{expr1} [[after]] {expr2}" constFmt="{const}" kind="Scalar" caseIns="False" editor="_DPDE" group="Date/time operators" cond="False" tables="">
+      <Types>Date,DateTime</Types>
+      <Operands defType="Unknown" defDefValue="${FirstDayOfMonth}" />
+    </Operator>
+    <Operator id="DatePeriodPrecise" caption="custom period" expr="{expr1} BETWEEN {expr2} AND {expr3}" format="{expr1} [[within]] {expr2} and {expr3}" constFmt="{const}" kind="Scalar" caseIns="False" editor="_DPDE" group="Date/time operators" cond="False" tables="">
+      <Types>Date,DateTime</Types>
+      <Operands defType="Unknown">
+        <Operand type="Unknown" kind="Scalar" defVal="${FirstDayOfMonth}" />
+        <Operand type="Unknown" kind="Scalar" defVal="${Today}" />
+      </Operands>
+    </Operator>
+    <Operator id="TimeBeforePrecise" caption="before" expr="{expr1} &lt; {expr2}" format="{expr1} [[before]] {expr2}" constFmt="{const}" kind="Scalar" caseIns="False" editor="_DPTE" group="Date/time operators" cond="False" tables="">
+      <Types>Time</Types>
+      <Operands defType="Unknown" defDefValue="${Now}" />
+    </Operator>
+    <Operator id="TimeAfterPrecise" caption="after" expr="{expr1} &gt;= {expr2}" format="{expr1} [[after]] {expr2}" constFmt="{const}" kind="Scalar" caseIns="False" editor="_DPTE" group="Date/time operators" cond="False" tables="">
+      <Types>Time</Types>
+      <Operands defType="Unknown" defDefValue="${HourStart}" />
+    </Operator>
+    <Operator id="TimePeriodPrecise" caption="between" expr="{expr1} BETWEEN {expr2} AND {expr3}" format="{expr1} [[between]] {expr2} and {expr3}" constFmt="{const}" kind="Scalar" caseIns="False" editor="_DPTE" group="Date/time operators" cond="False" tables="">
+      <Types>Time</Types>
+      <Operands defType="Unknown">
+        <Operand type="Unknown" kind="Scalar" defVal="${HourStart}" />
+        <Operand type="Unknown" kind="Scalar" defVal="${Now}" />
+      </Operands>
+    </Operator>
+    <Operator id="MaximumOfAttr" caption="is maximum of" expr="{expr1} = (SELECT MAX({expr2.field}) from {expr2.table})" format="{expr1} [[is equal to maximum of]] {expr2}" constFmt="{const}" kind="Attribute" caseIns="False" group="Other operators" cond="False" tables="">
+      <Types>String,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar,Date,DateTime,Time</Types>
+      <Operands defType="Unknown" />
+    </Operator>
+  </Operators>
+  <Entities maxId="0">
+    <Entity id="" name="bid_requests" UIC="True" UIR="True" UIS="True">
+      <Attr id="bid_requests.last_update_datetime" kind="Data" expr="last_update_datetime" caption="last_update_datetime" type="DateTime" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="bid_requests">
+        <Operators>DateWithinToday,DateWithinThisWeek,DateWithinThisMonth,DateWithinPrevMonth,DateWithinThisYear,DateBeforePrecise,DateAfterPrecise,DatePeriodPrecise,MaximumOfAttr,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="bid_requests.parent_company_guid" kind="Data" expr="parent_company_guid" caption="parent_company_guid" type="String" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="bid_requests">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="bid_requests.service_location_guid" kind="Data" expr="service_location_guid" caption="service_location_guid" type="String" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="bid_requests">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="bid_requests.created_by_user_guid" kind="Data" expr="created_by_user_guid" caption="created_by_user_guid" type="String" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="bid_requests">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="bid_requests.last_updated_by_user_guid" kind="Data" expr="last_updated_by_user_guid" caption="last_updated_by_user_guid" type="String" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="bid_requests">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="bid_requests.priority_code" kind="Data" expr="priority_code" caption="priority_code" type="String" size="3" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="bid_requests">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="bid_requests.problem_summary" kind="Data" expr="problem_summary" caption="problem_summary" type="String" size="100" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="bid_requests">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="bid_requests.problem_details" kind="Data" expr="problem_details" caption="problem_details" type="Memo" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="bid_requests">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="bid_requests.location_contact_name" kind="Data" expr="location_contact_name" caption="location_contact_name" type="String" size="50" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="bid_requests">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="bid_requests.location_contact_phone" kind="Data" expr="location_contact_phone" caption="location_contact_phone" type="String" size="20" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="bid_requests">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="bid_requests.location_contact_phone_night" kind="Data" expr="location_contact_phone_night" caption="location_contact_phone_night" type="String" size="20" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="bid_requests">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="bid_requests.status_code" kind="Data" expr="status_code" caption="status_code" type="String" size="3" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="bid_requests">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="bid_requests.bid_num" kind="Data" expr="bid_num" caption="bid_num" type="Int" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="bid_requests">
+        <Operators>Equal,Between,LessThan,LessOrEqual,GreaterThan,GreaterOrEqual,InList,NotEqual,NotBetween,NotInList,MaximumOfAttr,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="bid_requests.guid" kind="Data" expr="guid" caption="guid" type="String" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="bid_requests">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="bid_requests.order_datetime" kind="Data" expr="order_datetime" caption="order_datetime" type="DateTime" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="bid_requests">
+        <Operators>DateWithinToday,DateWithinThisWeek,DateWithinThisMonth,DateWithinPrevMonth,DateWithinThisYear,DateBeforePrecise,DateAfterPrecise,DatePeriodPrecise,MaximumOfAttr,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="bid_requests.active" kind="Data" expr="active" caption="active" type="Bool" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="bid_requests">
+        <Operators>IsTrue,NotTrue</Operators>
+      </Attr>
+      <Attr id="bid_requests.PriorityStatus" kind="Data" expr="PriorityStatus" caption="PriorityStatus" type="String" size="50" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="bid_requests">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="bid_requests.PriorityID" kind="Data" expr="PriorityID" caption="PriorityID" type="Int" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="bid_requests">
+        <Operators>Equal,Between,LessThan,LessOrEqual,GreaterThan,GreaterOrEqual,InList,NotEqual,NotBetween,NotInList,MaximumOfAttr,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="bid_requests.StatusName" kind="Data" expr="StatusName" caption="StatusName" type="String" size="50" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="bid_requests">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="bid_requests.StatusID" kind="Data" expr="StatusID" caption="StatusID" type="Int" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="bid_requests">
+        <Operators>Equal,Between,LessThan,LessOrEqual,GreaterThan,GreaterOrEqual,InList,NotEqual,NotBetween,NotInList,MaximumOfAttr,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="bid_requests.complete_datetime" kind="Data" expr="complete_datetime" caption="complete_datetime" type="DateTime" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="bid_requests">
+        <Operators>DateWithinToday,DateWithinThisWeek,DateWithinThisMonth,DateWithinPrevMonth,DateWithinThisYear,DateBeforePrecise,DateAfterPrecise,DatePeriodPrecise,MaximumOfAttr,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="bid_requests.notes" kind="Data" expr="notes" caption="notes" type="Memo" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="bid_requests">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="bid_requests.closed_datetime" kind="Data" expr="closed_datetime" caption="closed_datetime" type="DateTime" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="bid_requests">
+        <Operators>DateWithinToday,DateWithinThisWeek,DateWithinThisMonth,DateWithinPrevMonth,DateWithinThisYear,DateBeforePrecise,DateAfterPrecise,DatePeriodPrecise,MaximumOfAttr,IsNull,IsNotNull</Operators>
+      </Attr>
+    </Entity>
+    <Entity id="" name="Company" UIC="True" UIR="True" UIS="True">
+      <Attr id="Company.guid" kind="Data" expr="guid" caption="guid" type="String" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="Company">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="Company.name" kind="Data" expr="name" caption="name" type="String" size="50" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="Company">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="Company.addressline1" kind="Data" expr="addressline1" caption="addressline1" type="String" size="50" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="Company">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="Company.city" kind="Data" expr="city" caption="city" type="String" size="50" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="Company">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="Company.state" kind="Data" expr="state" caption="state" type="String" size="2" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="Company">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="Company.zip" kind="Data" expr="zip" caption="zip" type="Int" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="Company">
+        <Operators>Equal,Between,LessThan,LessOrEqual,GreaterThan,GreaterOrEqual,InList,NotEqual,NotBetween,NotInList,MaximumOfAttr,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="Company.active" kind="Data" expr="active" caption="active" type="Bool" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="Company">
+        <Operators>IsTrue,NotTrue</Operators>
+      </Attr>
+      <Attr id="Company.cf_company_num" kind="Data" expr="cf_company_num" caption="cf_company_num" type="String" size="10" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="Company">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="Company.cf_location_num" kind="Data" expr="cf_location_num" caption="cf_location_num" type="String" size="10" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="Company">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="Company.region" kind="Data" expr="region" caption="region" type="String" size="50" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="Company">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="Company.email_all_members" kind="Data" expr="email_all_members" caption="email_all_members" type="Bool" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="Company">
+        <Operators>IsTrue,NotTrue</Operators>
+      </Attr>
+      <Attr id="Company.addressline2" kind="Data" expr="addressline2" caption="addressline2" type="String" size="50" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="Company">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+    </Entity>
+    <Entity id="" name="locationinfo" UIC="True" UIR="True" UIS="True">
+      <Attr id="locationinfo.city" kind="Data" expr="city" caption="city" type="String" size="50" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="locationinfo">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="locationinfo.state" kind="Data" expr="state" caption="state" type="String" size="2" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="locationinfo">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="locationinfo.zip" kind="Data" expr="zip" caption="zip" type="Int" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="locationinfo">
+        <Operators>Equal,Between,LessThan,LessOrEqual,GreaterThan,GreaterOrEqual,InList,NotEqual,NotBetween,NotInList,MaximumOfAttr,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="locationinfo.guid" kind="Data" expr="guid" caption="guid" type="String" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="locationinfo">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="locationinfo.name" kind="Data" expr="name" caption="name" type="String" size="50" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="locationinfo">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="locationinfo.addressline1" kind="Data" expr="addressline1" caption="addressline1" type="String" size="50" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="locationinfo">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="locationinfo.active" kind="Data" expr="active" caption="active" type="Bool" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="locationinfo">
+        <Operators>IsTrue,NotTrue</Operators>
+      </Attr>
+      <Attr id="locationinfo.RegionID" kind="Data" expr="RegionID" caption="RegionID" type="Int" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="locationinfo">
+        <Operators>Equal,Between,LessThan,LessOrEqual,GreaterThan,GreaterOrEqual,InList,NotEqual,NotBetween,NotInList,MaximumOfAttr,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="locationinfo.addressline2" kind="Data" expr="addressline2" caption="addressline2" type="String" size="50" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="locationinfo">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="locationinfo.parentguid" kind="Data" expr="parentguid" caption="parentguid" type="String" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="locationinfo">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="locationinfo.cf_location_num" kind="Data" expr="cf_location_num" caption="cf_location_num" type="String" size="10" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="locationinfo">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="locationinfo.cf_company_num" kind="Data" expr="cf_company_num" caption="cf_company_num" type="String" size="10" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="locationinfo">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="locationinfo.region" kind="Data" expr="region" caption="region" type="String" size="50" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="locationinfo">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="locationinfo.email_all_members" kind="Data" expr="email_all_members" caption="email_all_members" type="Bool" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="locationinfo">
+        <Operators>IsTrue,NotTrue</Operators>
+      </Attr>
+    </Entity>
+    <Entity id="" name="PriorityList" UIC="True" UIR="True" UIS="True">
+      <Attr id="PriorityList.ID" kind="Data" expr="ID" caption="ID" type="Int" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="PriorityList">
+        <Operators>Equal,Between,LessThan,LessOrEqual,GreaterThan,GreaterOrEqual,InList,NotEqual,NotBetween,NotInList,MaximumOfAttr,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="PriorityList.Name" kind="Data" expr="Name" caption="Name" type="String" size="40" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="PriorityList">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="PriorityList.code" kind="Data" expr="code" caption="code" type="String" size="40" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="PriorityList">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="PriorityList.list_num" kind="Data" expr="list_num" caption="list_num" type="Int" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="PriorityList">
+        <Operators>Equal,Between,LessThan,LessOrEqual,GreaterThan,GreaterOrEqual,InList,NotEqual,NotBetween,NotInList,MaximumOfAttr,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="PriorityList.active" kind="Data" expr="active" caption="active" type="Bool" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="PriorityList">
+        <Operators>IsTrue,NotTrue</Operators>
+      </Attr>
+    </Entity>
+    <Entity id="" name="service_tickets" UIC="True" UIR="True" UIS="True">
+      <Attr id="service_tickets.active" kind="Data" expr="active" caption="active" type="Bool" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>IsTrue,NotTrue</Operators>
+      </Attr>
+      <Attr id="service_tickets.category" kind="Data" expr="category" caption="category" type="String" size="25" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.last_update_datetime" kind="Data" expr="last_update_datetime" caption="last_update_datetime" type="DateTime" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>DateWithinToday,DateWithinThisWeek,DateWithinThisMonth,DateWithinPrevMonth,DateWithinThisYear,DateBeforePrecise,DateAfterPrecise,DatePeriodPrecise,MaximumOfAttr,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.parent_company_guid" kind="Data" expr="parent_company_guid" caption="parent_company_guid" type="String" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.service_location_guid" kind="Data" expr="service_location_guid" caption="service_location_guid" type="String" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.created_by_user_guid" kind="Data" expr="created_by_user_guid" caption="created_by_user_guid" type="String" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.last_updated_by_user_guid" kind="Data" expr="last_updated_by_user_guid" caption="last_updated_by_user_guid" type="String" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.priority_code" kind="Data" expr="priority_code" caption="priority_code" type="String" size="3" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.problem_summary" kind="Data" expr="problem_summary" caption="problem_summary" type="String" size="100" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.problem_details" kind="Data" expr="problem_details" caption="problem_details" type="Memo" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.location_contact_name" kind="Data" expr="location_contact_name" caption="location_contact_name" type="String" size="50" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.location_contact_phone" kind="Data" expr="location_contact_phone" caption="location_contact_phone" type="String" size="20" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.location_contact_phone_night" kind="Data" expr="location_contact_phone_night" caption="location_contact_phone_night" type="String" size="20" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.status_code" kind="Data" expr="status_code" caption="status_code" type="String" size="3" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.id" kind="Data" expr="id" caption="id" type="Int" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>Equal,Between,LessThan,LessOrEqual,GreaterThan,GreaterOrEqual,InList,NotEqual,NotBetween,NotInList,MaximumOfAttr,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.guid" kind="Data" expr="guid" caption="guid" type="String" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.job_number" kind="Data" expr="job_number" caption="job_number" type="Int" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>Equal,Between,LessThan,LessOrEqual,GreaterThan,GreaterOrEqual,InList,NotEqual,NotBetween,NotInList,MaximumOfAttr,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.order_datetime" kind="Data" expr="order_datetime" caption="order_datetime" type="DateTime" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>DateWithinToday,DateWithinThisWeek,DateWithinThisMonth,DateWithinPrevMonth,DateWithinThisYear,DateBeforePrecise,DateAfterPrecise,DatePeriodPrecise,MaximumOfAttr,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.complete_datetime" kind="Data" expr="complete_datetime" caption="complete_datetime" type="DateTime" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>DateWithinToday,DateWithinThisWeek,DateWithinThisMonth,DateWithinPrevMonth,DateWithinThisYear,DateBeforePrecise,DateAfterPrecise,DatePeriodPrecise,MaximumOfAttr,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.notes" kind="Data" expr="notes" caption="notes" type="Memo" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.closed_datetime" kind="Data" expr="closed_datetime" caption="closed_datetime" type="DateTime" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>DateWithinToday,DateWithinThisWeek,DateWithinThisMonth,DateWithinPrevMonth,DateWithinThisYear,DateBeforePrecise,DateAfterPrecise,DatePeriodPrecise,MaximumOfAttr,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.cost_code" kind="Data" expr="cost_code" caption="cost_code" type="String" size="20" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.EQmodel" kind="Data" expr="EQmodel" caption="EQmodel" type="String" size="30" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.EQserial" kind="Data" expr="EQserial" caption="EQserial" type="String" size="30" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.EQProbDesc" kind="Data" expr="EQProbDesc" caption="EQProbDesc" type="String" size="50" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.service_provider" kind="Data" expr="service_provider" caption="service_provider" type="String" size="30" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.dispatch_datetime" kind="Data" expr="dispatch_datetime" caption="dispatch_datetime" type="DateTime" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>DateWithinToday,DateWithinThisWeek,DateWithinThisMonth,DateWithinPrevMonth,DateWithinThisYear,DateBeforePrecise,DateAfterPrecise,DatePeriodPrecise,MaximumOfAttr,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.accepted_datetime" kind="Data" expr="accepted_datetime" caption="accepted_datetime" type="DateTime" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>DateWithinToday,DateWithinThisWeek,DateWithinThisMonth,DateWithinPrevMonth,DateWithinThisYear,DateBeforePrecise,DateAfterPrecise,DatePeriodPrecise,MaximumOfAttr,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.internal_notes" kind="Data" expr="internal_notes" caption="internal_notes" type="Memo" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.cust_po_num" kind="Data" expr="cust_po_num" caption="cust_po_num" type="String" size="50" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.total_billing" kind="Data" expr="total_billing" caption="total_billing" type="Int64" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>Equal,Between,LessThan,LessOrEqual,GreaterThan,GreaterOrEqual,InList,NotEqual,NotBetween,NotInList,MaximumOfAttr,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.ServiceCategory" kind="Data" expr="ServiceCategory" caption="ServiceCategory" type="String" size="50" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.CategoryID" kind="Data" expr="CategoryID" caption="CategoryID" type="Int" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>Equal,Between,LessThan,LessOrEqual,GreaterThan,GreaterOrEqual,InList,NotEqual,NotBetween,NotInList,MaximumOfAttr,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.Region" kind="Data" expr="Region" caption="Region" type="String" size="50" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.PriorityStatus" kind="Data" expr="PriorityStatus" caption="PriorityStatus" type="String" size="50" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.PriorityID" kind="Data" expr="PriorityID" caption="PriorityID" type="Int" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>Equal,Between,LessThan,LessOrEqual,GreaterThan,GreaterOrEqual,InList,NotEqual,NotBetween,NotInList,MaximumOfAttr,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.StatusName" kind="Data" expr="StatusName" caption="StatusName" type="String" size="50" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.StatusID" kind="Data" expr="StatusID" caption="StatusID" type="Int" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>Equal,Between,LessThan,LessOrEqual,GreaterThan,GreaterOrEqual,InList,NotEqual,NotBetween,NotInList,MaximumOfAttr,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.Location" kind="Data" expr="Location" caption="Location" type="String" size="50" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="service_tickets.City" kind="Data" expr="City" caption="City" type="String" size="50" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="service_tickets">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+    </Entity>
+    <Entity id="" name="ServiceCategory" UIC="True" UIR="True" UIS="True">
+      <Attr id="ServiceCategory.ID" kind="Data" expr="ID" caption="ID" type="Int" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="ServiceCategory">
+        <Operators>Equal,Between,LessThan,LessOrEqual,GreaterThan,GreaterOrEqual,InList,NotEqual,NotBetween,NotInList,MaximumOfAttr,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="ServiceCategory.Name" kind="Data" expr="Name" caption="Name" type="String" size="50" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="ServiceCategory">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="ServiceCategory.code" kind="Data" expr="code" caption="code" type="String" size="40" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="ServiceCategory">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="ServiceCategory.list_num" kind="Data" expr="list_num" caption="list_num" type="Int" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="ServiceCategory">
+        <Operators>Equal,Between,LessThan,LessOrEqual,GreaterThan,GreaterOrEqual,InList,NotEqual,NotBetween,NotInList,MaximumOfAttr,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="ServiceCategory.active" kind="Data" expr="active" caption="active" type="Bool" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="ServiceCategory">
+        <Operators>IsTrue,NotTrue</Operators>
+      </Attr>
+      <Attr id="ServiceCategory.isAlert" kind="Data" expr="isAlert" caption="isAlert" type="Bool" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="ServiceCategory">
+        <Operators>IsTrue,NotTrue</Operators>
+      </Attr>
+      <Attr id="ServiceCategory.AlertMessage" kind="Data" expr="AlertMessage" caption="AlertMessage" type="String" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="ServiceCategory">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+    </Entity>
+    <Entity id="" name="StatusList" UIC="True" UIR="True" UIS="True">
+      <Attr id="StatusList.ID" kind="Data" expr="ID" caption="ID" type="Int" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="StatusList">
+        <Operators>Equal,Between,LessThan,LessOrEqual,GreaterThan,GreaterOrEqual,InList,NotEqual,NotBetween,NotInList,MaximumOfAttr,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="StatusList.Name" kind="Data" expr="Name" caption="Name" type="String" size="40" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="StatusList">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="StatusList.code" kind="Data" expr="code" caption="code" type="String" size="40" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="StatusList">
+        <Operators>StartsWith,Contains,Equal,InList,NotStartsWith,NotContains,NotEqual,NotInList,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="StatusList.list_num" kind="Data" expr="list_num" caption="list_num" type="Int" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="StatusList">
+        <Operators>Equal,Between,LessThan,LessOrEqual,GreaterThan,GreaterOrEqual,InList,NotEqual,NotBetween,NotInList,MaximumOfAttr,InSubQuery,IsNull,IsNotNull</Operators>
+      </Attr>
+      <Attr id="StatusList.active" kind="Data" expr="active" caption="active" type="Bool" size="0" UIC="True" UIR="True" UIS="True" customFunc="" quote="False" UAL="True" aggr="False" tables="StatusList">
+        <Operators>IsTrue,NotTrue</Operators>
+      </Attr>
+    </Entity>
+  </Entities>
+</DataModel>

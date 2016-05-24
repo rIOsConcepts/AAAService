@@ -1,0 +1,194 @@
+﻿@model AAAService.Models.bid_requests
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>bid_requests</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.bid_num)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bid_num)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.order_datetime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.order_datetime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.complete_datetime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.complete_datetime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.last_update_datetime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.last_update_datetime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.created_by_user_guid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.created_by_user_guid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.last_updated_by_user_guid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.last_updated_by_user_guid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.priority_code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.priority_code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.problem_summary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.problem_summary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.problem_details)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.problem_details)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.location_contact_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.location_contact_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.location_contact_phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.location_contact_phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.location_contact_phone_night)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.location_contact_phone_night)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status_code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status_code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.closed_datetime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.closed_datetime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriorityStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriorityStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriorityID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriorityID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StatusName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatusName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StatusID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatusID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Company.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Company.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.locationinfo.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.locationinfo.name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.guid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

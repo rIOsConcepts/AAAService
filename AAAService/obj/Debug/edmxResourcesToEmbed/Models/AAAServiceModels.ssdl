@@ -1,0 +1,1044 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="aaahelpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="bid_requests">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="bid_num" Type="int" Nullable="false" />
+    <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="order_datetime" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="complete_datetime" Type="datetime2" Precision="7" />
+    <Property Name="last_update_datetime" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="parent_company_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="service_location_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="created_by_user_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="last_updated_by_user_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="problem_summary" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="problem_details" Type="text" Nullable="false" />
+    <Property Name="location_contact_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="location_contact_phone" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="location_contact_phone_night" Type="varchar" MaxLength="20" />
+    <Property Name="notes" Type="text" />
+    <Property Name="closed_datetime" Type="datetime2" Precision="7" />
+    <Property Name="active" Type="bit" Nullable="false" />
+    <Property Name="PriorityStatus" Type="varchar" MaxLength="50" />
+    <Property Name="PriorityID" Type="int" />
+    <Property Name="StatusName" Type="varchar" MaxLength="50" />
+    <Property Name="StatusID" Type="int" />
+  </EntityType>
+  <EntityType Name="CommentRatings">
+    <Key>
+      <PropertyRef Name="RatingID" />
+    </Key>
+    <Property Name="RatingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="RatingValue" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="addressline1" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="addressline2" Type="varchar" MaxLength="50" />
+    <Property Name="city" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="state" Type="char" MaxLength="2" Nullable="false" />
+    <Property Name="zip" Type="int" Nullable="false" />
+    <Property Name="cf_company_num" Type="varchar" MaxLength="10" />
+    <Property Name="cf_location_num" Type="varchar" MaxLength="10" />
+    <Property Name="region" Type="varchar" MaxLength="50" />
+    <Property Name="email_all_members" Type="bit" />
+    <Property Name="active" Type="bit" Nullable="false" />
+    <Property Name="AcctMgrEmail" Type="varchar" MaxLength="75" />
+  </EntityType>
+  <EntityType Name="email_log">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="who_from" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="who_to" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="subject" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="msgbody" Type="text" Nullable="false" />
+    <Property Name="date_in" Type="datetime" Nullable="false" />
+    <Property Name="sender_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="error" Type="text" />
+  </EntityType>
+  <EntityType Name="email_queue">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="who_from" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="who_to" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="subject" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="msgbody" Type="text" Nullable="false" />
+    <Property Name="date_in" Type="datetime" Nullable="false" />
+    <Property Name="sender_guid" Type="uniqueidentifier" />
+    <Property Name="processed" Type="bit" Nullable="false" />
+    <Property Name="is_html" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmailSetup">
+    <Key>
+      <PropertyRef Name="EmailID" />
+    </Key>
+    <Property Name="EmailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmailedForm" Type="varchar" MaxLength="75" Nullable="false" />
+    <Property Name="EmailTitle" Type="varchar" MaxLength="75" Nullable="false" />
+    <Property Name="EmailAddress" Type="varchar" MaxLength="75" Nullable="false" />
+    <Property Name="Host" Type="varchar" MaxLength="75" Nullable="false" />
+    <Property Name="Username" Type="varchar" MaxLength="75" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Port" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="EnableSSL" Type="bit" />
+  </EntityType>
+  <EntityType Name="errors_and_comments">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="HTTP_REFERER" Type="varchar" MaxLength="100" />
+    <Property Name="HTTP_USER_AGENT" Type="varchar" MaxLength="100" />
+    <Property Name="REMOTE_ADDR" Type="varchar" MaxLength="20" />
+    <Property Name="REMOTE_HOST" Type="varchar" MaxLength="20" />
+    <Property Name="REMOTE_USER" Type="varchar" MaxLength="30" />
+    <Property Name="comment_datetime" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="comment_type" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="userguid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="comments" Type="text" />
+    <Property Name="fileupload" Type="varchar" MaxLength="100" />
+    <Property Name="active" Type="bit" Nullable="false" />
+    <Property Name="closed" Type="datetime2" Precision="7" />
+    <Property Name="notes" Type="text" />
+    <Property Name="ratings" Type="int" Nullable="false" />
+    <Property Name="RatingID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Location_Service_Provider">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="location_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="service_category_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="service_provider_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="active" Type="bit" Nullable="false" />
+    <Property Name="date_in" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="last_modified" Type="datetime" Nullable="false" />
+    <Property Name="last_modified_by" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="location_specific_notes" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="locationinfo">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="addressline1" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="addressline2" Type="varchar" MaxLength="50" />
+    <Property Name="city" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="state" Type="char" MaxLength="2" Nullable="false" />
+    <Property Name="zip" Type="int" Nullable="false" />
+    <Property Name="parentguid" Type="uniqueidentifier" />
+    <Property Name="cf_location_num" Type="varchar" MaxLength="10" />
+    <Property Name="cf_company_num" Type="varchar" MaxLength="10" />
+    <Property Name="region" Type="varchar" MaxLength="50" />
+    <Property Name="email_all_members" Type="bit" />
+    <Property Name="active" Type="bit" Nullable="false" />
+    <Property Name="RegionID" Type="int" />
+  </EntityType>
+  <EntityType Name="phone_num">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="user_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="phone_day" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="phone_night" Type="varchar" MaxLength="25" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Phone_Numbers">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="owner_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="phone_num" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="phone_type" Type="int" Nullable="false" />
+    <Property Name="active" Type="bit" Nullable="false" />
+    <Property Name="last_modified" Type="datetime2" Precision="7" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PriorityList">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="code" Type="varchar" MaxLength="40" />
+    <Property Name="list_num" Type="int" />
+    <Property Name="active" Type="bit" />
+  </EntityType>
+  <EntityType Name="Regions">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="code" Type="varchar" MaxLength="40" />
+    <Property Name="list_num" Type="int" />
+    <Property Name="active" Type="bit" />
+  </EntityType>
+  <EntityType Name="service_ticket_files">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="file_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="file_size" Type="int" Nullable="false" />
+    <Property Name="file_ext" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="user_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ticket_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="date_in" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="service_tickets">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="job_number" Type="int" Nullable="false" />
+    <Property Name="order_datetime" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="complete_datetime" Type="datetime2" Precision="7" />
+    <Property Name="last_update_datetime" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="parent_company_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="service_location_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="created_by_user_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="last_updated_by_user_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="problem_summary" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="problem_details" Type="text" Nullable="false" />
+    <Property Name="location_contact_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="location_contact_phone" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="location_contact_phone_night" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="notes" Type="text" />
+    <Property Name="closed_datetime" Type="datetime2" Precision="7" />
+    <Property Name="active" Type="bit" Nullable="false" />
+    <Property Name="cost_code" Type="varchar" MaxLength="20" />
+    <Property Name="EQmodel" Type="varchar" MaxLength="30" />
+    <Property Name="EQserial" Type="varchar" MaxLength="30" />
+    <Property Name="EQProbDesc" Type="varchar" MaxLength="50" />
+    <Property Name="service_provider" Type="varchar" MaxLength="30" />
+    <Property Name="dispatch_datetime" Type="datetime2" Precision="7" />
+    <Property Name="accepted_datetime" Type="datetime2" Precision="7" />
+    <Property Name="internal_notes" Type="text" />
+    <Property Name="cust_po_num" Type="varchar" MaxLength="50" />
+    <Property Name="total_billing" Type="bigint" />
+    <Property Name="ServiceCategory" Type="varchar" MaxLength="50" />
+    <Property Name="CategoryID" Type="int" />
+    <Property Name="Region" Type="varchar" MaxLength="50" />
+    <Property Name="PriorityStatus" Type="varchar" MaxLength="50" />
+    <Property Name="PriorityID" Type="int" />
+    <Property Name="StatusName" Type="varchar" MaxLength="50" />
+    <Property Name="StatusID" Type="int" />
+    <Property Name="Location" Type="varchar" MaxLength="50" />
+    <Property Name="City" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceCategory">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="code" Type="varchar" MaxLength="40" />
+    <Property Name="CfdataCode" Type="varchar" MaxLength="15" />
+    <Property Name="OldCode" Type="varchar" MaxLength="40" />
+    <Property Name="list_num" Type="int" />
+    <Property Name="active" Type="bit" />
+    <Property Name="isAlert" Type="bit" />
+    <Property Name="AlertMessage" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Site_Lists_Hide_Item">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="parent_company_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="list_item_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="date_in" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ST_SL_Edits">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Address_Line_1" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Address_Line_2" Type="varchar" MaxLength="50" />
+    <Property Name="City" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="State" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="Zip" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ticket_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="region" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StatusList">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="code" Type="varchar" MaxLength="40" />
+    <Property Name="list_num" Type="int" />
+    <Property Name="active" Type="bit" />
+  </EntityType>
+  <EntityType Name="user_to_location">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="user_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="location_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="primary_contact_bit" Type="bit" />
+  </EntityType>
+  <EntityType Name="user_viewable_locations">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="user_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="location_guid" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'aaahelp.aaaadmin.LocationEmails_viewMVC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="LocationEmails_viewMVC">
+    <Key>
+      <PropertyRef Name="LocationName" />
+      <PropertyRef Name="LocationGUID" />
+      <PropertyRef Name="account_status" />
+    </Key>
+    <Property Name="LocationName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="UserEmail" Type="nvarchar" MaxLength="256" />
+    <Property Name="LocationGUID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="email_all_members" Type="bit" />
+    <Property Name="account_status" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'aaahelp.dbo.Bid_Requests_View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Bid_Requests_View">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="bid_num" Type="int" Nullable="false" />
+    <Property Name="problem_summary" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="StatusName" Type="varchar" MaxLength="50" />
+    <Property Name="Service_Location_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Parent_Location_Name" Type="varchar" MaxLength="50" />
+    <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Order_Date" Type="varchar" MaxLength="10" />
+    <Property Name="parent_company_guid" Type="uniqueidentifier" />
+    <Property Name="service_location_guid" Type="uniqueidentifier" />
+    <Property Name="active" Type="bit" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'aaahelp.dbo.Comments_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Comments_view">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="user_full_name" Type="varchar" MaxLength="41" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="comment_datetime" Type="datetime" Nullable="false" />
+    <Property Name="comment_type" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="comments" Type="text" />
+    <Property Name="fileupload" Type="varchar" MaxLength="100" />
+    <Property Name="parent_location" Type="varchar" MaxLength="50" />
+    <Property Name="service_location" Type="varchar" MaxLength="50" />
+    <Property Name="primary_contact_bit" Type="bit" />
+    <Property Name="is_manager" Type="bit" />
+    <Property Name="active" Type="bit" Nullable="false" />
+    <Property Name="closed" Type="datetime" />
+    <Property Name="notes" Type="text" />
+    <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="rating" Type="int" />
+    <Property Name="phone_day" Type="varchar" MaxLength="25" />
+    <Property Name="phone_night" Type="varchar" MaxLength="25" />
+    <Property Name="addr1" Type="varchar" MaxLength="102" />
+    <Property Name="addr2" Type="varchar" MaxLength="85" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'aaahelp.dbo.Emails_Log_ViewMVC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Emails_Log_ViewMVC">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="who_from" />
+      <PropertyRef Name="subject" />
+      <PropertyRef Name="msgbody" />
+      <PropertyRef Name="date_in" />
+      <PropertyRef Name="guid" />
+      <PropertyRef Name="who_to" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="who_from" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="subject" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="msgbody" Type="text" Nullable="false" />
+    <Property Name="date_in" Type="datetime" Nullable="false" />
+    <Property Name="date_in_no_time" Type="varchar" MaxLength="30" />
+    <Property Name="location_name" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="sent_to_full_name" Type="varchar" MaxLength="41" />
+    <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="who_to" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'aaahelp.dbo.Location_Mgt_ViewMVC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Location_Mgt_ViewMVC">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="addressline1" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="addressline2" Type="varchar" MaxLength="50" />
+    <Property Name="city" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="state" Type="char" MaxLength="2" Nullable="false" />
+    <Property Name="zip" Type="int" Nullable="false" />
+    <Property Name="cf_location_num" Type="varchar" MaxLength="10" />
+    <Property Name="cf_company_num" Type="varchar" MaxLength="10" />
+    <Property Name="region" Type="varchar" MaxLength="50" />
+    <Property Name="parentguid" Type="uniqueidentifier" />
+    <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="fname" Type="varchar" MaxLength="20" />
+    <Property Name="lname" Type="varchar" MaxLength="20" />
+    <Property Name="full_name" Type="varchar" MaxLength="41" />
+    <Property Name="user_guid" Type="uniqueidentifier" />
+    <Property Name="phone_day" Type="varchar" MaxLength="25" />
+    <Property Name="phone_night" Type="varchar" MaxLength="25" />
+    <Property Name="parent_name" Type="varchar" MaxLength="50" />
+    <Property Name="primary_contact_bit" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'aaahelp.dbo.LocationEmails_ViewMVC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="LocationEmails_ViewMVC1">
+    <Key>
+      <PropertyRef Name="LocationGUID" />
+    </Key>
+    <Property Name="LocationName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="UserEmail" Type="nvarchar" MaxLength="256" />
+    <Property Name="LocationGUID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="email_all_members" Type="bit" />
+    <Property Name="account_status" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'aaahelp.dbo.service_boardNew' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="service_boardNew">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="age" Type="int" />
+    <Property Name="service_location_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="job_number" Type="int" Nullable="false" />
+    <Property Name="order_datetime" Type="datetime" Nullable="false" />
+    <Property Name="problem_summary" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="company_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="service_location_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="parent_company_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="complete_datetime" Type="datetime" />
+    <Property Name="region" Type="varchar" MaxLength="50" />
+    <Property Name="category" Type="varchar" MaxLength="50" />
+    <Property Name="service_provider" Type="varchar" MaxLength="30" />
+    <Property Name="city" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="dispatch_datetime" Type="datetime" />
+    <Property Name="accepted_datetime" Type="datetime" />
+    <Property Name="cust_po_num" Type="varchar" MaxLength="50" />
+    <Property Name="cost_code" Type="varchar" MaxLength="20" />
+    <Property Name="Priority" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="40" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'aaahelp.dbo.service_tickets_viewMVC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="service_tickets_viewMVC">
+    <Key>
+      <PropertyRef Name="Created_By_User_fname" />
+      <PropertyRef Name="Created_By_User_lname" />
+      <PropertyRef Name="job_number" />
+      <PropertyRef Name="order_datetime" />
+      <PropertyRef Name="last_update_datetime" />
+      <PropertyRef Name="problem_summary" />
+      <PropertyRef Name="problem_details" />
+      <PropertyRef Name="location_contact_name" />
+      <PropertyRef Name="location_contact_phone" />
+      <PropertyRef Name="Updated_By_User_fname" />
+      <PropertyRef Name="Updated_By_User_Lname" />
+      <PropertyRef Name="Parent_Location_Name" />
+      <PropertyRef Name="Parent_Location_AddressLine1" />
+      <PropertyRef Name="Parent_Location_City" />
+      <PropertyRef Name="Parent_Location_State" />
+      <PropertyRef Name="Parent_Location_Zip" />
+      <PropertyRef Name="guid" />
+      <PropertyRef Name="location_contact_phone_night" />
+      <PropertyRef Name="parent_company_guid" />
+      <PropertyRef Name="service_location_guid" />
+    </Key>
+    <Property Name="Created_By_User_fname" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Created_By_User_lname" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="job_number" Type="int" Nullable="false" />
+    <Property Name="order_datetime" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="last_update_datetime" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="PriorityStatus" Type="varchar" MaxLength="50" />
+    <Property Name="problem_summary" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="problem_details" Type="text" Nullable="false" />
+    <Property Name="location_contact_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="location_contact_phone" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="StatusName" Type="varchar" MaxLength="50" />
+    <Property Name="Updated_By_User_fname" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Updated_By_User_Lname" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Parent_Location_Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Parent_Location_AddressLine1" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Parent_Location_AddressLine2" Type="varchar" MaxLength="50" />
+    <Property Name="Parent_Location_City" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Parent_Location_State" Type="char" MaxLength="2" Nullable="false" />
+    <Property Name="Parent_Location_Zip" Type="int" Nullable="false" />
+    <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Order_Time" Type="varchar" MaxLength="10" />
+    <Property Name="Order_Date" Type="varchar" MaxLength="10" />
+    <Property Name="complete_datetime" Type="datetime2" Precision="7" />
+    <Property Name="notes" Type="text" />
+    <Property Name="cf_company_num" Type="varchar" MaxLength="10" />
+    <Property Name="cf_location_num" Type="varchar" MaxLength="10" />
+    <Property Name="closed_datetime" Type="datetime2" Precision="7" />
+    <Property Name="location_contact_phone_night" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="category" Type="varchar" MaxLength="50" />
+    <Property Name="Service_Location_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Service_Location_Addressline1" Type="varchar" MaxLength="50" />
+    <Property Name="Service_Location_AddressLine2" Type="varchar" MaxLength="50" />
+    <Property Name="Service_Location_City" Type="varchar" MaxLength="50" />
+    <Property Name="Service_Location_State" Type="varchar" MaxLength="2" />
+    <Property Name="Service_Location_Zip" Type="int" />
+    <Property Name="cost_code" Type="varchar" MaxLength="20" />
+    <Property Name="EQmodel" Type="varchar" MaxLength="30" />
+    <Property Name="EQserial" Type="varchar" MaxLength="30" />
+    <Property Name="EQProbDesc" Type="varchar" MaxLength="50" />
+    <Property Name="service_provider" Type="varchar" MaxLength="30" />
+    <Property Name="dispatch_datetime" Type="datetime2" Precision="7" />
+    <Property Name="accepted_datetime" Type="datetime2" Precision="7" />
+    <Property Name="internal_notes" Type="text" />
+    <Property Name="parent_company_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="service_location_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="cust_po_num" Type="varchar" MaxLength="50" />
+    <Property Name="category_value" Type="varchar" MaxLength="40" />
+    <Property Name="total_billing" Type="varchar" MaxLength="28" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'aaahelp.dbo.User_Assigned_Locations_View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="User_Assigned_Locations_View">
+    <Key>
+      <PropertyRef Name="location_guid" />
+    </Key>
+    <Property Name="user_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="location_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="parentguid" Type="uniqueidentifier" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'aaahelp.dbo.User_Info_ViewMVC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="User_Info_ViewMVC">
+    <Key>
+      <PropertyRef Name="user_guid" />
+    </Key>
+    <Property Name="company_name" Type="varchar" MaxLength="50" />
+    <Property Name="acct_status" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="fname" Type="varchar" MaxLength="20" />
+    <Property Name="lname" Type="varchar" MaxLength="20" />
+    <Property Name="email" Type="nvarchar" MaxLength="256" />
+    <Property Name="location_name" Type="varchar" MaxLength="50" />
+    <Property Name="user_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="phone_day" Type="varchar" MaxLength="25" />
+    <Property Name="phone_night" Type="varchar" MaxLength="25" />
+    <Property Name="location_guid" Type="uniqueidentifier" />
+    <Property Name="parent_location_guid" Type="uniqueidentifier" />
+    <Property Name="account_status" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="user_viewable_locations_view">
+    <Key>
+      <PropertyRef Name="location_guid" />
+    </Key>
+    <Property Name="location_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="user_guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="parentguid" Type="uniqueidentifier" />
+  </EntityType>
+  <Association Name="FK_bid_requests_Company">
+    <End Role="Company" Type="Self.Company" Multiplicity="1" />
+    <End Role="bid_requests" Type="Self.bid_requests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="guid" />
+      </Principal>
+      <Dependent Role="bid_requests">
+        <PropertyRef Name="parent_company_guid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_bid_requests_locationinfo">
+    <End Role="locationinfo" Type="Self.locationinfo" Multiplicity="1" />
+    <End Role="bid_requests" Type="Self.bid_requests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="locationinfo">
+        <PropertyRef Name="guid" />
+      </Principal>
+      <Dependent Role="bid_requests">
+        <PropertyRef Name="service_location_guid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_bid_requests_priority">
+    <End Role="PriorityList" Type="Self.PriorityList" Multiplicity="0..1" />
+    <End Role="bid_requests" Type="Self.bid_requests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PriorityList">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="bid_requests">
+        <PropertyRef Name="PriorityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_bid_requests_Status">
+    <End Role="StatusList" Type="Self.StatusList" Multiplicity="0..1" />
+    <End Role="bid_requests" Type="Self.bid_requests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatusList">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="bid_requests">
+        <PropertyRef Name="StatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_errors_and_comments_RatingID">
+    <End Role="CommentRatings" Type="Self.CommentRatings" Multiplicity="1" />
+    <End Role="errors_and_comments" Type="Self.errors_and_comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CommentRatings">
+        <PropertyRef Name="RatingID" />
+      </Principal>
+      <Dependent Role="errors_and_comments">
+        <PropertyRef Name="RatingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Location_Service_Provider_locationinfo">
+    <End Role="locationinfo" Type="Self.locationinfo" Multiplicity="1" />
+    <End Role="Location_Service_Provider" Type="Self.Location_Service_Provider" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="locationinfo">
+        <PropertyRef Name="guid" />
+      </Principal>
+      <Dependent Role="Location_Service_Provider">
+        <PropertyRef Name="guid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_locationinfo_Company">
+    <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+    <End Role="locationinfo" Type="Self.locationinfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="guid" />
+      </Principal>
+      <Dependent Role="locationinfo">
+        <PropertyRef Name="parentguid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_locationinfo_Region">
+    <End Role="Regions" Type="Self.Regions" Multiplicity="0..1" />
+    <End Role="locationinfo" Type="Self.locationinfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Regions">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="locationinfo">
+        <PropertyRef Name="RegionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_service_ticket_files_service_tickets">
+    <End Role="service_tickets" Type="Self.service_tickets" Multiplicity="1" />
+    <End Role="service_ticket_files" Type="Self.service_ticket_files" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="service_tickets">
+        <PropertyRef Name="guid" />
+      </Principal>
+      <Dependent Role="service_ticket_files">
+        <PropertyRef Name="ticket_guid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_service_tickets_category">
+    <End Role="ServiceCategory" Type="Self.ServiceCategory" Multiplicity="0..1" />
+    <End Role="service_tickets" Type="Self.service_tickets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ServiceCategory">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="service_tickets">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_service_tickets_priority">
+    <End Role="PriorityList" Type="Self.PriorityList" Multiplicity="0..1" />
+    <End Role="service_tickets" Type="Self.service_tickets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PriorityList">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="service_tickets">
+        <PropertyRef Name="PriorityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_service_tickets_Status">
+    <End Role="StatusList" Type="Self.StatusList" Multiplicity="0..1" />
+    <End Role="service_tickets" Type="Self.service_tickets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatusList">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="service_tickets">
+        <PropertyRef Name="StatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ST_SL_Edits_service_tickets">
+    <End Role="service_tickets" Type="Self.service_tickets" Multiplicity="1" />
+    <End Role="ST_SL_Edits" Type="Self.ST_SL_Edits" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="service_tickets">
+        <PropertyRef Name="guid" />
+      </Principal>
+      <Dependent Role="ST_SL_Edits">
+        <PropertyRef Name="ticket_guid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_user_to_location_locationinfo">
+    <End Role="locationinfo" Type="Self.locationinfo" Multiplicity="1" />
+    <End Role="user_to_location" Type="Self.user_to_location" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="locationinfo">
+        <PropertyRef Name="guid" />
+      </Principal>
+      <Dependent Role="user_to_location">
+        <PropertyRef Name="location_guid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_user_viewable_locations_locationinfo">
+    <End Role="locationinfo" Type="Self.locationinfo" Multiplicity="1" />
+    <End Role="user_viewable_locations" Type="Self.user_viewable_locations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="locationinfo">
+        <PropertyRef Name="guid" />
+      </Principal>
+      <Dependent Role="user_viewable_locations">
+        <PropertyRef Name="location_guid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="ParentLocationInfoFromUsrGUID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="usrGUID" Type="uniqueidentifier" Mode="In" />
+  </Function>
+  <Function Name="ReturnParentLocations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="sessionid" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="aaahelpModelStoreContainer">
+    <EntitySet Name="bid_requests" EntityType="Self.bid_requests" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CommentRatings" EntityType="Self.CommentRatings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="email_log" EntityType="Self.email_log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="email_queue" EntityType="Self.email_queue" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmailSetup" EntityType="Self.EmailSetup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="errors_and_comments" EntityType="Self.errors_and_comments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Location_Service_Provider" EntityType="Self.Location_Service_Provider" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="locationinfo" EntityType="Self.locationinfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="phone_num" EntityType="Self.phone_num" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Phone_Numbers" EntityType="Self.Phone_Numbers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PriorityList" EntityType="Self.PriorityList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Regions" EntityType="Self.Regions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="service_ticket_files" EntityType="Self.service_ticket_files" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="service_tickets" EntityType="Self.service_tickets" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceCategory" EntityType="Self.ServiceCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Site_Lists_Hide_Item" EntityType="Self.Site_Lists_Hide_Item" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ST_SL_Edits" EntityType="Self.ST_SL_Edits" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StatusList" EntityType="Self.StatusList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user_to_location" EntityType="Self.user_to_location" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user_viewable_locations" EntityType="Self.user_viewable_locations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LocationEmails_viewMVC" EntityType="Self.LocationEmails_viewMVC" store:Type="Views" store:Schema="aaaadmin">
+      <DefiningQuery>SELECT 
+    [LocationEmails_viewMVC].[LocationName] AS [LocationName], 
+    [LocationEmails_viewMVC].[UserEmail] AS [UserEmail], 
+    [LocationEmails_viewMVC].[LocationGUID] AS [LocationGUID], 
+    [LocationEmails_viewMVC].[email_all_members] AS [email_all_members], 
+    [LocationEmails_viewMVC].[account_status] AS [account_status]
+    FROM [aaaadmin].[LocationEmails_viewMVC] AS [LocationEmails_viewMVC]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Bid_Requests_View" EntityType="Self.Bid_Requests_View" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Bid_Requests_View].[bid_num] AS [bid_num], 
+    [Bid_Requests_View].[problem_summary] AS [problem_summary], 
+    [Bid_Requests_View].[StatusName] AS [StatusName], 
+    [Bid_Requests_View].[Service_Location_Name] AS [Service_Location_Name], 
+    [Bid_Requests_View].[Parent_Location_Name] AS [Parent_Location_Name], 
+    [Bid_Requests_View].[guid] AS [guid], 
+    [Bid_Requests_View].[Order_Date] AS [Order_Date], 
+    [Bid_Requests_View].[parent_company_guid] AS [parent_company_guid], 
+    [Bid_Requests_View].[service_location_guid] AS [service_location_guid], 
+    [Bid_Requests_View].[active] AS [active]
+    FROM [dbo].[Bid_Requests_View] AS [Bid_Requests_View]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Comments_view" EntityType="Self.Comments_view" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Comments_view].[user_full_name] AS [user_full_name], 
+    [Comments_view].[Email] AS [Email], 
+    [Comments_view].[comment_datetime] AS [comment_datetime], 
+    [Comments_view].[comment_type] AS [comment_type], 
+    [Comments_view].[comments] AS [comments], 
+    [Comments_view].[fileupload] AS [fileupload], 
+    [Comments_view].[parent_location] AS [parent_location], 
+    [Comments_view].[service_location] AS [service_location], 
+    [Comments_view].[primary_contact_bit] AS [primary_contact_bit], 
+    [Comments_view].[is_manager] AS [is_manager], 
+    [Comments_view].[active] AS [active], 
+    [Comments_view].[closed] AS [closed], 
+    [Comments_view].[notes] AS [notes], 
+    [Comments_view].[guid] AS [guid], 
+    [Comments_view].[ID] AS [ID], 
+    [Comments_view].[rating] AS [rating], 
+    [Comments_view].[phone_day] AS [phone_day], 
+    [Comments_view].[phone_night] AS [phone_night], 
+    [Comments_view].[addr1] AS [addr1], 
+    [Comments_view].[addr2] AS [addr2]
+    FROM [dbo].[Comments_view] AS [Comments_view]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Emails_Log_ViewMVC" EntityType="Self.Emails_Log_ViewMVC" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Emails_Log_ViewMVC].[ID] AS [ID], 
+    [Emails_Log_ViewMVC].[who_from] AS [who_from], 
+    [Emails_Log_ViewMVC].[subject] AS [subject], 
+    [Emails_Log_ViewMVC].[msgbody] AS [msgbody], 
+    [Emails_Log_ViewMVC].[date_in] AS [date_in], 
+    [Emails_Log_ViewMVC].[date_in_no_time] AS [date_in_no_time], 
+    [Emails_Log_ViewMVC].[location_name] AS [location_name], 
+    [Emails_Log_ViewMVC].[Email] AS [Email], 
+    [Emails_Log_ViewMVC].[sent_to_full_name] AS [sent_to_full_name], 
+    [Emails_Log_ViewMVC].[guid] AS [guid], 
+    [Emails_Log_ViewMVC].[who_to] AS [who_to]
+    FROM [dbo].[Emails_Log_ViewMVC] AS [Emails_Log_ViewMVC]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Location_Mgt_ViewMVC" EntityType="Self.Location_Mgt_ViewMVC" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Location_Mgt_ViewMVC].[name] AS [name], 
+    [Location_Mgt_ViewMVC].[addressline1] AS [addressline1], 
+    [Location_Mgt_ViewMVC].[addressline2] AS [addressline2], 
+    [Location_Mgt_ViewMVC].[city] AS [city], 
+    [Location_Mgt_ViewMVC].[state] AS [state], 
+    [Location_Mgt_ViewMVC].[zip] AS [zip], 
+    [Location_Mgt_ViewMVC].[cf_location_num] AS [cf_location_num], 
+    [Location_Mgt_ViewMVC].[cf_company_num] AS [cf_company_num], 
+    [Location_Mgt_ViewMVC].[region] AS [region], 
+    [Location_Mgt_ViewMVC].[parentguid] AS [parentguid], 
+    [Location_Mgt_ViewMVC].[guid] AS [guid], 
+    [Location_Mgt_ViewMVC].[fname] AS [fname], 
+    [Location_Mgt_ViewMVC].[lname] AS [lname], 
+    [Location_Mgt_ViewMVC].[full_name] AS [full_name], 
+    [Location_Mgt_ViewMVC].[user_guid] AS [user_guid], 
+    [Location_Mgt_ViewMVC].[phone_day] AS [phone_day], 
+    [Location_Mgt_ViewMVC].[phone_night] AS [phone_night], 
+    [Location_Mgt_ViewMVC].[parent_name] AS [parent_name], 
+    [Location_Mgt_ViewMVC].[primary_contact_bit] AS [primary_contact_bit]
+    FROM [dbo].[Location_Mgt_ViewMVC] AS [Location_Mgt_ViewMVC]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="LocationEmails_ViewMVC1" EntityType="Self.LocationEmails_ViewMVC1" store:Type="Views" store:Schema="dbo" store:Name="LocationEmails_ViewMVC">
+      <DefiningQuery>SELECT 
+    [LocationEmails_ViewMVC1].[LocationName] AS [LocationName], 
+    [LocationEmails_ViewMVC1].[UserEmail] AS [UserEmail], 
+    [LocationEmails_ViewMVC1].[LocationGUID] AS [LocationGUID], 
+    [LocationEmails_ViewMVC1].[email_all_members] AS [email_all_members], 
+    [LocationEmails_ViewMVC1].[account_status] AS [account_status]
+    FROM [dbo].[LocationEmails_ViewMVC] AS [LocationEmails_ViewMVC1]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="service_boardNew" EntityType="Self.service_boardNew" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [service_boardNew].[age] AS [age], 
+    [service_boardNew].[service_location_name] AS [service_location_name], 
+    [service_boardNew].[job_number] AS [job_number], 
+    [service_boardNew].[order_datetime] AS [order_datetime], 
+    [service_boardNew].[problem_summary] AS [problem_summary], 
+    [service_boardNew].[company_name] AS [company_name], 
+    [service_boardNew].[service_location_guid] AS [service_location_guid], 
+    [service_boardNew].[parent_company_guid] AS [parent_company_guid], 
+    [service_boardNew].[guid] AS [guid], 
+    [service_boardNew].[complete_datetime] AS [complete_datetime], 
+    [service_boardNew].[region] AS [region], 
+    [service_boardNew].[category] AS [category], 
+    [service_boardNew].[service_provider] AS [service_provider], 
+    [service_boardNew].[city] AS [city], 
+    [service_boardNew].[dispatch_datetime] AS [dispatch_datetime], 
+    [service_boardNew].[accepted_datetime] AS [accepted_datetime], 
+    [service_boardNew].[cust_po_num] AS [cust_po_num], 
+    [service_boardNew].[cost_code] AS [cost_code], 
+    [service_boardNew].[Priority] AS [Priority], 
+    [service_boardNew].[Status] AS [Status]
+    FROM [dbo].[service_boardNew] AS [service_boardNew]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="service_tickets_viewMVC" EntityType="Self.service_tickets_viewMVC" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [service_tickets_viewMVC].[Created_By_User_fname] AS [Created_By_User_fname], 
+    [service_tickets_viewMVC].[Created_By_User_lname] AS [Created_By_User_lname], 
+    [service_tickets_viewMVC].[job_number] AS [job_number], 
+    [service_tickets_viewMVC].[order_datetime] AS [order_datetime], 
+    [service_tickets_viewMVC].[last_update_datetime] AS [last_update_datetime], 
+    [service_tickets_viewMVC].[PriorityStatus] AS [PriorityStatus], 
+    [service_tickets_viewMVC].[problem_summary] AS [problem_summary], 
+    [service_tickets_viewMVC].[problem_details] AS [problem_details], 
+    [service_tickets_viewMVC].[location_contact_name] AS [location_contact_name], 
+    [service_tickets_viewMVC].[location_contact_phone] AS [location_contact_phone], 
+    [service_tickets_viewMVC].[StatusName] AS [StatusName], 
+    [service_tickets_viewMVC].[Updated_By_User_fname] AS [Updated_By_User_fname], 
+    [service_tickets_viewMVC].[Updated_By_User_Lname] AS [Updated_By_User_Lname], 
+    [service_tickets_viewMVC].[Parent_Location_Name] AS [Parent_Location_Name], 
+    [service_tickets_viewMVC].[Parent_Location_AddressLine1] AS [Parent_Location_AddressLine1], 
+    [service_tickets_viewMVC].[Parent_Location_AddressLine2] AS [Parent_Location_AddressLine2], 
+    [service_tickets_viewMVC].[Parent_Location_City] AS [Parent_Location_City], 
+    [service_tickets_viewMVC].[Parent_Location_State] AS [Parent_Location_State], 
+    [service_tickets_viewMVC].[Parent_Location_Zip] AS [Parent_Location_Zip], 
+    [service_tickets_viewMVC].[guid] AS [guid], 
+    [service_tickets_viewMVC].[Order_Time] AS [Order_Time], 
+    [service_tickets_viewMVC].[Order_Date] AS [Order_Date], 
+    [service_tickets_viewMVC].[complete_datetime] AS [complete_datetime], 
+    [service_tickets_viewMVC].[notes] AS [notes], 
+    [service_tickets_viewMVC].[cf_company_num] AS [cf_company_num], 
+    [service_tickets_viewMVC].[cf_location_num] AS [cf_location_num], 
+    [service_tickets_viewMVC].[closed_datetime] AS [closed_datetime], 
+    [service_tickets_viewMVC].[location_contact_phone_night] AS [location_contact_phone_night], 
+    [service_tickets_viewMVC].[category] AS [category], 
+    [service_tickets_viewMVC].[Service_Location_Name] AS [Service_Location_Name], 
+    [service_tickets_viewMVC].[Service_Location_Addressline1] AS [Service_Location_Addressline1], 
+    [service_tickets_viewMVC].[Service_Location_AddressLine2] AS [Service_Location_AddressLine2], 
+    [service_tickets_viewMVC].[Service_Location_City] AS [Service_Location_City], 
+    [service_tickets_viewMVC].[Service_Location_State] AS [Service_Location_State], 
+    [service_tickets_viewMVC].[Service_Location_Zip] AS [Service_Location_Zip], 
+    [service_tickets_viewMVC].[cost_code] AS [cost_code], 
+    [service_tickets_viewMVC].[EQmodel] AS [EQmodel], 
+    [service_tickets_viewMVC].[EQserial] AS [EQserial], 
+    [service_tickets_viewMVC].[EQProbDesc] AS [EQProbDesc], 
+    [service_tickets_viewMVC].[service_provider] AS [service_provider], 
+    [service_tickets_viewMVC].[dispatch_datetime] AS [dispatch_datetime], 
+    [service_tickets_viewMVC].[accepted_datetime] AS [accepted_datetime], 
+    [service_tickets_viewMVC].[internal_notes] AS [internal_notes], 
+    [service_tickets_viewMVC].[parent_company_guid] AS [parent_company_guid], 
+    [service_tickets_viewMVC].[service_location_guid] AS [service_location_guid], 
+    [service_tickets_viewMVC].[cust_po_num] AS [cust_po_num], 
+    [service_tickets_viewMVC].[category_value] AS [category_value], 
+    [service_tickets_viewMVC].[total_billing] AS [total_billing]
+    FROM [dbo].[service_tickets_viewMVC] AS [service_tickets_viewMVC]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="User_Assigned_Locations_View" EntityType="Self.User_Assigned_Locations_View" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [User_Assigned_Locations_View].[user_guid] AS [user_guid], 
+    [User_Assigned_Locations_View].[location_guid] AS [location_guid], 
+    [User_Assigned_Locations_View].[name] AS [name], 
+    [User_Assigned_Locations_View].[parentguid] AS [parentguid]
+    FROM [dbo].[User_Assigned_Locations_View] AS [User_Assigned_Locations_View]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="User_Info_ViewMVC" EntityType="Self.User_Info_ViewMVC" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [User_Info_ViewMVC].[company_name] AS [company_name], 
+    [User_Info_ViewMVC].[acct_status] AS [acct_status], 
+    [User_Info_ViewMVC].[fname] AS [fname], 
+    [User_Info_ViewMVC].[lname] AS [lname], 
+    [User_Info_ViewMVC].[email] AS [email], 
+    [User_Info_ViewMVC].[location_name] AS [location_name], 
+    [User_Info_ViewMVC].[user_guid] AS [user_guid], 
+    [User_Info_ViewMVC].[phone_day] AS [phone_day], 
+    [User_Info_ViewMVC].[phone_night] AS [phone_night], 
+    [User_Info_ViewMVC].[location_guid] AS [location_guid], 
+    [User_Info_ViewMVC].[parent_location_guid] AS [parent_location_guid], 
+    [User_Info_ViewMVC].[account_status] AS [account_status]
+    FROM [dbo].[User_Info_ViewMVC] AS [User_Info_ViewMVC]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="user_viewable_locations_view" EntityType="Self.user_viewable_locations_view" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [user_viewable_locations_view].[location_guid] AS [location_guid], 
+    [user_viewable_locations_view].[name] AS [name], 
+    [user_viewable_locations_view].[user_guid] AS [user_guid], 
+    [user_viewable_locations_view].[parentguid] AS [parentguid]
+    FROM [dbo].[user_viewable_locations_view] AS [user_viewable_locations_view]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_bid_requests_Company" Association="Self.FK_bid_requests_Company">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="bid_requests" EntitySet="bid_requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_bid_requests_locationinfo" Association="Self.FK_bid_requests_locationinfo">
+      <End Role="locationinfo" EntitySet="locationinfo" />
+      <End Role="bid_requests" EntitySet="bid_requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_bid_requests_priority" Association="Self.FK_bid_requests_priority">
+      <End Role="PriorityList" EntitySet="PriorityList" />
+      <End Role="bid_requests" EntitySet="bid_requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_bid_requests_Status" Association="Self.FK_bid_requests_Status">
+      <End Role="StatusList" EntitySet="StatusList" />
+      <End Role="bid_requests" EntitySet="bid_requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_errors_and_comments_RatingID" Association="Self.FK_errors_and_comments_RatingID">
+      <End Role="CommentRatings" EntitySet="CommentRatings" />
+      <End Role="errors_and_comments" EntitySet="errors_and_comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Location_Service_Provider_locationinfo" Association="Self.FK_Location_Service_Provider_locationinfo">
+      <End Role="locationinfo" EntitySet="locationinfo" />
+      <End Role="Location_Service_Provider" EntitySet="Location_Service_Provider" />
+    </AssociationSet>
+    <AssociationSet Name="FK_locationinfo_Company" Association="Self.FK_locationinfo_Company">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="locationinfo" EntitySet="locationinfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_locationinfo_Region" Association="Self.FK_locationinfo_Region">
+      <End Role="Regions" EntitySet="Regions" />
+      <End Role="locationinfo" EntitySet="locationinfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_service_ticket_files_service_tickets" Association="Self.FK_service_ticket_files_service_tickets">
+      <End Role="service_tickets" EntitySet="service_tickets" />
+      <End Role="service_ticket_files" EntitySet="service_ticket_files" />
+    </AssociationSet>
+    <AssociationSet Name="FK_service_tickets_category" Association="Self.FK_service_tickets_category">
+      <End Role="ServiceCategory" EntitySet="ServiceCategory" />
+      <End Role="service_tickets" EntitySet="service_tickets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_service_tickets_priority" Association="Self.FK_service_tickets_priority">
+      <End Role="PriorityList" EntitySet="PriorityList" />
+      <End Role="service_tickets" EntitySet="service_tickets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_service_tickets_Status" Association="Self.FK_service_tickets_Status">
+      <End Role="StatusList" EntitySet="StatusList" />
+      <End Role="service_tickets" EntitySet="service_tickets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ST_SL_Edits_service_tickets" Association="Self.FK_ST_SL_Edits_service_tickets">
+      <End Role="service_tickets" EntitySet="service_tickets" />
+      <End Role="ST_SL_Edits" EntitySet="ST_SL_Edits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_user_to_location_locationinfo" Association="Self.FK_user_to_location_locationinfo">
+      <End Role="locationinfo" EntitySet="locationinfo" />
+      <End Role="user_to_location" EntitySet="user_to_location" />
+    </AssociationSet>
+    <AssociationSet Name="FK_user_viewable_locations_locationinfo" Association="Self.FK_user_viewable_locations_locationinfo">
+      <End Role="locationinfo" EntitySet="locationinfo" />
+      <End Role="user_viewable_locations" EntitySet="user_viewable_locations" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

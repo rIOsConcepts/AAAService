@@ -1,0 +1,111 @@
+﻿@model IEnumerable<AAAService.Models.locationinfo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Administration - Locations</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.addressline1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.addressline2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.city)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.state)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.zip)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cf_location_num)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cf_company_num)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.region)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email_all_members)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegionID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Company.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location_Service_Provider.guid)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.addressline1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.addressline2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.city)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.state)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.zip)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cf_location_num)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cf_company_num)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.region)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email_all_members)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegionID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Company.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location_Service_Provider.guid)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.guid }) |
+            @Html.ActionLink("Details", "Details", new { id=item.guid }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.guid })
+        </td>
+    </tr>
+}
+
+</table>

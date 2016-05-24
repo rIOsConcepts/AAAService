@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="081bda2cdb9d4f8bb8ea6a2bf864e24e" Name="Diagram1" ZoomLevel="100">
+        <EntityTypeShape EntityType="aaahelpModel.email_queue" Width="1.5" PointX="8.75" PointY="7.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="aaahelpModel.locationinfo" Width="1.5" PointX="3.625" PointY="1.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="aaahelpModel.PriorityList" Width="1.5" PointX="5.625" PointY="1.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="aaahelpModel.Region" Width="1.5" PointX="8.25" PointY="1.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="aaahelpModel.ST_SL_Edits" Width="1.5" PointX="6" PointY="25.25" IsExpanded="false" />
+        <EntityTypeShape EntityType="aaahelpModel.StatusList" Width="1.5" PointX="8.75" PointY="11.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="aaahelpModel.service_boardNew" Width="1.5" PointX="13.375" PointY="5.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="aaahelpModel.user_viewable_locations_view" Width="1.5" PointX="12.875" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="aaahelpModel.Bid_Requests_View" Width="1.75" PointX="14.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="aaahelpModel.Comments_view" Width="1.5" PointX="15.375" PointY="3" IsExpanded="false" />
+        <EntityTypeShape EntityType="aaahelpModel.Emails_Log_ViewMVC" Width="1.5" PointX="15.375" PointY="8" IsExpanded="false" />
+        <EntityTypeShape EntityType="aaahelpModel.Location_Mgt_ViewMVC" Width="1.5" PointX="17.125" PointY="6.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="aaahelpModel.LocationEmails_ViewMVC" Width="2.375" PointX="10" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="aaahelpModel.User_Assigned_Locations_View" Width="3.5" PointX="15.875" PointY="0.875" IsExpanded="false" />
+        <EntityTypeShape EntityType="aaahelpModel.User_Info_ViewMVC" Width="1.5" PointX="17.125" PointY="3" IsExpanded="false" />
+        <EntityTypeShape EntityType="aaahelpModel.Location_Service_Provider" Width="1.5" PointX="6" PointY="8.375" IsExpanded="false" />
+        <AssociationConnector Association="aaahelpModel.FK_Location_Service_Provider_locationinfo" />
+        <EntityTypeShape EntityType="aaahelpModel.user_to_location" Width="1.5" PointX="6" PointY="12.875" IsExpanded="false" />
+        <AssociationConnector Association="aaahelpModel.FK_user_to_location_locationinfo" />
+        <EntityTypeShape EntityType="aaahelpModel.service_ticket_files" Width="1.5" PointX="6" PointY="29.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="aaahelpModel.email_log" Width="1.5" PointX="5.375" PointY="15.75" IsExpanded="false" />
+        <AssociationConnector Association="aaahelpModel.FK_locationinfo_Region" />
+        <EntityTypeShape EntityType="aaahelpModel.bid_requests" Width="1.5" PointX="12.875" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="aaahelpModel.service_tickets" Width="1.5" PointX="21.625" PointY="0.625" IsExpanded="false" />
+        <AssociationConnector Association="aaahelpModel.FK_bid_requests_locationinfo" />
+        <AssociationConnector Association="aaahelpModel.FK_bid_requests_priority" />
+        <AssociationConnector Association="aaahelpModel.FK_bid_requests_Status" />
+        <AssociationConnector Association="aaahelpModel.FK_service_tickets_priority" />
+        <AssociationConnector Association="aaahelpModel.FK_service_ticket_files_service_tickets" />
+        <AssociationConnector Association="aaahelpModel.FK_service_tickets_Status" />
+        <AssociationConnector Association="aaahelpModel.FK_ST_SL_Edits_service_tickets" />
+        <EntityTypeShape EntityType="aaahelpModel.user_viewable_locations" Width="1.5" PointX="5.875" PointY="5.25" IsExpanded="false" />
+        <AssociationConnector Association="aaahelpModel.FK_user_viewable_locations_locationinfo" />
+        <EntityTypeShape EntityType="aaahelpModel.phone_num" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="aaahelpModel.Phone_Numbers" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="aaahelpModel.CommentRating" Width="1.5" PointX="0.5" PointY="4.375" />
+        <EntityTypeShape EntityType="aaahelpModel.errors_and_comments" Width="1.5" PointX="3" PointY="2.625" />
+        <AssociationConnector Association="aaahelpModel.FK_errors_and_comments_RatingID" />
+        <EntityTypeShape EntityType="aaahelpModel.Site_Lists_Hide_Item" Width="1.5" PointX="8.75" PointY="3.75" />
+        <EntityTypeShape EntityType="aaahelpModel.EmailSetup" Width="1.5" PointX="11" PointY="1.5" />
+        <EntityTypeShape EntityType="aaahelpModel.LocationEmails_viewMVC1" Width="1.5" PointX="5.75" PointY="9.75" />
+        <EntityTypeShape EntityType="aaahelpModel.service_tickets_viewMVC" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="aaahelpModel.Company" Width="1.5" PointX="0.75" PointY="7.5" />
+        <EntityTypeShape EntityType="aaahelpModel.ServiceCategory" Width="1.5" PointX="10.75" PointY="14" />
+        <AssociationConnector Association="aaahelpModel.FK_bid_requests_Company" />
+        <AssociationConnector Association="aaahelpModel.FK_locationinfo_Company" />
+        <AssociationConnector Association="aaahelpModel.FK_service_tickets_category" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

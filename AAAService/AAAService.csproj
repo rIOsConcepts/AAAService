@@ -1,0 +1,799 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{979706F8-26FB-4B88-9B43-A15E040BFA1C}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AAAService</RootNamespace>
+    <AssemblyName>AAAService</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort>
+    </IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GridMvc, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grid.Mvc.3.0.0\lib\net40\GridMvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="SendGrid, Version=6.3.4.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sendgrid.6.3.4\lib\SendGrid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SendGrid.SmtpApi, Version=1.3.1.0, Culture=neutral, PublicKeyToken=2ae73662c35d80e4, processorArchitecture=MSIL">
+      <HintPath>..\packages\SendGrid.SmtpApi.1.3.1\lib\net40\SendGrid.SmtpApi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SendGridMail, Version=6.3.4.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sendgrid.6.3.4\lib\SendGridMail.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.2\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminTicketsController.cs" />
+    <Compile Include="Controllers\BidRequestsBoardController.cs" />
+    <Compile Include="Controllers\BidRequestsController.cs" />
+    <Compile Include="Controllers\CommentRatingsController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
+    <Compile Include="Controllers\CompaniesController.cs" />
+    <Compile Include="Controllers\CreateBidController.cs" />
+    <Compile Include="Controllers\CreateTicketController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\locationinfoesController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PriorityListsController.cs" />
+    <Compile Include="Controllers\RegionsController.cs" />
+    <Compile Include="Controllers\RolesAdminController.cs" />
+    <Compile Include="Controllers\ServiceBoardController.cs" />
+    <Compile Include="Controllers\ServiceCategoriesController.cs" />
+    <Compile Include="Controllers\ServiceTicketsController.cs" />
+    <Compile Include="Controllers\StatusListsController.cs" />
+    <Compile Include="Controllers\UpLoadToCalendarController.cs" />
+    <Compile Include="Controllers\UserAdminController.cs" />
+    <Compile Include="Controllers\UserLocationController.cs" />
+    <Compile Include="Controllers\UserViewsController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\SvcHelper.cs" />
+    <Compile Include="Helpers\UserHelper.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AAAServiceModels.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AAAServiceModels.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AAAServiceModels.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AAAServiceModels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AAAServiceModels.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\bid_requests.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Bid_Requests_View.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CategoryDroplist.cs" />
+    <Compile Include="Models\CommentRating.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Comments_view.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Company.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmailSetup.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Emails_Log_ViewMVC.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\email_log.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\email_queue.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\errors_and_comments.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LocationEmails_ViewMVC.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LocationEmails_viewMVC1.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\locationinfo.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Location_Mgt_ViewMVC.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Location_Service_Provider.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MetaData.cs" />
+    <Compile Include="Models\ParentLocationInfoFromUsrGUID_Result.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PartialClasses.cs" />
+    <Compile Include="Models\phone_num.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Phone_Numbers.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PriorityList.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Region.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ReturnParentLocations_Result.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ServiceCategory.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\service_boardNew.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\service_tickets.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\service_tickets_viewMVC.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\service_ticket_files.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Site_Lists_Hide_Item.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StatusList.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ST_SL_Edits.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User_Assigned_Locations_View.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User_Info_ViewMVC.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\user_to_location.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\user_viewable_locations.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\user_viewable_locations_view.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\CreateTicketVM.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\ESQData.xml" />
+    <Content Include="Content\bootstrap-datetimepicker.css" />
+    <Content Include="Content\bootstrap-datetimepicker.min.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\easyquery.css" />
+    <Content Include="Content\eqview.css" />
+    <Content Include="Content\Gridmvc.css" />
+    <Content Include="Content\gridmvc.datepicker.css" />
+    <Content Include="Content\gridmvc.datepicker.min.css" />
+    <Content Include="Content\Images\ajax-loader.gif" />
+    <Content Include="Content\Images\checkbox_checked.png" />
+    <Content Include="Content\Images\checkbox_unchecked.png" />
+    <Content Include="Content\Images\clearButton.png" />
+    <Content Include="Content\Images\colbtn-aggrfunc.png" />
+    <Content Include="Content\Images\condbtn-addcondition.png" />
+    <Content Include="Content\Images\condbtn-addpredicate.png" />
+    <Content Include="Content\Images\condbtn-delete.png" />
+    <Content Include="Content\Images\condbtn-disabled.png" />
+    <Content Include="Content\Images\condbtn-enabled.png" />
+    <Content Include="Content\Images\eqjs-ep-add-columns-hover.png" />
+    <Content Include="Content\Images\eqjs-ep-add-columns.png" />
+    <Content Include="Content\Images\eqjs-ep-add-cond-hover.png" />
+    <Content Include="Content\Images\eqjs-ep-add-cond.png" />
+    <Content Include="Content\Images\eqjs-ep-deselect-all-hover.png" />
+    <Content Include="Content\Images\eqjs-ep-deselect-all.png" />
+    <Content Include="Content\Images\eqjs-ep-select-all-hover.png" />
+    <Content Include="Content\Images\eqjs-ep-select-all.png" />
+    <Content Include="Content\Images\execute.png" />
+    <Content Include="Content\Images\loadButton.png" />
+    <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\node-close.png" />
+    <Content Include="Content\Images\node-open.png" />
+    <Content Include="Content\Images\saveButton.png" />
+    <Content Include="Content\Images\sorting_asc.png" />
+    <Content Include="Content\Images\sorting_desc.png" />
+    <Content Include="Content\Images\sorting_none.png" />
+    <Content Include="Content\Images\ve-loader.gif" />
+    <Content Include="Content\service_ticket_uploads\{030cb20f-038d-4b48-a5df-ef9eb9ab5e43}.txt" />
+    <Content Include="Content\service_ticket_uploads\{06b72556-7cba-45ad-9791-509219de6a24}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{07ff3d45-84db-4ad8-80b6-09dfc360e992}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{08d17ac1-e24f-4cb3-98f5-3408c84b105b}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{09b1b16f-0e52-4ea3-97f9-272cd33fae22}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{0a6a255d-f3f3-4c07-bd27-f9e14689ab3c}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{0d0266b1-bd43-473f-8471-b856d31b1cce}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{120815c7-6825-4a42-a6d1-cc82e7a3a1bf}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{12d6bf89-995a-47b6-ba98-b326e9c0cf29}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{154dc882-c357-47a6-8b5d-db1f165b355e}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{1c270b27-e5a5-439a-9891-29d5322545a0}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{1e01f22d-3821-4ce0-896c-64e0c463b9c9}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{2157a011-5a75-4983-a41e-f5c6174b1ff8}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{2384de85-7279-48fe-819d-01fd741839e1}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{25b96455-7a5f-4cc0-b1dd-7ebabfcea52b}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{2ca7afa6-39ee-4592-a0ec-a9a474bb7102}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{2FF19E07-4E7C-43B9-8D26-AF3489961A31}.JPG" />
+    <Content Include="Content\service_ticket_uploads\{356a298f-4068-4a03-9ac6-72f8790e91fe}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{3a4ce05b-183a-4f99-a139-21909ee95079}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{3ab7bed0-1884-4ede-9a9c-ffde12dba662}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{3ad9c7ed-bb9d-4b78-b3fa-e8b04f6cec30}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{3c865128-4cd2-4143-ab80-70bad32c7450}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{3e4a2090-a395-43d7-a51e-06d11b696cd5}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{3f2ae73a-e02c-476d-a514-28a341fcfa94}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{3f56a3d2-e83f-4aad-9b93-11f1b175af51}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{4558211e-c8d1-42ba-96b5-c59022dae813}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{46c6ff61-d6c9-4803-8462-a422cf0eee86}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{47ed81f4-8e52-4d05-b194-add0dbb01670}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{4814DFC2-F690-43B6-A369-75C125C90119}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{4A37BC91-8C6B-4863-8E59-88E999271CC2}.JPG" />
+    <Content Include="Content\service_ticket_uploads\{523D500A-5C97-402D-9C1F-96A26A18E0F8}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{542edfa5-9fd1-4a3a-b45a-6c1bab32c775}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{577eafca-45b0-472d-b9ad-018a091d12c2}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{582d06c8-dd30-44d9-b3a5-d914f91bc197}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{58389e33-bae7-4d3b-bafc-631e36334fea}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{5aaea4a7-8a65-4cca-98bc-d56c1cd603cc}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{5b8739be-286e-4ea4-ac80-da118fb1f913}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{5bedaa27-f352-4de5-9fca-c17dcb516d97}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{60175388-6320-4cfb-9368-53fbd45a203a}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{60a0ba64-93a7-4fa6-9422-9bb2e1639424}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{6101c9d5-0acb-4558-bd2d-d820b49555df}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{63309403-bb48-41ae-a3e8-3b185434e594}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{63339fb6-da16-4302-ae30-edc514a54b67}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{66b78a03-8096-42f7-82b5-d1ef1d5bdbe8}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{67129ca0-646d-4d81-aca8-534320275a53}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{67ae11d6-7d0f-4823-b7c6-7b8aff0a543d}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{6b8ca88c-c450-4412-a08e-91091638a2c5}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{744b190a-52a0-4fa5-ac57-459732624cc2}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{75EBD444-8D76-4F95-960F-A8ECB2A15C7D}.JPG" />
+    <Content Include="Content\service_ticket_uploads\{7888dc83-1152-4cc9-8b00-028a39f321da}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{7A1757D3-122A-4B10-989D-E16058F21980}.JPG" />
+    <Content Include="Content\service_ticket_uploads\{7b32e583-4e09-4d40-bd39-ea40201cdf06}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{7B80144A-4ADE-43F1-968C-A22C16A0CEB7}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{8122d879-9bb1-452e-aec7-74b08aa663de}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{85436236-4af8-41be-90de-77ad8d1adf43}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{86798746-d032-4c03-aae8-f4845ffaa99b}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{870ee98a-2c88-4051-bcf8-8911a45fc443}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{8bb513bb-1ca3-475b-b077-e4a968cad9e0}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{8ffa1ab5-4767-4ec5-b7a7-4f26646e1921}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{90ed179f-1657-4637-bf92-548df010d98c}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{9180443e-ec92-4abc-8e3f-cdac1cb27327}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{94578176-35d5-44f0-9b58-b3c39bc95a0c}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{955be190-79fd-4311-a062-5fc464f190dc}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{963d5403-6a36-4a38-bdf2-e74cdcd0dcca}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{96767db9-3443-4903-a68e-3634c64162f7}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{9be7d866-5aef-4b57-851d-7b7a11df91f0}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{9db327c7-eff9-4228-bc6d-d14388e279d4}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{9de29096-6007-4466-95c1-a056e93a4275}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{9eba0d2d-259d-4baa-9c1b-7aa7a9a7da12}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{a39d0999-1b93-476d-8468-a8c5ffe38679}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{a71689e6-b6d4-4cdf-8027-fcb0dd3cf141}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{a7c0f71f-8dd0-4fc2-bd0c-2712953a39e8}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{aa1ed21a-eabb-4853-9f9f-f6ef46537505}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{af55175c-b2bb-4622-b475-d6bc48884312}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{b29f54a9-817a-4f7e-8fd0-934f24c2974c}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{b6d27a21-ed88-40e0-9c46-c23e6a5b08b4}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{B8706AB8-DFF2-45FC-9FD2-C94F4428CFAA}.JPG" />
+    <Content Include="Content\service_ticket_uploads\{B890D923-B679-4737-B462-E853C4C60700}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{BC2FA1D1-256E-43EF-8962-C14BC489575B}.JPG" />
+    <Content Include="Content\service_ticket_uploads\{bd14e195-347a-4350-9e82-5b98adc478ae}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{bfc98e44-e270-4df7-afe3-c50786855dd2}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{c22fd492-2a09-4f1d-8e09-7edb61c944c0}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{c285f47b-d2de-4c87-9ad2-a5a5645f943b}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{c98c9895-e77a-4efc-a416-65801c0a7177}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{ca327095-a713-4d2f-8e83-4115317ba2ee}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{caffd0dd-c349-4bca-9917-41b4c0d11fcb}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{d233cc73-040c-4cc7-948f-4f1795ab34bf}.txt" />
+    <Content Include="Content\service_ticket_uploads\{d2965333-b7a9-454b-b44b-b057cbb3a810}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{d4a5596f-5cd9-4978-8a47-b2a4674e5400}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{d92a5be5-4338-4d56-ab7a-70703a32b893}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{d9cb87c3-72b5-4767-b9ce-6dbe6d49bdac}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{ddf835aa-2a93-47db-9fd8-f65572aa9851}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{e409bd0e-b4b6-4e68-97e1-bf383f1cbb0c}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{e778e95d-9eaf-42f2-b86b-3db05af9439f}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{e96f76e7-fdc7-4ddf-a5a6-00599363618e}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{ee94d90c-584d-4f27-94d8-af05abc6153c}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{F43CF2A0-684E-4543-8E3A-3ACED27CAA25}.JPG" />
+    <Content Include="Content\service_ticket_uploads\{f54ceffe-9cb2-47b5-b91e-5b1b578f34c6}.jpeg" />
+    <Content Include="Content\service_ticket_uploads\{f814e927-7ccd-4441-9104-88e67428719d}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{fd386328-48e3-4778-b95b-755d198a7634}.jpg" />
+    <Content Include="Content\service_ticket_uploads\{fe1c7383-19d8-4074-9632-884a267ada35}.jpg" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Models\AAAServiceModels.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AAAServiceModels.edmx</DependentUpon>
+      <LastGenOutput>AAAServiceModels.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\AAAServiceModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AAAServiceModels.edmx</DependentUpon>
+      <LastGenOutput>AAAServiceModels.cs</LastGenOutput>
+    </Content>
+    <Content Include="Scripts\bootstrap-datepicker.js" />
+    <EntityDeploy Include="Models\AAAServiceModels.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AAAServiceModels.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\AAAServiceModels.edmx.diagram">
+      <DependentUpon>AAAServiceModels.edmx</DependentUpon>
+    </Content>
+    <Content Include="Scripts\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\gridmvc.customwidgets.js" />
+    <Content Include="Scripts\gridmvc.js" />
+    <Content Include="Scripts\gridmvc.lang.fr.js" />
+    <Content Include="Scripts\gridmvc.lang.ru.js" />
+    <Content Include="Scripts\gridmvc.min.js" />
+    <Content Include="Scripts\gridmvc.min.js.map" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Grid.mvc.readme" />
+    <Content Include="ClassDiagram1.cd" />
+    <Content Include="Content\GenSvcDept_HelpGuide.pdf" />
+    <Content Include="Content\GenSvcDept_HelpGuide.pptx" />
+    <Content Include="Content\service_ticket_uploads\{0035a328-ff1c-4528-888e-1962c9a0e7ce}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{03d10774-9be2-453a-8a56-1f054bc7631f}.docx" />
+    <Content Include="Content\service_ticket_uploads\{06ed809f-f864-4ee9-b09d-dec00b2e014a}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{07a9f95e-6b93-417f-8fc3-6d8795272b45}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{0826569C-0F0E-410B-92AE-C43EE05EE4C4}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{0960a6d8-8bdb-4336-a9d0-d7faf3ea7011}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{0bf407bb-3064-42ee-9e0a-59290c75b592}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{0ca29958-cbb8-436b-99a0-b782832305e7}.docx" />
+    <Content Include="Content\service_ticket_uploads\{107b9c90-1149-4cc2-9101-1006777d0dd5}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{16b91efc-43a3-440e-a444-7218c7c95963}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{16f75d80-88c9-47a0-8fa7-3167fad6c27c}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{19842479-d3af-441f-9bcb-1f81f59976c2}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{1fd655a2-5d33-41eb-a750-d5fe731dcd8e}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{2A33FBDE-0282-4522-A619-99AA3CCEF049}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{2df3941b-f0d4-4376-bb49-67aee8a4bc38}.docx" />
+    <Content Include="Content\service_ticket_uploads\{2eae0da8-8f45-47fb-a3b4-83fd7f0aece1}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{3021fdf2-faf7-4a17-b06f-e00da39d4b1a}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{31012537-6660-4181-9183-949956D6D638}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{382e4aad-de4b-48bf-a224-148582431a25}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{392acf66-4599-4cf8-960b-df286900356e}.docx" />
+    <Content Include="Content\service_ticket_uploads\{39A7B467-B07D-4618-9FC6-7E31CF584005}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{3a27520a-dcb6-45e1-8590-e52f8934d26c}.doc" />
+    <Content Include="Content\service_ticket_uploads\{3b482a9c-ec6c-4848-8c8a-0d2031c72e52}.doc" />
+    <Content Include="Content\service_ticket_uploads\{3F9A7342-949D-45B2-950B-E0BFEFAD11B4}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{4E195778-3570-4C02-A58A-2E9FE195FCF1}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{51339FD4-4A3E-4BC0-BF3D-CDCF57820078}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{57e9c3bb-0d13-48e7-92dc-1fc4842dd6a6}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{5a1cec8c-2629-4d40-8bbc-2568826e7893}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{5F2DBB98-6E9F-4446-8762-61B5C38C53DF}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{615C44A9-9A71-4987-B627-B0FF6A5AEEDD}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{66943835-612b-450d-88e1-468579cd25d6}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{67058956-9dd9-46e5-8b8b-de989a0589e9}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{6707193c-9bd0-4b8a-9076-7ef5f3c6eeb2}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{6ac95554-7b61-4b4e-95fb-769e57c41ff0}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{71658419-32e8-415f-8ea2-8692d939571b}.docx" />
+    <Content Include="Content\service_ticket_uploads\{826B0F64-E596-43C5-A43F-981185C7FB14}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{85c276a0-1e95-488c-8fea-8234fb8ebe28}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{8D91B5A7-93F4-44B9-BEEA-5D25928E9550}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{98455D33-30F9-4D2A-B84F-10AA915B33B7}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{9C3962E2-F470-4ABB-8F1C-254954E62C28}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{9C45CC25-5D49-444A-8D18-A9BC4FBC9AA0}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{a7ce1896-132c-4b0e-a630-72cd3402ea2d}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{aa162878-f24b-4755-b872-e03a109adbd3}.docx" />
+    <Content Include="Content\service_ticket_uploads\{b1c3ec3d-88b0-4b1b-973e-fe97bf529f30}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{b55f3392-5998-42ca-a1b2-e093fc399123}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{c2b49b9d-6e83-493c-97f3-1bc6ede4dfa7}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{c57f9378-d339-495b-8246-7de340cd565a}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{CAB974F5-AEC8-48C9-B233-EE61099E0397}.xls" />
+    <Content Include="Content\service_ticket_uploads\{CB888E4A-A964-4B9B-963B-D342ADC969D5}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{d51151d2-c74d-4603-b271-287749c508b3}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{db45a282-d512-40be-817c-5fbd7e216f73}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{db9f61f6-3a65-4356-b894-188e9574e1ec}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{dbd8f63c-10c0-4afb-961e-f388f30bec7c}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{dd54d4a1-6bbf-4425-857b-3eb3b6e0bb7e}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{ddd3e3a3-c650-4741-b5e6-7d72dfcc5b1b}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{de06317d-331b-4e93-b190-3513f85bea67}.docx" />
+    <Content Include="Content\service_ticket_uploads\{df690b62-4e3b-4423-baea-a406f086abbe}.docx" />
+    <Content Include="Content\service_ticket_uploads\{e6586b55-a934-41e1-a1d4-95e19b2c02c9}.docx" />
+    <Content Include="Content\service_ticket_uploads\{eca5bbde-8efe-4096-9f33-1782604db91c}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{f040c59b-d71a-4e15-89ce-857d84c88321}.pdf" />
+    <Content Include="Content\service_ticket_uploads\{f04506df-3c53-4ed2-ab85-e71914f2165b}.docx" />
+    <Content Include="Content\service_ticket_uploads\{f269b5d7-4377-48ee-a21f-888508dd3a06}.docx" />
+    <Content Include="Content\service_ticket_uploads\{FD7F288C-C0B6-4744-8F3D-F2BE9246D216}.pdf" />
+    <None Include="Properties\PublishProfiles\AAAServiceToArvixe.pubxml" />
+    <None Include="Properties\PublishProfiles\AAAServicetoOak.pubxml" />
+    <None Include="Properties\PublishProfiles\Arvixe.pubxml" />
+    <None Include="Scripts\jquery-2.2.0.intellisense.js" />
+    <Content Include="Scripts\jquery-2.2.0.js" />
+    <Content Include="Scripts\jquery-2.2.0.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Regions\Create.cshtml" />
+    <Content Include="Views\Regions\Delete.cshtml" />
+    <Content Include="Views\Regions\Details.cshtml" />
+    <Content Include="Views\Regions\Edit.cshtml" />
+    <Content Include="Views\Regions\Index.cshtml" />
+    <Content Include="Views\PriorityLists\Create.cshtml" />
+    <Content Include="Views\PriorityLists\Delete.cshtml" />
+    <Content Include="Views\PriorityLists\Details.cshtml" />
+    <Content Include="Views\PriorityLists\Edit.cshtml" />
+    <Content Include="Views\PriorityLists\Index.cshtml" />
+    <Content Include="Views\locationinfoes\Create.cshtml" />
+    <Content Include="Views\locationinfoes\Delete.cshtml" />
+    <Content Include="Views\locationinfoes\Details.cshtml" />
+    <Content Include="Views\locationinfoes\Edit.cshtml" />
+    <Content Include="Views\locationinfoes\Index.cshtml" />
+    <Content Include="Views\StatusLists\Create.cshtml" />
+    <Content Include="Views\StatusLists\Delete.cshtml" />
+    <Content Include="Views\StatusLists\Details.cshtml" />
+    <Content Include="Views\StatusLists\Edit.cshtml" />
+    <Content Include="Views\StatusLists\Index.cshtml" />
+    <Content Include="Views\Shared\_AjaxGridPager.cshtml" />
+    <Content Include="Views\Shared\_GridPager.cshtml" />
+    <Content Include="Views\Shared\_Grid.cshtml" />
+    <Content Include="Views\UsersAdmin\Create.cshtml" />
+    <Content Include="Views\UsersAdmin\Delete.cshtml" />
+    <Content Include="Views\UsersAdmin\Details.cshtml" />
+    <Content Include="Views\UsersAdmin\Edit.cshtml" />
+    <Content Include="Views\UsersAdmin\Index.cshtml" />
+    <Content Include="Views\RolesAdmin\Create.cshtml" />
+    <Content Include="Views\RolesAdmin\Delete.cshtml" />
+    <Content Include="Views\RolesAdmin\Details.cshtml" />
+    <Content Include="Views\RolesAdmin\Edit.cshtml" />
+    <Content Include="Views\RolesAdmin\Index.cshtml" />
+    <Content Include="Views\Home\Maintenance.cshtml" />
+    <Content Include="Views\Home\HVAC.cshtml" />
+    <Content Include="Views\Home\Landscape.cshtml" />
+    <Content Include="Views\Home\FireExt.cshtml" />
+    <Content Include="Views\Home\Help.cshtml" />
+    <Content Include="Views\UserViews\Create.cshtml" />
+    <Content Include="Views\UserViews\Index.cshtml" />
+    <Content Include="Views\BidRequestsBoard\Details.cshtml" />
+    <Content Include="Views\BidRequestsBoard\Index.cshtml" />
+    <Content Include="Views\ServiceTickets\Create.cshtml" />
+    <Content Include="Views\ServiceTickets\Delete.cshtml" />
+    <Content Include="Views\ServiceTickets\Details.cshtml" />
+    <Content Include="Views\ServiceTickets\Edit.cshtml" />
+    <Content Include="Views\ServiceTickets\Index.cshtml" />
+    <Content Include="Views\ServiceBoard\Details.cshtml" />
+    <Content Include="Views\ServiceBoard\Index.cshtml" />
+    <Content Include="Views\BidRequests\Create.cshtml" />
+    <Content Include="Views\BidRequests\Delete.cshtml" />
+    <Content Include="Views\BidRequests\Details.cshtml" />
+    <Content Include="Views\BidRequests\Edit.cshtml" />
+    <Content Include="Views\BidRequests\Index.cshtml" />
+    <Content Include="Views\CreateTicket\NoLocation.cshtml" />
+    <Content Include="Views\CreateTicket\Index.cshtml" />
+    <Content Include="Views\CommentRatings\Create.cshtml" />
+    <Content Include="Views\CommentRatings\Delete.cshtml" />
+    <Content Include="Views\CommentRatings\Details.cshtml" />
+    <Content Include="Views\CommentRatings\Edit.cshtml" />
+    <Content Include="Views\CommentRatings\Index.cshtml" />
+    <Content Include="Views\Comments\Create.cshtml" />
+    <Content Include="Views\Comments\Delete.cshtml" />
+    <Content Include="Views\Comments\Details.cshtml" />
+    <Content Include="Views\Comments\Edit.cshtml" />
+    <Content Include="Views\Comments\Index.cshtml" />
+    <Content Include="Views\CreateBid\Index.cshtml" />
+    <Content Include="Views\CreateBid\NoLocation.cshtml" />
+    <Content Include="Views\Home\BankMaintenance.cshtml" />
+    <Content Include="Views\UpLoadToCalendar\Upload.cshtml" />
+    <Content Include="Views\UpLoadToCalendar\Index.cshtml" />
+    <Content Include="Views\UserLocation\Create.cshtml" />
+    <Content Include="Views\UserLocation\Delete.cshtml" />
+    <Content Include="Views\UserLocation\Details.cshtml" />
+    <Content Include="Views\UserLocation\Edit.cshtml" />
+    <Content Include="Views\UserLocation\Index.cshtml" />
+    <Content Include="Views\ServiceTickets\Upload.cshtml" />
+    <Content Include="Views\Companies\Create.cshtml" />
+    <Content Include="Views\Companies\Delete.cshtml" />
+    <Content Include="Views\Companies\Details.cshtml" />
+    <Content Include="Views\Companies\Edit.cshtml" />
+    <Content Include="Views\Companies\Index.cshtml" />
+    <Content Include="Views\ServiceCategories\Create.cshtml" />
+    <Content Include="Views\ServiceCategories\Delete.cshtml" />
+    <Content Include="Views\ServiceCategories\Details.cshtml" />
+    <Content Include="Views\ServiceCategories\Edit.cshtml" />
+    <Content Include="Views\ServiceCategories\Index.cshtml" />
+    <Content Include="Views\AdminTickets\Create.cshtml" />
+    <Content Include="Views\AdminTickets\Delete.cshtml" />
+    <Content Include="Views\AdminTickets\Details.cshtml" />
+    <Content Include="Views\AdminTickets\Edit.cshtml" />
+    <Content Include="Views\AdminTickets\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+    <Content Include="Scripts\jquery-2.2.0.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52571</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:52571/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

@@ -1,0 +1,90 @@
+﻿<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - ASSETS Customer Service Portal</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Services<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Create Service Request", "Index", "CreateTicket")</li>
+                            <li>@Html.ActionLink("Service Board", "Index", "ServiceBoard")</li>
+                            <li>@Html.ActionLink("Request Bid", "Index", "CreateBid")</li>
+                            <li>@Html.ActionLink("Bid Request Board", "Index", "BidRequestsBoard")</li>
+                            <li>@Html.ActionLink("Submit Comment", "Create", "Comments")</li>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("Emergency Contact", "Contact", "Home")</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Service Schedules<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("HVAC Calendar", "HVAC", "Home")</li>
+                            <li>@Html.ActionLink("Landscape Calendar", "Landscape", "Home")</li>
+                            <li>@Html.ActionLink("Fire Extinguisher Service - Annual", "FireExt", "Home")</li>
+                            <li>@Html.ActionLink("Bank Maintenance Calendar", "BankMaintenance", "Home")</li>
+                            
+                        </ul>
+                    </li>
+
+                    <li>@Html.ActionLink("Help", "Help", "Home")</li>
+@if (Request.IsAuthenticated && User.IsInRole("SiteAdmin"))
+{
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Site Admin<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Admin Service Board", "Index", "AdminTickets")</li>
+                            <li>@Html.ActionLink("Report Builder", "Index", "Regions")</li>
+                            <li>@Html.ActionLink("Manage Service Categories", "Index", "ServiceCategories")</li>
+                            <li>@Html.ActionLink("Manage Companies", "Index", "Companies")</li>
+                            <li>@Html.ActionLink("Manage Regions", "Index", "Regions")</li>
+                            <li>@Html.ActionLink("Manage Locations", "Index", "locationinfoes")</li>
+                            <li>@Html.ActionLink("Manage Priority List", "Index", "PriorityLists")</li>
+                            <li>@Html.ActionLink("Manage Status List", "Index", "StatusLists")</li>
+                            <li>@Html.ActionLink("Manage Comments", "Index", "Comments")</li>
+                            <li>@Html.ActionLink("Manage Roles", "Index", "RolesAdmin")</li>
+                            <li>@Html.ActionLink("Manage Users", "Index", "UsersAdmin")</li>
+                            <li>@Html.ActionLink("Upload Bank Calendar", "Upload", "UpLoadToCalendar")</li>
+                           
+
+                        </ul>
+                    </li>
+}
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+     
+   <div class="container body-content">
+       
+       
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - AAA Companies</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/datetime")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
