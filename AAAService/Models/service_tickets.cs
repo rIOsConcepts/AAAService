@@ -33,6 +33,9 @@ namespace AAAService.Models
         public System.Guid last_updated_by_user_guid { get; set; }
         public string problem_summary { get; set; }
         public string problem_details { get; set; }
+        public string service_location { get; set; }
+        public string CompanyID { get; set; }
+        public string LocationID { get; set; }
         public string location_contact_name { get; set; }
         public string location_contact_phone { get; set; }
         public string location_contact_phone_night { get; set; }

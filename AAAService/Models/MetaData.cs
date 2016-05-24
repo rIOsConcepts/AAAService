@@ -28,6 +28,10 @@ namespace AAAService.Models
         public string problem_details ;
 
         [Required]
+        [Display(Name = "Company")]
+        public string CompanyID;
+
+        [Required]
         [Display(Name = "Requester")]
         public string location_contact_name ;
         [Required]

@@ -120,7 +120,9 @@ namespace AAAService.Controllers
             ViewBag.DayPhone = phones[0];
             ViewBag.NightPhone = phones[1];
 
-
+            ViewBag.CompanyID = new SelectList(db.Companies.Where(o => o.active == true), "guid", "Name");
+            ViewBag.LocationID = new SelectList(db.locationinfoes.Where(o => o.active == true && o.parentguid.ToString() == "43EC4061-81AD-49E5-B5EA-05A543495A16"), "guid", "Name");
+            //ViewBag.LocationDD = new SelectList(db.locationinfoes.Where(o => o.active == true).OrderBy(o => o.name), "guid", "name", service_tickets.service_location_guid);
             ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true), "ID", "Name");
             ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.active == true), "ID", "Name");
             ViewBag.StatusID = new SelectList(db.StatusLists.Where(o => o.active == true), "ID", "Name");
@@ -132,7 +134,7 @@ namespace AAAService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "problem_summary,problem_details,location_contact_name,location_contact_phone,location_contact_phone_night,cost_code,EQmodel,EQserial,EQProbDesc,service_provider,cust_po_num,CategoryID,Region,PriorityID,StatusName,StatusID,Location,City")] service_tickets service_tickets)
+        public ActionResult Create([Bind(Include = "problem_summary,problem_details,CompanyID,LocationID,location_contact_name,location_contact_phone,location_contact_phone_night,cost_code,EQmodel,EQserial,EQProbDesc,service_provider,cust_po_num,CategoryID,Region,PriorityID,StatusName,StatusID,Location,City")] service_tickets service_tickets)
         {
             var mynewguid = TempData["LocationGuid"].ToString();
             Guid mytest = Guid.Parse(mynewguid);
