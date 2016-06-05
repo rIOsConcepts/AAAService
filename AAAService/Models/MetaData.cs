@@ -1,11 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace AAAService.Models
 {
     public class service_ticketsMetadata
     {
-        
         [Display(Name = "Job#")]
         public int job_number;
 
@@ -279,15 +280,15 @@ namespace AAAService.Models
 
     }
 
-   /* public partial class StatusListMetadata
-    {
-        [Display(Name = "Code")]
-        public string code ;
-        [Display(Name = "Old List#")]
-        public Nullable<int> list_num ;
-        [Display(Name = "Active")]
-        public Nullable<bool> active ;
+    /* public partial class StatusListMetadata
+     {
+         [Display(Name = "Code")]
+         public string code ;
+         [Display(Name = "Old List#")]
+         public Nullable<int> list_num ;
+         [Display(Name = "Active")]
+         public Nullable<bool> active ;
 
-    }*/
+     }*/
 
-    }
+}

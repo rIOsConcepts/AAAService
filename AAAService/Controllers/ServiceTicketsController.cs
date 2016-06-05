@@ -23,7 +23,16 @@ namespace AAAService.Controllers
             var service_tickets = db.service_tickets.Include(s => s.PriorityList).Include(s => s.ServiceCategory1).Include(s => s.StatusList);
             return View();
         }
-         public ActionResult Upload()
+
+        //Action result for ajax call
+        [HttpPost]
+        public ActionResult GetServiceLocation(string companyGUID)
+        {
+            SelectList obg = new SelectList(db.locationinfoes.Where(o => o.parentguid.ToString() == companyGUID && o.active == true), "guid", "Name");
+            return Json(obg);
+        }
+
+        public ActionResult Upload()
 
         {
             return View();
@@ -121,12 +130,15 @@ namespace AAAService.Controllers
             ViewBag.NightPhone = phones[1];
 
             ViewBag.CompanyID = new SelectList(db.Companies.Where(o => o.active == true), "guid", "Name");
-            ViewBag.LocationID = new SelectList(db.locationinfoes.Where(o => o.active == true && o.parentguid.ToString() == "43EC4061-81AD-49E5-B5EA-05A543495A16"), "guid", "Name");
             //ViewBag.LocationDD = new SelectList(db.locationinfoes.Where(o => o.active == true).OrderBy(o => o.name), "guid", "name", service_tickets.service_location_guid);
+            //ViewBag.LocationID = new SelectList(db.locationinfoes.Where(o => o.active == true && o.parentguid.ToString() == "43EC4061-81AD-49E5-B5EA-05A543495A16"), "guid", "Name");
+            ViewBag.LocationID = new SelectList(db.locationinfoes.Where(o => o.active == true), "guid", "Name");
             ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true), "ID", "Name");
             ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.active == true), "ID", "Name");
             ViewBag.StatusID = new SelectList(db.StatusLists.Where(o => o.active == true), "ID", "Name");
             return View();
+
+            //return View(new Tuple<AAAService.Models.CountryModel, AAAService.Models.service_tickets>(objcountrymodel, new service_tickets()));
         }
 
         // POST: ServiceTickets/Create
