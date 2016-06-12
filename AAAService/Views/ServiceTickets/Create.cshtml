@@ -1,4 +1,5 @@
-﻿@model Tuple<AAAService.Models.service_tickets, AAAService.Models.service_tickets>
+﻿@*@model Tuple<AAAService.Models.service_tickets, AAAService.Models.service_tickets>*@
+@model AAAService.Models.service_tickets
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
@@ -19,33 +20,34 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-group">
-            @Html.LabelFor(tuple => tuple.Item2.CompanyID, "Company", htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(tuple => tuple.item2.CompanyID, "Company", htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @Html.LabelFor(model => model.CompanyID, "Company", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("CompanyID", null, "Select Company", htmlAttributes: new { @id = "CompanyID", @class = "form-control", @onchange = "javascript:GetServiceLocation(this.value);" })
+                @Html.DropDownList("CompanyList", null, "Please Choose", htmlAttributes: new { @id = "CompanyList", @class = "form-control", @onchange = "javascript:GetServiceLocation(this.value);" })
                 @*@Html.DropDownListFor(tuple => tuple.Item1.StateModel, new SelectList(Model.Item1.StateModel, "Id", "StateName"), new { @id = "ddlcompany", @style = "width:200px;", @onchange = "javascript:GetServiceLocation(this.value);" })*@
-                @Html.ValidationMessageFor(tuple => tuple.Item2.PriorityID, "", new { @class = "text-danger" })                
+                @Html.ValidationMessageFor(model => model.CompanyID, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(tuple => tuple.Item2.Location, "Service Location", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Location, "Service Location", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @*@Html.DropDownList("LocationID", null, "Please Choose", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.PriorityID, "", new { @class = "text-danger" })*@
-                <select class="form-control" id="ddlservicelocation" name="ddlservicelocation" style="width: 200px"></select>
+                <select class="form-control" id="ddlservicelocation" name="ddlservicelocation" style="width: 200px" onchange = "javascript:SetServiceLocation(this.value)"></select>
             </div>            
         </div>
         <div class="form-group">
-            @Html.LabelFor(tuple => tuple.Item2.location_contact_name, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.location_contact_name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(tuple => tuple.Item2.location_contact_name, new { htmlAttributes = new { @Value = ViewBag.FullName, @class = "form-control" } })
-                @Html.ValidationMessageFor(tuple => tuple.Item2.location_contact_name, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.location_contact_name, new { htmlAttributes = new { @Value = ViewBag.FullName, @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.location_contact_name, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(tuple => tuple.Item2.location_contact_phone, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.location_contact_phone, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(tuple => tuple.Item2.location_contact_phone, new { htmlAttributes = new { @Value = ViewBag.DayPhone, @class = "form-control" } })
-                @Html.ValidationMessageFor(tuple => tuple.Item2.location_contact_phone, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.location_contact_phone, new { htmlAttributes = new { @Value = ViewBag.DayPhone, @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.location_contact_phone, "", new { @class = "text-danger" })
             </div>
         </div>
         <div id="monikersam" style="display:none" ;>
@@ -65,79 +67,79 @@
             </div>
         </div>
             <div class="form-group">
-                @Html.LabelFor(tuple => tuple.Item2.location_contact_phone_night, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.location_contact_phone_night, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(tuple => tuple.Item2.location_contact_phone_night, new { htmlAttributes = new { @Value = ViewBag.NightPhone , @class = "form-control" } })
-                    @Html.ValidationMessageFor(tuple => tuple.Item2.location_contact_phone_night, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.location_contact_phone_night, new { htmlAttributes = new { @Value = ViewBag.NightPhone , @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.location_contact_phone_night, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(tuple => tuple.Item2.cust_po_num, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.cust_po_num, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(tuple => tuple.Item2.cust_po_num, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(tuple => tuple.Item2.cust_po_num, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.cust_po_num, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.cust_po_num, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(tuple => tuple.Item2.cost_code, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.cost_code, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(tuple => tuple.Item2.cost_code, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(tuple => tuple.Item2.cost_code, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.cost_code, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.cost_code, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(tuple => tuple.Item2.PriorityID, "Priority Level", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.PriorityID, "Priority Level", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.DropDownList("PriorityID", null, "Please Choose", htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(tuple => tuple.Item2.PriorityID, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.PriorityID, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(tuple => tuple.Item2.CategoryID, "Service Category", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.CategoryID, "Service Category", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.DropDownList("CategoryID", null, "Please Choose", htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(tuple => tuple.Item2.CategoryID, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div id="EQ" display none;>
                 <div class="form-group">
-                    @Html.LabelFor(tuple => tuple.Item2.EQmodel, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.EQmodel, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(tuple => tuple.Item2.EQmodel, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(tuple => tuple.Item2.EQmodel, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.EQmodel, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.EQmodel, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(tuple => tuple.Item2.EQserial, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.EQserial, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(tuple => tuple.Item2.EQserial, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(tuple => tuple.Item2.EQserial, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.EQserial, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.EQserial, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(tuple => tuple.Item2.EQProbDesc, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.EQProbDesc, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(tuple => tuple.Item2.EQProbDesc, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(tuple => tuple.Item2.EQProbDesc, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.EQProbDesc, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.EQProbDesc, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(tuple => tuple.Item2.problem_summary, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.problem_summary, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(tuple => tuple.Item2.problem_summary, new { htmlAttributes = new { @class = "form-control", @rows = "10" } })
-                    @Html.ValidationMessageFor(tuple => tuple.Item2.problem_summary, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.problem_summary, new { htmlAttributes = new { @class = "form-control", @rows = "10" } })
+                    @Html.ValidationMessageFor(model => model.problem_summary, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(tuple => tuple.Item2.problem_details, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.problem_details, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.TextAreaFor(tuple => tuple.Item2.problem_details, htmlAttributes: new { @class = "form-control", @rows = "10" })
-                    @Html.ValidationMessageFor(tuple => tuple.Item2.problem_details, "", new { @class = "text-danger" })
+                    @Html.TextAreaFor(model => model.problem_details, htmlAttributes: new { @class = "form-control", @rows = "10" })
+                    @Html.ValidationMessageFor(model => model.problem_details, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -331,6 +333,8 @@ $(document).ready(
       $('#PriStatus').text(newText);
       $("#monikersam").hide();
   })
+
+  GetServiceLocation("@ViewBag.CompanyGUID");
 });
 </script>
 
@@ -346,11 +350,34 @@ $(document).ready(
             cache: false,
             type: "POST",
             success: function (data) {
-                var markup = "<option value='0'>Select Service Location</option>";
+                var markup = "<option value='0'>Please Choose</option>";
+
                 for (var x = 0; x < data.length; x++) {
-                    markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                    if (data[x].Value == "@ViewBag.LocationName") {
+                        markup += "<option value=" + data[x].Value + " selected>" + data[x].Text + "</option>";
+                    }
+                    else {
+                        markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                    }
                 }
+
                 $("#ddlservicelocation").html(markup).show();
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+    }
+
+    function SetServiceLocation(_locationGUID) {
+        var url = "/ServiceTickets/SetServiceLocation/";
+
+        $.ajax({
+            url: url,
+            data: { locationGUID: _locationGUID },
+            cache: false,
+            type: "POST",
+            success: function (data) {
             },
             error: function (reponse) {
                 alert("error : " + reponse);

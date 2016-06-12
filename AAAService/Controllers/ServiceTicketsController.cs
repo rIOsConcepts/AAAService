@@ -31,6 +31,11 @@ namespace AAAService.Controllers
             SelectList obg = new SelectList(db.locationinfoes.Where(o => o.parentguid.ToString() == companyGUID && o.active == true), "guid", "Name");
             return Json(obg);
         }
+        public ActionResult SetServiceLocation(string locationGUID)
+        {
+            TempData["LocationGuid"] = locationGUID;
+            return null;
+        }
 
         public ActionResult Upload()
 
@@ -47,7 +52,7 @@ namespace AAAService.Controllers
             var myticketguid = TempData["TicketGuid"].ToString();
             Guid newTicketGuid = Guid.Parse(myticketguid);
             string filenameguid = myNewGuid.ToString("B");
-            
+
 
 
             try
@@ -56,19 +61,19 @@ namespace AAAService.Controllers
 
 
                 {
-                   
+
                     var fileName = Path.GetFileName(file.FileName);
-                   
+
                     string fileExtension = Path.GetExtension(fileName);
                     //long fileSize2 = new FileInfo(Path.GetFileName(file.FileName)).Length;
                     var fileSize = file.ContentLength;
 
-                    var path = Path.Combine(Server.MapPath("~/Content/service_ticket_uploads"), filenameguid+ fileExtension);
+                    var path = Path.Combine(Server.MapPath("~/Content/service_ticket_uploads"), filenameguid + fileExtension);
                     file.SaveAs(path);
                     using (var db = new aaahelpEntities())
                     {
                         var tickets = db.Set<service_ticket_files>();
-                        tickets.Add(new service_ticket_files { guid = myNewGuid, ticket_guid = newTicketGuid, date_in = DateTime.Now, active = true, file_name= fileName, file_ext = fileExtension, file_size = fileSize, user_guid = myuserguid });
+                        tickets.Add(new service_ticket_files { guid = myNewGuid, ticket_guid = newTicketGuid, date_in = DateTime.Now, active = true, file_name = fileName, file_ext = fileExtension, file_size = fileSize, user_guid = myuserguid });
 
                         db.SaveChanges();
                     }
@@ -119,7 +124,7 @@ namespace AAAService.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //var myguid = id;
-            
+
             TempData["LocationGuid"] = id;
             //var myloc = Helpers.SvcHelper.getParentGuid(id);
             // TempData["ParentLocation"] = ;
@@ -129,16 +134,36 @@ namespace AAAService.Controllers
             ViewBag.DayPhone = phones[0];
             ViewBag.NightPhone = phones[1];
 
-            ViewBag.CompanyID = new SelectList(db.Companies.Where(o => o.active == true), "guid", "Name");
-            //ViewBag.LocationDD = new SelectList(db.locationinfoes.Where(o => o.active == true).OrderBy(o => o.name), "guid", "name", service_tickets.service_location_guid);
-            //ViewBag.LocationID = new SelectList(db.locationinfoes.Where(o => o.active == true && o.parentguid.ToString() == "43EC4061-81AD-49E5-B5EA-05A543495A16"), "guid", "Name");
-            ViewBag.LocationID = new SelectList(db.locationinfoes.Where(o => o.active == true), "guid", "Name");
+            var companyGUID = db.locationinfoes.Where(o => o.active == true && o.guid.ToString() == id.ToString()).ToList()[0].parentguid;
+            //var companyName = db.Companies.Where(o => o.active == true && o.guid.ToString() == companyGUID).ToList()[0].name;
+            var companyList = CompanyList(companyGUID);
+            ViewBag.CompanyList = companyList;
+            //TempData["CompanyGUID"] = companyGUID;
+            ViewBag.CompanyGUID = companyGUID;
+            //ViewBag.LocationName = db.locationinfoes.Where(o => o.active == true && o.guid.ToString() == id.ToString()).ToList()[0].name;
+            ViewBag.LocationName = id;
+            //ViewBag.LocationDD = new SelectList(db.locationinfoes.Where(o => o.active == true).OrderBy(o => o.name), "guid", "name", service_tickets.service_location_guid);            
             ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true), "ID", "Name");
             ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.active == true), "ID", "Name");
             ViewBag.StatusID = new SelectList(db.StatusLists.Where(o => o.active == true), "ID", "Name");
             return View();
-
             //return View(new Tuple<AAAService.Models.CountryModel, AAAService.Models.service_tickets>(objcountrymodel, new service_tickets()));
+        }
+
+        internal List<SelectListItem> CompanyList(Guid? companyGUID)
+        {
+            var selectList = new SelectList(db.Companies.Where(o => o.active == true), "guid", "Name").ToList();
+
+            foreach (var item in selectList)
+            {
+                if (item.Value == companyGUID.ToString())
+                {
+                    item.Selected = true;
+                    break;
+                }
+            }
+
+            return selectList;
         }
 
         // POST: ServiceTickets/Create
@@ -148,17 +173,18 @@ namespace AAAService.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "problem_summary,problem_details,CompanyID,LocationID,location_contact_name,location_contact_phone,location_contact_phone_night,cost_code,EQmodel,EQserial,EQProbDesc,service_provider,cust_po_num,CategoryID,Region,PriorityID,StatusName,StatusID,Location,City")] service_tickets service_tickets)
         {
-            var mynewguid = TempData["LocationGuid"].ToString();
-            Guid mytest = Guid.Parse(mynewguid);
+            var id = TempData.Peek("LocationGuid");
+            Guid locationGUID = Guid.Parse(id.ToString());
             var mySvcCat = Request.Form["SvcCat"];
             var myPriStatus = Request.Form["PriStatus"];
+            var myPriorityID = int.Parse(Request.Form["PriorityID"]);
 
 
-            var found = db.locationinfoes.FirstOrDefault(u => u.guid.Equals(mytest));
+            var found = db.locationinfoes.FirstOrDefault(u => u.guid.Equals(locationGUID));
             var LocationName = found.name;
             var ParentLoactionGuid = found.parentguid.ToString();
-            Guid mypappy = Guid.Parse(ParentLoactionGuid);
-            var LocationRegion = found.region;     
+            Guid parentGUID = Guid.Parse(ParentLoactionGuid);
+            var LocationRegion = found.region;
             var LocationCity = found.city;
             var LastUserGUID = Helpers.UserHelper.getUserGuid();
             int maxNumID = Helpers.SvcHelper.getSvcIDMax() + 1;
@@ -171,13 +197,14 @@ namespace AAAService.Controllers
                 service_tickets.id = maxNumID;
                 service_tickets.job_number = maxNumST;
                 service_tickets.created_by_user_guid = LastUserGUID;
-                service_tickets.parent_company_guid = mypappy;
-                service_tickets.service_location_guid = mytest;
+                service_tickets.parent_company_guid = parentGUID;
+                service_tickets.service_location_guid = locationGUID;
                 service_tickets.last_updated_by_user_guid = LastUserGUID;
                 service_tickets.last_update_datetime = DateTime.Now;
                 service_tickets.order_datetime = DateTime.Now;
                 service_tickets.ServiceCategory = mySvcCat;
-                service_tickets.PriorityStatus = myPriStatus;
+                //service_tickets.PriorityStatus = myPriStatus;
+                service_tickets.PriorityStatus = db.PriorityLists.Where(o => o.active == true && o.ID == myPriorityID).ToList()[0].Name;
                 service_tickets.StatusID = 9;
                 service_tickets.StatusName = "Open";
                 service_tickets.active = true;
@@ -188,10 +215,17 @@ namespace AAAService.Controllers
                 db.service_tickets.Add(service_tickets);
 
                 db.SaveChanges();
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
-            
-            ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o=> o.active == true), "ID", "Name", service_tickets.PriorityStatus);
+
+            var companyList = CompanyList(parentGUID);
+            ViewBag.CompanyList = companyList;
+            ViewBag.CompanyGUID = parentGUID;
+            ViewBag.LocationName = locationGUID;
+            ViewBag.FullName = service_tickets.location_contact_name;
+            ViewBag.DayPhone = service_tickets.location_contact_phone;
+            ViewBag.NightPhone = service_tickets.location_contact_phone_night;
+            ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true), "ID", "Name", service_tickets.PriorityStatus);
             ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.active == true), "ID", "Name", service_tickets.ServiceCategory);
             ViewBag.StatusID = new SelectList(db.StatusLists.Where(o => o.active == true), "ID", "Name", service_tickets.StatusName);
             return View(service_tickets);
@@ -204,13 +238,13 @@ namespace AAAService.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            
+
 
             service_tickets service_tickets = db.service_tickets.Find(id);
             ViewBag.CreatedBy = Helpers.SvcHelper.getCreatedby(service_tickets.created_by_user_guid);
             TempData["TicketGuid"] = id;
             ViewBag.TicketNumber = service_tickets.job_number;
-            
+
             if (service_tickets == null)
             {
                 return HttpNotFound();
@@ -245,7 +279,8 @@ namespace AAAService.Controllers
             var myProblems = Request.Form["problem_details"];
             string myNotes3 = "";
             if (myNotes != "")
-            { myNotes3 = myProblems + System.Environment.NewLine + System.Environment.NewLine + myNotes2;
+            {
+                myNotes3 = myProblems + System.Environment.NewLine + System.Environment.NewLine + myNotes2;
             }
             else
             {
@@ -261,7 +296,7 @@ namespace AAAService.Controllers
                     ticketToUpdate.last_updated_by_user_guid = lastuserguid;
                     db.SaveChanges();
 
-                    return RedirectToAction("Index","Home");
+                    return RedirectToAction("Index", "Home");
                 }
                 catch (DataException /* dex */)
                 {

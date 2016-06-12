@@ -28,9 +28,9 @@ namespace AAAService.Models
         [Display(Name = "Problem Details")]
         public string problem_details ;
 
-        [Required]
-        [Display(Name = "Company")]
-        public string CompanyID;
+        //[Required]
+        //[Display(Name = "Company")]
+        //public string CompanyID;
 
         [Required]
         [Display(Name = "Requester")]
