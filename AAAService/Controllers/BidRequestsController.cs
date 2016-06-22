@@ -103,8 +103,9 @@ namespace AAAService.Controllers
             }
             bid_requests bid_requests = db.bid_requests.Find(id);
             
-            ViewBag.PriorityID = new SelectList(db.PriorityLists, "ID", "Name", bid_requests.PriorityID);
-            
+            ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true), "ID", "Name", bid_requests.PriorityID);
+            ViewBag.StatusID = new SelectList(db.StatusLists.Where(o => o.active == true), "ID", "Name", bid_requests.StatusID);
+
             return View(bid_requests);
         }
 
@@ -129,6 +130,12 @@ namespace AAAService.Controllers
                 {
                     bidToUpdate.last_updated_by_user_guid = mylastuserguid;
                     bidToUpdate.last_update_datetime = DateTime.Now;
+                    var priorityID = int.Parse(Request.Form["PriorityID"]);
+                    bidToUpdate.PriorityID = priorityID;
+                    bidToUpdate.PriorityStatus = db.PriorityLists.Where(o => o.active == true && o.ID == priorityID).ToList()[0].Name;
+                    var statusID = int.Parse(Request.Form["StatusID"]);
+                    bidToUpdate.StatusID = statusID;
+                    bidToUpdate.StatusName = db.StatusLists.Where(o => o.active == true && o.ID == statusID).ToList()[0].Name;
                     db.SaveChanges();
 
                     return RedirectToAction("Index");
