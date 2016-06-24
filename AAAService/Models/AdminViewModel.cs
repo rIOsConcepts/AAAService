@@ -40,5 +40,7 @@ namespace AAAService.Models
 
        
         public IEnumerable<SelectListItem> RolesList { get; set; }
+        [Display(Name = "Status")]
+        public Nullable<int> StatusID;
     }
 }

@@ -59,6 +59,7 @@ namespace AAAService.Models
         public virtual DbSet<service_tickets_viewMVC> service_tickets_viewMVC { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<ServiceCategory> ServiceCategories { get; set; }
+        public virtual DbSet<OtherStatusList> OtherStatusLists { get; set; }
     
         public virtual ObjectResult<ParentLocationInfoFromUsrGUID_Result> ParentLocationInfoFromUsrGUID(Nullable<System.Guid> usrGUID)
         {

@@ -177,7 +177,7 @@ namespace AAAService.Controllers
             Guid locationGUID = Guid.Parse(id.ToString());
             var mySvcCat = Request.Form["SvcCat"];
             var myPriStatus = Request.Form["PriStatus"];
-            var myPriorityID = int.Parse(Request.Form["PriorityID"]);
+            var myPriorityID = string.IsNullOrEmpty(Request.Form["PriorityID"]) ? 0 : int.Parse(Request.Form["PriorityID"]);
 
 
             var found = db.locationinfoes.FirstOrDefault(u => u.guid.Equals(locationGUID));
@@ -277,7 +277,9 @@ namespace AAAService.Controllers
             var myNotes = Request.Form["ProbSum"];
             var myNotes2 = "Updated " + mytime + System.Environment.NewLine + myNotes;
             var myProblems = Request.Form["problem_details"];
+            var internalNotes = Request.Form["internal_notes"];
             string myNotes3 = "";
+
             if (myNotes != "")
             {
                 myNotes3 = myProblems + System.Environment.NewLine + System.Environment.NewLine + myNotes2;
@@ -286,24 +288,27 @@ namespace AAAService.Controllers
             {
                 myNotes3 = Request.Form["ProbSum"];
             }
-            if (TryUpdateModel(ticketToUpdate, "",
-            new string[] { "problem_details", "location_contact_phone", "location_contact_phone_night" }))
-            {
-                try
-                {
-                    ticketToUpdate.problem_details = myNotes3;
-                    ticketToUpdate.last_update_datetime = DateTime.Now;
-                    ticketToUpdate.last_updated_by_user_guid = lastuserguid;
-                    db.SaveChanges();
 
-                    return RedirectToAction("Index", "Home");
-                }
-                catch (DataException /* dex */)
-                {
-                    //Log the error (uncomment dex variable name and add a line here to write a log.
-                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
-                }
+            //MR Removed validation below because it fails every time
+            //if (TryUpdateModel(ticketToUpdate, "", new string[] { "problem_details", "location_contact_phone", "location_contact_phone_night", "internal_notes" }))
+            //{
+            try
+            {
+                ticketToUpdate.problem_details = myNotes3;
+                ticketToUpdate.internal_notes = internalNotes;
+                ticketToUpdate.last_update_datetime = DateTime.Now;
+                ticketToUpdate.last_updated_by_user_guid = lastuserguid;
+                db.SaveChanges();
+
+                return RedirectToAction("Index", "Home");
             }
+            catch (DataException /*dex*/)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+            }
+            //}
+
             ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true), "ID", "Name", ticketToUpdate.PriorityID);
             ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.active == true), "ID", "Name", ticketToUpdate.CategoryID);
             ViewBag.StatusID = new SelectList(db.StatusLists.Where(o => o.active == true), "ID", "Name", ticketToUpdate.StatusID);

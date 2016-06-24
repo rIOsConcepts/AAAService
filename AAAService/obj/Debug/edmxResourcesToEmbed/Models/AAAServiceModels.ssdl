@@ -149,6 +149,15 @@
     <Property Name="active" Type="bit" Nullable="false" />
     <Property Name="RegionID" Type="int" />
   </EntityType>
+  <EntityType Name="OtherStatusList">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Value" Type="smallint" Nullable="false" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
   <EntityType Name="phone_num">
     <Key>
       <PropertyRef Name="guid" />
@@ -766,6 +775,7 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
     <EntitySet Name="errors_and_comments" EntityType="Self.errors_and_comments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Location_Service_Provider" EntityType="Self.Location_Service_Provider" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="locationinfo" EntityType="Self.locationinfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OtherStatusList" EntityType="Self.OtherStatusList" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="phone_num" EntityType="Self.phone_num" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Phone_Numbers" EntityType="Self.Phone_Numbers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PriorityList" EntityType="Self.PriorityList" Schema="dbo" store:Type="Tables" />

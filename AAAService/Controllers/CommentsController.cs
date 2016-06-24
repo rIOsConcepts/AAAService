@@ -53,6 +53,12 @@ namespace AAAService.Controllers
             if (ModelState.IsValid)
             {
                 errors_and_comments.guid = Guid.NewGuid();
+                errors_and_comments.ID = db.errors_and_comments.Max(x => x.ID) + 1;
+                errors_and_comments.comment_datetime = DateTime.Now;
+                errors_and_comments.comment_type = "Comment";
+                errors_and_comments.userguid = Helpers.UserHelper.getUserGuid();
+                errors_and_comments.active = true;
+                errors_and_comments.ratings = db.CommentRatings.Where(o => o.RatingID == errors_and_comments.RatingID).ToList()[0].RatingValue;
                 db.errors_and_comments.Add(errors_and_comments);
                 db.SaveChanges();
                 return RedirectToAction("Index");

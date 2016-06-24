@@ -52,6 +52,7 @@
         <AssociationConnector Association="aaahelpModel.FK_bid_requests_Company" />
         <AssociationConnector Association="aaahelpModel.FK_locationinfo_Company" />
         <AssociationConnector Association="aaahelpModel.FK_service_tickets_category" />
+        <EntityTypeShape EntityType="aaahelpModel.OtherStatusList" Width="1.5" PointX="13.5" PointY="9" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

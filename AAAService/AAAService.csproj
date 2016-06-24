@@ -284,6 +284,9 @@
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MetaData.cs" />
+    <Compile Include="Models\OtherStatusList.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ParentLocationInfoFromUsrGUID_Result.cs">
       <DependentUpon>AAAServiceModels.tt</DependentUpon>
     </Compile>

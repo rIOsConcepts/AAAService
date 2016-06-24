@@ -16,6 +16,8 @@ namespace AAAService.Controllers
     [Authorize(Roles = "SiteAdmin")]
     public class UsersAdminController : Controller
     {
+        private aaahelpEntities db = new aaahelpEntities();
+
         public UsersAdminController()
         {
         }
@@ -138,6 +140,7 @@ namespace AAAService.Controllers
             }
 
             var userRoles = await UserManager.GetRolesAsync(user.Id);
+            ViewBag.StatusID = new SelectList(db.OtherStatusLists.Where(o => o.Active == true), "Value", "Name", user.account_status);
 
             return View(new EditUserViewModel()
             {
@@ -176,8 +179,10 @@ namespace AAAService.Controllers
                 user.fname = editUser.fname;
                 user.lname = editUser.lname;
                 user.title = editUser.title;
+                var statusID = int.Parse(Request.Form["StatusID"]);
+                user.account_status = statusID;
 
-                
+
                 var userRoles = await UserManager.GetRolesAsync(user.Id);
 
                 selectedRole = selectedRole ?? new string[] { };

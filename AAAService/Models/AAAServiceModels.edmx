@@ -154,6 +154,15 @@
           <Property Name="active" Type="bit" Nullable="false" />
           <Property Name="RegionID" Type="int" />
         </EntityType>
+        <EntityType Name="OtherStatusList">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Value" Type="smallint" Nullable="false" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
         <EntityType Name="phone_num">
           <Key>
             <PropertyRef Name="guid" />
@@ -798,6 +807,7 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
           <EntitySet Name="errors_and_comments" EntityType="Self.errors_and_comments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Location_Service_Provider" EntityType="Self.Location_Service_Provider" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="locationinfo" EntityType="Self.locationinfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OtherStatusList" EntityType="Self.OtherStatusList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="phone_num" EntityType="Self.phone_num" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Phone_Numbers" EntityType="Self.Phone_Numbers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PriorityList" EntityType="Self.PriorityList" Schema="dbo" store:Type="Tables" />
@@ -1265,6 +1275,7 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
             <End Role="ServiceCategory" EntitySet="ServiceCategories" />
             <End Role="service_tickets" EntitySet="service_tickets" />
           </AssociationSet>
+          <EntitySet Name="OtherStatusLists" EntityType="aaahelpModel.OtherStatusList" />
           </EntityContainer>
         <EntityType Name="service_boardNew">
           <Key>
@@ -1954,6 +1965,15 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="OtherStatusList">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Value" Type="Int16" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2535,6 +2555,16 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
                 <ScalarProperty Name="OldCode" ColumnName="OldCode" />
                 <ScalarProperty Name="CfdataCode" ColumnName="CfdataCode" />
                 <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OtherStatusLists">
+            <EntityTypeMapping TypeName="aaahelpModel.OtherStatusList">
+              <MappingFragment StoreEntitySet="OtherStatusList">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>

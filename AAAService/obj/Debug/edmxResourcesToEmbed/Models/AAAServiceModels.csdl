@@ -188,6 +188,7 @@
       <End Role="ServiceCategory" EntitySet="ServiceCategories" />
       <End Role="service_tickets" EntitySet="service_tickets" />
     </AssociationSet>
+    <EntitySet Name="OtherStatusLists" EntityType="aaahelpModel.OtherStatusList" />
   </EntityContainer>
   <EntityType Name="service_boardNew">
     <Key>
@@ -877,4 +878,13 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="OtherStatusList">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+    <Property Name="Value" Type="Int16" Nullable="false" />
+  </EntityType>
 </Schema>
