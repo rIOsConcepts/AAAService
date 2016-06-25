@@ -96,7 +96,10 @@ namespace AAAService.Controllers
             {
                 var userguid = Guid.NewGuid();
                 var user = new ApplicationUser { UserName = userViewModel.Email, Email = userViewModel.Email,fname = userViewModel.fname,lname = userViewModel.lname,title= userViewModel.title,guid = userguid };
-                var adminresult = await UserManager.CreateAsync(user, userViewModel.Password);
+                
+                // Create user active by default (per request on 6/23/2016)
+                user.account_status = 1;
+                var adminresult = await UserManager.CreateAsync(user, userViewModel.Password);                
 
                 //Add User to the selected Roles 
                 if (adminresult.Succeeded)

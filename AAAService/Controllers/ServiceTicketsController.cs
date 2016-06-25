@@ -274,40 +274,46 @@ namespace AAAService.Controllers
             var ticketToUpdate = db.service_tickets.Find(id);
             var lastuserguid = Helpers.UserHelper.getUserGuid();
             var mytime = DateTime.Now.ToString();
-            var myNotes = Request.Form["ProbSum"];
-            var myNotes2 = "Updated " + mytime + System.Environment.NewLine + myNotes;
-            var myProblems = Request.Form["problem_details"];
-            var internalNotes = Request.Form["internal_notes"];
-            string myNotes3 = "";
+            var newNotes = Request.Form["ProbSum"];
 
-            if (myNotes != "")
+            if (newNotes != "")
             {
-                myNotes3 = myProblems + System.Environment.NewLine + System.Environment.NewLine + myNotes2;
+                var problem_details = Request.Form["problem_details"];
+                var internalNotes = Request.Form["internal_notes"];
+
+                if (problem_details != "")
+                {
+                    problem_details = "Updated " + mytime + System.Environment.NewLine + newNotes + System.Environment.NewLine + System.Environment.NewLine + problem_details;
+                }
+                else
+                {
+                    problem_details = Request.Form["ProbSum"];
+                }
+
+                //MR Removed validation below because it fails every time
+                //if (TryUpdateModel(ticketToUpdate, "", new string[] { "problem_details", "location_contact_phone", "location_contact_phone_night", "internal_notes" }))
+                //{
+                    try
+                    {
+                        ticketToUpdate.problem_details = problem_details;
+                        ticketToUpdate.internal_notes = internalNotes;
+                        ticketToUpdate.last_update_datetime = DateTime.Now;
+                        ticketToUpdate.last_updated_by_user_guid = lastuserguid;
+                        db.SaveChanges();
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                    catch (DataException /*dex*/)
+                    {
+                        //Log the error (uncomment dex variable name and add a line here to write a log.
+                        ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                    }
+                //}
             }
             else
             {
-                myNotes3 = Request.Form["ProbSum"];
-            }
-
-            //MR Removed validation below because it fails every time
-            //if (TryUpdateModel(ticketToUpdate, "", new string[] { "problem_details", "location_contact_phone", "location_contact_phone_night", "internal_notes" }))
-            //{
-            try
-            {
-                ticketToUpdate.problem_details = myNotes3;
-                ticketToUpdate.internal_notes = internalNotes;
-                ticketToUpdate.last_update_datetime = DateTime.Now;
-                ticketToUpdate.last_updated_by_user_guid = lastuserguid;
-                db.SaveChanges();
-
                 return RedirectToAction("Index", "Home");
             }
-            catch (DataException /*dex*/)
-            {
-                //Log the error (uncomment dex variable name and add a line here to write a log.
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
-            }
-            //}
 
             ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true), "ID", "Name", ticketToUpdate.PriorityID);
             ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.active == true), "ID", "Name", ticketToUpdate.CategoryID);

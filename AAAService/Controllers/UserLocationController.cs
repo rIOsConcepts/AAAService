@@ -17,7 +17,7 @@ namespace AAAService.Controllers
         // GET: UserLocation
         public ActionResult Index()
         {
-            var user_to_location = db.user_to_location.Include(u => u.locationinfo);
+            var user_to_location = db.user_to_location.Include(u => u.locationinfo);            
             return View(user_to_location.ToList());
         }
 
@@ -39,10 +39,10 @@ namespace AAAService.Controllers
         // GET: UserLocation/Create
         public ActionResult Create()
         {
-            ViewBag.location_guid = new SelectList(db.locationinfoes, "guid", "name");
+            ViewBag.location_guid = new SelectList(db.locationinfoes, "guid", "name");            
             return View();
         }
-
+        
         // POST: UserLocation/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
