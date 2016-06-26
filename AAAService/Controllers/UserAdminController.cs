@@ -99,11 +99,28 @@ namespace AAAService.Controllers
                 
                 // Create user active by default (per request on 6/23/2016)
                 user.account_status = 1;
-                var adminresult = await UserManager.CreateAsync(user, userViewModel.Password);                
+                var adminresult = await UserManager.CreateAsync(user, userViewModel.Password);
 
                 //Add User to the selected Roles 
                 if (adminresult.Succeeded)
                 {
+                    //Saving User's Locations
+                    var locations = Request.Form["to[]"].Split(',');
+
+                    if (locations.Count() > 0)
+                    {
+                        foreach (var location in locations)
+                        {
+                            var user_to_location = new user_to_location();
+                            user_to_location.guid = Guid.NewGuid();
+                            user_to_location.user_guid = userguid;
+                            user_to_location.location_guid = Guid.Parse(location);
+                            db.user_to_location.Add(user_to_location);                            
+                        }
+
+                        db.SaveChanges();
+                    }
+
                     if (selectedRoles != null)
                     {
                         var result = await UserManager.AddToRolesAsync(user.Id, selectedRoles);
@@ -144,6 +161,33 @@ namespace AAAService.Controllers
 
             var userRoles = await UserManager.GetRolesAsync(user.Id);
             ViewBag.StatusID = new SelectList(db.OtherStatusLists.Where(o => o.Active == true), "Value", "Name", user.account_status);
+            ViewBag.Companies = db.Companies.Where(o => o.active == true).OrderBy(o => o.name);
+            ViewBag.Locations = db.locationinfoes.Where(o => o.active == true).OrderBy(o => o.name);
+
+            var userCompanies = db.user_to_location
+                                .Where(utl => utl.user_guid == user.guid)
+                                .Join(db.locationinfoes, utl => utl.location_guid, l => l.guid, (utl, l) => new { utl, l })
+                                .Join(db.Companies, lpc => lpc.l.parentguid, c => c.guid, (lpc, c) => new { lpc, c })
+
+                                .Select(m => new
+                                {
+                                    GUID = m.c.guid,
+                                    Name = m.c.name
+                                });
+
+            ViewBag.UserCompanies = userCompanies;
+
+            var userLocations = db.user_to_location
+                                    .Where(utl => utl.user_guid == user.guid)
+                                    .Join(db.locationinfoes, utl => utl.location_guid, l => l.guid, (utl, l) => new { utl, l })
+
+                                    .Select(m => new
+                                    {
+                                        GUID = m.l.guid,
+                                        Name = m.l.name
+                                    });
+
+            ViewBag.UserLocations = userLocations;
 
             return View(new EditUserViewModel()
             {

@@ -141,6 +141,5 @@ C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Micros
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Microsoft.Owin.Security.Google.xml
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\obj\Debug\AAAService.csprojResolveAssemblyReference.cache
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\obj\Debug\AAAService.dll
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\obj\Debug\AAAService.pdb

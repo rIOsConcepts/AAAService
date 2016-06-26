@@ -56,7 +56,6 @@ namespace AAAService.Models
         public Nullable<int> PriorityID { get; set; }
         public string StatusName { get; set; }
         public Nullable<int> StatusID { get; set; }
-        public string CompanyID { get; set; }
         public string Location { get; set; }
         public string City { get; set; }
     
