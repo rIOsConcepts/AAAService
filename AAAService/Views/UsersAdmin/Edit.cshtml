@@ -55,13 +55,15 @@
                             @foreach (var company in ViewBag.Companies)
                             {
                                 <optgroup label="@company.name">
-                                    @foreach (var location in ViewBag.Locations)
+
+                                @foreach (var location in ViewBag.Locations)
+                                {
+                                    if (location.parentguid == company.guid)
                                     {
-                                        if (location.parentguid == company.guid)
-                                        {
-                                            <option value="@location.guid">@location.name</option>
-                                        }
+                                        <option value="@location.guid">@location.name</option>
                                     }
+                                }
+
                                 </optgroup>
                             }
                         </select>
@@ -83,7 +85,7 @@
 
                                 @foreach (var userLocation in ViewBag.UserLocations)
                                 {
-                                    if (userLocation.GUID == userCompany.GUID)
+                                    if (userLocation.ParentGUID == userCompany.GUID)
                                     {
                                         <option value="@userLocation.GUID">@userLocation.Name</option>
                                     }

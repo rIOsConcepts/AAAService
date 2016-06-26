@@ -104,8 +104,8 @@ namespace AAAService.Controllers
                 //Add User to the selected Roles 
                 if (adminresult.Succeeded)
                 {
-                    //Saving User's Locations
-                    var locations = Request.Form["to[]"].Split(',');
+                    //MR:Saving User's Locations
+                    var locations = Request.Form["to[]"] != null ? Request.Form["to[]"].Split(',') : new string[0];
 
                     if (locations.Count() > 0)
                     {
@@ -169,25 +169,26 @@ namespace AAAService.Controllers
                                 .Join(db.locationinfoes, utl => utl.location_guid, l => l.guid, (utl, l) => new { utl, l })
                                 .Join(db.Companies, lpc => lpc.l.parentguid, c => c.guid, (lpc, c) => new { lpc, c })
 
-                                .Select(m => new
+                                .Select(m => new StronglyTyped()
                                 {
                                     GUID = m.c.guid,
                                     Name = m.c.name
-                                });
+                                }).OrderBy(st => st.Name);
 
-            ViewBag.UserCompanies = userCompanies;
+            ViewBag.UserCompanies = userCompanies.ToList();
 
             var userLocations = db.user_to_location
-                                    .Where(utl => utl.user_guid == user.guid)
-                                    .Join(db.locationinfoes, utl => utl.location_guid, l => l.guid, (utl, l) => new { utl, l })
+                                .Where(utl => utl.user_guid == user.guid)
+                                .Join(db.locationinfoes, utl => utl.location_guid, l => l.guid, (utl, l) => new { utl, l })
 
-                                    .Select(m => new
-                                    {
-                                        GUID = m.l.guid,
-                                        Name = m.l.name
-                                    });
+                                .Select(m => new StronglyTyped()
+                                {
+                                    GUID = m.l.guid,
+                                    Name = m.l.name,
+                                    ParentGUID = m.l.parentguid
+                                }).OrderBy(st => st.Name);
 
-            ViewBag.UserLocations = userLocations;
+            ViewBag.UserLocations = userLocations.ToList();
 
             return View(new EditUserViewModel()
             {
@@ -229,6 +230,46 @@ namespace AAAService.Controllers
                 var statusID = int.Parse(Request.Form["StatusID"]);
                 user.account_status = statusID;
 
+                //MR:Saving User's Locations
+                var locations = Request.Form["to[]"] != null ? Request.Form["to[]"].Split(',') : new string[0];
+
+                if (locations.Count() > 0)
+                {
+                    var userLocations = db.user_to_location.Where(utl => utl.user_guid == user.guid);
+                    var userLocationsAdded = new List<Guid>();
+
+                    foreach (var location in locations)
+                    {                        
+                        var GUIDLocation = Guid.Parse(location);
+
+                        if (userLocations.Where(utl => utl.location_guid == GUIDLocation).Count() == 0)
+                        {
+                            userLocationsAdded.Add(GUIDLocation);
+                            var user_to_location = new user_to_location();
+                            user_to_location.guid = Guid.NewGuid();
+                            user_to_location.user_guid = user.guid;
+                            user_to_location.location_guid = GUIDLocation;
+                            db.user_to_location.Add(user_to_location);
+                        }                        
+                    }
+
+                    //MR:Deleting Locations where the user is not assign to anymore
+                    var userLocationsToDelete = from ul in userLocations
+                                                where !userLocationsAdded.Contains(ul.guid)
+                                                select ul;
+
+                    if (userLocationsToDelete.Count() > 0)
+                    {
+                        db.user_to_location.RemoveRange(userLocationsToDelete);
+                    }
+
+                    db.SaveChanges();
+                }
+                else
+                {
+                    db.user_to_location.RemoveRange(db.user_to_location.Where(utl => utl.user_guid == user.guid));
+                    db.SaveChanges();
+                }
 
                 var userRoles = await UserManager.GetRolesAsync(user.Id);
 

@@ -266,6 +266,7 @@
     <Compile Include="Models\errors_and_comments.cs">
       <DependentUpon>AAAServiceModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StronglyTyped.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LocationEmails_ViewMVC.cs">
       <DependentUpon>AAAServiceModels.tt</DependentUpon>
