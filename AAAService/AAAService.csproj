@@ -198,6 +198,7 @@
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\CreateBidController.cs" />
     <Compile Include="Controllers\CreateTicketController.cs" />
+    <Compile Include="Controllers\ExportToCFController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\locationinfoesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -264,6 +265,9 @@
       <DependentUpon>AAAServiceModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\errors_and_comments.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ExportToCF.cs">
       <DependentUpon>AAAServiceModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StronglyTyped.cs" />
@@ -748,6 +752,7 @@
     <Content Include="Views\AdminTickets\Details.cshtml" />
     <Content Include="Views\AdminTickets\Edit.cshtml" />
     <Content Include="Views\AdminTickets\Index.cshtml" />
+    <Content Include="Views\ExportToCF\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />

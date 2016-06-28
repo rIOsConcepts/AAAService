@@ -400,6 +400,85 @@ warning 6002: The table/view 'aaahelp.dbo.Emails_Log_ViewMVC' does not have a pr
     <Property Name="who_to" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
+warning 6002: The table/view 'aaahelp.dbo.ExportToCF' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ExportToCF">
+    <Key>
+      <PropertyRef Name="Job Number" />
+      <PropertyRef Name="C/O EXT" />
+      <PropertyRef Name="C/T" />
+      <PropertyRef Name="Cust Location No" />
+      <PropertyRef Name="JOB LOCATION LINE 1" />
+      <PropertyRef Name="JOB LOCATION LINE 3" />
+      <PropertyRef Name="JOB LOCATION LINE 4" />
+      <PropertyRef Name="JOB REFERENCE" />
+      <PropertyRef Name="JOB CONTACT" />
+      <PropertyRef Name="PROJECT MANAGER" />
+      <PropertyRef Name="SUBMITTED AMOUNT" />
+      <PropertyRef Name="C/O Status" />
+      <PropertyRef Name="STATUS DATE" />
+      <PropertyRef Name="APPROVED AMOUNT" />
+      <PropertyRef Name="ESTIMATED TAX INCLUDED" />
+      <PropertyRef Name="ESTIMATED TAX ADDITIONAL" />
+      <PropertyRef Name="RET." />
+      <PropertyRef Name="COUNTY" />
+      <PropertyRef Name="SALES REP" />
+      <PropertyRef Name="Sales Tax" />
+      <PropertyRef Name="Labor Tax" />
+      <PropertyRef Name="Use Tax" />
+      <PropertyRef Name="Condense Costs" />
+      <PropertyRef Name="Job Complete" />
+      <PropertyRef Name="Alt G/L#" />
+      <PropertyRef Name="Std Phs/Cat" />
+      <PropertyRef Name="Markups" />
+      <PropertyRef Name="SORT DATE" />
+      <PropertyRef Name="JOB END DATE" />
+      <PropertyRef Name="USER DEFINED 1" />
+      <PropertyRef Name="USER DEFINED 2" />
+      <PropertyRef Name="USER DEFINED 3" />
+      <PropertyRef Name="USER DEFINED 4" />
+    </Key>
+    <Property Name="Job Number" Type="int" Nullable="false" />
+    <Property Name="C/O EXT" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="C/T" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="Job Date" Type="varchar" MaxLength="10" />
+    <Property Name="CUST. NO." Type="varchar" MaxLength="50" />
+    <Property Name="Cust Location No" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="Job Location Code" Type="varchar" MaxLength="10" />
+    <Property Name="JOB LOCATION LINE 1" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="JOB LOCATION LINE 2" Type="varchar" MaxLength="50" />
+    <Property Name="JOB LOCATION LINE 3" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="JOB LOCATION LINE 4" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="JOB REFERENCE" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="JOB CONTACT" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PROJECT MANAGER" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="CUSTOMER PO#" Type="varchar" MaxLength="50" />
+    <Property Name="SUBMITTED AMOUNT" Type="int" Nullable="false" />
+    <Property Name="C/O Status" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="STATUS DATE" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="APPROVED AMOUNT" Type="int" Nullable="false" />
+    <Property Name="ESTIMATED TAX INCLUDED" Type="int" Nullable="false" />
+    <Property Name="ESTIMATED TAX ADDITIONAL" Type="int" Nullable="false" />
+    <Property Name="RET." Type="int" Nullable="false" />
+    <Property Name="TAX STATE" Type="varchar" MaxLength="2" />
+    <Property Name="COUNTY" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="SALES REP" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="Sales Tax" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="Labor Tax" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="Use Tax" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="Condense Costs" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="Job Complete" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="Alt G/L#" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="Std Phs/Cat" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="Markups" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="SORT DATE" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="JOB START DATE" Type="varchar" MaxLength="10" />
+    <Property Name="JOB END DATE" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="USER DEFINED 1" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="USER DEFINED 2" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="USER DEFINED 3" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="USER DEFINED 4" Type="varchar" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
 warning 6002: The table/view 'aaahelp.dbo.Location_Mgt_ViewMVC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="Location_Mgt_ViewMVC">
     <Key>
@@ -849,6 +928,50 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
     [Emails_Log_ViewMVC].[guid] AS [guid], 
     [Emails_Log_ViewMVC].[who_to] AS [who_to]
     FROM [dbo].[Emails_Log_ViewMVC] AS [Emails_Log_ViewMVC]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ExportToCF" EntityType="Self.ExportToCF" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ExportToCF].[Job Number] AS [Job Number], 
+    [ExportToCF].[C/O EXT] AS [C/O EXT], 
+    [ExportToCF].[C/T] AS [C/T], 
+    [ExportToCF].[Job Date] AS [Job Date], 
+    [ExportToCF].[CUST. NO.] AS [CUST. NO.], 
+    [ExportToCF].[Cust Location No] AS [Cust Location No], 
+    [ExportToCF].[Job Location Code] AS [Job Location Code], 
+    [ExportToCF].[JOB LOCATION LINE 1] AS [JOB LOCATION LINE 1], 
+    [ExportToCF].[JOB LOCATION LINE 2] AS [JOB LOCATION LINE 2], 
+    [ExportToCF].[JOB LOCATION LINE 3] AS [JOB LOCATION LINE 3], 
+    [ExportToCF].[JOB LOCATION LINE 4] AS [JOB LOCATION LINE 4], 
+    [ExportToCF].[JOB REFERENCE] AS [JOB REFERENCE], 
+    [ExportToCF].[JOB CONTACT] AS [JOB CONTACT], 
+    [ExportToCF].[PROJECT MANAGER] AS [PROJECT MANAGER], 
+    [ExportToCF].[CUSTOMER PO#] AS [CUSTOMER PO#], 
+    [ExportToCF].[SUBMITTED AMOUNT] AS [SUBMITTED AMOUNT], 
+    [ExportToCF].[C/O Status] AS [C/O Status], 
+    [ExportToCF].[STATUS DATE] AS [STATUS DATE], 
+    [ExportToCF].[APPROVED AMOUNT] AS [APPROVED AMOUNT], 
+    [ExportToCF].[ESTIMATED TAX INCLUDED] AS [ESTIMATED TAX INCLUDED], 
+    [ExportToCF].[ESTIMATED TAX ADDITIONAL] AS [ESTIMATED TAX ADDITIONAL], 
+    [ExportToCF].[RET.] AS [RET.], 
+    [ExportToCF].[TAX STATE] AS [TAX STATE], 
+    [ExportToCF].[COUNTY] AS [COUNTY], 
+    [ExportToCF].[SALES REP] AS [SALES REP], 
+    [ExportToCF].[Sales Tax] AS [Sales Tax], 
+    [ExportToCF].[Labor Tax] AS [Labor Tax], 
+    [ExportToCF].[Use Tax] AS [Use Tax], 
+    [ExportToCF].[Condense Costs] AS [Condense Costs], 
+    [ExportToCF].[Job Complete] AS [Job Complete], 
+    [ExportToCF].[Alt G/L#] AS [Alt G/L#], 
+    [ExportToCF].[Std Phs/Cat] AS [Std Phs/Cat], 
+    [ExportToCF].[Markups] AS [Markups], 
+    [ExportToCF].[SORT DATE] AS [SORT DATE], 
+    [ExportToCF].[JOB START DATE] AS [JOB START DATE], 
+    [ExportToCF].[JOB END DATE] AS [JOB END DATE], 
+    [ExportToCF].[USER DEFINED 1] AS [USER DEFINED 1], 
+    [ExportToCF].[USER DEFINED 2] AS [USER DEFINED 2], 
+    [ExportToCF].[USER DEFINED 3] AS [USER DEFINED 3], 
+    [ExportToCF].[USER DEFINED 4] AS [USER DEFINED 4]
+    FROM [dbo].[ExportToCF] AS [ExportToCF]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="Location_Mgt_ViewMVC" EntityType="Self.Location_Mgt_ViewMVC" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
