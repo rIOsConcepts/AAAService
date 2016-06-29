@@ -26,16 +26,16 @@ namespace AAAService.Models
         public string JOB_LOCATION_LINE_3 { get; set; }
         public string JOB_LOCATION_LINE_4 { get; set; }
         public string JOB_REFERENCE { get; set; }
-        public string JOB_CONTACT { get; set; }
+        public Nullable<int> JOB_CONTACT { get; set; }
         public string PROJECT_MANAGER { get; set; }
         public string CUSTOMER_PO_ { get; set; }
-        public int SUBMITTED_AMOUNT { get; set; }
+        public string SUBMITTED_AMOUNT { get; set; }
         public string C_O_Status { get; set; }
         public string STATUS_DATE { get; set; }
-        public int APPROVED_AMOUNT { get; set; }
-        public int ESTIMATED_TAX_INCLUDED { get; set; }
-        public int ESTIMATED_TAX_ADDITIONAL { get; set; }
-        public int RET_ { get; set; }
+        public string APPROVED_AMOUNT { get; set; }
+        public string ESTIMATED_TAX_INCLUDED { get; set; }
+        public string ESTIMATED_TAX_ADDITIONAL { get; set; }
+        public string RET_ { get; set; }
         public string TAX_STATE { get; set; }
         public string COUNTY { get; set; }
         public string SALES_REP { get; set; }

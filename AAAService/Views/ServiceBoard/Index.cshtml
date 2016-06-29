@@ -5,6 +5,8 @@
 <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
 <script src="~/Scripts/jquery-2.2.0.min.js"></script>
 <script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+<script src="@Url.Content("~/Scripts/gridmvc.customwidgets.js")"></script>
+
 @{
     ViewBag.Title = "Index";
 }
@@ -13,7 +15,7 @@
 <hr />
 
 <div style="width:auto">
-    @Html.Grid(Model).Columns(columns =>
+@Html.Grid(Model).Columns(columns =>
 {
     /* Adding not mapped column, that renders body, using inline Razor html helper */
     /*columns.Add()
@@ -45,11 +47,12 @@
     columns.Add(o => o.Status)
             .Titled("Status")
             .Filterable(true)
+            .SetFilterWidgetType("CustomStatusFilterWidget")
             .SetWidth(125);
 
     /* Adding "Location" column: */
     columns.Add(o => o.company_name)
-            .Filterable(true)
+            .Filterable(true)            
             .Titled("Company");
 
     /* Adding "Location" column: */
@@ -117,5 +120,21 @@
             .SetWidth(150);
 
 
-}).WithPaging(20).Sortable(true)
+}).WithPaging(20).Sortable().Filterable().WithMultipleFilters()
 </div>
+
+<script>
+    $(function () {
+        pageGrids.ordersGrid.addFilterWidget(new CustomersFilterWidget());
+
+        pageGrids.ordersGrid.onRowSelect(function (e) {
+            $.post("/Home/GetOrder?id=" + e.row.OrderID, function (data) {
+                if (data.Status <= 0) {
+                    alert(data.Message);
+                    return;
+                }
+                $("#order-content").html(data.Content);
+            });
+        });
+    });
+</script>

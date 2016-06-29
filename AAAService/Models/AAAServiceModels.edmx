@@ -420,14 +420,11 @@ warning 6002: The table/view 'aaahelp.dbo.ExportToCF' does not have a primary ke
             <PropertyRef Name="C/T" />
             <PropertyRef Name="Cust Location No" />
             <PropertyRef Name="JOB LOCATION LINE 1" />
-            <PropertyRef Name="JOB LOCATION LINE 3" />
-            <PropertyRef Name="JOB LOCATION LINE 4" />
+            <PropertyRef Name="JOB LOCATION LINE 2" />
             <PropertyRef Name="JOB REFERENCE" />
-            <PropertyRef Name="JOB CONTACT" />
             <PropertyRef Name="PROJECT MANAGER" />
             <PropertyRef Name="SUBMITTED AMOUNT" />
             <PropertyRef Name="C/O Status" />
-            <PropertyRef Name="STATUS DATE" />
             <PropertyRef Name="APPROVED AMOUNT" />
             <PropertyRef Name="ESTIMATED TAX INCLUDED" />
             <PropertyRef Name="ESTIMATED TAX ADDITIONAL" />
@@ -445,7 +442,6 @@ warning 6002: The table/view 'aaahelp.dbo.ExportToCF' does not have a primary ke
             <PropertyRef Name="SORT DATE" />
             <PropertyRef Name="JOB END DATE" />
             <PropertyRef Name="USER DEFINED 1" />
-            <PropertyRef Name="USER DEFINED 2" />
             <PropertyRef Name="USER DEFINED 3" />
             <PropertyRef Name="USER DEFINED 4" />
           </Key>
@@ -453,24 +449,24 @@ warning 6002: The table/view 'aaahelp.dbo.ExportToCF' does not have a primary ke
           <Property Name="C/O EXT" Type="varchar" MaxLength="3" Nullable="false" />
           <Property Name="C/T" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="Job Date" Type="varchar" MaxLength="10" />
-          <Property Name="CUST. NO." Type="varchar" MaxLength="50" />
+          <Property Name="CUST. NO." Type="varchar" MaxLength="10" />
           <Property Name="Cust Location No" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="Job Location Code" Type="varchar" MaxLength="10" />
-          <Property Name="JOB LOCATION LINE 1" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="JOB LOCATION LINE 2" Type="varchar" MaxLength="50" />
-          <Property Name="JOB LOCATION LINE 3" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="JOB LOCATION LINE 4" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="JOB REFERENCE" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="JOB CONTACT" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="JOB LOCATION LINE 1" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="JOB LOCATION LINE 2" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="JOB LOCATION LINE 3" Type="varchar" MaxLength="50" />
+          <Property Name="JOB LOCATION LINE 4" Type="varchar" MaxLength="50" />
+          <Property Name="JOB REFERENCE" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="JOB CONTACT" Type="int" />
           <Property Name="PROJECT MANAGER" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="CUSTOMER PO#" Type="varchar" MaxLength="50" />
-          <Property Name="SUBMITTED AMOUNT" Type="int" Nullable="false" />
+          <Property Name="SUBMITTED AMOUNT" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="C/O Status" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="STATUS DATE" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="APPROVED AMOUNT" Type="int" Nullable="false" />
-          <Property Name="ESTIMATED TAX INCLUDED" Type="int" Nullable="false" />
-          <Property Name="ESTIMATED TAX ADDITIONAL" Type="int" Nullable="false" />
-          <Property Name="RET." Type="int" Nullable="false" />
+          <Property Name="STATUS DATE" Type="varchar" MaxLength="10" />
+          <Property Name="APPROVED AMOUNT" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="ESTIMATED TAX INCLUDED" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="ESTIMATED TAX ADDITIONAL" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="RET." Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="TAX STATE" Type="varchar" MaxLength="2" />
           <Property Name="COUNTY" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="SALES REP" Type="varchar" MaxLength="2" Nullable="false" />
@@ -486,7 +482,7 @@ warning 6002: The table/view 'aaahelp.dbo.ExportToCF' does not have a primary ke
           <Property Name="JOB START DATE" Type="varchar" MaxLength="10" />
           <Property Name="JOB END DATE" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="USER DEFINED 1" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="USER DEFINED 2" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="USER DEFINED 2" Type="varchar" MaxLength="50" />
           <Property Name="USER DEFINED 3" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="USER DEFINED 4" Type="varchar" MaxLength="1" Nullable="false" />
         </EntityType>
@@ -2105,14 +2101,11 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
             <PropertyRef Name="C_T" />
             <PropertyRef Name="Cust_Location_No" />
             <PropertyRef Name="JOB_LOCATION_LINE_1" />
-            <PropertyRef Name="JOB_LOCATION_LINE_3" />
-            <PropertyRef Name="JOB_LOCATION_LINE_4" />
+            <PropertyRef Name="JOB_LOCATION_LINE_2" />
             <PropertyRef Name="JOB_REFERENCE" />
-            <PropertyRef Name="JOB_CONTACT" />
             <PropertyRef Name="PROJECT_MANAGER" />
             <PropertyRef Name="SUBMITTED_AMOUNT" />
             <PropertyRef Name="C_O_Status" />
-            <PropertyRef Name="STATUS_DATE" />
             <PropertyRef Name="APPROVED_AMOUNT" />
             <PropertyRef Name="ESTIMATED_TAX_INCLUDED" />
             <PropertyRef Name="ESTIMATED_TAX_ADDITIONAL" />
@@ -2130,7 +2123,6 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
             <PropertyRef Name="SORT_DATE" />
             <PropertyRef Name="JOB_END_DATE" />
             <PropertyRef Name="USER_DEFINED_1" />
-            <PropertyRef Name="USER_DEFINED_2" />
             <PropertyRef Name="USER_DEFINED_3" />
             <PropertyRef Name="USER_DEFINED_4" />
           </Key>
@@ -2138,24 +2130,24 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
           <Property Name="C_O_EXT" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="C_T" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="Job_Date" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="CUST__NO_" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CUST__NO_" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Cust_Location_No" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="Job_Location_Code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="JOB_LOCATION_LINE_1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="JOB_LOCATION_LINE_2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="JOB_LOCATION_LINE_3" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="JOB_LOCATION_LINE_4" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="JOB_REFERENCE" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="JOB_CONTACT" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JOB_LOCATION_LINE_1" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="JOB_LOCATION_LINE_2" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="JOB_LOCATION_LINE_3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JOB_LOCATION_LINE_4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JOB_REFERENCE" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="JOB_CONTACT" Type="Int32" />
           <Property Name="PROJECT_MANAGER" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="CUSTOMER_PO_" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SUBMITTED_AMOUNT" Type="Int32" Nullable="false" />
+          <Property Name="SUBMITTED_AMOUNT" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="C_O_Status" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="STATUS_DATE" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="APPROVED_AMOUNT" Type="Int32" Nullable="false" />
-          <Property Name="ESTIMATED_TAX_INCLUDED" Type="Int32" Nullable="false" />
-          <Property Name="ESTIMATED_TAX_ADDITIONAL" Type="Int32" Nullable="false" />
-          <Property Name="RET_" Type="Int32" Nullable="false" />
+          <Property Name="STATUS_DATE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="APPROVED_AMOUNT" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="ESTIMATED_TAX_INCLUDED" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="ESTIMATED_TAX_ADDITIONAL" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="RET_" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="TAX_STATE" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
           <Property Name="COUNTY" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="SALES_REP" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
@@ -2171,7 +2163,7 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
           <Property Name="JOB_START_DATE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="JOB_END_DATE" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="USER_DEFINED_1" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="USER_DEFINED_2" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="USER_DEFINED_2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="USER_DEFINED_3" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="USER_DEFINED_4" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
         </EntityType>

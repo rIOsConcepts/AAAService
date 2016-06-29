@@ -6,7 +6,7 @@
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
-<style>
+@*<style>
     .editableBox {
         width: 75px;
         height: 30px;
@@ -18,7 +18,7 @@
         height: 20px;
         border: none;
     }
-</style>
+</style>*@
 
 @{
     ViewBag.Title = "Create";
@@ -38,11 +38,12 @@
 
         <div class="form-group">
             @*@Html.LabelFor(tuple => tuple.item2.CompanyID, "Company", htmlAttributes: new { @class = "control-label col-md-2" })*@
-            @Html.LabelFor(model => model.CompanyID, "Company", htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.CompanyID, "Company", htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @Html.Label("Company", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("CompanyList", null, "Please Choose", htmlAttributes: new { @id = "CompanyList", @class = "form-control", @onchange = "javascript:GetServiceLocation(this.value);" })
                 @*@Html.DropDownListFor(tuple => tuple.Item1.StateModel, new SelectList(Model.Item1.StateModel, "Id", "StateName"), new { @id = "ddlcompany", @style = "width:200px;", @onchange = "javascript:GetServiceLocation(this.value);" })*@
-                @Html.ValidationMessageFor(model => model.CompanyID, "", new { @class = "text-danger" })
+                @*@Html.ValidationMessageFor(model => model.CompanyID, "", new { @class = "text-danger" })*@
             </div>
         </div>
         <div class="form-group">
@@ -115,9 +116,9 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.CategoryID, "Service Category", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @*@Html.DropDownList("CategoryID", null, "Please Choose", htmlAttributes: new { @id = "CategoryID", @class = "form-control" })*@
-                    @Html.DropDownList("CategoryID", null, "Please Choose", htmlAttributes: new { @id = "CategoryID", @class = "timeTextBox" })
-                    <input class="timeTextBox" name="timebox" maxlength="30" />
+                    @Html.DropDownList("CategoryID", null, "Please Choose", htmlAttributes: new { @id = "CategoryID", @class = "form-control" })
+                    @*@Html.DropDownList("CategoryID", null, "Please Choose", htmlAttributes: new { @id = "CategoryID", @class = "timeTextBox" })*@
+                    @*<input class="timeTextBox" name="timebox" maxlength="30" />*@
                     @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -353,12 +354,12 @@ $(document).ready(
       $("#monikersam").hide();
   })
 
-  $(document).ready(function () {
+  //$(document).ready(function () {
 
-      $(".editableBox").change(function () {
-          $(".timeTextBox").val($(".editableBox option:selected").html());
-      });
-  });
+  //    $(".editableBox").change(function () {
+  //        $(".timeTextBox").val($(".editableBox option:selected").html());
+  //    });
+  //});
 
   GetServiceLocation("@ViewBag.CompanyGUID");
 });
