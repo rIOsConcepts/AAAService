@@ -5,7 +5,7 @@
 <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
 <script src="~/Scripts/jquery-2.2.0.min.js"></script>
 <script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
-<script src="@Url.Content("~/Scripts/gridmvc.customwidgets.js")"></script>
+@*<script src="@Url.Content("~/Scripts/gridmvc.customwidgets.js")"></script>*@
 
 @{
     ViewBag.Title = "Index";
@@ -47,12 +47,12 @@
     columns.Add(o => o.Status)
             .Titled("Status")
             .Filterable(true)
-            .SetFilterWidgetType("CustomStatusFilterWidget")
+            //.SetFilterWidgetType("CustomStatusFilterWidget")
             .SetWidth(125);
 
     /* Adding "Location" column: */
     columns.Add(o => o.company_name)
-            .Filterable(true)            
+            .Filterable(true)
             .Titled("Company");
 
     /* Adding "Location" column: */
@@ -123,7 +123,7 @@
 }).WithPaging(20).Sortable().Filterable().WithMultipleFilters()
 </div>
 
-<script>
+@*<script>
     $(function () {
         pageGrids.ordersGrid.addFilterWidget(new CustomersFilterWidget());
 
@@ -137,4 +137,4 @@
             });
         });
     });
-</script>
+</script>*@
