@@ -40,7 +40,13 @@ namespace AAAService.Helpers
             var user = db.Users.FirstOrDefault(u => u.UserName == HttpContext.Current.User.Identity.Name);
             var myguid = user.guid ;
             var phones = dbI.phone_num.FirstOrDefault(t => t.user_guid == myguid);
-            var allPhones = phones.phone_day + "#" + phones.phone_night;
+            string allPhones = string.Empty;
+
+            if (phones != null)
+            {
+                allPhones = phones.phone_day + "#" + phones.phone_night;
+            }
+
             return allPhones;
         }
         public static string getUserName()

@@ -34,5 +34,6 @@ namespace AAAService.Models
         public string cost_code { get; set; }
         public string Priority { get; set; }
         public string Status { get; set; }
+        public byte Attachment { get; set; }
     }
 }

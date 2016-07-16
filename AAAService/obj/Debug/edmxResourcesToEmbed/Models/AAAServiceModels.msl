@@ -87,6 +87,7 @@
     <EntitySetMapping Name="service_boardNew">
       <EntityTypeMapping TypeName="aaahelpModel.service_boardNew">
         <MappingFragment StoreEntitySet="service_boardNew">
+          <ScalarProperty Name="Attachment" ColumnName="Attachment" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="Priority" ColumnName="Priority" />
           <ScalarProperty Name="cost_code" ColumnName="cost_code" />

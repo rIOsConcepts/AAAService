@@ -61,9 +61,10 @@ namespace AAAService.Controllers
                 {
                     var singleloc = from s in db.service_boardNew
                                     select s;
-                     singleloc = singleloc.Where(s => s.service_location_guid.Equals(mylocationguid)).OrderByDescending(s=>s.job_number);
 
-                    return View(singleloc.ToList<service_boardNew>());
+                    singleloc = singleloc.Where(s => s.service_location_guid.Equals(mylocationguid)).OrderByDescending(s=>s.job_number);
+                    var view = singleloc.ToList<service_boardNew>();
+                    return View(view);
                 }
 
 

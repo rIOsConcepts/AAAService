@@ -142,4 +142,3 @@ C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Micros
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\obj\Release\AAAService.dll
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\obj\Release\AAAService.pdb
-C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\obj\Release\AAAService.csprojResolveAssemblyReference.cache

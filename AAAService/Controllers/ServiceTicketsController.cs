@@ -28,7 +28,7 @@ namespace AAAService.Controllers
         [HttpPost]
         public ActionResult GetServiceLocation(string companyGUID)
         {
-            SelectList obg = new SelectList(db.locationinfoes.Where(o => o.parentguid.ToString() == companyGUID && o.active == true), "guid", "Name");
+            SelectList obg = new SelectList(db.locationinfoes.Where(o => o.parentguid.ToString() == companyGUID && o.active == true).OrderBy(o => o.name), "guid", "Name");
             return Json(obg);
         }
         public ActionResult SetServiceLocation(string locationGUID)
@@ -132,7 +132,11 @@ namespace AAAService.Controllers
             var myphones = Helpers.UserHelper.getUserPhones();
             string[] phones = myphones.Split('#');
             ViewBag.DayPhone = phones[0];
-            ViewBag.NightPhone = phones[1];
+
+            if (phones.Count() > 1)
+            {
+                ViewBag.NightPhone = phones[1];
+            }
 
             var companyGUID = db.locationinfoes.Where(o => o.active == true && o.guid.ToString() == id.ToString()).ToList()[0].parentguid;
             //var companyName = db.Companies.Where(o => o.active == true && o.guid.ToString() == companyGUID).ToList()[0].name;
@@ -152,7 +156,7 @@ namespace AAAService.Controllers
 
         internal List<SelectListItem> CompanyList(Guid? companyGUID)
         {
-            var selectList = new SelectList(db.Companies.Where(o => o.active == true), "guid", "Name").ToList();
+            var selectList = new SelectList(db.Companies.Where(o => o.active == true), "guid", "Name").OrderBy(o => o.Text).ToList();
 
             foreach (var item in selectList)
             {

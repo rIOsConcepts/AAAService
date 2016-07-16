@@ -459,7 +459,7 @@ warning 6002: The table/view 'aaahelp.dbo.ExportToCF' does not have a primary ke
           <Property Name="JOB REFERENCE" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="JOB CONTACT" Type="int" />
           <Property Name="PROJECT MANAGER" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="CUSTOMER PO#" Type="varchar" MaxLength="50" />
+          <Property Name="CUSTOMER PO#" Type="varchar" MaxLength="30" />
           <Property Name="SUBMITTED AMOUNT" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="C/O Status" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="STATUS DATE" Type="varchar" MaxLength="10" />
@@ -546,27 +546,29 @@ warning 6002: The table/view 'aaahelp.dbo.service_boardNew' does not have a prim
             
             
             
+            
           </Key>
           <Property Name="age" Type="int" />
           <Property Name="service_location_name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="job_number" Type="int" Nullable="false" />
-          <Property Name="order_datetime" Type="datetime" Nullable="false" />
+          <Property Name="order_datetime" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="problem_summary" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="company_name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="service_location_guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="parent_company_guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="complete_datetime" Type="datetime" />
+          <Property Name="complete_datetime" Type="datetime2" Precision="7" />
           <Property Name="region" Type="varchar" MaxLength="50" />
           <Property Name="category" Type="varchar" MaxLength="50" />
           <Property Name="service_provider" Type="varchar" MaxLength="30" />
           <Property Name="city" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="dispatch_datetime" Type="datetime" />
-          <Property Name="accepted_datetime" Type="datetime" />
+          <Property Name="dispatch_datetime" Type="datetime2" Precision="7" />
+          <Property Name="accepted_datetime" Type="datetime2" Precision="7" />
           <Property Name="cust_po_num" Type="varchar" MaxLength="50" />
           <Property Name="cost_code" Type="varchar" MaxLength="20" />
           <Property Name="Priority" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="Status" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Attachment" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'aaahelp.dbo.service_tickets_viewMVC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1054,7 +1056,8 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
     [service_boardNew].[cust_po_num] AS [cust_po_num], 
     [service_boardNew].[cost_code] AS [cost_code], 
     [service_boardNew].[Priority] AS [Priority], 
-    [service_boardNew].[Status] AS [Status]
+    [service_boardNew].[Status] AS [Status], 
+    [service_boardNew].[Attachment] AS [Attachment]
     FROM [dbo].[service_boardNew] AS [service_boardNew]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="service_tickets_viewMVC" EntityType="Self.service_tickets_viewMVC" store:Type="Views" store:Schema="dbo">
@@ -1404,23 +1407,24 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
           <Property Name="age" Type="Int32" />
           <Property Name="service_location_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="job_number" Type="Int32" Nullable="false" />
-          <Property Name="order_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="order_datetime" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="problem_summary" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="company_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="service_location_guid" Type="Guid" Nullable="false" />
           <Property Name="parent_company_guid" Type="Guid" Nullable="false" />
           <Property Name="guid" Type="Guid" Nullable="false" />
-          <Property Name="complete_datetime" Type="DateTime" Precision="3" />
+          <Property Name="complete_datetime" Type="DateTime" Precision="7" />
           <Property Name="region" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="service_provider" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="city" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="dispatch_datetime" Type="DateTime" Precision="3" />
-          <Property Name="accepted_datetime" Type="DateTime" Precision="3" />
+          <Property Name="dispatch_datetime" Type="DateTime" Precision="7" />
+          <Property Name="accepted_datetime" Type="DateTime" Precision="7" />
           <Property Name="cust_po_num" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="cost_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Priority" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Attachment" Type="Byte" Nullable="false" />
         </EntityType>
         <EntityType Name="user_viewable_locations_view">
           <Key>
@@ -2140,7 +2144,7 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
           <Property Name="JOB_REFERENCE" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="JOB_CONTACT" Type="Int32" />
           <Property Name="PROJECT_MANAGER" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="CUSTOMER_PO_" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CUSTOMER_PO_" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="SUBMITTED_AMOUNT" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="C_O_Status" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="STATUS_DATE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
@@ -2259,6 +2263,7 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
           <EntitySetMapping Name="service_boardNew">
             <EntityTypeMapping TypeName="aaahelpModel.service_boardNew">
               <MappingFragment StoreEntitySet="service_boardNew">
+                <ScalarProperty Name="Attachment" ColumnName="Attachment" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
                 <ScalarProperty Name="cost_code" ColumnName="cost_code" />
