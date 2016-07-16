@@ -27,14 +27,13 @@ namespace AAAService.Controllers
                          where c.user_guid.Equals(myuserguid)
                          select c;
             var x = mylist.Count();
-            var mylocationnguid = mylist.First().location_guid;
-
+            var mylocationnguid = mylist.Count() > 0 ? mylist.First().location_guid : Guid.NewGuid();
 
             var mylist2 = from d in db.locationinfoes
                           where d.guid.Equals(mylocationnguid)
                           select d;
 
-            var mycompanyguid = mylist2.First().parentguid;
+            var mycompanyguid = mylist2.Count() > 0 ? mylist2.First().parentguid: Guid.NewGuid();
 
             if (mylocationnguid.Equals(mycompanyguid))
             {

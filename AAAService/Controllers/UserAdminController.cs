@@ -164,16 +164,33 @@ namespace AAAService.Controllers
             ViewBag.Companies = db.Companies.Where(o => o.active == true).OrderBy(o => o.name);
             ViewBag.Locations = db.locationinfoes.Where(o => o.active == true).OrderBy(o => o.name);
 
+            //var userCompanies = db.user_to_location
+            //                    .Where(utl => utl.user_guid == user.guid)
+            //                    .Join(db.locationinfoes, utl => utl.location_guid, l => l.guid, (utl, l) => new { utl, l })
+            //                    .Join(db.Companies, lpc => lpc.l.parentguid, c => c.guid, (lpc, c) => new { lpc, c })
+
+            //                    .Select(m => new StronglyTyped()
+            //                    {
+            //                        GUID = m.c.guid,
+            //                        Name = m.c.name
+            //                    })
+            //                    .OrderBy(st => st.Name);
+
             var userCompanies = db.user_to_location
                                 .Where(utl => utl.user_guid == user.guid)
                                 .Join(db.locationinfoes, utl => utl.location_guid, l => l.guid, (utl, l) => new { utl, l })
                                 .Join(db.Companies, lpc => lpc.l.parentguid, c => c.guid, (lpc, c) => new { lpc, c })
-
+                                .GroupBy(g => new StronglyTyped()
+                                {
+                                    GUID = g.c.guid,
+                                    Name = g.c.name
+                                })
                                 .Select(m => new StronglyTyped()
                                 {
-                                    GUID = m.c.guid,
-                                    Name = m.c.name
-                                }).OrderBy(st => st.Name);
+                                    GUID = m.Key.GUID,
+                                    Name = m.Key.Name
+                                })                                
+                                .OrderBy(st => st.Name);
 
             ViewBag.UserCompanies = userCompanies.ToList();
 
@@ -235,11 +252,13 @@ namespace AAAService.Controllers
 
                 if (locations.Count() > 0)
                 {
+                    var newLocations = new List<Guid>();
                     var userLocations = db.user_to_location.Where(utl => utl.user_guid == user.guid);
                     var userLocationsAdded = new List<Guid>();
 
                     foreach (var location in locations)
-                    {                        
+                    {
+                        newLocations.Add(Guid.Parse(location));
                         var GUIDLocation = Guid.Parse(location);
 
                         if (userLocations.Where(utl => utl.location_guid == GUIDLocation).Count() == 0)
@@ -253,17 +272,19 @@ namespace AAAService.Controllers
                         }                        
                     }
 
+                    db.SaveChanges();
+                    var allUserLocationsInDB = db.user_to_location.Where(utl => utl.user_guid == user.guid).ToList();
+
                     //MR:Deleting Locations where the user is not assign to anymore
-                    var userLocationsToDelete = from ul in userLocations
-                                                where !userLocationsAdded.Contains(ul.guid)
+                    var userLocationsToDelete = from ul in allUserLocationsInDB
+                                                where !newLocations.Contains(ul.location_guid)
                                                 select ul;
 
                     if (userLocationsToDelete.Count() > 0)
                     {
                         db.user_to_location.RemoveRange(userLocationsToDelete);
-                    }
-
-                    db.SaveChanges();
+                        db.SaveChanges();
+                    }                    
                 }
                 else
                 {

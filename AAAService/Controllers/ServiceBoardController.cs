@@ -26,7 +26,8 @@ namespace AAAService.Controllers
 
             if (mylocationguid == Guid.Parse("6FFB64D7-4D69-4F1C-BC55-5376588A39F4"))
             {
-                return RedirectToAction("Edit");
+                //return RedirectToAction("Edit");
+                return View(new List<service_boardNew>());
             }
 
             else
