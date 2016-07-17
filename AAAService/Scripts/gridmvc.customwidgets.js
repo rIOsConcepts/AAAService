@@ -12,16 +12,16 @@
 */
 
 /***
-* CustomersFilterWidget - Provides filter user interface for customer name column in this project
-* This widget onRenders select list with avaliable customers.
+* StatusesFilterWidget - Provides filter user interface for customer name column in this project
+* This widget onRenders select list with avaliable statuses.
 */
 
-function CustomersFilterWidget() {
+function StatusesFilterWidget() {
     /***
     * This method must return type of registered widget type in 'SetFilterWidgetType' method
     */
     this.getAssociatedTypes = function () {
-        return ["CustomCompanyNameFilterWidget"];
+        return ["CustomStatusFilterWidget"];
     };
     /***
     * This method invokes when filter widget was shown on the page
@@ -52,48 +52,225 @@ function CustomersFilterWidget() {
         this.value = values.length > 0 ? values[0] : { filterType: 1, filterValue: "" };
 
         this.renderWidget(); //onRender filter widget
-        this.loadCustomers(); //load customer's list from the server
+        this.loadStatuses(); //load status' list from the server
         this.registerEvents(); //handle events
     };
     this.renderWidget = function () {
-        var html = '<p><i>This is custom filter widget demo.</i></p>\
-                    <p>Select customer to filter:</p>\
-                    <select style="width:250px;" class="grid-filter-type customerslist form-control">\
+        var html = '<select style="width:250px;" class="grid-filter-type statuseslist form-control">\
                     </select>';
         this.container.append(html);
     };
     /***
-    * Method loads all customers from the server via Ajax:
+    * Method loads all statuses from the server via Ajax:
     */
-    this.loadCustomers = function () {
+    this.loadStatuses = function () {
         var $this = this;
-        $.post("/Home/GetCustomersNames", function (data) {
-            $this.fillCustomers(data.Items);
+        $.post("/ServiceBoard/GetStatuses", function (data) {
+            //$this.fillStatuses(data.Items);
+            $this.fillStatuses(data);
         });
+
+        //debugger;
+        //var url = "/ServiceBoard/GetStatuses";
+        //$.ajax({
+        //    url: url,
+        //    data: "{}",
+        //    cache: false,
+        //    type: "POST",
+        //    success: function (data) {
+        //    },
+        //    error: function (reponse) {
+        //        alert("error : " + reponse);
+        //    }
+        //});
     };
     /***
-    * Method fill customers select list by data
+    * Method fill statuses select list by data
     */
-    this.fillCustomers = function (items) {
-        var customerList = this.container.find(".customerslist");
+    this.fillStatuses = function (items) {
+        var statusesList = this.container.find(".statuseslist");
+        statusesList.append('<option>Select status to filter</option>');
+
         for (var i = 0; i < items.length; i++) {
-            customerList.append('<option ' + (items[i] == this.value.filterValue ? 'selected="selected"' : '') + ' value="' + items[i] + '">' + items[i] + '</option>');
+            //statusesList.append('<option ' + (items[i] == this.value.filterValue ? 'selected="selected"' : '') + ' value="' + items[i] + '">' + items[i] + '</option>');
+            statusesList.append('<option ' + (items[i] == this.value.filterValue ? 'selected="selected"' : '') + ' value="' + items[i].Text + '">' + items[i].Text + '</option>');
         }
     };
     /***
     * Internal method that register event handlers for 'apply' button.
     */
     this.registerEvents = function () {
-        //get list with customers
-        var customerList = this.container.find(".customerslist");
+        //get list with statuses
+        var statusesList = this.container.find(".statuseslist");
         //save current context:
         var $context = this;
         //register onclick event handler
-        customerList.change(function () {
+        statusesList.change(function () {
             //invoke callback with selected filter values:
             var values = [{ filterValue: $(this).val(), filterType: 1 /* Equals */ }];
             $context.cb(values);
         });
     };
+}
 
+function PrioritiesFilterWidget() {
+    /***
+    * This method must return type of registered widget type in 'SetFilterWidgetType' method
+    */
+    this.getAssociatedTypes = function () {
+        return ["CustomPriorityFilterWidget"];
+    };
+    /***
+    * This method invokes when filter widget was shown on the page
+    */
+    this.onShow = function () {
+        /* Place your on show logic here */
+    };
+
+    this.showClearFilterButton = function () {
+        return true;
+    };
+    /***
+    * This method will invoke when user was clicked on filter button.
+    * container - html element, which must contain widget layout;
+    * lang - current language settings;
+    * typeName - current column type (if widget assign to multipile types, see: getAssociatedTypes);
+    * values - current filter values. Array of objects [{filterValue: '', filterType:'1'}];
+    * cb - callback function that must invoked when user want to filter this column. Widget must pass filter type and filter value.
+    * data - widget data passed from the server
+    */
+    this.onRender = function (container, lang, typeName, values, cb, data) {
+        //store parameters:
+        this.cb = cb;
+        this.container = container;
+        this.lang = lang;
+
+        //this filterwidget demo supports only 1 filter value for column column
+        this.value = values.length > 0 ? values[0] : { filterType: 1, filterValue: "" };
+
+        this.renderWidget(); //onRender filter widget
+        this.loadPriorities(); //load priorities' list from the server
+        this.registerEvents(); //handle events
+    };
+    this.renderWidget = function () {
+        var html = '<select style="width:250px;" class="grid-filter-type prioritieslist form-control">\
+                    </select>';
+        this.container.append(html);
+    };
+    /***
+    * Method loads all priorities from the server via Ajax:
+    */
+    this.loadPriorities = function () {
+        var $this = this;
+        $.post("/ServiceBoard/GetPriorities", function (data) {
+            $this.fillPriorities(data);
+        });
+    };
+    /***
+    * Method fill priorities select list by data
+    */
+    this.fillPriorities = function (items) {
+        var prioritieslist = this.container.find(".prioritieslist");
+        prioritieslist.append('<option>Select priority to filter</option>');
+
+        for (var i = 0; i < items.length; i++) {
+            prioritieslist.append('<option ' + (items[i] == this.value.filterValue ? 'selected="selected"' : '') + ' value="' + items[i].Text + '">' + items[i].Text + '</option>');
+        }
+    };
+    /***
+    * Internal method that register event handlers for 'apply' button.
+    */
+    this.registerEvents = function () {
+        //get list with priorities
+        var prioritieslist = this.container.find(".prioritieslist");
+        //save current context:
+        var $context = this;
+        //register onclick event handler
+        prioritieslist.change(function () {
+            //invoke callback with selected filter values:
+            var values = [{ filterValue: $(this).val(), filterType: 1 /* Equals */ }];
+            $context.cb(values);
+        });
+    };
+}
+
+function ServiceCategoriesFilterWidget() {
+    /***
+    * This method must return type of registered widget type in 'SetFilterWidgetType' method
+    */
+    this.getAssociatedTypes = function () {
+        return ["CustomServiceCategoryFilterWidget"];
+    };
+    /***
+    * This method invokes when filter widget was shown on the page
+    */
+    this.onShow = function () {
+        /* Place your on show logic here */
+    };
+
+    this.showClearFilterButton = function () {
+        return true;
+    };
+    /***
+    * This method will invoke when user was clicked on filter button.
+    * container - html element, which must contain widget layout;
+    * lang - current language settings;
+    * typeName - current column type (if widget assign to multipile types, see: getAssociatedTypes);
+    * values - current filter values. Array of objects [{filterValue: '', filterType:'1'}];
+    * cb - callback function that must invoked when user want to filter this column. Widget must pass filter type and filter value.
+    * data - widget data passed from the server
+    */
+    this.onRender = function (container, lang, typeName, values, cb, data) {
+        //store parameters:
+        this.cb = cb;
+        this.container = container;
+        this.lang = lang;
+
+        //this filterwidget demo supports only 1 filter value for column column
+        this.value = values.length > 0 ? values[0] : { filterType: 1, filterValue: "" };
+
+        this.renderWidget(); //onRender filter widget
+        this.loadServiceCategories(); //load service categories' list from the server
+        this.registerEvents(); //handle events
+    };
+    this.renderWidget = function () {
+        var html = '<select style="width:250px;" class="grid-filter-type servicecategorieslist form-control">\
+                    </select>';
+        this.container.append(html);
+    };
+    /***
+    * Method loads all service categories from the server via Ajax:
+    */
+    this.loadServiceCategories = function () {
+        var $this = this;
+        $.post("/ServiceBoard/GetServiceCategories", function (data) {
+            $this.fillServiceCategories(data);
+        });
+    };
+    /***
+    * Method fill service categories select list by data
+    */
+    this.fillServiceCategories = function (items) {
+        var servicecategorieslist = this.container.find(".servicecategorieslist");
+        servicecategorieslist.append('<option>Select service category to filter</option>');
+
+        for (var i = 0; i < items.length; i++) {
+            servicecategorieslist.append('<option ' + (items[i] == this.value.filterValue ? 'selected="selected"' : '') + ' value="' + items[i].Text + '">' + items[i].Text + '</option>');
+        }
+    };
+    /***
+    * Internal method that register event handlers for 'apply' button.
+    */
+    this.registerEvents = function () {
+        //get list with service categories
+        var servicecategorieslist = this.container.find(".servicecategorieslist");
+        //save current context:
+        var $context = this;
+        //register onclick event handler
+        servicecategorieslist.change(function () {
+            //invoke callback with selected filter values:
+            var values = [{ filterValue: $(this).val(), filterType: 1 /* Equals */ }];
+            $context.cb(values);
+        });
+    };
 }

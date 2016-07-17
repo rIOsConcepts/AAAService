@@ -4,6 +4,8 @@
 <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
 <script src="~/Scripts/jquery-2.2.0.min.js"></script>
 <script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+<script src="@Url.Content("~/Scripts/gridmvc.customwidgets.js")"></script>
+
 @{
     ViewBag.Title = "Index";
 }
@@ -12,7 +14,7 @@
 <hr />
 
 <div style="width:auto">
-    @Html.Grid(Model).Columns(columns =>
+    @Html.Grid(Model).Named("bidRequestBoard").Columns(columns =>
 {
     /* Adding not mapped column, that renders body, using inline Razor html helper */
     /*columns.Add()
@@ -60,8 +62,16 @@
     /* Adding "Status" column: */
     columns.Add(o => o.StatusName)
             .Titled("Status")
+            .Sortable(true)
             .Filterable(true)
+            .SetFilterWidgetType("CustomStatusFilterWidget")
             .SetWidth(125);
 
 }).WithPaging(20).Sortable(true)
 </div>
+
+<script>
+    $(document).ready(function(){
+        pageGrids.bidRequestBoard.addFilterWidget(new StatusesFilterWidget());
+    });
+</script>

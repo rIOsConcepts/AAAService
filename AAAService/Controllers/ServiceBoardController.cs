@@ -16,8 +16,7 @@ namespace AAAService.Controllers
     [Authorize]
     public class ServiceBoardController : Controller
     {
-        private aaahelpEntities db = new aaahelpEntities();
-       
+        private aaahelpEntities db = new aaahelpEntities();       
 
         // GET: ServiceBoard
         public ActionResult Index()
@@ -74,18 +73,36 @@ namespace AAAService.Controllers
            
         }
 
+        //Action result for ajax call 
+        [HttpPost]
+        public ActionResult GetStatuses()
+        {
+            SelectList obj = new SelectList(db.StatusLists.Where(o => o.active == true).OrderBy(o => o.Name), "ID", "Name");
+            return Json(obj);
+        }
+
+        //Action result for ajax call 
+        [HttpPost]
+        public ActionResult GetPriorities()
+        {
+            SelectList obj = new SelectList(db.PriorityLists.Where(o => o.active == true).OrderBy(o => o.Name), "ID", "Name");
+            return Json(obj);
+        }
+
+        //Action result for ajax call 
+        [HttpPost]
+        public ActionResult GetServiceCategories()
+        {
+            SelectList obj = new SelectList(db.ServiceCategories.Where(o => o.active == true).OrderBy(o => o.Name), "ID", "Name");
+            return Json(obj);
+        }
+
         // GET: ServiceBoard/Details/5
         public ActionResult Details()
         {
             
             return View();
         }
-
-         
-        
-       
-
-       
 
         protected override void Dispose(bool disposing)
         {
