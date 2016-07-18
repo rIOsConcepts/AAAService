@@ -28,6 +28,14 @@ namespace AAAService.Controllers
             RoleManager = roleManager;
         }
 
+        //Action result for ajax call 
+        [HttpPost]
+        public ActionResult GetUserStatuses()
+        {
+            SelectList obj = new SelectList(db.OtherStatusLists.Where(o => o.Active == true).OrderBy(o => o.Name), "Value", "Name");
+            return Json(obj);
+        }
+
         private ApplicationUserManager _userManager;
         public ApplicationUserManager UserManager
         {

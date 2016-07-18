@@ -4,6 +4,8 @@
 <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
 <script src="~/Scripts/jquery-2.2.0.min.js"></script>
 <script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+<script src="@Url.Content("~/Scripts/gridmvc.customwidgets.js")"></script>
+
 @{
     ViewBag.Title = "Index";
 }
@@ -13,8 +15,21 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
 <div style="width:auto">
-    @Html.Grid(Model).Columns(columns =>
+@helper CustomRenderingOfColumn(AAAService.Models.ApplicationUser model)
+{
+    if (model.account_status == 1)
+    {
+        <text>Active</text>
+    }
+    else
+    {
+        <text>Inactive</text>
+    }
+}
+
+@Html.Grid(Model).Named("manageUsers").Columns(columns =>
 {
     /* Adding not mapped column, that renders body, using inline Razor html helper */
     /*columns.Add()
@@ -54,9 +69,18 @@
 
     /* Adding "Acct Status" column: */
     columns.Add(o => o.account_status)
-            .Titled("Acct Status")
+            .Titled("Status")
+            .Sortable(true)
+            .Filterable(true)
+            .SetFilterWidgetType("CustomUserStatusFilterWidget")
+            .RenderValueAs(model => CustomRenderingOfColumn(model))
             .SetWidth(80);
 
-
-}).WithPaging(20).Sortable(true)
+}).WithPaging(20).Sortable().Filterable().WithMultipleFilters()
 </div>
+
+<script>
+    $(document).ready(function(){
+        pageGrids.manageUsers.addFilterWidget(new UserStatusesFilterWidget());
+    });
+</script>
