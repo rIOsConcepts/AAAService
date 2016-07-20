@@ -20,7 +20,8 @@ namespace AAAService.Controllers
 
         // GET: ServiceBoard
         public ActionResult Index()
-        {   var myuserguid = Helpers.UserHelper.getUserGuid();
+        {
+            var myuserguid = Helpers.UserHelper.getUserGuid();
             var mylocationguid = Helpers.SvcHelper.getLocation();
 
             if (mylocationguid == Guid.Parse("6FFB64D7-4D69-4F1C-BC55-5376588A39F4"))
@@ -64,6 +65,13 @@ namespace AAAService.Controllers
 
                     singleloc = singleloc.Where(s => s.service_location_guid.Equals(mylocationguid)).OrderByDescending(s=>s.job_number);
                     var view = singleloc.ToList<service_boardNew>();
+
+                    foreach (var item in view)
+                    {
+                        item.order_datetime = item.order_datetime.AddHours(-item.order_datetime.Hour).AddMinutes(-item.order_datetime.Minute).AddSeconds(-item.order_datetime.Second).AddMilliseconds(-item.order_datetime.Millisecond);
+                    }
+
+                    view[0].order_datetime = new DateTime(2016, 07, 14);
                     return View(view);
                 }
 

@@ -11,13 +11,30 @@ namespace AAAService.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class service_boardNew
     {
         public Nullable<int> age { get; set; }
         public string service_location_name { get; set; }
         public int job_number { get; set; }
+        [DataType(DataType.Date)]
+        //[GridColumn(Title = "Date", Width = "120px", Format = "{0:dd/MM/yyyy}", SortEnabled = true, FilterEnabled = true, SortInitialDirection = GridSortDirection.Descending)]
         public System.DateTime order_datetime { get; set; }
+        //public System.DateTime order_datetime
+        //{
+        //    get
+        //    {
+        //        var orderDate = this.order_datetime;
+        //        orderDate.AddHours(-orderDate.Hour);
+        //        return orderDate;
+        //    }
+        //    set
+        //    {
+        //        this.order_datetime = value;
+        //    }
+        //}
+
         public string problem_summary { get; set; }
         public string company_name { get; set; }
         public System.Guid service_location_guid { get; set; }
