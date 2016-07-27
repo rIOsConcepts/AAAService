@@ -336,6 +336,7 @@ warning 6002: The table/view 'aaahelp.dbo.Bid_Requests_View' does not have a pri
   <EntityType Name="Bid_Requests_View">
     <Key>
       <PropertyRef Name="guid" />
+      <PropertyRef Name="order_datetime" />
     </Key>
     <Property Name="bid_num" Type="int" Nullable="false" />
     <Property Name="problem_summary" Type="varchar" MaxLength="100" Nullable="false" />
@@ -343,7 +344,7 @@ warning 6002: The table/view 'aaahelp.dbo.Bid_Requests_View' does not have a pri
     <Property Name="Service_Location_Name" Type="varchar" MaxLength="50" />
     <Property Name="Parent_Location_Name" Type="varchar" MaxLength="50" />
     <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Order_Date" Type="varchar" MaxLength="10" />
+    <Property Name="order_datetime" Type="datetime2" Precision="7" Nullable="false" />
     <Property Name="parent_company_guid" Type="uniqueidentifier" />
     <Property Name="service_location_guid" Type="uniqueidentifier" />
     <Property Name="active" Type="bit" Nullable="false" />
@@ -881,7 +882,7 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
     [Bid_Requests_View].[Service_Location_Name] AS [Service_Location_Name], 
     [Bid_Requests_View].[Parent_Location_Name] AS [Parent_Location_Name], 
     [Bid_Requests_View].[guid] AS [guid], 
-    [Bid_Requests_View].[Order_Date] AS [Order_Date], 
+    [Bid_Requests_View].[order_datetime] AS [order_datetime], 
     [Bid_Requests_View].[parent_company_guid] AS [parent_company_guid], 
     [Bid_Requests_View].[service_location_guid] AS [service_location_guid], 
     [Bid_Requests_View].[active] AS [active]

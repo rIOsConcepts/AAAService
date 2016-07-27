@@ -229,6 +229,7 @@
   <EntityType Name="Bid_Requests_View">
     <Key>
       <PropertyRef Name="guid" />
+      <PropertyRef Name="order_datetime" />
     </Key>
     <Property Name="bid_num" Type="Int32" Nullable="false" />
     <Property Name="problem_summary" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -236,10 +237,10 @@
     <Property Name="Service_Location_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Parent_Location_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="guid" Type="Guid" Nullable="false" />
-    <Property Name="Order_Date" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="parent_company_guid" Type="Guid" />
     <Property Name="service_location_guid" Type="Guid" />
     <Property Name="active" Type="Boolean" Nullable="false" />
+    <Property Name="order_datetime" Type="DateTime" Nullable="false" Precision="7" />
   </EntityType>
   <EntityType Name="Comments_view">
     <Key>

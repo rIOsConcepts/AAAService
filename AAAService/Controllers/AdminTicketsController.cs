@@ -22,9 +22,18 @@ namespace AAAService.Controllers
         {
             var multilocs = from s in db.service_boardNew
                             select s;
-            multilocs = multilocs.OrderByDescending(s => s.job_number);
 
-            return View(multilocs.ToList<service_boardNew>());
+            multilocs = multilocs.OrderByDescending(s => s.job_number);
+            var view = multilocs.ToList<service_boardNew>();
+
+            foreach (var item in view)
+            {
+                item.order_datetime = item.order_datetime.Date;
+                item.dispatch_datetime = item.dispatch_datetime?.Date;
+                item.complete_datetime = item.complete_datetime?.Date;
+            }
+
+            return View(view);
         }
         public ActionResult Upload()
 

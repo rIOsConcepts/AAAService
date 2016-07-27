@@ -124,10 +124,10 @@
     <EntitySetMapping Name="Bid_Requests_View">
       <EntityTypeMapping TypeName="aaahelpModel.Bid_Requests_View">
         <MappingFragment StoreEntitySet="Bid_Requests_View">
+          <ScalarProperty Name="order_datetime" ColumnName="order_datetime" />
           <ScalarProperty Name="active" ColumnName="active" />
           <ScalarProperty Name="service_location_guid" ColumnName="service_location_guid" />
           <ScalarProperty Name="parent_company_guid" ColumnName="parent_company_guid" />
-          <ScalarProperty Name="Order_Date" ColumnName="Order_Date" />
           <ScalarProperty Name="guid" ColumnName="guid" />
           <ScalarProperty Name="Parent_Location_Name" ColumnName="Parent_Location_Name" />
           <ScalarProperty Name="Service_Location_Name" ColumnName="Service_Location_Name" />

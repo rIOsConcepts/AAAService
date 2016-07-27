@@ -134,7 +134,7 @@
             //.RenderValueAs(o => string.Format("{0:MM/dd/yyyy}", o.order_datetime.ToString("MM/dd/yyyy")))
             //.RenderValueAs(o => string.Format("{0:MM/dd/yyyy}"))
             //.SortInitialDirection(GridMvc.Sorting.GridSortDirection.Descending)
-            //.Format("{0:MM/dd/yyyy}")
+            .Format("{0:MM/dd/yyyy}")
             .Filterable(true)
             .SetWidth(80);
 
@@ -169,19 +169,11 @@
 }).WithPaging(20).Sortable().Filterable().WithMultipleFilters()
 </div>
 
-@*ACA*@
-@*<p>Date: <input type="text" id="serviceBoard2" class="form-control datepicker"></p>*@
-
 <script>
-    $(document).ready(function(){
+    $(document).ready(function() {
         pageGrids.serviceBoard.addFilterWidget(new StatusesFilterWidget());
         pageGrids.serviceBoard.addFilterWidget(new PrioritiesFilterWidget());
         pageGrids.serviceBoard.addFilterWidget(new ServiceCategoriesFilterWidget());
-    });
-
-    $(document).ready(function(){
         $("#serviceBoard").datepicker();
-        //ACA
-        //$("#serviceBoard2").datepicker();
     });
 </script>

@@ -1,10 +1,14 @@
 ﻿@model IEnumerable<AAAService.Models.Bid_Requests_View>
+
 @using GridMvc.Html
 <link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
 <script src="~/Scripts/jquery-2.2.0.min.js"></script>
 <script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
 <script src="@Url.Content("~/Scripts/gridmvc.customwidgets.js")"></script>
+<link rel="stylesheet" href="https://jqueryui.com/resources/demos/style.css">
+<script src="/Scripts/bootstrap-datepicker.js"></script>
+<link href="/Content/gridmvc.datepicker.css" rel="stylesheet" />
 
 @{
     ViewBag.Title = "Index";
@@ -14,7 +18,7 @@
 <hr />
 
 <div style="width:auto">
-    @Html.Grid(Model).Named("bidRequestBoard").Columns(columns =>
+    @Html.Grid(Model).Named("BidRequestBoard").Columns(columns =>
 {
     /* Adding not mapped column, that renders body, using inline Razor html helper */
     /*columns.Add()
@@ -42,10 +46,12 @@
                 .SetWidth(100);
 
     /* Adding "Date Requested" column: */
-    columns.Add(o => o.Order_Date)
+    columns.Add(o => o.order_datetime)
             .Titled("Date Requested")
-            .RenderValueAs(o => string.Format("{0:MM/dd/yyyy}", o.Order_Date))
+            .Format("{0:MM/dd/yyyy}")
+            //.RenderValueAs(o => string.Format("{0:MM/dd/yyyy}", o.Order_Date))
             .Filterable(true)
+            .Sortable(true)
             .SetWidth(80);
 
     /* Adding "Location" column: */
@@ -67,11 +73,12 @@
             .SetFilterWidgetType("CustomStatusFilterWidget")
             .SetWidth(125);
 
-}).WithPaging(20).Sortable(true)
+}).WithPaging(20).Sortable().Filterable().WithMultipleFilters()
 </div>
 
 <script>
-    $(document).ready(function(){
-        pageGrids.bidRequestBoard.addFilterWidget(new StatusesFilterWidget());
-    });
+    $(document).ready(function() {
+        pageGrids.BidRequestBoard.addFilterWidget(new StatusesFilterWidget());
+        $("#BidRequestBoard").datepicker();
+    });    
 </script>

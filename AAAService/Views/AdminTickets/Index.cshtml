@@ -5,6 +5,10 @@
 <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
 <script src="~/Scripts/jquery-2.2.0.min.js"></script>
 <script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+<link rel="stylesheet" href="https://jqueryui.com/resources/demos/style.css">
+<script src="/Scripts/bootstrap-datepicker.js"></script>
+<link href="/Content/gridmvc.datepicker.css" rel="stylesheet" />
+
 @{
     ViewBag.Title = "Index";
 }
@@ -14,7 +18,7 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <div style="width:auto">
-    @Html.Grid(Model).Columns(columns =>
+    @Html.Grid(Model).Named("AdminTickets").Columns(columns =>
 {
     /* Adding not mapped column, that renders body, using inline Razor html helper */
     /*columns.Add()
@@ -86,7 +90,8 @@
     /* Adding "Date Requested" column: */
     columns.Add(o => o.order_datetime)
             .Titled("Date Requested")
-            .RenderValueAs(o => string.Format("{0:MM/dd/yyyy}", o.order_datetime))
+            //.RenderValueAs(o => string.Format("{0:MM/dd/yyyy}", o.order_datetime))
+            .Format("{0:MM/dd/yyyy}")
             .Filterable(true)
             .SetWidth(80);
 
@@ -104,7 +109,6 @@
             .Filterable(true)
             .SetWidth(110);
 
-
     /* Adding "Service Provider" column: */
     columns.Add(o => o.service_provider)
             .Titled("Service Provider")
@@ -117,6 +121,11 @@
             .Filterable(true)
             .SetWidth(150);
 
-
 }).WithPaging(20).Sortable(true)
 </div>
+
+<script>
+    $(document).ready(function() {
+        $("#AdminTickets").datepicker();
+    });
+</script>

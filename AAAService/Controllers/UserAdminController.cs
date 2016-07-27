@@ -65,9 +65,7 @@ namespace AAAService.Controllers
         //
         // GET: /Users/
         public async Task<ActionResult> Index()
-        {
-
-                   
+        {                                    
             return View(await UserManager.Users.ToListAsync());
         }
 

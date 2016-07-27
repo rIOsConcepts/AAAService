@@ -63,8 +63,14 @@ namespace AAAService.Controllers
                     var singleloc = from s in db.Bid_Requests_View
                                     select s;
                     singleloc = singleloc.Where(s => s.service_location_guid == (mylocationnguid)).OrderByDescending(s => s.bid_num);
+                    var view = singleloc.ToList<Bid_Requests_View>();
 
-                    return View(singleloc.ToList<Bid_Requests_View>());
+                    foreach (var item in view)
+                    {
+                        item.order_datetime = item.order_datetime.Date;
+                    }
+
+                    return View(view);
                 }
 
 

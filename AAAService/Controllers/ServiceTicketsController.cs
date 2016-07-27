@@ -219,6 +219,38 @@ namespace AAAService.Controllers
                 db.service_tickets.Add(service_tickets);
 
                 db.SaveChanges();
+                var email = new Correspondence.Mail();
+                var body = "AAA Web Portal Service Ticket\r\n\r\n" +
+                           "Requested By: " + service_tickets.location_contact_name.ToUpper() + "\r\n" +
+                           "Customer Number " + "" + "\r\n" +
+                            "Cost Code " + service_tickets.cost_code + "\r\n" +
+                            "Customer PO# " + service_tickets.cust_po_num + "\r\n" +
+                            "Service Provider " + service_tickets.service_provider + "\r\n" +
+                            "Service Location: " + service_tickets.Location.ToUpper() + "\r\n" +
+                            "Address Line 1: " + found.addressline1.ToUpper() + "\r\n" +
+                            "Address Line 2: " + found.addressline2.ToUpper() + "\r\n" +
+                            "City: " + found.city.ToUpper() + "\r\n" +
+                            "State: " + found.state.ToUpper() + "\r\n" +
+                            "Zip: " + found.zip + "\r\n" +
+                            "Job Number: " + service_tickets.job_number + "\r\n" +
+                            "Contact Name: " + found.name.ToUpper() + "\r\n" +
+                            "Contact Number: " + found.cf_location_num + "\r\n" +
+                            "Contact After Hours Number:\r\n" +
+                            "Priority Code: 20 - 3 TO 5 DAYS\r\n" +
+                            "Priority Code: 20\r\n" +
+                            "Order Date: " + service_tickets.order_datetime.ToShortDateString() + "\r\n" +
+                            "Order Time: " + service_tickets.order_datetime.ToShortTimeString() + "\r\n" +
+                            "Category " + service_tickets.CategoryID + "\r\n" +
+                            "Request Summary\r\n" +
+                            service_tickets.problem_summary.ToUpper() + "\r\n" +
+                            "Request Details\r\n" +
+                            service_tickets.problem_details.ToUpper() + "\r\n" +
+                            "Status Code: " + service_tickets.StatusName.ToUpper() + "\r\n" +
+                            "Zone: " + "\r\n" +
+                            "Service Type: " + service_tickets.ServiceCategory.ToUpper() + "\r\n" +
+                            "Service Rep: " + "" + "\r\n" +
+                            "Taken By: Web Portal";
+                email.Send("Web Portal Service Ticket Entered", body);
                 return RedirectToAction("Index", "Home");
             }
 

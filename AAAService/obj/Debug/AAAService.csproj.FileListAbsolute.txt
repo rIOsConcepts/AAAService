@@ -87,6 +87,8 @@ C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\AAASer
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\AAAService.dll
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\AAAService.pdb
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Antlr3.Runtime.dll
+C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Elmah.dll
+C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Elmah.Mvc.dll
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\EntityFramework.dll
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\EntityFramework.SqlServer.dll
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\GridMvc.dll
@@ -117,6 +119,7 @@ C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\System
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\System.Web.WebPages.dll
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\System.Web.WebPages.Razor.dll
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\WebGrease.dll
+C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\System.Data.SqlServerCe.dll
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Antlr3.Runtime.pdb
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\System.Net.Http.Formatting.xml
@@ -143,4 +146,3 @@ C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Micros
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\obj\Debug\AAAService.dll
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\obj\Debug\AAAService.pdb
-C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\obj\Debug\AAAService.csprojResolveAssemblyReference.cache

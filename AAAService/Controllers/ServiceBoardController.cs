@@ -68,10 +68,11 @@ namespace AAAService.Controllers
 
                     foreach (var item in view)
                     {
-                        item.order_datetime = item.order_datetime.AddHours(-item.order_datetime.Hour).AddMinutes(-item.order_datetime.Minute).AddSeconds(-item.order_datetime.Second).AddMilliseconds(-item.order_datetime.Millisecond);
+                        item.order_datetime = item.order_datetime.Date;
+                        item.dispatch_datetime = item.dispatch_datetime?.Date;
+                        item.complete_datetime = item.complete_datetime?.Date;
                     }
 
-                    view[0].order_datetime = new DateTime(2016, 07, 14);
                     return View(view);
                 }
 
