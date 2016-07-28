@@ -5,6 +5,30 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="aaahelpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="lname" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="fname" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="account_status" Type="int" Nullable="false" />
+          <Property Name="salt" Type="varchar" MaxLength="7" />
+          <Property Name="is_manager" Type="bit" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="bid_requests">
           <Key>
             <PropertyRef Name="guid" />
@@ -749,6 +773,12 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_errors_and_comments_user_login' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_errors_and_comments_user_login" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Location_Service_Provider_AspNetUsers' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Location_Service_Provider_AspNetUsers" />-->
         <Association Name="FK_Location_Service_Provider_locationinfo">
           <End Role="locationinfo" Type="Self.locationinfo" Multiplicity="1" />
           <End Role="Location_Service_Provider" Type="Self.Location_Service_Provider" Multiplicity="0..1" />
@@ -857,6 +887,9 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_user_to_location_user_login' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_user_to_location_user_login" />-->
         <Association Name="FK_user_viewable_locations_locationinfo">
           <End Role="locationinfo" Type="Self.locationinfo" Multiplicity="1" />
           <End Role="user_viewable_locations" Type="Self.user_viewable_locations" Multiplicity="*" />
@@ -876,6 +909,7 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
           <Parameter Name="sessionid" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="aaahelpModelStoreContainer">
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="bid_requests" EntityType="Self.bid_requests" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CommentRatings" EntityType="Self.CommentRatings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
@@ -1400,6 +1434,7 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
           </AssociationSet>
           <EntitySet Name="OtherStatusLists" EntityType="aaahelpModel.OtherStatusList" />
           <EntitySet Name="ExportToCFs" EntityType="aaahelpModel.ExportToCF" />
+          <EntitySet Name="AspNetUsers" EntityType="aaahelpModel.AspNetUser" />
           </EntityContainer>
         <EntityType Name="service_boardNew">
           <Key>
@@ -2173,6 +2208,30 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
           <Property Name="USER_DEFINED_3" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="USER_DEFINED_4" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="guid" Type="Guid" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="lname" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fname" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="account_status" Type="Int32" Nullable="false" />
+          <Property Name="salt" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="is_manager" Type="Boolean" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2813,6 +2872,31 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
                 <ScalarProperty Name="C_T" ColumnName="C/T" />
                 <ScalarProperty Name="C_O_EXT" ColumnName="C/O EXT" />
                 <ScalarProperty Name="Job_Number" ColumnName="Job Number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="aaahelpModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="is_manager" ColumnName="is_manager" />
+                <ScalarProperty Name="salt" ColumnName="salt" />
+                <ScalarProperty Name="account_status" ColumnName="account_status" />
+                <ScalarProperty Name="fname" ColumnName="fname" />
+                <ScalarProperty Name="lname" ColumnName="lname" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

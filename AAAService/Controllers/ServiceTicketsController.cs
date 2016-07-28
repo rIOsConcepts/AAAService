@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AAAService.Models;
 using AAAService.Helpers;
-using System.IO;
 
 namespace AAAService.Controllers
 {
@@ -147,7 +147,7 @@ namespace AAAService.Controllers
             //ViewBag.LocationName = db.locationinfoes.Where(o => o.active == true && o.guid.ToString() == id.ToString()).ToList()[0].name;
             ViewBag.LocationName = id;
             //ViewBag.LocationDD = new SelectList(db.locationinfoes.Where(o => o.active == true).OrderBy(o => o.name), "guid", "name", service_tickets.service_location_guid);            
-            ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true), "ID", "Name");
+            ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true).OrderBy(o => o.list_num), "ID", "Name");
             ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.active == true), "ID", "Name");
             ViewBag.StatusID = new SelectList(db.StatusLists.Where(o => o.active == true), "ID", "Name");
             return View();
@@ -219,38 +219,52 @@ namespace AAAService.Controllers
                 db.service_tickets.Add(service_tickets);
 
                 db.SaveChanges();
-                var email = new Correspondence.Mail();
-                var body = "AAA Web Portal Service Ticket\r\n\r\n" +
-                           "Requested By: " + service_tickets.location_contact_name.ToUpper() + "\r\n" +
-                           "Customer Number " + "" + "\r\n" +
-                            "Cost Code " + service_tickets.cost_code + "\r\n" +
-                            "Customer PO# " + service_tickets.cust_po_num + "\r\n" +
-                            "Service Provider " + service_tickets.service_provider + "\r\n" +
-                            "Service Location: " + service_tickets.Location.ToUpper() + "\r\n" +
-                            "Address Line 1: " + found.addressline1.ToUpper() + "\r\n" +
-                            "Address Line 2: " + found.addressline2.ToUpper() + "\r\n" +
-                            "City: " + found.city.ToUpper() + "\r\n" +
-                            "State: " + found.state.ToUpper() + "\r\n" +
-                            "Zip: " + found.zip + "\r\n" +
-                            "Job Number: " + service_tickets.job_number + "\r\n" +
-                            "Contact Name: " + found.name.ToUpper() + "\r\n" +
-                            "Contact Number: " + found.cf_location_num + "\r\n" +
-                            "Contact After Hours Number:\r\n" +
-                            "Priority Code: 20 - 3 TO 5 DAYS\r\n" +
-                            "Priority Code: 20\r\n" +
-                            "Order Date: " + service_tickets.order_datetime.ToShortDateString() + "\r\n" +
-                            "Order Time: " + service_tickets.order_datetime.ToShortTimeString() + "\r\n" +
-                            "Category " + service_tickets.CategoryID + "\r\n" +
-                            "Request Summary\r\n" +
-                            service_tickets.problem_summary.ToUpper() + "\r\n" +
-                            "Request Details\r\n" +
-                            service_tickets.problem_details.ToUpper() + "\r\n" +
-                            "Status Code: " + service_tickets.StatusName.ToUpper() + "\r\n" +
-                            "Zone: " + "\r\n" +
-                            "Service Type: " + service_tickets.ServiceCategory.ToUpper() + "\r\n" +
-                            "Service Rep: " + "" + "\r\n" +
-                            "Taken By: Web Portal";
-                email.Send("Web Portal Service Ticket Entered", body);
+
+                try
+                {
+                    var email = new Correspondence.Mail();
+                    var user = db.AspNetUsers.Where(o => o.guid == service_tickets.last_updated_by_user_guid).ToList()[0];
+
+                    var body = "AAA Web Portal Service Ticket\r\n\r\n" +
+                               "Requested By: " + user.fname.ToUpper() + " " + user.lname.ToUpper() + "\r\n" +
+                               "Customer Number " + found.cf_location_num + "\r\n" +
+                               "Cost Code " + service_tickets.cost_code + "\r\n" +
+                               "Customer PO# " + service_tickets.cust_po_num + "\r\n" +
+                               "Service Provider " + service_tickets.service_provider + "\r\n" +
+                               "Service Location: " + service_tickets.Location.ToUpper() + "\r\n" +
+                               "Address Line 1: " + found.addressline1.ToUpper() + "\r\n" +
+                               "Address Line 2: " + found.addressline2.ToUpper() + "\r\n" +
+                               "City: " + found.city.ToUpper() + "\r\n" +
+                               "State: " + found.state.ToUpper() + "\r\n" +
+                               "Zip: " + found.zip + "\r\n" +
+                               "Job Number: " + service_tickets.job_number + "\r\n" +
+                               "Contact Name: " + found.name.ToUpper() + "\r\n" +
+                               "Contact Number: " + service_tickets.location_contact_phone + "\r\n" +
+                               "Contact After Hours Number: " + service_tickets.location_contact_phone_night + "\r\n" +
+                               "Priority Code: " + service_tickets.PriorityID + " - " + db.PriorityLists.Where(o => o.ID == service_tickets.PriorityID).ToList()[0].Name.ToUpper() + "\r\n" +
+                               "Priority Code: " + service_tickets.PriorityID + "\r\n" +
+                               "Order Date: " + service_tickets.order_datetime.ToShortDateString() + "\r\n" +
+                               "Order Time: " + service_tickets.order_datetime.ToShortTimeString() + "\r\n" +
+                               "Category " + service_tickets.CategoryID + "\r\n" +
+                               "Request Summary\r\n" +
+                               service_tickets.problem_summary.ToUpper() + "\r\n" +
+                               "Request Details\r\n" +
+                               service_tickets.problem_details.ToUpper() + "\r\n" +
+                               "Status Code: " + service_tickets.StatusName.ToUpper() + "\r\n" +
+                               "Zone: " + "WHERE DOES THIS VALUE COME FROM?" + "\r\n" +
+                               "Service Type: " + service_tickets.ServiceCategory.ToUpper() + "\r\n" +
+                               "Service Rep: " + "WHERE DOES THIS VALUE COME FROM?" + "\r\n" +
+                               "Taken By: Web Portal\r\n\r\n" +
+                               "If you have questions or concerns about this message please contact us at 1-800-892-4784.\r\n\r\n" +
+                               "Please do not reply to this e - mail, this account is not monitored.";
+
+                    email.Send("Web Portal Service Ticket Entered", body);
+                }
+                catch (Exception e)
+                {
+                    System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + "log.txt", DateTime.Now + " => " + e.ToString());
+                }
+
                 return RedirectToAction("Index", "Home");
             }
 
@@ -285,12 +299,14 @@ namespace AAAService.Controllers
             {
                 return HttpNotFound();
             }
+
             ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true), "ID", "Name", service_tickets.PriorityID);
             ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.active == true), "ID", "Name", service_tickets.CategoryID);
             ViewBag.StatusID = new SelectList(db.StatusLists.Where(o => o.active == true), "ID", "Name", service_tickets.StatusID);
+
             ViewBag.FileList = from s in db.service_ticket_files
                                where s.ticket_guid == id
-                               select s;
+                               select s;            
 
             return View(service_tickets);
         }
@@ -337,7 +353,36 @@ namespace AAAService.Controllers
                         ticketToUpdate.last_updated_by_user_guid = lastuserguid;
                         db.SaveChanges();
 
-                        return RedirectToAction("Index", "Home");
+                        try
+                        {
+                            var email = new Correspondence.Mail();
+                            var user = db.AspNetUsers.Where(o => o.guid == ticketToUpdate.last_updated_by_user_guid).ToList()[0];
+
+                            var body = "AAA Web Portal Service Ticket\r\n\r\n" +
+                                       "The Service Request number: " + ticketToUpdate.job_number + " for location " + db.locationinfoes.Where(o => o.guid == ticketToUpdate.service_location_guid).ToList()[0].name.ToUpper() + " has been updated." + "\r\n" +
+                                       "The request is now: " + ticketToUpdate.StatusName.ToUpper() + "\r\n" +
+                                       "The Requests Details follow.\r\n" +
+                                       "Requested: " + (ticketToUpdate.order_datetime != null ? ticketToUpdate.order_datetime.ToString("M/d/yyyy hh:mm:ss tt") : "") + "\r\n" +
+                                       "Accepted: " + (ticketToUpdate.accepted_datetime != null ? ticketToUpdate.accepted_datetime?.ToString("M/d/yyyy hh:mm:ss tt") : "") + "\r\n" +
+                                       "Dispatched: " + (ticketToUpdate.dispatch_datetime != null ? ticketToUpdate.dispatch_datetime?.ToString("M/d/yyyy hh:mm:ss tt") : "") + "\r\n" +
+                                       "Completed: " + (ticketToUpdate.complete_datetime != null ? ticketToUpdate.complete_datetime?.ToString("M/d/yyyy hh:mm:ss tt") : "") + "\r\n" +
+                                       "Service Provider: " + (ticketToUpdate.service_provider != null ? ticketToUpdate.service_provider.ToUpper() : "") + "\r\n" + 
+                                       "Problem Summary: " + ticketToUpdate.problem_summary.ToUpper() + "\r\n" +
+                                       "Problem Details: " + ticketToUpdate.problem_details.ToUpper() + "\r\n" +
+                                       "Resolution Notes: " + (ticketToUpdate.notes != null ? ticketToUpdate.notes.ToUpper() : "") + "\r\n" +
+                                       "Updated By: " + user.fname.ToUpper() + " " + user.lname.ToUpper() + "\r\n" +
+                                       "Taken By: Web Portal\r\n\r\n" +
+                                       "If you have questions or concerns about this message please contact us at 1-800-892-4784.\r\n\r\n" +
+                                       "Please do not reply to this e - mail, this account is not monitored.";
+
+                            email.Send("Web Portal Service Ticket Update", body);
+                        }
+                        catch (Exception e)
+                        {
+                            System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + "log.txt", DateTime.Now + " => " + e.ToString());
+                        }
+
+                    return RedirectToAction("Index", "Home");
                     }
                     catch (DataException /*dex*/)
                     {

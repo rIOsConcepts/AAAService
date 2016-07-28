@@ -61,6 +61,7 @@ namespace AAAService.Models
         public virtual DbSet<ServiceCategory> ServiceCategories { get; set; }
         public virtual DbSet<OtherStatusList> OtherStatusLists { get; set; }
         public virtual DbSet<ExportToCF> ExportToCFs { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
     
         public virtual ObjectResult<ParentLocationInfoFromUsrGUID_Result> ParentLocationInfoFromUsrGUID(Nullable<System.Guid> usrGUID)
         {

@@ -154,10 +154,25 @@ namespace AAAService.Correspondence
                 //client.Send(msg);
 
                 System.Net.Mail.MailMessage eMail = new System.Net.Mail.MailMessage();
-                eMail.From = new System.Net.Mail.MailAddress("email@assetsaaa.com");
+                eMail.From = new System.Net.Mail.MailAddress("distributionlist@assetsaaa.com");
                 eMail.To.Add("riosconcepts@gmail.com");
+                eMail.To.Add("giulianomx@me.com");
                 eMail.To.Add("TZhang@aaacompanies.com");
-                //eMail.IsBodyHtml = true;
+
+                //When ticket is first entered – email goes to order@aaacompanies.com, erios@aaacompanies.com, sdollen@aaacompanies.com, bhiggins@aaacompanies.com, the user that entered the ticket and every user attached to that site / location.
+
+                //Anytime a ticket is updated, changed, etc.an email needs to go out to the following people:  erios@aaacompanies.com, sdollen@aaacompanies.com, bhiggins@aaacompanies.com, the user that entered the ticket and every user attached to that site / location.
+
+                if (subject == "Web Portal Service Ticket Entered")
+                {
+                    eMail.To.Add("order@aaacompanies.com");
+                }
+
+                eMail.To.Add("erios@aaacompanies.com");
+                eMail.To.Add("sdollen @aaacompanies.com");
+                eMail.To.Add("bhiggins@aaacompanies.com");
+
+                eMail.IsBodyHtml = false;
                 eMail.Subject = subject;
                 eMail.Body = body;
                 eMail.Priority = MailPriority.High;
@@ -168,7 +183,7 @@ namespace AAAService.Correspondence
                 //SMTP.DeliveryMethod = SmtpDeliveryMethod.Network;
                 SMTP.EnableSsl = false;
                 SMTP.UseDefaultCredentials = true;
-                SMTP.Credentials = new System.Net.NetworkCredential("email@assetsaaa.com", "WorkYLPOS");
+                SMTP.Credentials = new System.Net.NetworkCredential("distributionlist@assetsaaa.com", "9066E285FF804417AF1C");
                 //SMTP.DeliveryFormat = SmtpDeliveryFormat.International;                
                 SMTP.Send(eMail);
                 //await SMTP.SendMailAsync(eMail);

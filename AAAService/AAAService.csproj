@@ -245,6 +245,9 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\AspNetUser.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\bid_requests.cs">
       <DependentUpon>AAAServiceModels.tt</DependentUpon>
     </Compile>

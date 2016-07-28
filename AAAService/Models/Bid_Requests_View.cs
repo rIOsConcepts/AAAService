@@ -11,8 +11,7 @@ namespace AAAService.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Bid_Requests_View
     {
         public int bid_num { get; set; }
@@ -24,6 +23,6 @@ namespace AAAService.Models
         public Nullable<System.Guid> parent_company_guid { get; set; }
         public Nullable<System.Guid> service_location_guid { get; set; }
         public bool active { get; set; }
-        public DateTime order_datetime { get; set; }
+        public System.DateTime order_datetime { get; set; }
     }
 }
