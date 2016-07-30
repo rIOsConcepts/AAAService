@@ -101,11 +101,32 @@ namespace AAAService.Controllers
             if (ModelState.IsValid)
             {
                 var userguid = Guid.NewGuid();
-                var user = new ApplicationUser { UserName = userViewModel.Email, Email = userViewModel.Email,fname = userViewModel.fname,lname = userViewModel.lname,title= userViewModel.title,guid = userguid };
+                var user = new ApplicationUser { UserName = userViewModel.Email, Email = userViewModel.Email, fname = userViewModel.fname, lname = userViewModel.lname, title= userViewModel.title, guid = userguid };
                 
                 // Create user active by default (per request on 6/23/2016)
                 user.account_status = 1;
-                var adminresult = await UserManager.CreateAsync(user, userViewModel.Password);
+                var password = System.Web.Security.Membership.GeneratePassword(10, 5);
+                var adminresult = await UserManager.CreateAsync(user, password);
+
+                try
+                {
+                    var email = new Correspondence.Mail();
+
+                    var body = "Welcome. You have been invited to use the AAA Property Services customer portal. This system allows you to report problems with your facilities so that they can be resolved as quickly as possible. To setup your user, please follow the link below.\r\n\r\n" +
+                               "Click Here\r\n\r\n" +
+                               "Or cut and paste the following into your web browser.\r\n\r\n" +
+                               "http://assetsaaa.com/Register?guid=" + user.Id + "\r\n\r\n" +
+                               "Your temporary password is: " + password + "\r\n\r\n" +
+                               "Thank You\r\n\r\n" +
+                               "If you have questions or concerns about this message please contact us at 1-800-892-4784.\r\n" +
+                               "Please do not reply to this e-mail, this account is not monitored.";
+
+                    email.Send("Web Portal User Invitation", body, user.Email);
+                }
+                catch (Exception e)
+                {
+                    System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + "log.txt", DateTime.Now + " => " + e.ToString());
+                }
 
                 //Add User to the selected Roles 
                 if (adminresult.Succeeded)

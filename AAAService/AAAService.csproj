@@ -218,6 +218,7 @@
     <Compile Include="Controllers\ServiceTicketsController.cs" />
     <Compile Include="Controllers\StatusListsController.cs" />
     <Compile Include="Controllers\UpLoadToCalendarController.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Controllers\UserLocationController.cs" />
     <Compile Include="Controllers\UserViewsController.cs" />
@@ -765,6 +766,7 @@
     <Content Include="Views\AdminTickets\Edit.cshtml" />
     <Content Include="Views\AdminTickets\Index.cshtml" />
     <Content Include="Views\ExportToCF\Index.cshtml" />
+    <Content Include="Views\Register\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />

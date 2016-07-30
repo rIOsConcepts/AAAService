@@ -155,7 +155,9 @@ namespace AAAService.Controllers
             if (ModelState.IsValid)
             {   var userguid = Guid.NewGuid();
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, fname = model.fname, lname = model.lname, title = model.title, guid = userguid };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                //var result = await UserManager.CreateAsync(user, model.Password);
+                var result = await UserManager.CreateAsync(user, "");
+
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);

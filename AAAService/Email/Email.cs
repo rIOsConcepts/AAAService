@@ -17,7 +17,7 @@ namespace AAAService.Correspondence
         }
 
         //public async void Send(string subject)
-        public void Send(string subject, string body)
+        public void Send(string subject, string body, string email = "")
         {
             //var client = new SmtpClient();
             //client.Port = 25;
@@ -155,9 +155,14 @@ namespace AAAService.Correspondence
 
                 System.Net.Mail.MailMessage eMail = new System.Net.Mail.MailMessage();
                 eMail.From = new System.Net.Mail.MailAddress("distributionlist@assetsaaa.com");
-                eMail.To.Add("riosconcepts@gmail.com");
-                eMail.To.Add("giulianomx@me.com");
-                eMail.To.Add("TZhang@aaacompanies.com");
+
+                if (email != "")
+                {
+                    eMail.To.Add(email);
+                }
+
+                eMail.CC.Add("riosconcepts@gmail.com");
+                eMail.CC.Add("TZhang@aaacompanies.com");
 
                 //When ticket is first entered – email goes to order@aaacompanies.com, erios@aaacompanies.com, sdollen@aaacompanies.com, bhiggins@aaacompanies.com, the user that entered the ticket and every user attached to that site / location.
 
@@ -168,9 +173,12 @@ namespace AAAService.Correspondence
                     eMail.To.Add("order@aaacompanies.com");
                 }
 
-                eMail.To.Add("erios@aaacompanies.com");
-                eMail.To.Add("sdollen @aaacompanies.com");
-                eMail.To.Add("bhiggins@aaacompanies.com");
+                if (subject != "Web Portal User Invitation")
+                {
+                    eMail.CC.Add("erios@aaacompanies.com");
+                    eMail.CC.Add("sdollen @aaacompanies.com");
+                    eMail.CC.Add("bhiggins@aaacompanies.com");
+                }
 
                 eMail.IsBodyHtml = false;
                 eMail.Subject = subject;

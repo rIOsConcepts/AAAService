@@ -69,7 +69,6 @@ namespace AAAService.Models
         [Display(Name = "First Name")]
         public string fname { get; set; }
 
-
         [Required]
         [StringLength(20, ErrorMessage = "Last Name Max Length is 20")]
         [Display(Name = "Last Name")]
@@ -85,10 +84,43 @@ namespace AAAService.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
 
+        //[Required]
+        //[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        //[DataType(DataType.Password)]
+        //[Display(Name = "Password")]
+        //public string Password { get; set; }
+
+        //[DataType(DataType.Password)]
+        //[Display(Name = "Confirm password")]
+        //[Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        //public string ConfirmPassword { get; set; }
+    }
+
+    public class PasswordViewModel
+    {
+        public string Id { get; set; }
+
+        [Display(Name = "First Name")]
+        public string FName { get; set; }
+
+        [Display(Name = "Last Name")]
+        public string LName { get; set; }
+
+        [Display(Name = "Title")]
+        public string Title { get; set; }
+
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Temporary Password")]
+        public string TemporaryPassword { get; set; }
+
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "New Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]

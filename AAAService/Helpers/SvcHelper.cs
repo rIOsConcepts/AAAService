@@ -23,7 +23,8 @@ namespace AAAService.Helpers
                          where c.user_guid.Equals(myuserguid)
                          select c;
 
-            var x = mylist.Count();
+            var x = mylist != null ? mylist.Count() : 0;
+
             if (x > 0)
             {
                 var mylocationnguid = mylist.First().location_guid;
@@ -34,9 +35,8 @@ namespace AAAService.Helpers
             {
                 return Guid.Parse("6FFB64D7-4D69-4F1C-BC55-5376588A39F4");
             }
-
-
         }
+
         public static int getnumLocations()
         {
             aaahelpEntities db = new aaahelpEntities();
