@@ -261,7 +261,7 @@ namespace AAAService.Controllers
                                "If you have questions or concerns about this message please contact us at 1-800-892-4784.\r\n\r\n" +
                                "Please do not reply to this e-mail, this account is not monitored.";
 
-                    email.Send("Web Portal Service Ticket Entered", body);
+                    email.Send(subject:"Web Portal Service Ticket Entered", body:body);
                 }
                 catch (Exception e)
                 {
@@ -378,7 +378,7 @@ namespace AAAService.Controllers
                                        "If you have questions or concerns about this message please contact us at 1-800-892-4784.\r\n\r\n" +
                                        "Please do not reply to this e-mail, this account is not monitored.";
 
-                            email.Send("Web Portal Service Ticket Update", body);
+                            email.Send(subject:"Web Portal Service Ticket Update", body:body);
                         }
                         catch (Exception e)
                         {

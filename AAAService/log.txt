@@ -1,4 +1,4 @@
-7/28/2016 9:53:25 PM => System.Net.Mail.SmtpException: Failure sending mail. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:25
+7/31/2016 9:11:17 PM => System.Net.Mail.SmtpException: Failure sending mail. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:25
    at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
    at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
    --- End of inner exception stack trace ---
@@ -12,4 +12,4 @@
    at System.Net.Mail.SmtpClient.Send(MailMessage message)
    --- End of inner exception stack trace ---
    at System.Net.Mail.SmtpClient.Send(MailMessage message)
-   at AAAService.Correspondence.Mail.Send(String subject, String body, String email) in C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\Email\Email.cs:line 197
+   at AAAService.Correspondence.Mail.Send(String subject, String body, Boolean isHTML, String email) in C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\Email\Email.cs:line 196

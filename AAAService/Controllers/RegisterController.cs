@@ -15,16 +15,17 @@ namespace AAAService.Controllers
 {
     public class RegisterController : Controller
     {
+        private ApplicationSignInManager _signInManager;
         private aaahelpEntities db = new aaahelpEntities();
 
         public RegisterController()
         {
         }
 
-        public RegisterController(ApplicationUserManager userManager, ApplicationRoleManager roleManager)
+        public RegisterController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
-            RoleManager = roleManager;
+            SignInManager = signInManager;            
         }
 
         private ApplicationUserManager _userManager;
@@ -38,18 +39,17 @@ namespace AAAService.Controllers
             {
                 _userManager = value;
             }
-        }
+        }        
 
-        private ApplicationRoleManager _roleManager;
-        public ApplicationRoleManager RoleManager
+        public ApplicationSignInManager SignInManager
         {
             get
             {
-                return _roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
             private set
             {
-                _roleManager = value;
+                _signInManager = value;
             }
         }
 
@@ -85,58 +85,90 @@ namespace AAAService.Controllers
         //
         // POST:
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Index([Bind(Include = "Id, lname, fname, title, Email, TemporaryPassword, Password, ConfirmPassword")] PasswordViewModel editUser)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var user = await UserManager.FindByIdAsync(editUser.Id);
-
-                if (user == null)
-                {
-                    return HttpNotFound();
-                }
-
-                var passwordHasher = new PasswordHasher();
-                var passwordVerificationResult = passwordHasher.VerifyHashedPassword(user.PasswordHash, editUser.TemporaryPassword);
-
-                if (passwordVerificationResult.ToString() != "Succeeded")
-                {
-                    ModelState.AddModelError("", "Temporary password doesn't match, please verify in email invitation received.");
-                    return View();
-                }
-
-                user.UserName = editUser.Email;
-                user.fname = editUser.FName;
-                user.lname = editUser.LName;
-                user.title = editUser.Title;
-
-                var adminresult = await UserManager.UpdateAsync(user);
-
-                if (adminresult.Succeeded)
-                {
-                    adminresult = UserManager.RemovePassword(editUser.Id);
-
-                    if (adminresult.Succeeded)
-                    {
-                        adminresult = UserManager.AddPassword(editUser.Id, editUser.Password);
-
-                        if (adminresult.Succeeded)
-                        {
-                            return RedirectToAction("Index", "Home");
-                        }
-                        else
-                        {
-                            foreach (var error in adminresult.Errors)
-                            {
-                                ModelState.AddModelError("", error);
-                            }
-                        }
-                    }
-                }                
+                return View(editUser);
             }
 
-            return View();
+            //var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), editUser.TemporaryPassword, editUser.Password);
+            var result = await UserManager.ChangePasswordAsync(editUser.Id, editUser.TemporaryPassword, editUser.Password);
+
+            if (result.Succeeded)
+            {
+                //var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                var user = await UserManager.FindByIdAsync(editUser.Id);
+                
+                if (user != null)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                }
+
+                return RedirectToAction("Index", "Home", new { Message = ManageMessageId.ChangePasswordSuccess });
+            }
+
+            AddErrors(result);
+            return View(editUser);
+
+            //if (result.ToString() != "Succeeded")
+            //{
+            //    ModelState.AddModelError("", "Temporary password doesn't match, please verify in email invitation received.");
+            //    return View();
+            //}
+
+            //user.UserName = editUser.Email;
+            //user.fname = editUser.FName;
+            //user.lname = editUser.LName;
+            //user.title = editUser.Title;
+
+            //var adminresult = await UserManager.UpdateAsync(user);
+
+            //if (adminresult.Succeeded)
+            //{
+            //    adminresult = UserManager.RemovePassword(editUser.Id);
+
+            //    if (adminresult.Succeeded)
+            //    {
+            //        adminresult = UserManager.AddPassword(editUser.Id, editUser.Password);
+
+            //        if (adminresult.Succeeded)
+            //        {
+            //            return RedirectToAction("Index", "Home");
+            //        }
+            //        else
+            //        {
+            //            foreach (var error in adminresult.Errors)
+            //            {
+            //                ModelState.AddModelError("", error);
+            //            }
+            //        }
+            //    }
+            //}                
+            //}
+
+            //return View();
+        }
+
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+        }
+
+        public enum ManageMessageId
+        {
+            AddPhoneSuccess,
+            ChangePasswordSuccess,
+            SetTwoFactorSuccess,
+            SetPasswordSuccess,
+            RemoveLoginSuccess,
+            RemovePhoneSuccess,
+            Error
         }
     }
 }

@@ -32,7 +32,7 @@ namespace AAAService
             var myMessage = new SendGridMessage();
             myMessage.AddTo(message.Destination);
             myMessage.From = new System.Net.Mail.MailAddress(
-                                "support@aaacompaniesportal.com", "AAA Companies");
+                                "support@assetsaaa.com", "AAA Companies");
             myMessage.Subject = message.Subject;
             myMessage.Text = message.Body;
             myMessage.Html = message.Body;

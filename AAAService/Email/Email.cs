@@ -17,7 +17,7 @@ namespace AAAService.Correspondence
         }
 
         //public async void Send(string subject)
-        public void Send(string subject, string body, string email = "")
+        public void Send(string subject, string body, bool isHTML = false, string email = "")
         {
             //var client = new SmtpClient();
             //client.Port = 25;
@@ -154,7 +154,7 @@ namespace AAAService.Correspondence
                 //client.Send(msg);
 
                 System.Net.Mail.MailMessage eMail = new System.Net.Mail.MailMessage();
-                eMail.From = new System.Net.Mail.MailAddress("distributionlist@assetsaaa.com");
+                eMail.From = new System.Net.Mail.MailAddress("support@assetsaaa.com");
 
                 if (email != "")
                 {
@@ -180,7 +180,7 @@ namespace AAAService.Correspondence
                     eMail.CC.Add("bhiggins@aaacompanies.com");
                 }
 
-                eMail.IsBodyHtml = false;
+                eMail.IsBodyHtml = isHTML;
                 eMail.Subject = subject;
                 eMail.Body = body;
                 eMail.Priority = MailPriority.High;
@@ -191,7 +191,7 @@ namespace AAAService.Correspondence
                 //SMTP.DeliveryMethod = SmtpDeliveryMethod.Network;
                 SMTP.EnableSsl = false;
                 SMTP.UseDefaultCredentials = true;
-                SMTP.Credentials = new System.Net.NetworkCredential("distributionlist@assetsaaa.com", "9066E285FF804417AF1C");
+                SMTP.Credentials = new System.Net.NetworkCredential("support@assetsaaa.com", "9066E285FF804417AF1C");
                 //SMTP.DeliveryFormat = SmtpDeliveryFormat.International;                
                 SMTP.Send(eMail);
                 //await SMTP.SendMailAsync(eMail);

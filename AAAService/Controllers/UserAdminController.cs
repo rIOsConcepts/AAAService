@@ -7,24 +7,28 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace AAAService.Controllers
 {
     [Authorize(Roles = "SiteAdmin")]
     public class UsersAdminController : Controller
     {
+        private ApplicationSignInManager _signInManager;
         private aaahelpEntities db = new aaahelpEntities();
 
         public UsersAdminController()
         {
         }
 
-        public UsersAdminController(ApplicationUserManager userManager, ApplicationRoleManager roleManager)
-        {
+        public UsersAdminController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ApplicationRoleManager roleManager)
+        {            
             UserManager = userManager;
+            SignInManager = signInManager;
             RoleManager = roleManager;
         }
 
@@ -46,6 +50,18 @@ namespace AAAService.Controllers
             private set
             {
                 _userManager = value;
+            }
+        }
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -105,23 +121,45 @@ namespace AAAService.Controllers
                 
                 // Create user active by default (per request on 6/23/2016)
                 user.account_status = 1;
-                var password = System.Web.Security.Membership.GeneratePassword(10, 5);
-                var adminresult = await UserManager.CreateAsync(user, password);
+                var password = String.Empty;
+
+                do
+                {
+                    password = Membership.GeneratePassword(6, 1);
+                }
+                while (!Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,}"));
+
+                var result = await UserManager.CreateAsync(user, password);
+
+                //if (result.Succeeded)
+                //{
+                //    //DO NOT AUTOLOGIN CREATED USER
+                //    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                //    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                //    // Send an email with this link
+                //    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                //    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                //    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                //    return RedirectToAction("Index", "Home");
+                //}
+
+                //AddErrors(result);
 
                 try
                 {
                     var email = new Correspondence.Mail();
+                    var callbackUrl = "http://assetsaaa.com/Register?guid=" + user.Id;
 
-                    var body = "Welcome. You have been invited to use the AAA Property Services customer portal. This system allows you to report problems with your facilities so that they can be resolved as quickly as possible. To setup your user, please follow the link below.\r\n\r\n" +
-                               "Click Here\r\n\r\n" +
-                               "Or cut and paste the following into your web browser.\r\n\r\n" +
-                               "http://assetsaaa.com/Register?guid=" + user.Id + "\r\n\r\n" +
-                               "Your temporary password is: " + password + "\r\n\r\n" +
-                               "Thank You\r\n\r\n" +
-                               "If you have questions or concerns about this message please contact us at 1-800-892-4784.\r\n" +
+                    var body = "Welcome. You have been invited to use the AAA Property Services customer portal. This system allows you to report problems with your facilities so that they can be resolved as quickly as possible. To setup your user, please follow the link below:<br><br>" +
+                               "<a href=\"" + callbackUrl + "\">Click here</a><br><br>" +
+                               "Or cut and paste the following into your web browser.<br><br>" +
+                               callbackUrl + "<br><br>" +
+                               "Your temporary password is: " + password + "<br><br>" +
+                               "Thank You<br><br>" +
+                               "If you have questions or concerns about this message please contact us at 1-800-892-4784.<br>" +
                                "Please do not reply to this e-mail, this account is not monitored.";
 
-                    email.Send("Web Portal User Invitation", body, user.Email);
+                    email.Send(subject:"Web Portal User Invitation", body:body, isHTML:true, email:user.Email);
                 }
                 catch (Exception e)
                 {
@@ -129,7 +167,7 @@ namespace AAAService.Controllers
                 }
 
                 //Add User to the selected Roles 
-                if (adminresult.Succeeded)
+                if (result.Succeeded)
                 {
                     //MR:Saving User's Locations
                     var locations = Request.Form["to[]"] != null ? Request.Form["to[]"].Split(',') : new string[0];
@@ -150,8 +188,9 @@ namespace AAAService.Controllers
 
                     if (selectedRoles != null)
                     {
-                        var result = await UserManager.AddToRolesAsync(user.Id, selectedRoles);
-                        if (!result.Succeeded)
+                        var resultRoles = await UserManager.AddToRolesAsync(user.Id, selectedRoles);
+
+                        if (!resultRoles.Succeeded)
                         {
                             ModelState.AddModelError("", result.Errors.First());
                             ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
@@ -161,15 +200,24 @@ namespace AAAService.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", adminresult.Errors.First());
+                    ModelState.AddModelError("", result.Errors.First());
                     ViewBag.RoleId = new SelectList(RoleManager.Roles, "Name", "Name");
                     return View();
-
                 }
+
                 return RedirectToAction("Index");
             }
+
             ViewBag.RoleId = new SelectList(RoleManager.Roles, "Name", "Name");
             return View();
+        }
+
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
         }
 
         //
