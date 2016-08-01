@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -29,38 +30,74 @@ namespace AAAService
         // Use NuGet to install SendGrid (Basic C# client lib) 
         private async Task configSendGridasync(IdentityMessage message)
         {
-            var myMessage = new SendGridMessage();
-            myMessage.AddTo(message.Destination);
-            myMessage.From = new System.Net.Mail.MailAddress(
-                                "support@assetsaaa.com", "AAA Companies");
-            myMessage.Subject = message.Subject;
-            myMessage.Text = message.Body;
-            myMessage.Html = message.Body;
-
-            var credentials = new NetworkCredential(
-                       ConfigurationManager.AppSettings["mailAccount"],
-                       ConfigurationManager.AppSettings["mailPassword"]
-                       );
-
-            // Create a Web transport for sending email.
-            var transportWeb = new Web(credentials);
-
             try
             {
-                // Send the email.
-                if (transportWeb != null)
-                {
-                    await transportWeb.DeliverAsync(myMessage);
-                }
-                else
-                {
-                    Trace.TraceError("Failed to create Web transport.");
-                    await Task.FromResult(0);
-                }
+                // Credentials:
+                string sendGridUserName = "support@assetsaaa.com";
+                string sentFrom = "support@assetsaaa.com";
+                string sendGridPassword = "9066E285FF804417AF1C";
+
+                // Configure the client
+                //var client = new System.Net.Mail.SmtpClient("smtp.sendgrid.net", 587);
+                var client = new System.Net.Mail.SmtpClient("localhost");
+
+                //client.Port = 587;
+                client.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+                client.UseDefaultCredentials = false;
+
+                // Create the credentials:
+                System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(sendGridUserName, sendGridPassword);
+
+                //client.EnableSsl = true;
+                client.Credentials = credentials;
+
+                // Create the message:
+                var mail = new System.Net.Mail.MailMessage(sentFrom, message.Destination);
+
+                mail.Subject = message.Subject;
+                mail.Body = message.Body;
+                mail.IsBodyHtml = true;
+
+                // Send:
+                await client.SendMailAsync(mail);
+
+                //var myMessage = new SendGridMessage();
+                //myMessage.AddTo(message.Destination);
+                //myMessage.From = new System.Net.Mail.MailAddress(
+                //                    "support@assetsaaa.com", "AAA Companies");
+                //myMessage.Subject = message.Subject;
+                //myMessage.Text = message.Body;
+                //myMessage.Html = message.Body;
+
+                //var credentials = new NetworkCredential(
+                //           ConfigurationManager.AppSettings["mailAccount"],
+                //           ConfigurationManager.AppSettings["mailPassword"]
+                //           );
+
+                //// Create a Web transport for sending email.
+                //var transportWeb = new Web(credentials);
+
+                //try
+                //{
+                //    // Send the email.
+                //    if (transportWeb != null)
+                //    {
+                //        await transportWeb.DeliverAsync(myMessage);
+                //    }
+                //    else
+                //    {
+                //        Trace.TraceError("Failed to create Web transport.");
+                //        await Task.FromResult(0);
+                //    }
+                //}
+                //catch (Exception ex)
+                //{
+                //    Trace.TraceError(ex.Message + " SendGrid probably not configured correctly.");
+                //}
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Trace.TraceError(ex.Message + " SendGrid probably not configured correctly.");
+                File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + "log.txt", DateTime.Now + " => " + e.ToString());
             }
         }
     }
