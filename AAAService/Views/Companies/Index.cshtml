@@ -1,17 +1,21 @@
 ﻿@model IEnumerable<AAAService.Models.Company>
 
-
 @using GridMvc.Html
 <link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
 <script src="~/Scripts/jquery-2.2.0.min.js"></script>
 <script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Company Administration</h2>
-<hr />
+<h2>Manage Companies</h2>
+@*<hr />*@
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 
 <div style="width:auto">
     @Html.Grid(Model).Columns(columns =>

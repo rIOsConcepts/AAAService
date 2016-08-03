@@ -663,5 +663,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ReportBuilderFields">
+      <EntityTypeMapping TypeName="aaahelpModel.ReportBuilderField">
+        <MappingFragment StoreEntitySet="ReportBuilderFields">
+          <ScalarProperty Name="ColumnName" ColumnName="ColumnName" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -5,6 +5,7 @@
 <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
 <script src="~/Scripts/jquery-2.2.0.min.js"></script>
 <script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+<script src="@Url.Content("~/Scripts/gridmvc.customwidgets.js")"></script>
 <link rel="stylesheet" href="https://jqueryui.com/resources/demos/style.css">
 <script src="/Scripts/bootstrap-datepicker.js"></script>
 <link href="/Content/gridmvc.datepicker.css" rel="stylesheet" />
@@ -12,13 +13,14 @@
 @{
     ViewBag.Title = "Index";
 }
-<h2>Index</h2>
+
+<h2>Admin Service Board</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <div style="width:auto">
-    @Html.Grid(Model).Named("AdminTickets").Columns(columns =>
+    @Html.Grid(Model).Named("adminTickets").Columns(columns =>
 {
     /* Adding not mapped column, that renders body, using inline Razor html helper */
     /*columns.Add()
@@ -44,12 +46,14 @@
     columns.Add(o => o.Priority)
             .Titled("Priority")
             .Filterable(true)
+            .SetFilterWidgetType("CustomPriorityFilterWidget")
             .SetWidth(125);
 
     /* Adding "Status" column: */
     columns.Add(o => o.Status)
             .Titled("Status")
             .Filterable(true)
+            .SetFilterWidgetType("CustomStatusFilterWidget")
             .SetWidth(125);
 
     /* Adding "Location" column: */
@@ -79,8 +83,10 @@
 
     /* Adding "Service Category" column: */
     columns.Add(o => o.category)
+            .Titled("Service Category")
+            .Sortable(true)
             .Filterable(true)
-            .Titled("Service Category");
+            .SetFilterWidgetType("CustomServiceCategoryFilterWidget");
 
     /* Adding "Problem Summary" column: */
     columns.Add(o => o.problem_summary)
@@ -125,7 +131,10 @@
 </div>
 
 <script>
-    $(document).ready(function() {
-        $("#AdminTickets").datepicker();
+    $(document).ready(function () {
+        pageGrids.adminTickets.addFilterWidget(new StatusesFilterWidget());
+        pageGrids.adminTickets.addFilterWidget(new PrioritiesFilterWidget());
+        pageGrids.adminTickets.addFilterWidget(new ServiceCategoriesFilterWidget());
+        $("#adminTickets").datepicker();
     });
 </script>

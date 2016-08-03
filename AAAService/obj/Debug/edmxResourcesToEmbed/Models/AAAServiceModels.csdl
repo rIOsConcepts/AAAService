@@ -191,6 +191,7 @@
     <EntitySet Name="OtherStatusLists" EntityType="aaahelpModel.OtherStatusList" />
     <EntitySet Name="ExportToCFs" EntityType="aaahelpModel.ExportToCF" />
     <EntitySet Name="AspNetUsers" EntityType="aaahelpModel.AspNetUser" />
+    <EntitySet Name="ReportBuilderFields" EntityType="aaahelpModel.ReportBuilderField" />
   </EntityContainer>
   <EntityType Name="service_boardNew">
     <Key>
@@ -987,5 +988,15 @@
     <Property Name="salt" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
     <Property Name="is_manager" Type="Boolean" Nullable="false" />
     <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="ReportBuilderField">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="ColumnName" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="ColumnName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

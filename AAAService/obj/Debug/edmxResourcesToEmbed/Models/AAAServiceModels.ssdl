@@ -222,6 +222,18 @@
     <Property Name="list_num" Type="int" />
     <Property Name="active" Type="bit" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'aaahelp.dbo.ReportBuilderFields' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ReportBuilderFields">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="ColumnName" />
+    </Key>
+    <Property Name="Id" Type="smallint" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="ColumnName" Type="varchar" MaxLength="30" Nullable="false" />
+  </EntityType>
   <EntityType Name="service_ticket_files">
     <Key>
       <PropertyRef Name="guid" />
@@ -899,6 +911,13 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
     <EntitySet Name="StatusList" EntityType="Self.StatusList" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_to_location" EntityType="Self.user_to_location" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_viewable_locations" EntityType="Self.user_viewable_locations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReportBuilderFields" EntityType="Self.ReportBuilderFields" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ReportBuilderFields].[Id] AS [Id], 
+    [ReportBuilderFields].[Name] AS [Name], 
+    [ReportBuilderFields].[ColumnName] AS [ColumnName]
+    FROM [dbo].[ReportBuilderFields] AS [ReportBuilderFields]</DefiningQuery>
+    </EntitySet>
     <EntitySet Name="LocationEmails_viewMVC" EntityType="Self.LocationEmails_viewMVC" store:Type="Views" store:Schema="aaaadmin">
       <DefiningQuery>SELECT 
     [LocationEmails_viewMVC].[LocationName] AS [LocationName], 

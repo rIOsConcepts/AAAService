@@ -212,6 +212,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PriorityListsController.cs" />
     <Compile Include="Controllers\RegionsController.cs" />
+    <Compile Include="Controllers\ReportBuilderController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\ServiceBoardController.cs" />
     <Compile Include="Controllers\ServiceCategoriesController.cs" />
@@ -283,6 +284,10 @@
     <Compile Include="Models\ExportToCF.cs">
       <DependentUpon>AAAServiceModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ReportBuilderField.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ReportBuilderModel.cs" />
     <Compile Include="Models\StronglyTyped.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LocationEmails_ViewMVC.cs">
@@ -767,6 +772,7 @@
     <Content Include="Views\AdminTickets\Index.cshtml" />
     <Content Include="Views\ExportToCF\Index.cshtml" />
     <Content Include="Views\Register\Index.cshtml" />
+    <Content Include="Views\ReportBuilder\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />
