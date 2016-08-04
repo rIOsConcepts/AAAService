@@ -884,6 +884,9 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
   <Function Name="ParentLocationInfoFromUsrGUID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="usrGUID" Type="uniqueidentifier" Mode="In" />
   </Function>
+  <Function Name="ReportBuilder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TSQL" Type="nvarchar(max)" Mode="In" />
+  </Function>
   <Function Name="ReturnParentLocations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="sessionid" Type="varchar" Mode="In" />
   </Function>

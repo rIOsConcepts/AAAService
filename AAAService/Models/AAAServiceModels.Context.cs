@@ -81,5 +81,14 @@ namespace AAAService.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReturnParentLocations_Result>("ReturnParentLocations", sessionidParameter);
         }
+    
+        public virtual int ReportBuilder(string tSQL)
+        {
+            var tSQLParameter = tSQL != null ?
+                new ObjectParameter("TSQL", tSQL) :
+                new ObjectParameter("TSQL", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ReportBuilder", tSQLParameter);
+        }
     }
 }

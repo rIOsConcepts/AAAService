@@ -917,6 +917,9 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
         <Function Name="ParentLocationInfoFromUsrGUID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="usrGUID" Type="uniqueidentifier" Mode="In" />
         </Function>
+        <Function Name="ReportBuilder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TSQL" Type="nvarchar(max)" Mode="In" />
+        </Function>
         <Function Name="ReturnParentLocations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="sessionid" Type="varchar" Mode="In" />
         </Function>
@@ -1455,6 +1458,9 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
           <EntitySet Name="ExportToCFs" EntityType="aaahelpModel.ExportToCF" />
           <EntitySet Name="AspNetUsers" EntityType="aaahelpModel.AspNetUser" />
           <EntitySet Name="ReportBuilderFields" EntityType="aaahelpModel.ReportBuilderField" />
+          <FunctionImport Name="ReportBuilder">
+            <Parameter Name="TSQL" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="service_boardNew">
           <Key>
@@ -2939,6 +2945,7 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ReportBuilder" FunctionName="aaahelpModel.Store.ReportBuilder" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

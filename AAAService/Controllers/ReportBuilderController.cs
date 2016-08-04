@@ -20,9 +20,9 @@ namespace AAAService.Controllers
         }
 
         public ReportBuilderController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ApplicationRoleManager roleManager)
-        {            
+        {
         }
-        
+
         public async Task<ActionResult> Index()
         {
             var reportInformation = new Models.ReportBuilderModel.ReportInformation();
@@ -55,7 +55,26 @@ namespace AAAService.Controllers
                                 Name = l.Name
                             });
 
-            return View(new Tuple<AAAService.Models.ReportBuilderModel.ReportInformation, IEnumerable<AAAService.Models.ReportBuilderModel.Companies>, IEnumerable<AAAService.Models.ReportBuilderModel.Locations>, IEnumerable<AAAService.Models.ReportBuilderModel.ReportBuilderFields>>(reportInformation, companies, locations, reportBuilderFields));
+            //return View(new Tuple<Models.ReportBuilderModel.ReportInformation, IEnumerable<Models.ReportBuilderModel.Companies>, IEnumerable<Models.ReportBuilderModel.Locations>, IEnumerable<Models.ReportBuilderModel.ReportBuilderFields>>(reportInformation, companies, locations, reportBuilderFields));
+            return View(reportInformation);
+        }
+
+        [HttpPost, ActionName("Index")]
+        [ValidateAntiForgeryToken]
+        //public ActionResult IndexPost(Tuple<Models.ReportBuilderModel.ReportInformation, IEnumerable<Models.ReportBuilderModel.Companies>, IEnumerable<Models.ReportBuilderModel.Locations>, IEnumerable<Models.ReportBuilderModel.ReportBuilderFields>> t)
+        //public ActionResult IndexPost([Bind(Include = "ReportName, From, To")] Models.ReportBuilderModel.ReportInformation reportInformation)
+        public ActionResult IndexPost(Models.ReportBuilderModel.ReportInformation reportInformation)
+        {
+            if (ModelState.IsValid)
+            {
+                var reportName = reportInformation.ReportName;
+                var toExcel = db.ReportBuilder("Select * from Regions");
+                return View();
+            }
+            else
+            {
+                return View(reportInformation);
+            }            
         }
     }
 }

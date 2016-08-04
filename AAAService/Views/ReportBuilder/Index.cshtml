@@ -1,4 +1,5 @@
-﻿@model Tuple<AAAService.Models.ReportBuilderModel.ReportInformation, IEnumerable<AAAService.Models.ReportBuilderModel.Companies>, IEnumerable<AAAService.Models.ReportBuilderModel.Locations>, IEnumerable<AAAService.Models.ReportBuilderModel.ReportBuilderFields>>
+﻿@*@model Tuple<AAAService.Models.ReportBuilderModel.ReportInformation, IEnumerable<AAAService.Models.ReportBuilderModel.Companies>, IEnumerable<AAAService.Models.ReportBuilderModel.Locations>, IEnumerable<AAAService.Models.ReportBuilderModel.ReportBuilderFields>>*@
+@model AAAService.Models.ReportBuilderModel.ReportInformation
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
@@ -14,6 +15,12 @@
 
     <div class="form-horizontal">
         <div class="form-group">
+            @Html.LabelFor(model => model.ReportName, "Report Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ReportName, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        @*<div class="form-group">
             @Html.LabelFor(model => model.Item1.ReportName, "Report Name", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Item1.ReportName, new { htmlAttributes = new { @class = "form-control" } })
@@ -98,7 +105,7 @@
             <select name="to[]" id="search_to" class="form-control" size="10" multiple="multiple">
                 <option value=""></option>
             </select>
-        </div>
+        </div>*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -113,7 +120,7 @@
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js"></script>
 <script type="text/javascript" src="/Scripts/multiselect.min.js"></script>
 
-@section scripts {
+@*@section scripts {
     <script type="text/javascript">
         $(function () {
             $('#Item1_From').datetimepicker({
@@ -131,7 +138,7 @@
             });
         });
     </script>
-}
+}*@
 
 <script type="text/javascript">
 jQuery(document).ready(function($) {

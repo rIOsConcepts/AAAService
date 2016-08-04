@@ -192,6 +192,9 @@
     <EntitySet Name="ExportToCFs" EntityType="aaahelpModel.ExportToCF" />
     <EntitySet Name="AspNetUsers" EntityType="aaahelpModel.AspNetUser" />
     <EntitySet Name="ReportBuilderFields" EntityType="aaahelpModel.ReportBuilderField" />
+    <FunctionImport Name="ReportBuilder">
+      <Parameter Name="TSQL" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="service_boardNew">
     <Key>
