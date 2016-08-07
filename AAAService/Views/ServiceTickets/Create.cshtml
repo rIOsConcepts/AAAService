@@ -170,11 +170,61 @@
                 </div>
             </div>
         </div>
+
+        <h3>Uploaded Files</h3>
+        <table class="table">
+            <tr>
+                <th>
+                    File Name
+                </th>
+                <th>
+                    Date Uploaded
+                </th>
+                <th>
+                    File Size
+                </th>
+                <th>
+                </th>
+            </tr>
+
+            @if (ViewBag.FileList != null)
+            {
+                foreach (var myfile in ViewBag.FileList)
+                {
+                    <tr>
+                        <td>@myfile.file_name</td>
+                        <td>@myfile.date_in.ToString()</td>
+                        <td>@myfile.file_size.ToString()</td>
+                        <td>
+                            @Html.ActionLink("Download", "Download", new { id = @myfile.guid })
+
+                        </td>
+                    </tr>
+
+                }
+            }
+        </table>
+}
+
+@using (Html.BeginForm("Upload", "ServiceTickets", new { isEdit = false, serviceLocationGuidOrServiceTicketId = ViewBag.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>Upload new File</legend>
+        <div class="editor-field">
+            @Html.TextBox("file", "", new { type = "file" })
+        </div>
+        <div class="editor-field">
+            <input type="submit" value="Upload" />
+        </div>
+    </fieldset>
 }
 
 <div>
     @Html.RouteLink("Back to List", new { controller = "ServiceBoard", action = "Index", id = "" })
 </div>
+
 <script>
 $(document).ready(function(){
     $("#CategoryID").change(function(){

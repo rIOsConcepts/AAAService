@@ -1,0 +1,36 @@
+From: administrator@aaahelp.aaapropertyservices.com [mailto:administrator@aaahelp.aaapropertyservices.com] 
+Sent: Monday, July 25, 2016 1:35 PM
+To: portal
+Subject: Web Portal Service Ticket Entered
+ 
+AAA Web Portal Service Ticket
+
+Requested By: GABRIELA MIHAILA
+Customer Number 72214
+Cost Code 2007
+Customer PO# 
+Service Provider 
+Service Location: RB2007
+Address Line 1: 75 SANTA ROSA STREET
+Address Line 2: 
+City: SAN LUIS OBISPO
+State: CA
+Zip: 93405
+Job Number: 324914
+Contact Name: GABRIELA MIHAILA
+Contact Number: 805-544-7070
+Contact After Hours Number: 
+Priority Code: 20 - 3 TO 5 DAYS
+Priority Code: 20
+Order Date: 07/25/2016
+Order Time: 13:35:07
+CategoryLANDSCAPING
+Request Summary
+TREES IN THE PARKING LOT
+Request Details
+THE TREES IN THE PARKING LOT ARE OBSTRUCTING THE DRIVERS VISIBILITY . THEY NEED TRIMMING AND PRUNING . THANK YOU
+Status Code: OP
+Zone: RB
+Service Type: BL
+Service Rep: 84540
+Taken By: Web Portal

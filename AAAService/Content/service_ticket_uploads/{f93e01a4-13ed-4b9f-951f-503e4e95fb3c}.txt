@@ -1,0 +1,6 @@
+System.Net.Mail.SmtpException: The client or server is only configured for E-mail addresses with ASCII local-parts: ​​administrator@assetsaaa.com.
+   at System.Net.Mail.MailAddress.GetUser(Boolean allowUnicode)
+   at System.Net.Mail.MailAddress.GetAddress(Boolean allowUnicode)
+   at System.Net.Mail.MailAddress.GetSmtpAddress(Boolean allowUnicode)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at AAAService.Correspondence.Mail.<Send>d__1.MoveNext()

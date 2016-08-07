@@ -1,4 +1,7 @@
 ﻿@*@model Tuple<AAAService.Models.ReportBuilderModel.ReportInformation, IEnumerable<AAAService.Models.ReportBuilderModel.Companies>, IEnumerable<AAAService.Models.ReportBuilderModel.Locations>, IEnumerable<AAAService.Models.ReportBuilderModel.ReportBuilderFields>>*@
+
+@*@model Tuple<AAAService.Models.ReportBuilderModel.ReportInformation, IEnumerable<AAAService.Models.ReportBuilderModel.Companies>, IEnumerable<AAAService.Models.ReportBuilderModel.ReportBuilderFields>>*@
+
 @model AAAService.Models.ReportBuilderModel.ReportInformation
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
@@ -9,27 +12,26 @@
 
 <h2>Report Builder</h2>
 
+@*@using (Html.BeginForm("GenerateExcel", "ReportBuilder", FormMethod.Post))*@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()    
 
     <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })        
+
         <div class="form-group">
             @Html.LabelFor(model => model.ReportName, "Report Name", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ReportName, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.Item1.ReportName, "Report Name", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Item1.ReportName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ReportName, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="col-xs-5">
-            <select name="companies[]" id="search_companies" class="form-control" size="10" multiple="multiple">
-                @foreach (var company in Model.Item2)
+            <select name="ddlCompanies" id="ddlCompanies" class="form-control" size="10" onchange="javascript:GetServiceLocations(this.value);">
+                @foreach (var company in Model.Companies)
                 {
                     <option value="@company.GUID">@company.Name</option>
                 }
@@ -40,45 +42,42 @@
         </div>
 
         <div class="col-xs-5">
-            <select name="locations[]" id="search_locations" class="form-control" size="10" multiple="multiple">
-                @foreach (var location in Model.Item3)
-            {
-                    <option value="@location.GUID">@location.Name</option>
-                }
+            <select name="ddlLocations" id="ddlLocations" class="form-control" size="10" multiple="multiple">
+                    <option value="">Choose a Company</option>
             </select>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Item1.From, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.From, htmlAttributes: new { @class = "control-label col-md-2" })
 
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Item1.From, new
-                {
-                    htmlAttributes = new
-                    {
-                        @class = "form-control",
-                        @onclick = "javascript:SetStatus(1);"
-                    }
-                })
+                @Html.EditorFor(model => model.From, new
+           {
+               htmlAttributes = new
+               {
+                   @class = "form-control",
+                   @onclick = "javascript:SetStatus(1);"
+               }
+           })
 
-                @Html.ValidationMessageFor(model => model.Item1.From, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.From, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Item1.To, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.To, htmlAttributes: new { @class = "control-label col-md-2" })
 
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Item1.To, new
-                {
-                    htmlAttributes = new
-                    {
-                        @class = "form-control",
-                        @onclick = "javascript:SetStatus(1);"
-                    }
-                })
+                @Html.EditorFor(model => model.To, new
+           {
+               htmlAttributes = new
+               {
+                   @class = "form-control",
+                   @onclick = "javascript:SetStatus(1);"
+               }
+           })
 
-                @Html.ValidationMessageFor(model => model.Item1.To, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.To, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -86,9 +85,9 @@
 
         <div class="col-xs-5">
             <select name="from[]" id="search" class="form-control" size="10" multiple="multiple">
-                @foreach (var reportBuilderFuilds in Model.Item4)
+                @foreach (var reportBuilderFields in Model.ReportBuilderFields)
                 {
-                    <option value="@reportBuilderFuilds.Id">@reportBuilderFuilds.Name</option>
+                    <option value="@reportBuilderFields.Id">@reportBuilderFields.Name</option>
                 }
             </select>
         </div>
@@ -102,10 +101,9 @@
         </div>
 
         <div class="col-xs-5">
-            <select name="to[]" id="search_to" class="form-control" size="10" multiple="multiple">
-                <option value=""></option>
+            <select name="to[]" id="search_to" class="form-control" size="10" multiple="multiple">                
             </select>
-        </div>*@
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -120,40 +118,63 @@
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js"></script>
 <script type="text/javascript" src="/Scripts/multiselect.min.js"></script>
 
-@*@section scripts {
+@section scripts {
     <script type="text/javascript">
         $(function () {
             $('#Item1_From').datetimepicker({
-                defaultDate: '@Model.Item1.From',
+                defaultDate: '@Model.From',
                 showClose: true,
                 showClear: true,
                 toolbarPlacement: 'top'
             });
 
             $('#Item1_To').datetimepicker({
-                defaultDate: '@Model.Item1.To',
+                defaultDate: '@Model.To',
                 showClose: true,
                 showClear: true,
                 toolbarPlacement: 'top',
             });
         });
     </script>
-}*@
+}
 
 <script type="text/javascript">
-jQuery(document).ready(function($) {
-    $('#search').multiselect({
-        keepRenderingSort: true,
-        search: {
-            left: '<input type="text" name="q" class="form-control" placeholder="Search..." />',
-            right: '<input type="text" name="q" class="form-control" placeholder="Search..." />',
-            left: '<input type="text" name="q" class="form-control" placeholder="Search..." />',
-            right: '<input type="text" name="q" class="form-control" placeholder="Search..." />',
-        }
-    });
-});
+    function GetServiceLocations(_companyGUID) {
+        var procemessage = "<option value='0'> Please wait...</option>";
+        $("#ddlLocations").html(procemessage).show();
+        var url = "/ReportBuilder/GetServiceLocations/";
 
-function SetStatus(_statusID) {
-    $("#StatusID").val(_statusID);
-}
+        $.ajax({
+            url: url,
+            data: { companyGUID: _companyGUID },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                var markup = "";
+
+                for (var x = 0; x < data.length; x++) {
+                    markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                }
+
+                $("#ddlLocations").html(markup).show();
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+    }
+
+    jQuery(document).ready(function($) {
+        $('#search').multiselect({
+            keepRenderingSort: true,
+            search: {
+                left: '<input type="text" name="q" class="form-control" placeholder="Search..." />',
+                right: '<input type="text" name="q" class="form-control" placeholder="Search..." />',
+            }
+        });
+    });
+
+    function SetStatus(_statusID) {
+        $("#StatusID").val(_statusID);
+    }
 </script>

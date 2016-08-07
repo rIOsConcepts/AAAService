@@ -1,0 +1,532 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create - ASSETS Customer Service Portal</title>
+    <link href="/Content/bootstrap.css" rel="stylesheet"/>
+<link href="/Content/site.css" rel="stylesheet"/>
+
+    <script src="/Scripts/modernizr-2.8.3.js"></script>
+
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Home</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Services<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/CreateTicket">Create Service Request</a></li>
+                            <li><a href="/ServiceBoard">Service Board</a></li>
+                            <li><a href="/CreateBid">Request Bid</a></li>
+                            <li><a href="/BidRequestsBoard">Bid Request Board</a></li>
+                            <li><a href="/Comments/Create">Submit Comment</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/Home/Contact">Emergency Contact</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Service Schedules<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/Home/HVAC">HVAC Calendar</a></li>
+                            <li><a href="/Home/Landscape">Landscape Calendar</a></li>
+                            <li><a href="/Home/FireExt">Fire Extinguisher Service - Annual</a></li>
+                            <li><a href="/Home/BankMaintenance">Bank Maintenance Calendar</a></li>
+                            
+                        </ul>
+                    </li>
+
+                    <li><a href="/Home/Help">Help</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Site Admin<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/AdminTickets">Admin Service Board</a></li>
+                            <li><a href="/Regions">Report Builder</a></li>
+                            <li><a href="/ServiceCategories">Manage Service Categories</a></li>
+                            <li><a href="/Companies">Manage Companies</a></li>
+                            <li><a href="/Regions">Manage Regions</a></li>
+                            <li><a href="/locationinfoes">Manage Locations</a></li>
+                            <li><a href="/PriorityLists">Manage Priority List</a></li>
+                            <li><a href="/StatusLists">Manage Status List</a></li>
+                            <li><a href="/Comments">Manage Comments</a></li>
+                            <li><a href="/RolesAdmin">Manage Roles</a></li>
+                            <li><a href="/UsersAdmin">Manage Users</a></li>
+                            <li><a href="/UpLoadToCalendar/Upload">Upload Bank Calendar</a></li>
+                           
+
+                        </ul>
+                    </li>
+                    <li><a href="/Home/About">About</a></li>
+                </ul>
+                <form action="/Account/LogOff" class="navbar-right" id="logoutForm" method="post"><input name="__RequestVerificationToken" type="hidden" value="IDu68dmQ_hbzcUmoUOt1mClezN9nh2O43FM8y-JqJT8C38O3ccbyLQeettYCPcKCPDgfuMZvZec-nCOQ2-x5HZKLZTS0HjyI2KS623yGFG8NqNz_8Jzz_LadGTYpsRLO3B86kTd4LshImALQV-zR-w2" />    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a href="/Manage" title="Manage">Hello tzhang@aaaelectric.com!</a>
+        </li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    </ul>
+</form>
+            </div>
+        </div>
+    </div>
+     
+   <div class="container body-content">
+       
+       
+        
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+
+
+<h2>AAA Service Request</h2>
+<h4>Create a Service Request </h4>
+<p><strong>Please report emergency service issues occuring prior to 8:00 a.m. and after 5:00 p.m. Monday - Friday, Saturday - Sunday, and on holidays by calling 1-877-7AAAHELP P: 877-722-2435 and creating this service request
+</strong> </p>
+<form action="/ServiceTickets/Create/5f27e221-791f-4084-9b95-0100d2b9ae82" method="post"><input name="__RequestVerificationToken" type="hidden" value="7PZsuryWb0ZFssY0_QI0efXgiRc6HPxLNw74eTS17Z4etXLz0AmLmTn3tV7tmDditWW2sFMtRzbGVZYzEgy6SnGNWE9vMLkCOomWp7DSOPn7v0obMae6ruT7Pw53Unby5q_q7iU7mu9zImJ2szSd2A2" />    <div class="form-horizontal">
+        <hr />
+        
+
+        <div class="form-group">
+            
+            <label class="control-label col-md-2" for="CompanyID">Company</label>
+            <div class="col-md-10">
+                <select class="form-control" id="CompanyGUID" name="CompanyList" onchange="javascript:GetServiceLocation(this.value);" value=""><option value="">Please Choose</option>
+<option value="43ec4061-81ad-49e5-b5ea-05a543495a16">Rabobank</option>
+<option value="92bb9728-59fb-4a34-b63b-151991d32793">Sierra Asset Managment</option>
+<option value="334408b7-aca9-4f30-a5ee-7bb16b5a60f3">Complete Solutions</option>
+<option value="04846763-5aa2-442f-9ae1-b4dc36f32388">AAA Property Services  Valencia</option>
+<option value="af01c2e8-0c68-4ebe-905b-ce43ddc9a53a">ECosway</option>
+<option value="af31598b-a2d0-476e-922e-dd9d463e3e77">Jenner Solutions</option>
+<option value="0f8cc17f-7322-45a4-98f9-df094f9fe1d0">Affordable Portables</option>
+<option value="2cf80b54-2982-4dcd-a894-e2914cb5dd8a">Demo1</option>
+<option value="5ed6a622-171c-4f7b-b26f-e62a153a836b">Big Lots</option>
+</select>
+                
+                <span class="field-validation-valid text-danger" data-valmsg-for="PriorityID" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Location">Service Location</label>
+            <div class="col-md-10">
+                
+                <select class="form-control" id="ddlservicelocation" name="ddlservicelocation" style="width: 200px"></select>
+            </div>            
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="location_contact_name">Requester</label>
+            <div class="col-md-10">
+                <input Value="Tim Zhang" class="form-control text-box single-line" data-val="true" data-val-required="The Requester field is required." id="location_contact_name" name="location_contact_name" type="text" value="" />
+                <span class="field-validation-valid text-danger" data-valmsg-for="location_contact_name" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="location_contact_phone">Phone</label>
+            <div class="col-md-10">
+                <input Value="661-705-7748" class="form-control text-box single-line" data-val="true" data-val-required="The Phone field is required." id="location_contact_phone" name="location_contact_phone" type="text" value="" />
+                <span class="field-validation-valid text-danger" data-valmsg-for="location_contact_phone" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <div id="monikersam" style="display:none" ;>
+            <div class="form-group">
+                <label class="control-label col-md-2" for="Service_Category">Service Category</label>
+                <div class="col-md-10">
+                    <textarea class="form-control" cols="20" id="SvcCat" name="SvcCat" rows="2">
+</textarea>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2" for="Priority_Level">Priority Level</label>
+                <div class="col-md-10">
+                    <textarea class="form-control" cols="20" id="PriStatus" name="PriStatus" rows="2">
+</textarea>
+
+                </div>
+            </div>
+        </div>
+            <div class="form-group">
+                <label class="control-label col-md-2" for="location_contact_phone_night">After Hours Phone</label>
+                <div class="col-md-10">
+                    <input Value="661-705-7748" class="form-control text-box single-line" data-val="true" data-val-required="The After Hours Phone field is required." id="location_contact_phone_night" name="location_contact_phone_night" type="text" value="" />
+                    <span class="field-validation-valid text-danger" data-valmsg-for="location_contact_phone_night" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2" for="cust_po_num">Customer PO#</label>
+                <div class="col-md-10">
+                    <input class="form-control text-box single-line" id="cust_po_num" name="cust_po_num" type="text" value="" />
+                    <span class="field-validation-valid text-danger" data-valmsg-for="cust_po_num" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2" for="cost_code">Cost Center#</label>
+                <div class="col-md-10">
+                    <input class="form-control text-box single-line" data-val="true" data-val-required="The Cost Center# field is required." id="cost_code" name="cost_code" type="text" value="" />
+                    <span class="field-validation-valid text-danger" data-valmsg-for="cost_code" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2" for="PriorityID">Priority Level</label>
+                <div class="col-md-10">
+                    <select class="form-control" id="PriorityID" name="PriorityID"><option value="">Please Choose</option>
+<option value="1">3 to 5 Days</option>
+<option value="2">30 days</option>
+<option value="3">After Hours Emergency</option>
+<option value="4">Next Day</option>
+<option value="5">On Next Scheduled Route Visit</option>
+<option value="6">Same Day Emergency</option>
+<option value="7">Warranty Job</option>
+</select>
+                    <span class="field-validation-valid text-danger" data-valmsg-for="PriorityID" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2" for="CategoryID">Service Category</label>
+                <div class="col-md-10">
+                    <select class="form-control" id="CategoryID" name="CategoryID"><option value="">Please Choose</option>
+<option value="1">ADA Surveys</option>
+<option value="2">Appliances</option>
+<option value="3">Ashpalt/ Stripping</option>
+<option value="4">ATM Dept</option>
+<option value="5">Backflow</option>
+<option value="8">CoinDispenser
+</option>
+<option value="10">Construction</option>
+<option value="15">Door/GateRepair</option>
+<option value="16">DriveUpEquip</option>
+<option value="17">Electrical</option>
+<option value="18">Elevator</option>
+<option value="19">CashDisp/TCD</option>
+<option value="20">Printer/Copy/Fx</option>
+<option value="21">CurrencyCounter</option>
+<option value="22">Encoder</option>
+<option value="25">Ergo Evaluation</option>
+<option value="26">Fire Safety</option>
+<option value="29">Flooring</option>
+<option value="30">Moving</option>
+<option value="31">GenSiteSurveys</option>
+<option value="32">Glass Repair</option>
+<option value="35">Handyman</option>
+<option value="36">HVAC Air/Heat</option>
+<option value="37">Int Cleaning</option>
+<option value="39">Landscaping</option>
+<option value="40">Lighting</option>
+<option value="41">Locksmith</option>
+<option value="43">Music Services</option>
+<option value="44">Painting</option>
+<option value="45">Pest Control</option>
+<option value="46">Plumbing</option>
+<option value="47">Power Washing</option>
+<option value="48">RoofRepair/Leak</option>
+<option value="49">Security</option>
+<option value="50">Shred Service</option>
+<option value="51">Signs</option>
+<option value="52">Telecommunications</option>
+<option value="53">Water Purificat</option>
+<option value="54">Window Washing</option>
+<option value="55">Grafitti</option>
+</select>
+                    <span class="field-validation-valid text-danger" data-valmsg-for="CategoryID" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div id="EQ" display none;>
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="EQmodel">EQmodel</label>
+                    <div class="col-md-10">
+                        <input class="form-control text-box single-line" id="EQmodel" name="EQmodel" type="text" value="" />
+                        <span class="field-validation-valid text-danger" data-valmsg-for="EQmodel" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="EQserial">EQserial</label>
+                    <div class="col-md-10">
+                        <input class="form-control text-box single-line" id="EQserial" name="EQserial" type="text" value="" />
+                        <span class="field-validation-valid text-danger" data-valmsg-for="EQserial" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="EQProbDesc">EQProbDesc</label>
+                    <div class="col-md-10">
+                        <input class="form-control text-box single-line" id="EQProbDesc" name="EQProbDesc" type="text" value="" />
+                        <span class="field-validation-valid text-danger" data-valmsg-for="EQProbDesc" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2" for="problem_summary">Problem Summary</label>
+                <div class="col-md-10">
+                    <input class="form-control text-box single-line" data-val="true" data-val-required="The Problem Summary field is required." id="problem_summary" name="problem_summary" rows="10" type="text" value="" />
+                    <span class="field-validation-valid text-danger" data-valmsg-for="problem_summary" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2" for="problem_details">Problem Details</label>
+                <div class="col-md-10">
+                    <textarea class="form-control" cols="20" data-val="true" data-val-required="The Problem Details field is required." id="problem_details" name="problem_details" rows="10">
+</textarea>
+                    <span class="field-validation-valid text-danger" data-valmsg-for="problem_details" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" id="submitt3" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+</form>
+<div>
+    <a href="/ServiceBoard">Back to List</a>
+</div>
+<script>
+$(document).ready(function(){
+    $("#CategoryID").change(function(){
+        $(this).find("option:selected").each(function(){
+            if($(this).attr("value")=="19"){
+                $("#EQ").show();
+                var newText = $("#CategoryID option:selected").text();
+                $('#SvcCat').text(newText);
+                $('input[type="submit"]').prop('disabled', false);
+
+
+            }
+            else if($(this).attr("value")=="20"){
+                alert("ALERT:\n\nService calls for copiers, printers, fax, scanners, and multifunciton equipment are submitted through AMNET/ServiceDesk portal.");
+                var blankText = "";
+                $('#EQmodel').val(blankText)
+                $('#EQserial').val(blankText)
+                $('#EQProbDesc').val(blankText)
+                var newText = "";
+                $('#SvcCat').text(newText);
+                $('input[type="submit"]').prop('disabled', true);
+            }
+
+            else if ($(this).attr("value") < "1") {
+                var blankText = "";
+                $('#EQmodel').val(blankText)
+                $('#EQserial').val(blankText)
+                $('#EQProbDesc').val(blankText)
+                var newText = "";
+               $('#SvcCat').text(newText);
+               $("#EQ").hide();
+
+            }
+            else if($(this).attr("value")=="21"){
+                $("#EQ").show();
+                alert("Service requests for Cummins brand equipment should be reported directly to Cummins:\n\nLocations within San Diego, Imperial County, Orange County and San Bernardino contact number is (888)505-7807\n\nAll other bank locations contact number is (818) 841-9692");
+                var newText = $("#CategoryID option:selected").text();
+                $('#SvcCat').text(newText);
+                $('input[type="submit"]').prop('disabled', false);
+            }
+            else if ($(this).attr("value") == "22") {
+                $("#EQ").show();
+                var newText = $("#CategoryID option:selected").text();
+                $('#SvcCat').text(newText);
+                $('input[type="submit"]').prop('disabled', false);
+            }
+            else if ($(this).attr("value") == "41") {
+                $("#EQ").hide();
+                var blankText = "";
+                $('#EQmodel').val(blankText)
+                $('#EQserial').val(blankText)
+                $('#EQProbDesc').val(blankText)
+                alert("ALERT\n\nIf this service request is related to locksmith and or alarm issues, please report the issue by contacting:\n\nValliwide Vault & Safe\n4191 W. Swift Ave.\nFresno, CA 93722\n559-291-2971\n\n OR \n\nCorporate Security\n888-337-4744\nfm.us.imperial.Security Support Desk");
+                var newText = "";
+                $('#SvcCat').text(newText);
+                $('input[type="submit"]').prop('disabled', true);
+            }
+            else if ($(this).attr("value") == "35") {
+                $("#EQ").hide();
+                var blankText = "";
+                $('#EQmodel').val(blankText)
+                $('#EQserial').val(blankText)
+                $('#EQProbDesc').val(blankText)
+                alert("NOTE:\n\nIf serivce request is not an emergency, please log the request on the AAA Facility Maintenance binder for your location.\n\nPlease see Schedule of Service / Maintenance Calendar for service dates. \n\n By submitting a service request via this portal, a service charge will apply.");
+                var newText = $("#CategoryID option:selected").text();
+                $('#SvcCat').text(newText);
+                $('input[type="submit"]').prop('disabled', false);
+            }
+            else if ($(this).attr("value") == "38") {
+                $("#EQ").hide();
+                var blankText = "";
+                $('#EQmodel').val(blankText)
+                $('#EQserial').val(blankText)
+                $('#EQProbDesc').val(blankText)
+                alert("NOTE:\n\nTo report an issue with janitorial service, please report the issue via the Submit a Comment link.");
+                var newText ="";
+                $('#SvcCat').text(newText);
+                $('input[type="submit"]').prop('disabled', true);
+            }
+            else if ($(this).attr("value") == "4") {
+                $("#EQ").hide();
+                var blankText = "";
+                $('#EQmodel').val(blankText)
+                $('#EQserial').val(blankText)
+                $('#EQProbDesc').val(blankText)
+                alert("We do no handle these type of service requests.\n\nService requests are submitted on the Project Manager/Help Desk link accessed through AMNET/All Tools");
+                var newText = "";
+                $('#SvcCat').text(newText);
+                $('input[type="submit"]').prop('disabled', true);
+            }
+            else if ($(this).attr("value") == "16") {
+                $("#EQ").hide();
+                var blankText = "";
+                $('#EQmodel').val(blankText)
+                $('#EQserial').val(blankText)
+                $('#EQProbDesc').val(blankText)
+                alert("We do no handle these type of service requests. To submit a service request, please contact:\n\nValliwide Vault & Safe\n4191 W. Swift Ave.\nFresno, CA 93722\n\nOR\n\nCorporate Security\n888-337-4744\nfm.us.imperial.Security Support Desk");
+                var newText = "";
+                $('#SvcCat').text(newText);
+                $('input[type="submit"]').prop('disabled', true);
+            }
+            else if ($(this).attr("value") == "10") {
+                $("#EQ").hide();
+                var blankText = "";
+                $('#EQmodel').val(blankText)
+                $('#EQserial').val(blankText)
+                $('#EQProbDesc').val(blankText)
+                alert("Please submit a BID REQUEST for construction type service requests.\n\nTo further discuss construction requests you may also email General Services Facilities Department.");
+                var newText = "";
+                $('#SvcCat').text(newText);
+                $('input[type="submit"]').prop('disabled', true);
+            }
+            else if ($(this).attr("value") == "15") {
+                $("#EQ").hide();
+                var blankText = "";
+                $('#EQmodel').val(blankText)
+                $('#EQserial').val(blankText)
+                $('#EQProbDesc').val(blankText)
+                alert("ALERT\n\nIf this service request is related to locksmith and or alarm issues, please report the issue by contacting:\n\nValliwide Vault & Safe\n4191 W. Swift Ave.\nFresno, CA 93722\n559-291-2971\n\n OR \n\nCorporate Security\n888-337-4744\nfm.us.imperial.Security Support Desk");
+                var newText = $("#CategoryID option:selected").text();
+                $('#SvcCat').text(newText);
+                $('input[type="submit"]').prop('disabled', false);
+            }
+            else if ($(this).attr("value") == "15") {
+                $("#EQ").hide();
+                alert("ALERT\n\nIf this service request is related to locksmith and or alarm issues, please report the issue by contacting:\n\nValliwide Vault & Safe\n4191 W. Swift Ave.\nFresno, CA 93722\n559-291-2971\n\n OR \n\nCorporate Security\n888-337-4744\nfm.us.imperial.Security Support Desk");
+                var blankText = "";
+                $('#EQmodel').val(blankText)
+                $('#EQserial').val(blankText)
+                $('#EQProbDesc').val(blankText)
+                var newText = $("#CategoryID option:selected").text();
+                $('#SvcCat').text(newText);
+                $('input[type="submit"]').prop('disabled', false);
+            }
+            else if ($(this).attr("value") == "25") {
+                $("#EQ").hide();
+                alert("ALERT\N\N Please contact the Human Resources Benifits staff to request an ergonomic evaluation");
+                var blankText = "";
+                $('#EQmodel').val(blankText)
+                $('#EQserial').val(blankText)
+                $('#EQProbDesc').val(blankText)
+                var newText = "";
+                $('#SvcCat').text(newText);
+                $('input[type="submit"]').prop('disabled', true);
+            }
+            else if ($(this).attr("value") == "52") {
+                $("#EQ").hide();
+                alert("ALERT\n\n We do not handle these type of requests. Please email your service request to Information Services.");
+                var blankText = "";
+                $('#EQmodel').val(blankText)
+                $('#EQserial').val(blankText)
+                $('#EQProbDesc').val(blankText)
+                var newText = "";
+                $('#SvcCat').text(newText);
+                $('input[type="submit"]').prop('disabled', true);
+            }
+            else {
+                $("#EQ").hide();
+                var blankText = "";
+                $('#EQmodel').val(blankText)
+                $('#EQserial').val(blankText)
+                $('#EQProbDesc').val(blankText)
+                var newText = $("#CategoryID option:selected").text();
+                $('#SvcCat').text(newText);
+                $('input[type="submit"]').prop('disabled', false);
+            }
+        });
+    }).change();
+});
+$(document).ready(
+  function() {
+  $("#monikersam").hide();
+  $("#PriorityID").change(function () {
+      $(this).find("option:selected");
+      var newText = $("#PriorityID option:selected").text();
+      $('#PriStatus').text(newText);
+      $("#monikersam").hide();
+  })
+
+  GetServiceLocation(null);
+});
+</script>
+
+<script language="javascript" type="text/javascript">
+    function GetServiceLocation(_companyGUID) {        
+        var procemessage = "<option value='0'> Please wait...</option>";        
+        $("#ddlservicelocation").html(procemessage).show();
+        var url = "/ServiceTickets/GetServiceLocation/";
+
+        $.ajax({
+            url: url,
+            data: { companyGUID: _companyGUID },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                var markup = "<option value='0'>Please Choose</option>";
+
+                if (_companyGUID == null) {
+                    markup = "<option value='0'>San Diego  4336 BL</option>";
+                }
+
+                for (var x = 0; x < data.length; x++) {
+                    markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                }
+                $("#ddlservicelocation").html(markup).show();
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+    }
+</script>
+        <hr />
+        <footer>
+            <p>&copy; 2016 - AAA Companies</p>
+        </footer>
+    </div>
+
+    <script src="/Scripts/jquery-2.2.0.js"></script>
+
+    <script src="/Scripts/bootstrap.js"></script>
+<script src="/Scripts/respond.js"></script>
+
+    <script src="/Scripts/moment-with-locales.js"></script>
+<script src="/Scripts/moment.js"></script>
+<script src="/Scripts/bootstrap-datetimepicker.js"></script>
+
+    
+
+<!-- Visual Studio Browser Link -->
+<script type="application/json" id="__browserLink_initializationData">
+    {"appName":"Internet Explorer","requestId":"d711de1f66e6492db7d7fa33ab128237"}
+</script>
+<script type="text/javascript" src="http://localhost:4386/accc84515758475bbe1b6ac727a08ea0/browserLink" async="async"></script>
+<!-- End Browser Link -->
+
+</body>
+</html>

@@ -1,0 +1,193 @@
+Host Server:
+aaahelp.aaapropertyservices.com:
+Plesk:  https://bebop.esolutions.net:8443/
+Username: aaahelpa
+Password: AaApr0pMgMt
+
+SQL login: barberry.arvixe.com
+SQL server user name/pwd:
+aaaadmin / a8s8d8!
+
+Here is my thought about email functionality:
+We will use SmtpClient class for sending email
+Here is a simple example on how to use SmtpClient to send emails, if you search online, would see many examples
+
+using System.Net.Mail;
+...
+MailMessage mail = new MailMessage("you@yourcompany.com", "user@hotmail.com");
+SmtpClient client = new SmtpClient();
+client.Port = 25;
+client.DeliveryMethod = SmtpDeliveryMethod.Network;
+client.UseDefaultCredentials = false;
+client.Host = "smtp.google.com";
+mail.Subject = "this is a test email.";
+mail.Body = "this is my test email body";
+client.Send(mail);
+
+We can create a table emailSetting in the DB, which contains the template (e.g. email subject, body template, etc.)  for each type of email we need to send, e.g. create a new user, create a new ticket, Status update, etc.
+We can create a SendMail class which will take email type and other dynamic information
+The SendMail class can query emailSetting and user table based on passed in email type and other dynamic information passed in, replace the placeholder in the template, then send the email
+
+
+Samples:
+
+This is the email we get (and all connected with this site / and the requestor if they aren’t attached to the site) when the status is completed.  I believe any updates come thru like this, except it would just say IN PROGRESS or DISPATCHED or whatever the status update happens to be… 
+ 
+ 
+From: administrator@aaahelp.aaapropertyservices.com [mailto:administrator@aaahelp.aaapropertyservices.com] 
+Sent: Monday, June 20, 2016 8:23 AM
+To: Portalupdate
+Subject: Web Portal Service Ticket Update
+ 
+The Service Request number: 324645 for location RB1483 has been updated.
+The request is now: COMPLETE
+The Requests Details follow.
+Requested: 6/14/2016 3:40:10 PM
+Accepted: 6/15/2016 1:38:34 PM
+Dispatched: 6/17/2016 10:38:34 AM
+Completed: 6/17/2016 8:23:28 AM
+Service Provider: JLS-84343
+Problem Summary: move filing cabinets upstairs
+Problem Details: Please move Sherry Wallaces file cabinets from the first floor to the second. Advise ETA. Thanks.
+Resolution Notes: Updated: 6/15/2016 1:50:03 PM JLS WILL BE ONSITE TOMORROW MORNING. Updated: 6/16/2016 10:21:18 AM JLS will be onsite tomorrow to move the Fire King Cabinet. 
+Updated By: Elsa Rios
+
+If you have questions or concerns about this message please contact us at 1-800-892-4784.
+Please do not reply to this e-mail, this account is not monitored.
+
+
+
+
+Sample of email from one that a customer entered.
+
+From: administrator@aaahelp.aaapropertyservices.com [mailto:administrator@aaahelp.aaapropertyservices.com] 
+Sent: Monday, June 27, 2016 3:56 PM
+To: portal
+Subject: Web Portal Service Ticket Entered
+ 
+AAA Web Portal Service Ticket
+
+Requested By: TESS RAMIREZ
+Customer Number 72214
+Cost Code 1483
+Customer PO# 
+Service Provider 
+Service Location: RB1483
+Address Line 1: 991 BENNETT AVE
+Address Line 2: 
+City: ARROYO GRANDE
+State: CA
+Zip: 93420
+Job Number: 324741
+Contact Name: TESS RAMIREZ
+Contact Number: 8052020211
+Contact After Hours Number: 
+Priority Code: 20 - 3 TO 5 DAYS
+Priority Code: 20
+Order Date: 06/27/2016
+Order Time: 15:56:00
+CategoryHVAC AIR / HEAT
+Request Summary
+THERMOSTAT ISSUE
+Request Details
+WIGHTONS WAS JUST ONSITE THIS MORNING DOING THEIR QUARTERLY. THE THERMOSTAT ON THE FIRST FLOOR NEAR THE BREAK ROOM HAS THE WRONG DATE AND TIME. IT CURRENTLY SAYS SUNDAY AT 6 P.M. TODAY IS MONDAY ITS 3:45 P.M. AND ITS 75 DEGREES IN THAT ZONE. I AM NOT SURE I KNOW HOW TO SET THE CORRECT DATE AND TIME AND GET IT TO THE PROPER TEMP. IF ITS SOMETHING THAT I CAN BE WALKED THROUGH HAVE THEM CALL ME. OTHERWISE WE WILL NEED A SERVICE CALL. 
+Status Code: OP
+Zone: RB
+Service Type: BL
+Service Rep: 84540
+Taken By: Web Portal
+
+
+
+
+
+
+
+
+
+
+
+From: administrator@aaahelp.aaapropertyservices.com [mailto:administrator@aaahelp.aaapropertyservices.com] 
+Sent: Monday, July 25, 2016 1:35 PM
+To: portal
+Subject: Web Portal Service Ticket Entered
+ 
+AAA Web Portal Service Ticket
+
+Requested By: GABRIELA MIHAILA
+Customer Number 72214
+Cost Code 2007
+Customer PO# 
+Service Provider 
+Service Location: RB2007
+Address Line 1: 75 SANTA ROSA STREET
+Address Line 2: 
+City: SAN LUIS OBISPO
+State: CA
+Zip: 93405
+Job Number: 324914
+Contact Name: GABRIELA MIHAILA
+Contact Number: 805-544-7070
+Contact After Hours Number: 
+Priority Code: 20 - 3 TO 5 DAYS
+Priority Code: 20
+Order Date: 07/25/2016
+Order Time: 13:35:07
+CategoryLANDSCAPING
+Request Summary
+TREES IN THE PARKING LOT
+Request Details
+THE TREES IN THE PARKING LOT ARE OBSTRUCTING THE DRIVERS VISIBILITY . THEY NEED TRIMMING AND PRUNING . THANK YOU
+Status Code: OP
+Zone: RB
+Service Type: BL
+Service Rep: 84540
+Taken By: Web Portal
+
+
+
+
+From: administrator@aaahelp.aaapropertyservices.com [mailto:administrator@aaahelp.aaapropertyservices.com] 
+Sent: Tuesday, July 26, 2016 8:23 AM
+To: Portalupdate
+Subject: Web Portal Service Ticket Update
+ 
+The Service Request number: 324387 for location RB2007 has been updated.
+The request is now: DISPATCHED
+The Requests Details follow.
+Requested: 5/9/2016 11:00:06 AM
+Accepted: 5/9/2016 1:56:43 PM
+Dispatched: 7/30/2016 8:14:22 AM
+Completed: 
+Service Provider: Rainscpe-84779
+Problem Summary: Biding
+Problem Details: Please place a bid for trimming the hedge between the two properties Casa de Vida and Rabobank. Thank you
+Resolution Notes: Updated: 5/9/2016 1:56:42 PM Sent info to Rainscape. Will update schedule once received. Updated: 6/8/2016 10:34:41 AM Will have bid ready by end of 6/17. Updated: 6/24/2016 10:43:19 AM Sent bid for approval. Updated: 6/24/2016 2:13:01 PM On hold until Larry returns from vacation. Updated: 6/28/2016 2:06:04 PM BID APPROVED. WILL UPDATE SCHEDULE ONCE RECEIVED. Updated: 7/6/2016 3:14:17 PM Work will be complete by 7/23. Updated: 7/26/2016 8:23:24 AM Project due to be completed by 7/30. 
+Updated By: Elsa Rios
+
+If you have questions or concerns about this message please contact us at 1-800-892-4784.
+
+Please do not reply to this e-mail, this account is not monitored.
+
+
+From: administrator@aaahelp.aaapropertyservices.com [mailto:administrator@aaahelp.aaapropertyservices.com] 
+Sent: Friday, July 22, 2016 12:09 PM
+To: Portalupdate
+Subject: Web Portal Service Ticket Update
+ 
+The Service Request number: 324799 for location RB2012 has been updated.
+The request is now: COMPLETE
+The Requests Details follow.
+Requested: 7/7/2016 10:10:58 AM
+Accepted: 7/7/2016 3:11:19 PM
+Dispatched: 7/20/2016 1:19:53 PM
+Completed: 7/20/2016 12:08:59 PM
+Service Provider: Executive-85517
+Problem Summary: Windows
+Problem Details: Requesting all windows to be cleaned in and out.
+Resolution Notes: Updated: 7/7/2016 3:12:15 PM Sent info to Executive. Will update schedule once received. Updated: 7/20/2016 1:20:27 PM EXECUTIVE WILL BE ONSITE TODAY Updated: 7/22/2016 12:09:24 PM All interior and exterior windows were washed/cleaned 
+Updated By: Elsa Rios
+
+If you have questions or concerns about this message please contact us at 1-800-892-4784.
+
+Please do not reply to this e-mail, this account is not monitored.

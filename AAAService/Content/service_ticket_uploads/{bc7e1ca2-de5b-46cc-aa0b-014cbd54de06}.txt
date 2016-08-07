@@ -1,0 +1,36 @@
+From: administrator@aaahelp.aaapropertyservices.com [mailto:administrator@aaahelp.aaapropertyservices.com] 
+Sent: Monday, June 27, 2016 3:56 PM
+To: portal
+Subject: Web Portal Service Ticket Entered
+ 
+AAA Web Portal Service Ticket
+
+Requested By: TESS RAMIREZ
+Customer Number 72214
+Cost Code 1483
+Customer PO# 
+Service Provider 
+Service Location: RB1483
+Address Line 1: 991 BENNETT AVE
+Address Line 2: 
+City: ARROYO GRANDE
+State: CA
+Zip: 93420
+Job Number: 324741
+Contact Name: TESS RAMIREZ
+Contact Number: 8052020211
+Contact After Hours Number: 
+Priority Code: 20 - 3 TO 5 DAYS
+Priority Code: 20
+Order Date: 06/27/2016
+Order Time: 15:56:00
+CategoryHVAC AIR / HEAT
+Request Summary
+THERMOSTAT ISSUE
+Request Details
+WIGHTONS WAS JUST ONSITE THIS MORNING DOING THEIR QUARTERLY. THE THERMOSTAT ON THE FIRST FLOOR NEAR THE BREAK ROOM HAS THE WRONG DATE AND TIME. IT CURRENTLY SAYS SUNDAY AT 6 P.M. TODAY IS MONDAY ITS 3:45 P.M. AND ITS 75 DEGREES IN THAT ZONE. I AM NOT SURE I KNOW HOW TO SET THE CORRECT DATE AND TIME AND GET IT TO THE PROPER TEMP. IF ITS SOMETHING THAT I CAN BE WALKED THROUGH HAVE THEM CALL ME. OTHERWISE WE WILL NEED A SERVICE CALL. 
+Status Code: OP
+Zone: RB
+Service Type: BL
+Service Rep: 84540
+Taken By: Web Portal

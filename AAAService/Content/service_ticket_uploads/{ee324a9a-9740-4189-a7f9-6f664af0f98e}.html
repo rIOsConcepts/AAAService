@@ -1,0 +1,253 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/Content/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/SyntaxHighlighter/shCore.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/SyntaxHighlighter/shCoreDefault.css" rel="stylesheet" type="text/css" />
+
+    <link href="/Content/Gridmvc.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/gridmvc.datepicker.css" rel="stylesheet" />
+    <!-- SCRIPTS -->
+    <script src="/Scripts/jquery-2.0.3.min.js" type="text/javascript"> </script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <script src="/Scripts/main.js" type="text/javascript"> </script>
+
+    <script src="/Scripts/SyntaxHighlighter/shCore.js"></script>
+    <script src="/Scripts/SyntaxHighlighter/shBrushCSharp.js"></script>
+    <script src="/Scripts/SyntaxHighlighter/shBrushCss.js"></script>
+    <script src="/Scripts/SyntaxHighlighter/shBrushJScript.js"></script>
+    <script src="/Scripts/SyntaxHighlighter/shBrushRazor.js"></script>
+
+    <script src="/Scripts/gridmvc.js" type="text/javascript"> </script>
+    <script src="/Scripts/gridmvc.lang.ru.js" type="text/javascript"> </script>
+    <script src="/Scripts/gridmvc.customwidgets.js" type="text/javascript"> </script>
+    <!-- referencing datepicker control -->
+    <script src="/Scripts/bootstrap-datepicker.js"></script>
+    <!-- Locale datepicker scripts ( get more on https://github.com/bukharin/bootstrap-datepicker/tree/master/js/locales )-->
+    <script src="/Scripts/bootstrap-datepicker.ru.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-grid navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex5-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Grid.Mvc</a>
+            </div>
+            <div class="navbar-collapse navbar-ex5-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/">Demo</a></li>
+                    <li class=""><a href="/Home/AjaxPaging">Ajax paging</a></li>
+                    <li class=""><a href="/Home/About">About</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="main" class="container">
+        
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>Orders administration</h1>
+        <p>
+            This page demonstrates the possibilities of Grid.Mvc. For more documentation, please
+            see: <a href="http://gridmvc.codeplex.com/">http://gridmvc.codeplex.com/</a>
+        </p>
+    </div>
+    <div class="col-md-12">
+        
+<div class="code-cut">
+    <a href="javascript:void(0);" class="code-toggle">Show code to build this grid</a>
+    <pre class="brush: razor">
+    @Html.Grid(Model).Columns(columns =>
+    {
+        /* Adding not mapped column, that renders body, using inline Razor html helper */
+        columns.Add()
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(30)
+                .RenderValueAs(d =>
+                    @<b>
+                        @Html.ActionLink("Edit", "Index")
+                    </b>);
+
+        /* Adding "OrderID" column: */
+        columns.Add(o => o.OrderID)
+                .Titled("Number")
+                .SetWidth(100);
+
+        /* Adding "OrderDate" column: */
+        columns.Add(o => o.OrderDate, "OrderCustomDate")
+                .Titled("Date")
+                .SortInitialDirection(GridSortDirection.Descending)
+                .Format("{0:dd/MM/yyyy}")
+                .SetWidth(110);
+
+        /* Adding "CompanyName" column: */
+        columns.Add(o => o.Customer.CompanyName)
+                .Titled("Company Name")
+                .ThenSortByDescending(o => o.OrderID)
+                .SetFilterWidgetType("CustomCompanyNameFilterWidget");
+
+        /* Adding "Vip customer" column: */
+        columns.Add(o => o.Customer.IsVip)
+                .Titled("Vip customer")
+                .SetWidth(150)
+                .RenderValueAs(o => CustomRenderingOfColumn(o));
+
+    }).SetRowCssClasses(item => item.Customer.IsVip ? "warning" : string.Empty).WithPaging(15).Sortable().Filterable().WithMultipleFilters()
+    </pre>
+</div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3 col-md-push-9">
+        <h4>Order details
+        </h4>
+        <div id="order-content">
+            <p class="muted">
+                Select order to display detailed infomation
+            </p>
+        </div>
+    </div>
+    <div class="col-md-9 col-md-pull-3">
+        
+    <div class="grid-mvc" data-lang="en" data-gridname="ordersGrid" data-selectable="true" data-multiplefilters ="true">
+        <div class="grid-wrap">
+            <table class="table table-striped grid-table">
+                
+                <thead>
+                        <tr>
+<th class="grid-header hidden-xs" style="width:30px;"><div class="grid-header-title"><span></span></div></th><th class="grid-header" style="width:100px;"><div class="grid-filter" data-filterdata="[]" data-name="OrderID" data-type="System.Int32" data-widgetdata="null"><span class="grid-filter-btn" title="Filter this column"></span></div><div class="grid-header-title"><a href="?grid-column=OrderID&amp;grid-dir=0">Number</a></div></th><th class="grid-header" style="width:110px;"><div class="grid-filter" data-filterdata="[]" data-name="OrderCustomDate" data-type="System.DateTime" data-widgetdata="null"><span class="grid-filter-btn" title="Filter this column"></span></div><div class="sorted-desc sorted grid-header-title"><a href="?grid-column=OrderCustomDate&amp;grid-dir=0">Date</a><span class="grid-sort-arrow"></span></div></th><th class="grid-header" style="width:250px;"><div class="grid-filter" data-filterdata="[]" data-name="Customer.CompanyName" data-type="CustomCompanyNameFilterWidget" data-widgetdata="null"><span class="grid-filter-btn" title="Filter this column"></span></div><div class="grid-header-title"><a href="?grid-column=Customer.CompanyName&amp;grid-dir=0">Company</a></div></th><th class="grid-header hidden-xs" style="width:70px;"><div class="grid-filter" data-filterdata="[]" data-name="Customer.IsVip" data-type="System.Boolean" data-widgetdata="null"><span class="grid-filter-btn" title="Filter this column"></span></div><div class="grid-header-title"><a href="?grid-column=Customer.IsVip&amp;grid-dir=0">Is Vip</a></div></th>    </tr>
+
+                </thead>
+                <tbody>
+                        <tr class="grid-row ">
+<td class="grid-cell hidden-xs" data-name=""><b>
+<a class="modal_link" href="/Home/Edit/11074">Edit</a>
+                    </b></td><td class="grid-cell" data-name="OrderID">11074</td><td class="grid-cell" data-name="OrderCustomDate">06/05/1998</td><td class="grid-cell" data-name="Customer.CompanyName">Simons bistro</td><td class="grid-cell hidden-xs" data-name="Customer.IsVip">    No
+</td>    </tr>
+    <tr class="grid-row ">
+<td class="grid-cell hidden-xs" data-name=""><b>
+<a class="modal_link" href="/Home/Edit/11075">Edit</a>
+                    </b></td><td class="grid-cell" data-name="OrderID">11075</td><td class="grid-cell" data-name="OrderCustomDate">06/05/1998</td><td class="grid-cell" data-name="Customer.CompanyName">Richter Supermarkt</td><td class="grid-cell hidden-xs" data-name="Customer.IsVip">    No
+</td>    </tr>
+    <tr class="grid-row success">
+<td class="grid-cell hidden-xs" data-name=""><b>
+<a class="modal_link" href="/Home/Edit/11076">Edit</a>
+                    </b></td><td class="grid-cell" data-name="OrderID">11076</td><td class="grid-cell" data-name="OrderCustomDate">06/05/1998</td><td class="grid-cell" data-name="Customer.CompanyName">Bon app&#39;</td><td class="grid-cell hidden-xs" data-name="Customer.IsVip">    Yes
+</td>    </tr>
+    <tr class="grid-row ">
+<td class="grid-cell hidden-xs" data-name=""><b>
+<a class="modal_link" href="/Home/Edit/11077">Edit</a>
+                    </b></td><td class="grid-cell" data-name="OrderID">11077</td><td class="grid-cell" data-name="OrderCustomDate">06/05/1998</td><td class="grid-cell" data-name="Customer.CompanyName">Rattlesnake Canyon Grocery</td><td class="grid-cell hidden-xs" data-name="Customer.IsVip">    No
+</td>    </tr>
+    <tr class="grid-row ">
+<td class="grid-cell hidden-xs" data-name=""><b>
+<a class="modal_link" href="/Home/Edit/11070">Edit</a>
+                    </b></td><td class="grid-cell" data-name="OrderID">11070</td><td class="grid-cell" data-name="OrderCustomDate">05/05/1998</td><td class="grid-cell" data-name="Customer.CompanyName">Lehmanns Marktstand</td><td class="grid-cell hidden-xs" data-name="Customer.IsVip">    No
+</td>    </tr>
+    <tr class="grid-row ">
+<td class="grid-cell hidden-xs" data-name=""><b>
+<a class="modal_link" href="/Home/Edit/11071">Edit</a>
+                    </b></td><td class="grid-cell" data-name="OrderID">11071</td><td class="grid-cell" data-name="OrderCustomDate">05/05/1998</td><td class="grid-cell" data-name="Customer.CompanyName">LILA-Supermercado</td><td class="grid-cell hidden-xs" data-name="Customer.IsVip">    No
+</td>    </tr>
+    <tr class="grid-row ">
+<td class="grid-cell hidden-xs" data-name=""><b>
+<a class="modal_link" href="/Home/Edit/11072">Edit</a>
+                    </b></td><td class="grid-cell" data-name="OrderID">11072</td><td class="grid-cell" data-name="OrderCustomDate">05/05/1998</td><td class="grid-cell" data-name="Customer.CompanyName">Ernst Handel</td><td class="grid-cell hidden-xs" data-name="Customer.IsVip">    No
+</td>    </tr>
+    <tr class="grid-row ">
+<td class="grid-cell hidden-xs" data-name=""><b>
+<a class="modal_link" href="/Home/Edit/11073">Edit</a>
+                    </b></td><td class="grid-cell" data-name="OrderID">11073</td><td class="grid-cell" data-name="OrderCustomDate">05/05/1998</td><td class="grid-cell" data-name="Customer.CompanyName">Pericles Comidas cl&#225;sicas</td><td class="grid-cell hidden-xs" data-name="Customer.IsVip">    No
+</td>    </tr>
+    <tr class="grid-row ">
+<td class="grid-cell hidden-xs" data-name=""><b>
+<a class="modal_link" href="/Home/Edit/11067">Edit</a>
+                    </b></td><td class="grid-cell" data-name="OrderID">11067</td><td class="grid-cell" data-name="OrderCustomDate">04/05/1998</td><td class="grid-cell" data-name="Customer.CompanyName">Drachenblut Delikatessen</td><td class="grid-cell hidden-xs" data-name="Customer.IsVip">    No
+</td>    </tr>
+    <tr class="grid-row ">
+<td class="grid-cell hidden-xs" data-name=""><b>
+<a class="modal_link" href="/Home/Edit/11068">Edit</a>
+                    </b></td><td class="grid-cell" data-name="OrderID">11068</td><td class="grid-cell" data-name="OrderCustomDate">04/05/1998</td><td class="grid-cell" data-name="Customer.CompanyName">Queen Cozinha</td><td class="grid-cell hidden-xs" data-name="Customer.IsVip">    No
+</td>    </tr>
+    <tr class="grid-row ">
+<td class="grid-cell hidden-xs" data-name=""><b>
+<a class="modal_link" href="/Home/Edit/11069">Edit</a>
+                    </b></td><td class="grid-cell" data-name="OrderID">11069</td><td class="grid-cell" data-name="OrderCustomDate">04/05/1998</td><td class="grid-cell" data-name="Customer.CompanyName">Tortuga Restaurante</td><td class="grid-cell hidden-xs" data-name="Customer.IsVip">    No
+</td>    </tr>
+    <tr class="grid-row ">
+<td class="grid-cell hidden-xs" data-name=""><b>
+<a class="modal_link" href="/Home/Edit/11064">Edit</a>
+                    </b></td><td class="grid-cell" data-name="OrderID">11064</td><td class="grid-cell" data-name="OrderCustomDate">01/05/1998</td><td class="grid-cell" data-name="Customer.CompanyName">Save-a-lot Markets</td><td class="grid-cell hidden-xs" data-name="Customer.IsVip">    No
+</td>    </tr>
+    <tr class="grid-row ">
+<td class="grid-cell hidden-xs" data-name=""><b>
+<a class="modal_link" href="/Home/Edit/11065">Edit</a>
+                    </b></td><td class="grid-cell" data-name="OrderID">11065</td><td class="grid-cell" data-name="OrderCustomDate">01/05/1998</td><td class="grid-cell" data-name="Customer.CompanyName">LILA-Supermercado</td><td class="grid-cell hidden-xs" data-name="Customer.IsVip">    No
+</td>    </tr>
+    <tr class="grid-row ">
+<td class="grid-cell hidden-xs" data-name=""><b>
+<a class="modal_link" href="/Home/Edit/11066">Edit</a>
+                    </b></td><td class="grid-cell" data-name="OrderID">11066</td><td class="grid-cell" data-name="OrderCustomDate">01/05/1998</td><td class="grid-cell" data-name="Customer.CompanyName">White Clover Markets</td><td class="grid-cell hidden-xs" data-name="Customer.IsVip">    No
+</td>    </tr>
+    <tr class="grid-row ">
+<td class="grid-cell hidden-xs" data-name=""><b>
+<a class="modal_link" href="/Home/Edit/11060">Edit</a>
+                    </b></td><td class="grid-cell" data-name="OrderID">11060</td><td class="grid-cell" data-name="OrderCustomDate">30/04/1998</td><td class="grid-cell" data-name="Customer.CompanyName">Franchi S.p.A.</td><td class="grid-cell hidden-xs" data-name="Customer.IsVip">    No
+</td>    </tr>
+
+                </tbody>
+            </table>
+                <div class="grid-footer">
+        <div class="grid-pager">
+    <ul class="pagination">
+
+                    <li class="active"><span>1</span></li>
+            <li><a href="?grid-page=2">2</a></li>
+            <li><a href="?grid-page=3">3</a></li>
+                    <li><a href="?grid-page=4">...</a></li>
+            <li><a href="?grid-page=56">56</a></li>
+                    <li><a href="?grid-page=2">»</a></li>
+    </ul>
+</div>
+
+    </div>
+
+        </div>
+    </div>
+
+
+ 
+    </div>
+</div>
+<script>
+    $(function () {
+        pageGrids.ordersGrid.addFilterWidget(new CustomersFilterWidget());
+
+        pageGrids.ordersGrid.onRowSelect(function (e) {
+            $.post("/Home/GetOrder?id=" + e.row.OrderID, function (data) {
+                if (data.Status <= 0) {
+                    alert(data.Message);
+                    return;
+                }
+                $("#order-content").html(data.Content);
+            });
+        });
+    });
+</script>
+
+    </div>
+</body>
+</html>

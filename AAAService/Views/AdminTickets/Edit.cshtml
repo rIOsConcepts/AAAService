@@ -251,8 +251,7 @@
         </table>
 }
 
-@using (Html.BeginForm("Upload", "AdminTickets", FormMethod.Post,
-                            new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Upload", "AdminTickets", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -331,4 +330,3 @@ function SetStatus(_statusID) {
     $("#StatusID").val(_statusID);
 }
 </script>
-

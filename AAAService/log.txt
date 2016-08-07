@@ -1,12 +1,15 @@
-8/1/2016 10:56:04 PM => System.Net.Mail.SmtpException: Failure sending mail. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:25
-   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+8/6/2016 6:47:55 PM => System.Net.Mail.SmtpException: Failure sending mail. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:25
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
    at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
    --- End of inner exception stack trace ---
-   at System.Net.Mail.SmtpConnection.ConnectAndHandshakeAsyncResult.End(IAsyncResult result)
-   at System.Net.Mail.SmtpTransport.EndGetConnection(IAsyncResult result)
-   at System.Net.Mail.SmtpClient.ConnectCallback(IAsyncResult result)
+   at System.Net.ServicePoint.GetConnection(PooledStream PooledStream, Object owner, Boolean async, IPAddress& address, Socket& abortSocket, Socket& abortSocket6)
+   at System.Net.PooledStream.Activate(Object owningObject, Boolean async, GeneralAsyncDelegate asyncCallback)
+   at System.Net.PooledStream.Activate(Object owningObject, GeneralAsyncDelegate asyncCallback)
+   at System.Net.ConnectionPool.GetConnection(Object owningObject, GeneralAsyncDelegate asyncCallback, Int32 creationTimeout)
+   at System.Net.Mail.SmtpConnection.GetConnection(ServicePoint servicePoint)
+   at System.Net.Mail.SmtpTransport.GetConnection(ServicePoint servicePoint)
+   at System.Net.Mail.SmtpClient.GetConnection()
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
    --- End of inner exception stack trace ---
-   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
-   at AAAService.EmailService.<configSendGridasync>d__1.MoveNext() in C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\App_Start\IdentityConfig.cs:line 62
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at AAAService.Correspondence.Mail.Send(String subject, String body, Boolean isHTML, String email) in C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\Email\Email.cs:line 196

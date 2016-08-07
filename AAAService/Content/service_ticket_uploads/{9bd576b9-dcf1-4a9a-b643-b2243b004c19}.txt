@@ -1,0 +1,17 @@
+From: administrator@aaahelp.aaapropertyservices.com [mailto:administrator@aaahelp.aaapropertyservices.com] 
+Sent: Friday, July 22, 2016 12:09 PM
+To: 
+Subject: Web Portal User Invitation
+
+Welcome. You have been invited to use the AAA Property Services customer portal. This system allows you to report problems with your facilities so that they can be resolved as quickly as possible. To setup your user, please follow the link below. 
+
+https://aaahelp.aaapropertyservices.com/assignusers3.asp?tu=%7B11431584-E019-4515-913C-C50D52F6EA81%7D
+Click Here 
+
+Or cut and paste the following into your web browser. 
+
+https://aaahelp.aaapropertyservices.com/assignusers3.asp?tu={11431584-E019-4515-913C-C50D52F6EA81} 
+
+Your temporary password is: Ozb1mN5plN
+
+Thank You

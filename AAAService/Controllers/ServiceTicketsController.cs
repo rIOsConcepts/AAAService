@@ -38,38 +38,75 @@ namespace AAAService.Controllers
         }
 
         public ActionResult Upload()
-
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Upload(HttpPostedFileBase file)
+        public ActionResult Upload(bool IsEdit, Guid serviceLocationGuidOrServiceTicketId, HttpPostedFileBase file)
         {
+            Guid ticketGuid;
+
+            if (!IsEdit)
+            {
+                if (TempData["TicketGuid"] == null)
+                {
+                    ticketGuid = Guid.NewGuid();
+                    TempData["TicketGuid"] = ticketGuid;
+                }
+                else
+                {
+                    ticketGuid = Guid.Parse(TempData["TicketGuid"].ToString());
+                }
+            }
+            else
+            {
+                ticketGuid = serviceLocationGuidOrServiceTicketId;
+            }
+
+            var found = db.service_tickets.Find(ticketGuid);
+
+            if (found == null)
+            {
+                var service_tickets = new service_tickets();
+                service_tickets.guid = ticketGuid;
+
+                service_tickets.order_datetime = DateTime.Now;
+                service_tickets.problem_summary = service_tickets.problem_summary == null ? "" : service_tickets.problem_summary;
+                service_tickets.problem_details = service_tickets.problem_details == null ? "" : service_tickets.problem_details;
+                service_tickets.location_contact_name = service_tickets.location_contact_name == null ? "" : service_tickets.location_contact_name;
+                service_tickets.location_contact_phone = service_tickets.location_contact_phone == null ? "" : service_tickets.location_contact_phone;
+                service_tickets.location_contact_phone_night = service_tickets.location_contact_phone_night == null ? "" : service_tickets.location_contact_phone_night;
+
+                db.service_tickets.Add(service_tickets);
+                db.Configuration.ValidateOnSaveEnabled = false;
+                db.SaveChanges();
+                db.Configuration.ValidateOnSaveEnabled = true;
+            }            
+
             var myuserguid = Helpers.UserHelper.getUserGuid();
             var service_ticket_files = db.service_ticket_files;
             var myNewGuid = Guid.NewGuid();
-            var myticketguid = TempData["TicketGuid"].ToString();
-            Guid newTicketGuid = Guid.Parse(myticketguid);
+
+            //Edit
+            //var myticketguid = TempData["TicketGuid"].ToString();
+
+            //Create
+            Guid newTicketGuid = ticketGuid;
             string filenameguid = myNewGuid.ToString("B");
-
-
 
             try
             {
                 if (file != null && file.ContentLength > 0)
-
-
                 {
-
                     var fileName = Path.GetFileName(file.FileName);
-
                     string fileExtension = Path.GetExtension(fileName);
                     //long fileSize2 = new FileInfo(Path.GetFileName(file.FileName)).Length;
                     var fileSize = file.ContentLength;
-
                     var path = Path.Combine(Server.MapPath("~/Content/service_ticket_uploads"), filenameguid + fileExtension);
                     file.SaveAs(path);
+
                     using (var db = new aaahelpEntities())
                     {
                         var tickets = db.Set<service_ticket_files>();
@@ -78,8 +115,9 @@ namespace AAAService.Controllers
                         db.SaveChanges();
                     }
                 }
+
                 ViewBag.Message = "Upload successful";
-                return RedirectToAction("Index");
+                return RedirectToAction((IsEdit ? "Edit/" : "Create/") + serviceLocationGuidOrServiceTicketId.ToString());                
             }
             catch
             {
@@ -87,6 +125,7 @@ namespace AAAService.Controllers
                 return RedirectToAction("Upload");
             }
         }
+
         // GET: ServiceTickets/Details/5
         public ActionResult Details(Guid? id)
         {
@@ -109,6 +148,7 @@ namespace AAAService.Controllers
             var found = from s in db.service_ticket_files
                         where s.guid.Equals(myFileGuid)
                         select s;
+
             var x = found.Count();
             var myFileName = found.First().file_name;
             var myFileExt = found.First().file_ext;
@@ -123,8 +163,9 @@ namespace AAAService.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //var myguid = id;
 
+            ViewBag.Id = id;
+            //var myguid = id;
             TempData["LocationGuid"] = id;
             //var myloc = Helpers.SvcHelper.getParentGuid(id);
             // TempData["ParentLocation"] = ;
@@ -150,6 +191,14 @@ namespace AAAService.Controllers
             ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true).OrderBy(o => o.list_num), "ID", "Name");
             ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.active == true), "ID", "Name");
             ViewBag.StatusID = new SelectList(db.StatusLists.Where(o => o.active == true), "ID", "Name");
+
+            var ticketGuid = TempData.Peek("TicketGuid") != null ? Guid.Parse(TempData.Peek("TicketGuid").ToString()) : new Guid();
+
+            ViewBag.FileList = from s in db.service_ticket_files
+                               where s.ticket_guid == ticketGuid
+                               orderby s.date_in descending
+                               select s;
+
             return View();
             //return View(new Tuple<AAAService.Models.CountryModel, AAAService.Models.service_tickets>(objcountrymodel, new service_tickets()));
         }
@@ -183,7 +232,6 @@ namespace AAAService.Controllers
             var myPriStatus = Request.Form["PriStatus"];
             var myPriorityID = string.IsNullOrEmpty(Request.Form["PriorityID"]) ? 0 : int.Parse(Request.Form["PriorityID"]);
 
-
             var found = db.locationinfoes.FirstOrDefault(u => u.guid.Equals(locationGUID));
             var LocationName = found.name;
             var ParentLoactionGuid = found.parentguid.ToString();
@@ -197,6 +245,23 @@ namespace AAAService.Controllers
             // var errors = ModelState.Values.SelectMany(v => v.Errors);*/
             if (ModelState.IsValid)
             {
+                var ticketGuid = TempData.Peek("TicketGuid") != null ? Guid.Parse(TempData.Peek("TicketGuid").ToString()) : Guid.NewGuid();
+
+                //Storing Values Before Reading If Ticket Already Exist Due to File Upload
+                var summary = service_tickets.problem_summary;
+                var details = service_tickets.problem_details;
+                var contactName = service_tickets.location_contact_name;
+                var contactPhone = service_tickets.location_contact_phone;
+                var contactPhoneNight = service_tickets.location_contact_phone_night;
+                var costCode = service_tickets.cost_code;
+                var custPONum = service_tickets.cust_po_num;
+                var categoryId = service_tickets.CategoryID;
+                var priorityId = service_tickets.PriorityID;
+
+                if (TempData.Peek("TicketGuid") != null)
+                {                    
+                    service_tickets = db.service_tickets.Find(ticketGuid);
+                }
 
                 service_tickets.id = maxNumID;
                 service_tickets.job_number = maxNumST;
@@ -215,10 +280,30 @@ namespace AAAService.Controllers
                 service_tickets.Location = LocationName;
                 service_tickets.Region = LocationRegion;
                 service_tickets.City = LocationCity;
-                service_tickets.guid = Guid.NewGuid();
-                db.service_tickets.Add(service_tickets);
+                service_tickets.guid = ticketGuid;
 
-                db.SaveChanges();
+                if (TempData.Peek("TicketGuid") == null)
+                {
+                    db.service_tickets.Add(service_tickets);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    //db.Configuration.ValidateOnSaveEnabled = false;
+                    service_tickets.problem_summary = summary;
+                    service_tickets.problem_details = details;
+                    service_tickets.location_contact_name = contactName;
+                    service_tickets.location_contact_phone = contactPhone;
+                    service_tickets.location_contact_phone_night = contactPhoneNight;
+                    service_tickets.cost_code = costCode;
+                    service_tickets.cust_po_num = custPONum;
+                    service_tickets.CategoryID = categoryId;
+                    service_tickets.PriorityID = priorityId;
+                    db.SaveChanges();
+                    //db.Configuration.ValidateOnSaveEnabled = true;
+                }
+
+                TempData.Remove("TicketGuid");
 
                 try
                 {
@@ -292,10 +377,9 @@ namespace AAAService.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-
             service_tickets service_tickets = db.service_tickets.Find(id);
             ViewBag.CreatedBy = Helpers.SvcHelper.getCreatedby(service_tickets.created_by_user_guid);
-            TempData["TicketGuid"] = id;
+            ViewBag.Id = id;
             ViewBag.TicketNumber = service_tickets.job_number;
 
             if (service_tickets == null)
@@ -309,7 +393,8 @@ namespace AAAService.Controllers
 
             ViewBag.FileList = from s in db.service_ticket_files
                                where s.ticket_guid == id
-                               select s;            
+                               orderby s.date_in descending
+                               select s;
 
             return View(service_tickets);
         }
@@ -385,7 +470,7 @@ namespace AAAService.Controllers
                             System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + "log.txt", DateTime.Now + " => " + e.ToString());
                         }
 
-                    return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "ServiceBoard");
                     }
                     catch (DataException /*dex*/)
                     {
@@ -396,7 +481,7 @@ namespace AAAService.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "ServiceBoard");
             }
 
             ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true), "ID", "Name", ticketToUpdate.PriorityID);
@@ -438,6 +523,7 @@ namespace AAAService.Controllers
             {
                 db.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }

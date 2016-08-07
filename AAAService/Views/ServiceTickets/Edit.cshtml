@@ -147,8 +147,7 @@
     </table>
 }
 
-@using (Html.BeginForm("Upload", "ServiceTickets", FormMethod.Post,
-                new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Upload", "ServiceTickets", new { isEdit = true, serviceLocationGuidOrServiceTicketId = ViewBag.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
 @Html.AntiForgeryToken()
 

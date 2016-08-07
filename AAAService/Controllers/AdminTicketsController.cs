@@ -36,10 +36,10 @@ namespace AAAService.Controllers
             return View(view);
         }
         public ActionResult Upload()
-
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Upload(HttpPostedFileBase file)
@@ -51,15 +51,10 @@ namespace AAAService.Controllers
             Guid newTicketGuid = Guid.Parse(myticketguid);
             string filenameguid = myNewGuid.ToString("B");
 
-
-
             try
             {
                 if (file != null && file.ContentLength > 0)
-
-
                 {
-
                     var fileName = Path.GetFileName(file.FileName);
 
                     string fileExtension = Path.GetExtension(fileName);
@@ -68,6 +63,7 @@ namespace AAAService.Controllers
 
                     var path = Path.Combine(Server.MapPath("~/Content/service_ticket_uploads"), filenameguid + fileExtension);
                     file.SaveAs(path);
+
                     using (var db = new aaahelpEntities())
                     {
                         var tickets = db.Set<service_ticket_files>();
@@ -76,8 +72,9 @@ namespace AAAService.Controllers
                         db.SaveChanges();
                     }
                 }
+
                 ViewBag.Message = "Upload successful";
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit/" + TempData["TicketGuid"].ToString());
             }
             catch
             {
@@ -85,6 +82,7 @@ namespace AAAService.Controllers
                 return RedirectToAction("Upload");
             }
         }
+
         // GET: AdminTickets/Details/5
         public ActionResult Details(Guid? id)
         {
@@ -206,9 +204,12 @@ namespace AAAService.Controllers
             ViewBag.StatusID = new SelectList(db.StatusLists.Where(o => o.active == true), "ID", "Name", service_tickets.StatusID);
             ViewBag.CategoryID = new SelectList(db.ServiceCategories, "ID", "Name", service_tickets.CategoryID);
             ViewBag.LocationDD = new SelectList(db.locationinfoes.Where(o => o.parentguid == gparentGuid).Where(s => s.active == true).OrderBy( s => s.name), "guid", "name", service_tickets.service_location_guid);
+
             ViewBag.FileList = from s in db.service_ticket_files
                                where s.ticket_guid == id
+                               orderby s.date_in descending
                                select s;
+
             return View(service_tickets);
         }
 

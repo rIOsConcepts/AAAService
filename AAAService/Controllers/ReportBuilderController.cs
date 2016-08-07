@@ -19,62 +19,81 @@ namespace AAAService.Controllers
         {
         }
 
-        public ReportBuilderController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ApplicationRoleManager roleManager)
-        {
-        }
-
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             var reportInformation = new Models.ReportBuilderModel.ReportInformation();
             reportInformation.ReportName = "Manuel Rios";
             reportInformation.From = DateTime.Now;
             reportInformation.To = DateTime.Now;
 
-            var companies = db.Companies
-                            .Where(c => c.active)
-                            .Select(c => new Models.ReportBuilderModel.Companies()
-                            {
-                                GUID = c.guid,
-                                Name = c.name
-                            })
-                            .OrderBy(c => c.Name);
+            reportInformation.Companies = db.Companies
+                                            .Where(c => c.active)
+                                            .Select(c => new Models.ReportBuilderModel.Company()
+                                            {
+                                                GUID = c.guid,
+                                                Name = c.name
+                                            })
+                                            .OrderBy(c => c.Name).ToList();
 
-            var locations = db.locationinfoes
-                            .Where(l => l.active)
-                            .Select(l => new Models.ReportBuilderModel.Locations()
-                            {
-                                GUID = l.guid,
-                                Name = l.name
-                            })
-                            .OrderBy(l => l.Name);
+            reportInformation.Locations = db.locationinfoes
+                                            .Where(l => l.active)
+                                            .Select(l => new Models.ReportBuilderModel.Location()
+                                            {
+                                                GUID = l.guid,
+                                                Name = l.name
+                                            })
+                                            .OrderBy(l => l.Name).ToList();
 
-            var reportBuilderFields = db.ReportBuilderFields
-                            .Select(l => new Models.ReportBuilderModel.ReportBuilderFields()
-                            {
-                                Id = l.Id,
-                                Name = l.Name
-                            });
+            reportInformation.ReportBuilderFields = db.ReportBuilderFields
+                                                    .Select(l => new Models.ReportBuilderModel.ReportBuilderField()
+                                                    {
+                                                        Id = l.Id,
+                                                        Name = l.Name
+                                                    }).ToList();
 
             //return View(new Tuple<Models.ReportBuilderModel.ReportInformation, IEnumerable<Models.ReportBuilderModel.Companies>, IEnumerable<Models.ReportBuilderModel.Locations>, IEnumerable<Models.ReportBuilderModel.ReportBuilderFields>>(reportInformation, companies, locations, reportBuilderFields));
+            //return View(new Tuple<Models.ReportBuilderModel.ReportInformation, IEnumerable<Models.ReportBuilderModel.Companies>, IEnumerable<Models.ReportBuilderModel.ReportBuilderFields>>(reportInformation, companies, reportBuilderFields));
             return View(reportInformation);
         }
 
-        [HttpPost, ActionName("Index")]
+        //[HttpPost, ActionName("Index")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult GenerateExcel()
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+
+        //    }
+
+        //    return View();
+        //}
+
+        //[HttpPost, ActionName("Index")]
+        [HttpPost]
+        //[ChildActionOnly]
         [ValidateAntiForgeryToken]
-        //public ActionResult IndexPost(Tuple<Models.ReportBuilderModel.ReportInformation, IEnumerable<Models.ReportBuilderModel.Companies>, IEnumerable<Models.ReportBuilderModel.Locations>, IEnumerable<Models.ReportBuilderModel.ReportBuilderFields>> t)
-        //public ActionResult IndexPost([Bind(Include = "ReportName, From, To")] Models.ReportBuilderModel.ReportInformation reportInformation)
-        public ActionResult IndexPost(Models.ReportBuilderModel.ReportInformation reportInformation)
+        //public ActionResult Index([Bind(Include = "ReportName,From,To")] Tuple<Models.ReportBuilderModel.ReportInformation, IEnumerable<Models.ReportBuilderModel.Companies>, IEnumerable<AAAService.Models.ReportBuilderModel.ReportBuilderFields>> t)
+        //public ActionResult GenerateExcel(Tuple<Models.ReportBuilderModel.ReportInformation, IEnumerable<Models.ReportBuilderModel.Companies>, IEnumerable<AAAService.Models.ReportBuilderModel.ReportBuilderFields>> t)
+        //public ActionResult BuildReport([Bind(Include = "ReportName,From,To")] Tuple<Models.ReportBuilderModel.ReportInformation, IEnumerable<Models.ReportBuilderModel.Companies>, IEnumerable<Models.ReportBuilderModel.Locations>, IEnumerable<Models.ReportBuilderModel.ReportBuilderFields>> t)
+        public ActionResult Index([Bind(Include = "ReportName,From,To,Companies,Locations,ReportBuilderFields")] Models.ReportBuilderModel.ReportInformation reportInformation)
         {
             if (ModelState.IsValid)
             {
-                var reportName = reportInformation.ReportName;
+                string strDDLValue = Request.Form[0].ToString();
                 var toExcel = db.ReportBuilder("Select * from Regions");
                 return View();
             }
             else
             {
-                return View(reportInformation);
+                return View();
             }            
+        }
+
+        [HttpPost]
+        public ActionResult GetServiceLocations(string companyGUID)
+        {
+            SelectList obj = new SelectList(db.locationinfoes.Where(o => o.parentguid.ToString() == companyGUID && o.active == true).OrderBy(o => o.name), "guid", "Name");
+            return Json(obj);
         }
     }
 }
