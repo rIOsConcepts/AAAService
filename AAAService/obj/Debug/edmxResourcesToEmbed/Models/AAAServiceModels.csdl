@@ -195,6 +195,7 @@
     <FunctionImport Name="ReportBuilder">
       <Parameter Name="TSQL" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="ReportBuilder_View" EntityType="aaahelpModel.ReportBuilder_View" />
   </EntityContainer>
   <EntityType Name="service_boardNew">
     <Key>
@@ -1001,5 +1002,41 @@
     <Property Name="Id" Type="Int16" Nullable="false" />
     <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="ColumnName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="ReportBuilder_View">
+    <Key>
+      <PropertyRef Name="job_number" />
+      <PropertyRef Name="order_datetime" />
+      <PropertyRef Name="problem_summary" />
+      <PropertyRef Name="guid" />
+      <PropertyRef Name="problem_details" />
+    </Key>
+    <Property Name="age" Type="Int32" />
+    <Property Name="service_location_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="job_number" Type="Int32" Nullable="false" />
+    <Property Name="order_datetime" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="PriorityID" Type="Int32" />
+    <Property Name="problem_summary" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="StatusID" Type="Int32" />
+    <Property Name="company_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="service_location_guid" Type="Guid" />
+    <Property Name="parent_company_guid" Type="Guid" />
+    <Property Name="guid" Type="Guid" Nullable="false" />
+    <Property Name="complete_datetime" Type="DateTime" Precision="7" />
+    <Property Name="region" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="category" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="service_provider" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dispatch_datetime" Type="DateTime" Precision="7" />
+    <Property Name="accepted_datetime" Type="DateTime" Precision="7" />
+    <Property Name="internal_notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="problem_details" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="equipment_model" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="equipment_serial_number" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="equipment_problem_description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="cost_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="total_billing" Type="String" MaxLength="28" FixedLength="false" Unicode="false" />
+    <Property Name="requested_by" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

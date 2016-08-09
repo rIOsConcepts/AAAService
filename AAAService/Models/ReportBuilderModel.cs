@@ -19,6 +19,7 @@ namespace AAAService.Models.ReportBuilderModel
         public List<Company> Companies { get; set; }
         public List<Location> Locations { get; set; }
         public List<ReportBuilderField> ReportBuilderFields { get; set; }
+        public List<ReportBuilder_View> ReportBuilderView { get; set; }
     }
 
     public class Company
@@ -35,7 +36,7 @@ namespace AAAService.Models.ReportBuilderModel
 
     public class ReportBuilderField
     {
-        public int Id { get; set; }
+        public string ColumnName { get; set; }
         public string Name { get; set; }
     }
 }

@@ -569,6 +569,44 @@ warning 6002: The table/view 'aaahelp.dbo.LocationEmails_ViewMVC' does not have 
           <Property Name="account_status" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'aaahelp.dbo.ReportBuilder_View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ReportBuilder_View">
+          <Key>
+            <PropertyRef Name="job_number" />
+            <PropertyRef Name="order_datetime" />
+            <PropertyRef Name="problem_summary" />
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="problem_details" />
+          </Key>
+          <Property Name="age" Type="int" />
+          <Property Name="service_location_name" Type="varchar" MaxLength="50" />
+          <Property Name="job_number" Type="int" Nullable="false" />
+          <Property Name="order_datetime" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="PriorityID" Type="int" />
+          <Property Name="problem_summary" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StatusID" Type="int" />
+          <Property Name="company_name" Type="varchar" MaxLength="50" />
+          <Property Name="service_location_guid" Type="uniqueidentifier" />
+          <Property Name="parent_company_guid" Type="uniqueidentifier" />
+          <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="complete_datetime" Type="datetime2" Precision="7" />
+          <Property Name="region" Type="varchar" MaxLength="50" />
+          <Property Name="category" Type="varchar" MaxLength="40" />
+          <Property Name="service_provider" Type="varchar" MaxLength="30" />
+          <Property Name="city" Type="varchar" MaxLength="50" />
+          <Property Name="dispatch_datetime" Type="datetime2" Precision="7" />
+          <Property Name="accepted_datetime" Type="datetime2" Precision="7" />
+          <Property Name="internal_notes" Type="text" />
+          <Property Name="notes" Type="text" />
+          <Property Name="problem_details" Type="text" Nullable="false" />
+          <Property Name="equipment_model" Type="varchar" MaxLength="30" />
+          <Property Name="equipment_serial_number" Type="varchar" MaxLength="30" />
+          <Property Name="equipment_problem_description" Type="varchar" MaxLength="50" />
+          <Property Name="cost_code" Type="varchar" MaxLength="20" />
+          <Property Name="total_billing" Type="varchar" MaxLength="28" />
+          <Property Name="requested_by" Type="varchar" MaxLength="41" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'aaahelp.dbo.service_boardNew' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="service_boardNew">
           <Key>
@@ -1092,6 +1130,37 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
     [LocationEmails_ViewMVC1].[account_status] AS [account_status]
     FROM [dbo].[LocationEmails_ViewMVC] AS [LocationEmails_ViewMVC1]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="ReportBuilder_View" EntityType="Self.ReportBuilder_View" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ReportBuilder_View].[age] AS [age], 
+    [ReportBuilder_View].[service_location_name] AS [service_location_name], 
+    [ReportBuilder_View].[job_number] AS [job_number], 
+    [ReportBuilder_View].[order_datetime] AS [order_datetime], 
+    [ReportBuilder_View].[PriorityID] AS [PriorityID], 
+    [ReportBuilder_View].[problem_summary] AS [problem_summary], 
+    [ReportBuilder_View].[StatusID] AS [StatusID], 
+    [ReportBuilder_View].[company_name] AS [company_name], 
+    [ReportBuilder_View].[service_location_guid] AS [service_location_guid], 
+    [ReportBuilder_View].[parent_company_guid] AS [parent_company_guid], 
+    [ReportBuilder_View].[guid] AS [guid], 
+    [ReportBuilder_View].[complete_datetime] AS [complete_datetime], 
+    [ReportBuilder_View].[region] AS [region], 
+    [ReportBuilder_View].[category] AS [category], 
+    [ReportBuilder_View].[service_provider] AS [service_provider], 
+    [ReportBuilder_View].[city] AS [city], 
+    [ReportBuilder_View].[dispatch_datetime] AS [dispatch_datetime], 
+    [ReportBuilder_View].[accepted_datetime] AS [accepted_datetime], 
+    [ReportBuilder_View].[internal_notes] AS [internal_notes], 
+    [ReportBuilder_View].[notes] AS [notes], 
+    [ReportBuilder_View].[problem_details] AS [problem_details], 
+    [ReportBuilder_View].[equipment_model] AS [equipment_model], 
+    [ReportBuilder_View].[equipment_serial_number] AS [equipment_serial_number], 
+    [ReportBuilder_View].[equipment_problem_description] AS [equipment_problem_description], 
+    [ReportBuilder_View].[cost_code] AS [cost_code], 
+    [ReportBuilder_View].[total_billing] AS [total_billing], 
+    [ReportBuilder_View].[requested_by] AS [requested_by]
+    FROM [dbo].[ReportBuilder_View] AS [ReportBuilder_View]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="service_boardNew" EntityType="Self.service_boardNew" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [service_boardNew].[age] AS [age], 
@@ -1459,8 +1528,9 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
           <EntitySet Name="AspNetUsers" EntityType="aaahelpModel.AspNetUser" />
           <EntitySet Name="ReportBuilderFields" EntityType="aaahelpModel.ReportBuilderField" />
           <FunctionImport Name="ReportBuilder">
-            <Parameter Name="TSQL" Mode="In" Type="String" />
+          <Parameter Name="TSQL" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="ReportBuilder_View" EntityType="aaahelpModel.ReportBuilder_View" />
           </EntityContainer>
         <EntityType Name="service_boardNew">
           <Key>
@@ -2268,6 +2338,42 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
           <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="ColumnName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="ReportBuilder_View">
+          <Key>
+            <PropertyRef Name="job_number" />
+            <PropertyRef Name="order_datetime" />
+            <PropertyRef Name="problem_summary" />
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="problem_details" />
+          </Key>
+          <Property Name="age" Type="Int32" />
+          <Property Name="service_location_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="job_number" Type="Int32" Nullable="false" />
+          <Property Name="order_datetime" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="PriorityID" Type="Int32" />
+          <Property Name="problem_summary" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StatusID" Type="Int32" />
+          <Property Name="company_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="service_location_guid" Type="Guid" />
+          <Property Name="parent_company_guid" Type="Guid" />
+          <Property Name="guid" Type="Guid" Nullable="false" />
+          <Property Name="complete_datetime" Type="DateTime" Precision="7" />
+          <Property Name="region" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="category" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="service_provider" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dispatch_datetime" Type="DateTime" Precision="7" />
+          <Property Name="accepted_datetime" Type="DateTime" Precision="7" />
+          <Property Name="internal_notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="problem_details" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="equipment_model" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="equipment_serial_number" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="equipment_problem_description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cost_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="total_billing" Type="String" MaxLength="28" FixedLength="false" Unicode="false" />
+          <Property Name="requested_by" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2946,6 +3052,39 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="ReportBuilder" FunctionName="aaahelpModel.Store.ReportBuilder" />
+          <EntitySetMapping Name="ReportBuilder_View">
+            <EntityTypeMapping TypeName="aaahelpModel.ReportBuilder_View">
+              <MappingFragment StoreEntitySet="ReportBuilder_View">
+                <ScalarProperty Name="requested_by" ColumnName="requested_by" />
+                <ScalarProperty Name="total_billing" ColumnName="total_billing" />
+                <ScalarProperty Name="cost_code" ColumnName="cost_code" />
+                <ScalarProperty Name="equipment_problem_description" ColumnName="equipment_problem_description" />
+                <ScalarProperty Name="equipment_serial_number" ColumnName="equipment_serial_number" />
+                <ScalarProperty Name="equipment_model" ColumnName="equipment_model" />
+                <ScalarProperty Name="problem_details" ColumnName="problem_details" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="internal_notes" ColumnName="internal_notes" />
+                <ScalarProperty Name="accepted_datetime" ColumnName="accepted_datetime" />
+                <ScalarProperty Name="dispatch_datetime" ColumnName="dispatch_datetime" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="service_provider" ColumnName="service_provider" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="region" ColumnName="region" />
+                <ScalarProperty Name="complete_datetime" ColumnName="complete_datetime" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="parent_company_guid" ColumnName="parent_company_guid" />
+                <ScalarProperty Name="service_location_guid" ColumnName="service_location_guid" />
+                <ScalarProperty Name="company_name" ColumnName="company_name" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="problem_summary" ColumnName="problem_summary" />
+                <ScalarProperty Name="PriorityID" ColumnName="PriorityID" />
+                <ScalarProperty Name="order_datetime" ColumnName="order_datetime" />
+                <ScalarProperty Name="job_number" ColumnName="job_number" />
+                <ScalarProperty Name="service_location_name" ColumnName="service_location_name" />
+                <ScalarProperty Name="age" ColumnName="age" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

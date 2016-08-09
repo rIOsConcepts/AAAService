@@ -673,5 +673,38 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="ReportBuilder" FunctionName="aaahelpModel.Store.ReportBuilder" />
+    <EntitySetMapping Name="ReportBuilder_View">
+      <EntityTypeMapping TypeName="aaahelpModel.ReportBuilder_View">
+        <MappingFragment StoreEntitySet="ReportBuilder_View">
+          <ScalarProperty Name="requested_by" ColumnName="requested_by" />
+          <ScalarProperty Name="total_billing" ColumnName="total_billing" />
+          <ScalarProperty Name="cost_code" ColumnName="cost_code" />
+          <ScalarProperty Name="equipment_problem_description" ColumnName="equipment_problem_description" />
+          <ScalarProperty Name="equipment_serial_number" ColumnName="equipment_serial_number" />
+          <ScalarProperty Name="equipment_model" ColumnName="equipment_model" />
+          <ScalarProperty Name="problem_details" ColumnName="problem_details" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="internal_notes" ColumnName="internal_notes" />
+          <ScalarProperty Name="accepted_datetime" ColumnName="accepted_datetime" />
+          <ScalarProperty Name="dispatch_datetime" ColumnName="dispatch_datetime" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="service_provider" ColumnName="service_provider" />
+          <ScalarProperty Name="category" ColumnName="category" />
+          <ScalarProperty Name="region" ColumnName="region" />
+          <ScalarProperty Name="complete_datetime" ColumnName="complete_datetime" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
+          <ScalarProperty Name="parent_company_guid" ColumnName="parent_company_guid" />
+          <ScalarProperty Name="service_location_guid" ColumnName="service_location_guid" />
+          <ScalarProperty Name="company_name" ColumnName="company_name" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="problem_summary" ColumnName="problem_summary" />
+          <ScalarProperty Name="PriorityID" ColumnName="PriorityID" />
+          <ScalarProperty Name="order_datetime" ColumnName="order_datetime" />
+          <ScalarProperty Name="job_number" ColumnName="job_number" />
+          <ScalarProperty Name="service_location_name" ColumnName="service_location_name" />
+          <ScalarProperty Name="age" ColumnName="age" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
