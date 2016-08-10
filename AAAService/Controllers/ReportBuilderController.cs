@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Data;
 using System.Data.Linq;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -29,8 +31,10 @@ namespace AAAService.Controllers
         {
             var reportInformation = new Models.ReportBuilderModel.ReportInformation();
             reportInformation.ReportName = "";
-            reportInformation.From = DateTime.Now;
-            reportInformation.To = DateTime.Now;
+            var now = DateTime.Now;
+            reportInformation.From = DateTime.Now.Date;
+            //reportInformation.From = new DateTime(2015, 11, 1).Date;
+            reportInformation.To = new DateTime(now.Year, now.Month, now.Day, 23, 59, 59);
 
             reportInformation.Companies = db.Companies
                                             .Where(c => c.active)
@@ -56,6 +60,10 @@ namespace AAAService.Controllers
                                                         ColumnName = l.ColumnName,
                                                         Name = l.Name
                                                     }).ToList();
+
+            var names = typeof(ReportBuilder_View).GetProperties()
+                        .Select(property => property.Name)
+                        .ToArray();
 
             reportInformation.ReportBuilderView = new List<ReportBuilder_View>();
 
@@ -93,7 +101,6 @@ namespace AAAService.Controllers
 
                 if (strDDLToValue != null)
                 {
-                    var strDDLToValueSplitted = strDDLToValue.Split(',');
                     //var retrieveFieldNames = new StringBuilder();
 
                     //foreach (var item in strDDLToValueSplitted)
@@ -114,9 +121,144 @@ namespace AAAService.Controllers
                     //    }
                     //}
 
-                    reportInformation.ReportBuilderView = db.ReportBuilder_View.Where(rp => rp.order_datetime >= reportInformation.From && rp.order_datetime <= reportInformation.To).ToList<ReportBuilder_View>();
+                    //var list = db.ReportBuilder_View.Where(rp => rp.order_datetime >= reportInformation.From && rp.order_datetime <= reportInformation.To).ToList();
+                    //var select = list.Select(CreateNewStatement<ReportBuilder_View>(strDDLToValue));
+                    //var result2 = GetColumn(list, strDDLToValue);
+
+                    //var result = new List<ReportBuilder_View>();
+                    //var data = new ReportBuilder_View();
+                    //var type = data.GetType();
+                    //var fieldName = "job_number";
+
+                    //for (var i = 0; i < list.Count; i++)
+                    //{
+                    //    foreach (var property in data.GetType().GetProperties())
+                    //    {
+                    //        if (property.Name == fieldName)
+                    //        {
+                    //            type.GetProperties().FirstOrDefault(n => n.Name == property.Name).SetValue(data, GetPropValue(list[i], property.Name), null);
+                    //            result.Add(data);
+                    //        }
+                    //    }
+                    //}
+
                     //GenerateExcelSpreadsheet(strDDLToValueSplitted, result);
-                }             
+                    //var result = db.Database.SqlQuery(typeof< Database >, "SELECT " + strDDLToValue + " FROM ReportBuilder_View");
+
+                    var sqlConnection = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
+                    var sqlCommand = new SqlCommand();
+                    SqlDataReader sqlDataReader;
+
+                    sqlCommand.CommandText = "SELECT " + strDDLToValue + " FROM ReportBuilder_View WHERE order_datetime >= '" + reportInformation.From + "' And order_datetime <= '" + reportInformation.To + "'";
+
+                    if (strDDLCompaniesValue != null)
+                    {
+                        sqlCommand.CommandText += " And parent_company_guid = '" + strDDLCompaniesValue + "'";
+                    }
+
+                    if (strDDLLocationsValue != null)
+                    {
+                        sqlCommand.CommandText += " And service_location_guid in (";
+                        var strDDLLocationsValueSplitted = strDDLLocationsValue.Split(',');
+
+                        foreach (var serviceLocationGuid in strDDLLocationsValueSplitted)
+                        {
+                            sqlCommand.CommandText += "'" + serviceLocationGuid + "', ";
+                        }
+
+                        sqlCommand.CommandText = sqlCommand.CommandText.Substring(0, sqlCommand.CommandText.Length - 2);
+                        sqlCommand.CommandText += ")";
+                    }
+
+                    sqlCommand.CommandType = CommandType.Text;
+                    sqlCommand.Connection = sqlConnection;
+
+                    sqlConnection.Open();
+
+                    sqlDataReader = sqlCommand.ExecuteReader();
+                    var dataTable = new DataTable();
+                    // Data is accessible through the DataReader object here.
+
+                    if (sqlDataReader.HasRows)
+                    {
+                        //Console.WriteLine("\t{0}\t{1}", reader.GetName(0), reader.GetName(1));
+
+                        //while (reader.Read())
+                        //{
+                        //    Console.WriteLine("{0}\t{1}", reader.GetInt32(0), reader.GetGuid(1));
+                        //}
+
+                        dataTable.Load(sqlDataReader);
+
+                        Response.Clear();
+                        Response.ClearHeaders();
+                        Response.ClearContent();
+                        
+                        Response.ContentType = "text/csv";
+                        Response.AddHeader("Content-Disposition", "attachment;filename=" + reportInformation.ReportName + ".csv;");
+                        Response.AddHeader("Pragma", "no-cache");
+                        Response.AddHeader("Expires", "0");
+
+                        // 1. output columns
+                        Boolean addComma = false;
+                        Response.Write("\"");
+
+                        foreach (DataColumn column in dataTable.Columns)
+                        {
+                            var columnHeader = db.ReportBuilderFields.Where(rp => rp.ColumnName == column.ColumnName).Select(rp => rp.Name).FirstOrDefault();
+
+                            if (addComma)
+                            {
+                                Response.Write("\",\"");
+                            }
+                            else
+                            {
+                                addComma = true;
+                            }
+
+                            Response.Write(columnHeader);
+                        } // foreach column
+
+                        Response.Write("\"");
+                        Response.Write(System.Environment.NewLine);
+
+                        // 2. output data
+                        foreach (DataRow row in dataTable.Rows)
+                        {
+                            addComma = false;
+                            Response.Write("\"");
+
+                            foreach (Object value in row.ItemArray)
+                            {
+                                // handle any embedded quotes.
+                                String outValue = Convert.ToString(value).Replace("\"", String.Empty);
+
+                                if (addComma)
+                                {
+                                    Response.Write("\",\"");
+                                }
+                                else
+                                {
+                                    addComma = true;
+                                }
+
+                                Response.Write(outValue);
+                            }
+
+                            Response.Write("\"");
+                            Response.Write(System.Environment.NewLine);
+                        } // foreach row
+
+                        try
+                        {
+                            Response.Flush();
+                            Response.End();
+                        }
+                        catch { }
+                    }
+
+                    sqlConnection.Close();                    
+                }
             }
 
             reportInformation.Companies = db.Companies
@@ -149,6 +291,11 @@ namespace AAAService.Controllers
             TempData["To"] = reportInformation.To;
 
             return View(reportInformation);
+        }
+
+        public static object GetPropValue(object src, string propName)
+        {
+            return src.GetType().GetProperty(propName).GetValue(src, null);
         }
 
         //internal void GenerateExcelSpreadsheet(string[] columns, List<ReportBuilder_View> result)
@@ -195,6 +342,45 @@ namespace AAAService.Controllers
         {
             SelectList obj = new SelectList(db.locationinfoes.Where(o => o.parentguid.ToString() == companyGUID && o.active == true).OrderBy(o => o.name), "guid", "Name");
             return Json(obj);
+        }
+
+        Func<T, T> CreateNewStatement<T>(string fields)
+        {
+            // input parameter "o"
+            var xParameter = Expression.Parameter(typeof(T), "o");
+
+            // new statement "new Data()"
+            var xNew = Expression.New(typeof(T));
+
+            // create initializers
+            var bindings = fields.Split(',').Select(o => o.Trim())
+                .Select(o => {
+
+            // property "Field1"
+            var mi = typeof(T).GetProperty(o);
+
+            // original value "o.Field1"
+            var xOriginal = Expression.Property(xParameter, mi);
+
+            // set value "Field1 = o.Field1"
+            return Expression.Bind(mi, xOriginal);
+                }
+            );
+
+            // initialization "new Data { Field1 = o.Field1, Field2 = o.Field2 }"
+            var xInit = Expression.MemberInit(xNew, bindings);
+
+            // expression "o => new Data { Field1 = o.Field1, Field2 = o.Field2 }"
+            var lambda = Expression.Lambda<Func<T, T>>(xInit, xParameter);
+
+            // compile to Func<Data, Data>
+            return lambda.Compile();
+        }
+
+        public IEnumerable<string> GetColumn(List<ReportBuilder_View> items, string columnName)
+        {
+            var values = items.Select(x => x.GetType().GetProperty(columnName).GetValue(x).ToString());
+            return values;
         }
     }
 }

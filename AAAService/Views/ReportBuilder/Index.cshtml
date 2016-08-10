@@ -91,7 +91,7 @@
         </div>
 
         <div class="col-xs-5">
-            <select name="to[]" id="search_to" class="form-control" size="10" multiple="multiple">                
+            <select name="to[]" id="search_to" class="form-control" size="10" multiple="multiple">
             </select>
         </div>
 
@@ -103,16 +103,15 @@
     </div>    
 }
 
-@Html.ActionLink("Export to Excel", "GenerateExcelSpreadsheet")
+@*@Html.ActionLink("Export to Excel", "GenerateExcelSpreadsheet")*@
 
-<div style="width:auto">
-    @Html.Grid(Model.ReportBuilderView).Columns(columns =>
+@*<div style="width:auto">*@
+    @*@Html.Grid(Model.ReportBuilderView).Columns(columns =>
     {
-        columns.Add(o => o.job_number)
+        columns.Add(column => column.company_name)
                .Filterable(true);
-
-    }).WithPaging(50).Sortable(true)
-</div>
+    }).WithPaging(50).Sortable(true)*@
+@*</div>*@
 
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
