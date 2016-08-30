@@ -1,0 +1,106 @@
+﻿@model IEnumerable<AAAService.Models.Company>
+
+@using GridMvc.Html
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+<script src="~/Scripts/jquery-2.2.0.min.js"></script>
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Manage Companies</h2>
+@*<hr />*@
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div style="width:auto">
+    @Html.Grid(Model).Columns(columns =>
+{
+    /* Adding not mapped column, that renders body, using inline Razor html helper */
+    /*columns.Add()
+            .Encoded(false)
+            .Sanitized(false)
+            .SetWidth(30)
+            .RenderValueAs(d =>
+            @<b>
+                @Html.ActionLink("Edit", "Index")
+            </b>);*/
+
+
+    columns.Add().Titled("Details").Encoded(false).Sanitized(false).RenderValueAs(c => @Html.ActionLink("Details", "Details", new { id = c.guid }));
+    columns.Add().Titled("Edit").Encoded(false).Sanitized(false).RenderValueAs(c => @Html.ActionLink("Edit", "Edit", new { id = c.guid }));
+    columns.Add().Titled("Delete").Encoded(false).Sanitized(false).RenderValueAs(c => @Html.ActionLink("Delete", "Delete", new { id = c.guid }));
+
+    /* Adding "Name" column: */
+    columns.Add(o => o.name)
+                .Titled("Name")
+                .Filterable(true)
+                .SetWidth(100);
+
+    /* Adding "Address1: */
+    columns.Add(o => o.addressline1)
+            .Titled("Address1")
+            .Filterable(true)
+            .SetWidth(125);
+
+    /* Adding "Address2" column: */
+    columns.Add(o => o.addressline2)
+            .Titled("Address2")
+            .Filterable(true)
+            .SetWidth(125);
+
+    /* Adding "City" column: */
+    columns.Add(o => o.city)
+            .Filterable(true)
+            .Titled("City");
+
+    /* Adding "State" column: */
+    columns.Add(o => o.state)
+            .Filterable(true)
+            .Titled("State");
+
+    /* Adding "ZipCode" column: */
+    columns.Add(o => o.zip)
+            .Filterable(true)
+            .Titled("ZipCode");
+
+    /* Adding "CF Company# " column: */
+    columns.Add(o => o.cf_company_num)
+            .Filterable(true)
+            .Titled("CF Company# ");
+
+    /* Adding "CF Location# " column: */
+    columns.Add(o => o.cf_location_num)
+            .Filterable(true)
+            .Titled("CF Location# ");
+
+    /* Adding "Region" column: */
+    columns.Add(o => o.region)
+            .Filterable(true)
+            .Titled("Region");
+
+    /* Adding "Email All" column: */
+    columns.Add(o => o.AcctMgrEmail)
+            .Titled("Acct Mgr Email");
+
+
+    /* Adding "Email All" column: */
+    columns.Add(o => o.email_all_members)
+            .Titled("Email All");
+
+
+    /* Adding "Active" column: */
+    columns.Add(o => o.active)
+            .Titled("Active")
+            .Filterable(true);
+
+
+
+
+
+}).WithPaging(20).Sortable(true)
+</div>

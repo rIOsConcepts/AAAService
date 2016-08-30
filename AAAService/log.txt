@@ -1,10 +1,9 @@
-8/6/2016 6:47:55 PM => System.Net.Mail.SmtpException: Failure sending mail. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:25
+8/18/2016 10:17:08 PM => System.Net.Mail.SmtpException: Failure sending mail. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:25
    at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
    at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
    --- End of inner exception stack trace ---
    at System.Net.ServicePoint.GetConnection(PooledStream PooledStream, Object owner, Boolean async, IPAddress& address, Socket& abortSocket, Socket& abortSocket6)
    at System.Net.PooledStream.Activate(Object owningObject, Boolean async, GeneralAsyncDelegate asyncCallback)
-   at System.Net.PooledStream.Activate(Object owningObject, GeneralAsyncDelegate asyncCallback)
    at System.Net.ConnectionPool.GetConnection(Object owningObject, GeneralAsyncDelegate asyncCallback, Int32 creationTimeout)
    at System.Net.Mail.SmtpConnection.GetConnection(ServicePoint servicePoint)
    at System.Net.Mail.SmtpTransport.GetConnection(ServicePoint servicePoint)
@@ -12,4 +11,4 @@
    at System.Net.Mail.SmtpClient.Send(MailMessage message)
    --- End of inner exception stack trace ---
    at System.Net.Mail.SmtpClient.Send(MailMessage message)
-   at AAAService.Correspondence.Mail.Send(String subject, String body, Boolean isHTML, String email) in C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\Email\Email.cs:line 196
+   at AAAService.Correspondence.Mail.Send(String subject, String body, Boolean isHTML, String email)

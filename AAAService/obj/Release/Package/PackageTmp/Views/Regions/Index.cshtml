@@ -1,0 +1,55 @@
+﻿@model IEnumerable<AAAService.Models.Region>
+@using GridMvc.Html
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+<script src="~/Scripts/jquery-2.2.0.min.js"></script>
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Manage Regions</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div style="width:auto">
+    @Html.Grid(Model).Columns(columns =>
+{
+    /* Adding not mapped column, that renders body, using inline Razor html helper */
+    /*columns.Add()
+            .Encoded(false)
+            .Sanitized(false)
+            .SetWidth(30)
+            .RenderValueAs(d =>
+            @<b>
+                @Html.ActionLink("Edit", "Index")
+            </b>);*/
+
+
+    columns.Add().Titled("Details").Encoded(false).Sanitized(false).RenderValueAs(c => @Html.ActionLink("Details", "Details", new { id = c.ID }));
+    columns.Add().Titled("Edit").Encoded(false).Sanitized(false).RenderValueAs(c => @Html.ActionLink("Edit", "Edit", new { id = c.ID }));
+    columns.Add().Titled("Delete").Encoded(false).Sanitized(false).RenderValueAs(c => @Html.ActionLink("Delete", "Delete", new { id = c.ID }));
+
+    /* Adding "Name" column: */
+    columns.Add(o => o.Name)
+                .Titled("Name")
+                .Filterable(true)
+                .SetWidth(100);
+
+    /* Adding "Code: */
+    columns.Add(o => o.code)
+            .Titled("Code")
+            .Filterable(true)
+            .SetWidth(125);
+
+    /* Adding "Address2" column: */
+    columns.Add(o => o.active)
+            .Titled("Active")
+            .Filterable(true)
+            .SetWidth(125);
+
+ 
+}).WithPaging(20).Sortable(true)
+</div>

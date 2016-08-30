@@ -1,0 +1,145 @@
+﻿@model IEnumerable<AAAService.Models.service_boardNew>
+
+@using GridMvc.Html
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+<script src="~/Scripts/jquery-2.2.0.min.js"></script>
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+<script src="@Url.Content("~/Scripts/gridmvc.customwidgets.js")"></script>
+<link rel="stylesheet" href="https://jqueryui.com/resources/demos/style.css">
+<script src="/Scripts/bootstrap-datepicker.js"></script>
+<link href="/Content/gridmvc.datepicker.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Admin Service Board</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div style="width:auto">
+    @Html.Grid(Model).Named("adminTickets").Columns(columns =>
+{
+    /* Adding not mapped column, that renders body, using inline Razor html helper */
+    /*columns.Add()
+            .Encoded(false)
+            .Sanitized(false)
+            .SetWidth(30)
+            .RenderValueAs(d =>
+            @<b>
+                @Html.ActionLink("Edit", "Index")
+            </b>);*/
+    columns.Add().Titled("Edit").Encoded(false).Sanitized(false).RenderValueAs(c => @Html.ActionLink("Edit", "Edit", new { id = c.guid }));
+    columns.Add().Titled("Details").Encoded(false).Sanitized(false).RenderValueAs(c => @Html.ActionLink("Details", "Details", new { id = c.guid }));
+    columns.Add().Titled("Delete").Encoded(false).Sanitized(false).RenderValueAs(c => @Html.ActionLink("Delete", "Delete", new { id = c.guid }));
+
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => model.Attachment == 1 ? Html.Raw(string.Format("<text><img src=\"{0}\" alt=\"Image\"/></text>", Url.Content("~/Content/Images/attachment_blue.ico"))) : Html.Raw(""));
+
+    /* Adding "Job#" column: */
+    columns.Add(o => o.job_number)
+                .Titled("Job #")
+                .Filterable(true)
+                .SetWidth(100);
+
+    /* Adding "Priority" column: */
+    columns.Add(o => o.Priority)
+            .Titled("Priority")
+            .Filterable(true)
+            .SetFilterWidgetType("CustomPriorityFilterWidget")
+            .SetWidth(125);
+
+    /* Adding "Status" column: */
+    columns.Add(o => o.Status)
+            .Titled("Status")
+            .Filterable(true)
+            .SetFilterWidgetType("CustomStatusFilterWidget")
+            .SetWidth(125);
+
+    /* Adding "Location" column: */
+    columns.Add(o => o.company_name)
+            .Filterable(true)
+            .Titled("Company");
+
+    /* Adding "Location" column: */
+    columns.Add(o => o.service_location_name)
+            .Filterable(true)
+            .Titled("Service Location");
+
+    /* Adding "Cost Center" column: */
+    columns.Add(o => o.cost_code)
+            .Filterable(true)
+            .Titled("Cost Center");
+
+    /* Adding "Region" column: */
+    columns.Add(o => o.region)
+            .Filterable(true)
+            .Titled("Region");
+
+    /* Adding "City" column: */
+    columns.Add(o => o.city)
+            .Filterable(true)
+            .Titled("City");
+
+    /* Adding "Service Category" column: */
+    columns.Add(o => o.category)
+            .Titled("Service Category")
+            .Sortable(true)
+            .Filterable(true)
+            .SetFilterWidgetType("CustomServiceCategoryFilterWidget");
+
+    /* Adding "Problem Summary" column: */
+    columns.Add(o => o.problem_summary)
+            .Titled("Problem Summary")
+            .SetWidth(250);
+
+    /* Adding "Date Requested" column: */
+    columns.Add(o => o.order_datetime)
+            .Titled("Date Requested")
+            //.RenderValueAs(o => string.Format("{0:MM/dd/yyyy}", o.order_datetime))
+            .Format("{0:MM/dd/yyyy}")
+            .Filterable(true)
+            .SetWidth(80);
+
+    /* Adding "Date Dispatched" column: */
+    columns.Add(o => o.dispatch_datetime)
+            .Titled("Date Dispatched")
+            .Format("{0:MM/dd/yyyy}")
+            .Filterable(true)
+            .SetWidth(110);
+
+    /* Adding "Date Completed" column: */
+    columns.Add(o => o.complete_datetime)
+            .Titled("Date Completed")
+            .Format("{0:MM/dd/yyyy}")
+            .Filterable(true)
+            .SetWidth(110);
+
+    /* Adding "Service Provider" column: */
+    columns.Add(o => o.service_provider)
+            .Titled("Service Provider")
+            .Filterable(true)
+            .SetWidth(150);
+
+    /* Adding "Customer PO#" column: */
+    columns.Add(o => o.cust_po_num)
+            .Titled("Customer PO#")
+            .Filterable(true)
+            .SetWidth(150);
+
+}).WithPaging(20).Sortable(true)
+</div>
+
+<script>
+    $(document).ready(function () {
+        pageGrids.adminTickets.addFilterWidget(new StatusesFilterWidget());
+        pageGrids.adminTickets.addFilterWidget(new PrioritiesFilterWidget());
+        pageGrids.adminTickets.addFilterWidget(new ServiceCategoriesFilterWidget());
+        $("#adminTickets").datepicker();
+    });
+</script>

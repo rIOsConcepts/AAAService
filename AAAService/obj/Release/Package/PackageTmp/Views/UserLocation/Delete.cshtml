@@ -1,0 +1,48 @@
+﻿@model AAAService.Models.user_to_location
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>user_to_location</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.user_guid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_guid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.primary_contact_bit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.primary_contact_bit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.locationinfo.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.locationinfo.name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

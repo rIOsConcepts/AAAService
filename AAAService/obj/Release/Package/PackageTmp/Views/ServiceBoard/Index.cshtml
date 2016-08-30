@@ -1,0 +1,179 @@
+﻿@model IEnumerable<AAAService.Models.service_boardNew>
+
+@using GridMvc.Html
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+<script src="~/Scripts/jquery-2.2.0.min.js"></script>
+@*<script src="@Url.Content("~/Scripts/jquery-2.2.0.min.js")"></script>*@
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+<script src="@Url.Content("~/Scripts/gridmvc.customwidgets.js")"></script>
+
+
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://jqueryui.com/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+
+@*Optional*@
+@*<script src="/Scripts/bootstrap.min.js"></script> Causing problems with Menu in Layout and once Service Board is selected, we cannot move to other menu option unless we go to Home*@
+<script src="/Scripts/gridmvc.js" type="text/javascript"> </script>
+<script src="/Scripts/bootstrap-datepicker.js"></script>
+<link href="/Content/gridmvc.datepicker.css" rel="stylesheet" />
+
+                                     
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Service Board</h2>
+@*<hr />*@
+
+<div style="width:auto">
+@helper CustomRenderingOfColumn(AAAService.Models.service_boardNew model)
+{
+    if (model.Attachment == 1)
+    {
+        <text>Yes</text>
+    }
+    else
+    {
+        <text>No</text>
+    }
+}
+
+@Html.Grid(Model).Named("serviceBoard").Columns(columns =>
+{
+    /* Adding not mapped column, that renders body, using inline Razor html helper */
+    /*columns.Add()
+            .Encoded(false)
+            .Sanitized(false)
+            .SetWidth(30)
+            .RenderValueAs(d =>
+            @<b>
+                @Html.ActionLink("Edit", "Index")
+            </b>);*/
+    columns.Add().Titled("Edit").Encoded(false).Sanitized(false).RenderValueAs(c => @Html.RouteLink("Edit", new { controller = "ServiceTickets", action = "Edit", id = c.guid }));
+    // columns.Add().Titled("Edit").Encoded(false).Sanitized(false).RenderValueAs(c => @Html.ActionLink("Edit", "service_tickets", new { id = c.guid }));
+    columns.Add().Titled("Details").Encoded(false).Sanitized(false).RenderValueAs(c => @Html.RouteLink("Details", new { controller = "ServiceTickets", action = "Details", id = c.guid }));
+
+    /* Adding "Attachment" column: */
+    //columns.Add(model => model.Attachment)
+    //            .Titled("Attachment")
+    //            .SetWidth(35)
+    //            .RenderValueAs(model => CustomRenderingOfColumn(model));
+
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => model.Attachment == 1 ? Html.Raw(string.Format("<text><img src=\"{0}\" alt=\"Image\"/></text>", Url.Content("~/Content/Images/attachment_blue.ico"))) : Html.Raw(""));
+
+    /* Adding "Job#" column: */
+    columns.Add(o => o.job_number)
+                .Titled("Job #")
+                .Filterable(true)
+                .SetWidth(100);
+
+    /* Adding "Priority" column: */
+    columns.Add(o => o.Priority)
+            .Titled("Priority")
+            .Sortable(true)
+            .Filterable(true)
+            .SetFilterWidgetType("CustomPriorityFilterWidget")
+            .SetWidth(125);
+
+    /* Adding "Status" column: */
+    columns.Add(o => o.Status)
+            .Titled("Status")
+            .Sortable(true)
+            .Filterable(true)
+            .SetFilterWidgetType("CustomStatusFilterWidget")
+            .SetWidth(125);
+
+    /* Adding "Location" column: */
+    columns.Add(o => o.company_name)
+            .Filterable(true)
+            .Titled("Company");
+
+    /* Adding "Location" column: */
+    columns.Add(o => o.service_location_name)
+            .Filterable(true)
+            .Titled("Service Location");
+
+    /* Adding "Cost Center" column: */
+    columns.Add(o => o.cost_code)
+            .Filterable(true)
+            .Titled("Cost Center");
+
+    /* Adding "Region" column: */
+    columns.Add(o => o.region)
+            .Filterable(true)
+            .Titled("Region");
+
+    /* Adding "City" column: */
+    columns.Add(o => o.city)
+            .Filterable(true)
+            .Titled("City");
+
+    /* Adding "Service Category" column: */
+    columns.Add(o => o.category)
+            .Titled("Service Category")
+            .Sortable(true)
+            .Filterable(true)
+            .SetFilterWidgetType("CustomServiceCategoryFilterWidget");
+
+    /* Adding "Problem Summary" column: */
+    columns.Add(o => o.problem_summary)
+            .Titled("Problem Summary")
+            .SetWidth(250);
+
+    /* Adding "Date Requested" column: */
+    columns.Add(o => o.order_datetime)
+            .Titled("Date Requested")
+            //.RenderValueAs(o => string.Format("{0:MM/dd/yyyy}", o.order_datetime.ToString("MM/dd/yyyy")))
+            //.RenderValueAs(o => string.Format("{0:MM/dd/yyyy}"))
+            //.SortInitialDirection(GridMvc.Sorting.GridSortDirection.Descending)
+            .Format("{0:MM/dd/yyyy}")
+            .Filterable(true)
+            .SetWidth(80);
+
+    /* Adding "Date Dispatched" column: */
+    columns.Add(o => o.dispatch_datetime)
+            .Titled("Date Dispatched")
+            .Format("{0:MM/dd/yyyy}")
+            .Filterable(true)
+            .SetWidth(110);
+
+    /* Adding "Date Completed" column: */
+    columns.Add(o => o.complete_datetime)
+            .Titled("Date Completed")
+            .Format("{0:MM/dd/yyyy}")
+            .Filterable(true)
+            .SetWidth(110);
+
+
+    /* Adding "Service Provider" column: */
+    columns.Add(o => o.service_provider)
+            .Titled("Service Provider")
+            .Filterable(true)
+            .SetWidth(150);
+
+    /* Adding "Customer PO#" column: */
+    columns.Add(o => o.cust_po_num)
+            .Titled("Customer PO#")
+            .Filterable(true)
+            .SetWidth(150);
+
+
+}).WithPaging(20).Sortable().Filterable().WithMultipleFilters()
+</div>
+
+<script>
+    $(document).ready(function() {
+        pageGrids.serviceBoard.addFilterWidget(new StatusesFilterWidget());
+        pageGrids.serviceBoard.addFilterWidget(new PrioritiesFilterWidget());
+        pageGrids.serviceBoard.addFilterWidget(new ServiceCategoriesFilterWidget());
+        $("#serviceBoard").datepicker();
+    });
+</script>

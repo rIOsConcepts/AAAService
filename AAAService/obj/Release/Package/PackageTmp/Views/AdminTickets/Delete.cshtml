@@ -1,0 +1,312 @@
+﻿@model AAAService.Models.service_tickets
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>service_tickets</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.job_number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.job_number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.order_datetime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.order_datetime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.complete_datetime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.complete_datetime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.last_update_datetime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.last_update_datetime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.parent_company_guid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.parent_company_guid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.service_location_guid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.service_location_guid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.created_by_user_guid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.created_by_user_guid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.last_updated_by_user_guid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.last_updated_by_user_guid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.problem_summary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.problem_summary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.problem_details)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.problem_details)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.location_contact_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.location_contact_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.location_contact_phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.location_contact_phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.location_contact_phone_night)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.location_contact_phone_night)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.closed_datetime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.closed_datetime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cost_code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cost_code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EQmodel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EQmodel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EQserial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EQserial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EQProbDesc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EQProbDesc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.service_provider)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.service_provider)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dispatch_datetime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dispatch_datetime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.accepted_datetime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.accepted_datetime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.internal_notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.internal_notes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cust_po_num)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cust_po_num)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.total_billing)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.total_billing)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ServiceCategory)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServiceCategory)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Region)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Region)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriorityStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriorityStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StatusName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatusName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriorityList.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriorityList.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StatusList.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatusList.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ServiceCategory1.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServiceCategory1.Name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

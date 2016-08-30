@@ -1,5 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="aaahelpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="lname" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="fname" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="account_status" Type="int" Nullable="false" />
+    <Property Name="salt" Type="varchar" MaxLength="7" />
+    <Property Name="is_manager" Type="bit" Nullable="false" />
+    <Property Name="title" Type="varchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="bid_requests">
     <Key>
       <PropertyRef Name="guid" />
@@ -197,6 +221,18 @@
     <Property Name="code" Type="varchar" MaxLength="40" />
     <Property Name="list_num" Type="int" />
     <Property Name="active" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'aaahelp.dbo.ReportBuilderFields' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ReportBuilderFields">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="ColumnName" />
+    </Key>
+    <Property Name="Id" Type="smallint" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="ColumnName" Type="varchar" MaxLength="30" Nullable="false" />
   </EntityType>
   <EntityType Name="service_ticket_files">
     <Key>
@@ -514,6 +550,44 @@ warning 6002: The table/view 'aaahelp.dbo.LocationEmails_ViewMVC' does not have 
     <Property Name="account_status" Type="int" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
+warning 6002: The table/view 'aaahelp.dbo.ReportBuilder_View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ReportBuilder_View">
+    <Key>
+      <PropertyRef Name="job_number" />
+      <PropertyRef Name="order_datetime" />
+      <PropertyRef Name="problem_summary" />
+      <PropertyRef Name="guid" />
+      <PropertyRef Name="problem_details" />
+    </Key>
+    <Property Name="age" Type="int" />
+    <Property Name="service_location_name" Type="varchar" MaxLength="50" />
+    <Property Name="job_number" Type="int" Nullable="false" />
+    <Property Name="order_datetime" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="PriorityID" Type="int" />
+    <Property Name="problem_summary" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="StatusID" Type="int" />
+    <Property Name="company_name" Type="varchar" MaxLength="50" />
+    <Property Name="service_location_guid" Type="uniqueidentifier" />
+    <Property Name="parent_company_guid" Type="uniqueidentifier" />
+    <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="complete_datetime" Type="datetime2" Precision="7" />
+    <Property Name="region" Type="varchar" MaxLength="50" />
+    <Property Name="category" Type="varchar" MaxLength="40" />
+    <Property Name="service_provider" Type="varchar" MaxLength="30" />
+    <Property Name="city" Type="varchar" MaxLength="50" />
+    <Property Name="dispatch_datetime" Type="datetime2" Precision="7" />
+    <Property Name="accepted_datetime" Type="datetime2" Precision="7" />
+    <Property Name="internal_notes" Type="text" />
+    <Property Name="notes" Type="text" />
+    <Property Name="problem_details" Type="text" Nullable="false" />
+    <Property Name="equipment_model" Type="varchar" MaxLength="30" />
+    <Property Name="equipment_serial_number" Type="varchar" MaxLength="30" />
+    <Property Name="equipment_problem_description" Type="varchar" MaxLength="50" />
+    <Property Name="cost_code" Type="varchar" MaxLength="20" />
+    <Property Name="total_billing" Type="varchar" MaxLength="28" />
+    <Property Name="requested_by" Type="varchar" MaxLength="41" />
+  </EntityType>
+  <!--Errors Found During Generation:
 warning 6002: The table/view 'aaahelp.dbo.service_boardNew' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="service_boardNew">
     <Key>
@@ -716,6 +790,12 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_errors_and_comments_user_login' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_errors_and_comments_user_login" />-->
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Location_Service_Provider_AspNetUsers' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Location_Service_Provider_AspNetUsers" />-->
   <Association Name="FK_Location_Service_Provider_locationinfo">
     <End Role="locationinfo" Type="Self.locationinfo" Multiplicity="1" />
     <End Role="Location_Service_Provider" Type="Self.Location_Service_Provider" Multiplicity="0..1" />
@@ -824,6 +904,9 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_user_to_location_user_login' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_user_to_location_user_login" />-->
   <Association Name="FK_user_viewable_locations_locationinfo">
     <End Role="locationinfo" Type="Self.locationinfo" Multiplicity="1" />
     <End Role="user_viewable_locations" Type="Self.user_viewable_locations" Multiplicity="*" />
@@ -839,10 +922,14 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
   <Function Name="ParentLocationInfoFromUsrGUID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="usrGUID" Type="uniqueidentifier" Mode="In" />
   </Function>
+  <Function Name="ReportBuilder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TSQL" Type="nvarchar(max)" Mode="In" />
+  </Function>
   <Function Name="ReturnParentLocations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="sessionid" Type="varchar" Mode="In" />
   </Function>
   <EntityContainer Name="aaahelpModelStoreContainer">
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="bid_requests" EntityType="Self.bid_requests" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CommentRatings" EntityType="Self.CommentRatings" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
@@ -865,6 +952,13 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
     <EntitySet Name="StatusList" EntityType="Self.StatusList" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_to_location" EntityType="Self.user_to_location" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_viewable_locations" EntityType="Self.user_viewable_locations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReportBuilderFields" EntityType="Self.ReportBuilderFields" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ReportBuilderFields].[Id] AS [Id], 
+    [ReportBuilderFields].[Name] AS [Name], 
+    [ReportBuilderFields].[ColumnName] AS [ColumnName]
+    FROM [dbo].[ReportBuilderFields] AS [ReportBuilderFields]</DefiningQuery>
+    </EntitySet>
     <EntitySet Name="LocationEmails_viewMVC" EntityType="Self.LocationEmails_viewMVC" store:Type="Views" store:Schema="aaaadmin">
       <DefiningQuery>SELECT 
     [LocationEmails_viewMVC].[LocationName] AS [LocationName], 
@@ -1002,6 +1096,37 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
     [LocationEmails_ViewMVC1].[email_all_members] AS [email_all_members], 
     [LocationEmails_ViewMVC1].[account_status] AS [account_status]
     FROM [dbo].[LocationEmails_ViewMVC] AS [LocationEmails_ViewMVC1]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ReportBuilder_View" EntityType="Self.ReportBuilder_View" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ReportBuilder_View].[age] AS [age], 
+    [ReportBuilder_View].[service_location_name] AS [service_location_name], 
+    [ReportBuilder_View].[job_number] AS [job_number], 
+    [ReportBuilder_View].[order_datetime] AS [order_datetime], 
+    [ReportBuilder_View].[PriorityID] AS [PriorityID], 
+    [ReportBuilder_View].[problem_summary] AS [problem_summary], 
+    [ReportBuilder_View].[StatusID] AS [StatusID], 
+    [ReportBuilder_View].[company_name] AS [company_name], 
+    [ReportBuilder_View].[service_location_guid] AS [service_location_guid], 
+    [ReportBuilder_View].[parent_company_guid] AS [parent_company_guid], 
+    [ReportBuilder_View].[guid] AS [guid], 
+    [ReportBuilder_View].[complete_datetime] AS [complete_datetime], 
+    [ReportBuilder_View].[region] AS [region], 
+    [ReportBuilder_View].[category] AS [category], 
+    [ReportBuilder_View].[service_provider] AS [service_provider], 
+    [ReportBuilder_View].[city] AS [city], 
+    [ReportBuilder_View].[dispatch_datetime] AS [dispatch_datetime], 
+    [ReportBuilder_View].[accepted_datetime] AS [accepted_datetime], 
+    [ReportBuilder_View].[internal_notes] AS [internal_notes], 
+    [ReportBuilder_View].[notes] AS [notes], 
+    [ReportBuilder_View].[problem_details] AS [problem_details], 
+    [ReportBuilder_View].[equipment_model] AS [equipment_model], 
+    [ReportBuilder_View].[equipment_serial_number] AS [equipment_serial_number], 
+    [ReportBuilder_View].[equipment_problem_description] AS [equipment_problem_description], 
+    [ReportBuilder_View].[cost_code] AS [cost_code], 
+    [ReportBuilder_View].[total_billing] AS [total_billing], 
+    [ReportBuilder_View].[requested_by] AS [requested_by]
+    FROM [dbo].[ReportBuilder_View] AS [ReportBuilder_View]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="service_boardNew" EntityType="Self.service_boardNew" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 

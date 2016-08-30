@@ -190,6 +190,12 @@
     </AssociationSet>
     <EntitySet Name="OtherStatusLists" EntityType="aaahelpModel.OtherStatusList" />
     <EntitySet Name="ExportToCFs" EntityType="aaahelpModel.ExportToCF" />
+    <EntitySet Name="AspNetUsers" EntityType="aaahelpModel.AspNetUser" />
+    <EntitySet Name="ReportBuilderFields" EntityType="aaahelpModel.ReportBuilderField" />
+    <FunctionImport Name="ReportBuilder">
+      <Parameter Name="TSQL" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="ReportBuilder_View" EntityType="aaahelpModel.ReportBuilder_View" />
   </EntityContainer>
   <EntityType Name="service_boardNew">
     <Key>
@@ -962,5 +968,75 @@
     <Property Name="USER_DEFINED_2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="USER_DEFINED_3" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
     <Property Name="USER_DEFINED_4" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="guid" Type="Guid" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="lname" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="fname" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="account_status" Type="Int32" Nullable="false" />
+    <Property Name="salt" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+    <Property Name="is_manager" Type="Boolean" Nullable="false" />
+    <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="ReportBuilderField">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="ColumnName" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="ColumnName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="ReportBuilder_View">
+    <Key>
+      <PropertyRef Name="job_number" />
+      <PropertyRef Name="order_datetime" />
+      <PropertyRef Name="problem_summary" />
+      <PropertyRef Name="guid" />
+      <PropertyRef Name="problem_details" />
+    </Key>
+    <Property Name="age" Type="Int32" />
+    <Property Name="service_location_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="job_number" Type="Int32" Nullable="false" />
+    <Property Name="order_datetime" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="PriorityID" Type="Int32" />
+    <Property Name="problem_summary" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="StatusID" Type="Int32" />
+    <Property Name="company_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="service_location_guid" Type="Guid" />
+    <Property Name="parent_company_guid" Type="Guid" />
+    <Property Name="guid" Type="Guid" Nullable="false" />
+    <Property Name="complete_datetime" Type="DateTime" Precision="7" />
+    <Property Name="region" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="category" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="service_provider" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dispatch_datetime" Type="DateTime" Precision="7" />
+    <Property Name="accepted_datetime" Type="DateTime" Precision="7" />
+    <Property Name="internal_notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="problem_details" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="equipment_model" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="equipment_serial_number" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="equipment_problem_description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="cost_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="total_billing" Type="String" MaxLength="28" FixedLength="false" Unicode="false" />
+    <Property Name="requested_by" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

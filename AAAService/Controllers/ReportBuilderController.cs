@@ -55,11 +55,13 @@ namespace AAAService.Controllers
                                             .OrderBy(l => l.Name).ToList();
 
             reportInformation.ReportBuilderFields = db.ReportBuilderFields
+                                                    .OrderBy(rbf => rbf.Id)
                                                     .Select(l => new Models.ReportBuilderModel.ReportBuilderField()
                                                     {
                                                         ColumnName = l.ColumnName,
                                                         Name = l.Name
-                                                    }).ToList();
+                                                    })
+                                                    .ToList();
 
             var names = typeof(ReportBuilder_View).GetProperties()
                         .Select(property => property.Name)

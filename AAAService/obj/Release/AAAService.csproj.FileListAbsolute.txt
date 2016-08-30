@@ -145,3 +145,4 @@ C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\obj\Releas
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Elmah.dll
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Elmah.Mvc.dll
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\System.Data.SqlServerCe.dll
+C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\obj\Release\AAAService.csprojResolveAssemblyReference.cache

@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Upload";
+}
+<h3>Use this form to update the Bank Maintenance Calendar</h3>
+<p>Before uploading your new file, please make sure the file name is "cfbankcalendar.pdf"</p>
+@using (Html.BeginForm("Upload", "UpLoadToCalendar", FormMethod.Post,
+                new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>Upload you new Bank Maintenance Calendar file in PDF Format</legend>
+        <div class="editor-field">
+            @Html.TextBox("file", "", new { type = "file" })
+        </div>
+        <div class="editor-field">
+            <input type="submit" value="Upload" />
+        </div>
+    </fieldset>
+}
+<h2>Upload</h2>
+

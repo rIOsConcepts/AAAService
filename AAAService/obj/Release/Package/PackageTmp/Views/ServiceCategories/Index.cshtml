@@ -1,0 +1,72 @@
+﻿@model IEnumerable<AAAService.Models.ServiceCategory>
+@using GridMvc.Html
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+<script src="~/Scripts/jquery-2.2.0.min.js"></script>
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Manage Service Categories</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div style="width:auto">
+    @Html.Grid(Model).Columns(columns =>
+{
+    /* Adding not mapped column, that renders body, using inline Razor html helper */
+    /*columns.Add()
+            .Encoded(false)
+            .Sanitized(false)
+            .SetWidth(30)
+            .RenderValueAs(d =>
+            @<b>
+                @Html.ActionLink("Edit", "Index")
+            </b>);*/
+
+
+    columns.Add().Titled("Details").Encoded(false).Sanitized(false).RenderValueAs(c => @Html.ActionLink("Details", "Details", new { id = c.ID }));
+    columns.Add().Titled("Edit").Encoded(false).Sanitized(false).RenderValueAs(c => @Html.ActionLink("Edit", "Edit", new { id = c.ID }));
+    columns.Add().Titled("Delete").Encoded(false).Sanitized(false).RenderValueAs(c => @Html.ActionLink("Delete", "Delete", new { id = c.ID }));
+
+    /* Adding "Name" column: */
+    columns.Add(o => o.Name)
+                .Titled("Name")
+                .Filterable(true)
+                .SetWidth(100);
+
+    /* Adding "Active: */
+    columns.Add(o => o.active)
+            .Titled("Active")
+            .Filterable(true)
+            .SetWidth(75);
+
+    /* Adding "Code" column: */
+    columns.Add(o => o.code)
+            .Filterable(true)
+            .Titled("Code");
+    /* Adding "Code" column: */
+    columns.Add(o => o.CfdataCode)
+            .Filterable(true)
+            .Titled("CfdataCode");
+
+    /* Adding "IsAlert" column: */
+    columns.Add(o => o.isAlert)
+            .Titled("IsAlert")
+            .Filterable(true)
+            .SetWidth(75);
+
+
+    /* Adding "Alert Message" column: */
+    columns.Add(o => o.AlertMessage)
+            .Filterable(true)
+            .Titled("Alert Message");
+
+
+
+
+}).WithPaging(20).Sortable(true)
+</div>

@@ -1,0 +1,86 @@
+﻿@model IEnumerable<AAAService.Models.ApplicationUser>
+@using GridMvc.Html
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+<script src="~/Scripts/jquery-2.2.0.min.js"></script>
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+<script src="@Url.Content("~/Scripts/gridmvc.customwidgets.js")"></script>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Manage Users</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div style="width:auto">
+@helper CustomRenderingOfColumn(AAAService.Models.ApplicationUser model)
+{
+    if (model.account_status == 1)
+    {
+        <text>Active</text>
+    }
+    else
+    {
+        <text>Inactive</text>
+    }
+}
+
+@Html.Grid(Model).Named("manageUsers").Columns(columns =>
+{
+    /* Adding not mapped column, that renders body, using inline Razor html helper */
+    /*columns.Add()
+            .Encoded(false)
+            .Sanitized(false)
+            .SetWidth(30)
+            .RenderValueAs(d =>
+            @<b>
+                @Html.ActionLink("Edit", "Index")
+            </b>);*/
+    columns.Add().Titled("Edit").Encoded(false).Sanitized(false).RenderValueAs(c => @Html.ActionLink("Edit", "Edit", new { id = c.Id }));
+    // columns.Add().Titled("Edit").Encoded(false).Sanitized(false).RenderValueAs(c => @Html.ActionLink("Edit", "service_tickets", new { id = c.guid }));
+    columns.Add().Titled("Details").Encoded(false).Sanitized(false).RenderValueAs(c => @Html.ActionLink("Details", "Details", new { id = c.Id }));
+
+    /* Adding "User" column: */
+    columns.Add(o => o.UserName)
+            .Filterable(true)
+            .Titled("UserEmail");
+
+
+    /* Adding "Job#" column: */
+    columns.Add(o => o.fname)
+                .Titled("First Name")
+                .Filterable(true)
+                .SetWidth(100);
+
+    /* Adding "Date Requested" column: */
+    columns.Add(o => o.lname)
+            .Titled("Last name")
+            .Filterable(true)
+            .SetWidth(80);
+
+    /* Adding "title" column: */
+    columns.Add(o => o.title)
+            .Filterable(true)
+            .Titled("Service Location");
+
+    /* Adding "Acct Status" column: */
+    columns.Add(o => o.account_status)
+            .Titled("Status")
+            .Sortable(true)
+            .Filterable(true)
+            .SetFilterWidgetType("CustomUserStatusFilterWidget")
+            .RenderValueAs(model => CustomRenderingOfColumn(model))
+            .SetWidth(80);
+
+}).WithPaging(20).Sortable().Filterable().WithMultipleFilters()
+</div>
+
+<script>
+    $(document).ready(function(){
+        pageGrids.manageUsers.addFilterWidget(new UserStatusesFilterWidget());
+    });
+</script>
