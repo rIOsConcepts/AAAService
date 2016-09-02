@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="aaahelpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
         <EntityType Name="AspNetUsers">
           <Key>
             <PropertyRef Name="Id" />
@@ -238,6 +246,7 @@ warning 6002: The table/view 'aaahelp.dbo.ReportBuilderFields' does not have a p
           <Property Name="Id" Type="smallint" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="ColumnName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="FieldType" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="service_ticket_files">
           <Key>
@@ -582,9 +591,9 @@ warning 6002: The table/view 'aaahelp.dbo.ReportBuilder_View' does not have a pr
           <Property Name="service_location_name" Type="varchar" MaxLength="50" />
           <Property Name="job_number" Type="int" Nullable="false" />
           <Property Name="order_datetime" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="PriorityID" Type="int" />
+          <Property Name="Priority" Type="varchar" MaxLength="40" />
           <Property Name="problem_summary" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StatusID" Type="int" />
+          <Property Name="Status" Type="varchar" MaxLength="40" />
           <Property Name="company_name" Type="varchar" MaxLength="50" />
           <Property Name="service_location_guid" Type="uniqueidentifier" />
           <Property Name="parent_company_guid" Type="uniqueidentifier" />
@@ -811,6 +820,20 @@ warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_errors_and_comments_RatingID">
           <End Role="CommentRatings" Type="Self.CommentRatings" Multiplicity="1" />
           <End Role="errors_and_comments" Type="Self.errors_and_comments" Multiplicity="*" />
@@ -962,6 +985,7 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
           <Parameter Name="sessionid" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="aaahelpModelStoreContainer">
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="bid_requests" EntityType="Self.bid_requests" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CommentRatings" EntityType="Self.CommentRatings" Schema="dbo" store:Type="Tables" />
@@ -989,7 +1013,8 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
             <DefiningQuery>SELECT 
     [ReportBuilderFields].[Id] AS [Id], 
     [ReportBuilderFields].[Name] AS [Name], 
-    [ReportBuilderFields].[ColumnName] AS [ColumnName]
+    [ReportBuilderFields].[ColumnName] AS [ColumnName], 
+    [ReportBuilderFields].[FieldType] AS [FieldType]
     FROM [dbo].[ReportBuilderFields] AS [ReportBuilderFields]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="LocationEmails_viewMVC" EntityType="Self.LocationEmails_viewMVC" store:Type="Views" store:Schema="aaaadmin">
@@ -1136,9 +1161,9 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
     [ReportBuilder_View].[service_location_name] AS [service_location_name], 
     [ReportBuilder_View].[job_number] AS [job_number], 
     [ReportBuilder_View].[order_datetime] AS [order_datetime], 
-    [ReportBuilder_View].[PriorityID] AS [PriorityID], 
+    [ReportBuilder_View].[Priority] AS [Priority], 
     [ReportBuilder_View].[problem_summary] AS [problem_summary], 
-    [ReportBuilder_View].[StatusID] AS [StatusID], 
+    [ReportBuilder_View].[Status] AS [Status], 
     [ReportBuilder_View].[company_name] AS [company_name], 
     [ReportBuilder_View].[service_location_guid] AS [service_location_guid], 
     [ReportBuilder_View].[parent_company_guid] AS [parent_company_guid], 
@@ -1285,6 +1310,10 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
           <AssociationSet Name="FK_bid_requests_Status" Association="Self.FK_bid_requests_Status">
             <End Role="StatusList" EntitySet="StatusList" />
             <End Role="bid_requests" EntitySet="bid_requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
           <AssociationSet Name="FK_errors_and_comments_RatingID" Association="Self.FK_errors_and_comments_RatingID">
             <End Role="CommentRatings" EntitySet="CommentRatings" />
@@ -1530,6 +1559,11 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
           <FunctionImport Name="ReportBuilder">
           <Parameter Name="TSQL" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="AspNetUserRoles" EntityType="aaahelpModel.AspNetUserRole" />
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="aaahelpModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRole" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
           <EntitySet Name="ReportBuilder_View" EntityType="aaahelpModel.ReportBuilder_View" />
           </EntityContainer>
         <EntityType Name="service_boardNew">
@@ -2327,6 +2361,7 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
           <Property Name="salt" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
           <Property Name="is_manager" Type="Boolean" Nullable="false" />
           <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AspNetUserRoles" Relationship="aaahelpModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserRole" />
         </EntityType>
         <EntityType Name="ReportBuilderField">
           <Key>
@@ -2337,7 +2372,31 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
           <Property Name="Id" Type="Int16" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="ColumnName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="FieldType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="AspNetUserRole">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="RoleId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="aaahelpModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" FromRole="AspNetUserRole" ToRole="AspNetUser" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Type="aaahelpModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="aaahelpModel.AspNetUserRole" Role="AspNetUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRole">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="ReportBuilder_View">
           <Key>
             <PropertyRef Name="job_number" />
@@ -2350,9 +2409,9 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
           <Property Name="service_location_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="job_number" Type="Int32" Nullable="false" />
           <Property Name="order_datetime" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="PriorityID" Type="Int32" />
+          <Property Name="Priority" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="problem_summary" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="StatusID" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="company_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="service_location_guid" Type="Guid" />
           <Property Name="parent_company_guid" Type="Guid" />
@@ -3045,6 +3104,7 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
           <EntitySetMapping Name="ReportBuilderFields">
             <EntityTypeMapping TypeName="aaahelpModel.ReportBuilderField">
               <MappingFragment StoreEntitySet="ReportBuilderFields">
+                <ScalarProperty Name="FieldType" ColumnName="FieldType" />
                 <ScalarProperty Name="ColumnName" ColumnName="ColumnName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -3052,6 +3112,14 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="ReportBuilder" FunctionName="aaahelpModel.Store.ReportBuilder" />
+          <EntitySetMapping Name="AspNetUserRoles">
+            <EntityTypeMapping TypeName="aaahelpModel.AspNetUserRole">
+              <MappingFragment StoreEntitySet="AspNetUserRoles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ReportBuilder_View">
             <EntityTypeMapping TypeName="aaahelpModel.ReportBuilder_View">
               <MappingFragment StoreEntitySet="ReportBuilder_View">
@@ -3075,9 +3143,9 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
                 <ScalarProperty Name="parent_company_guid" ColumnName="parent_company_guid" />
                 <ScalarProperty Name="service_location_guid" ColumnName="service_location_guid" />
                 <ScalarProperty Name="company_name" ColumnName="company_name" />
-                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="problem_summary" ColumnName="problem_summary" />
-                <ScalarProperty Name="PriorityID" ColumnName="PriorityID" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
                 <ScalarProperty Name="order_datetime" ColumnName="order_datetime" />
                 <ScalarProperty Name="job_number" ColumnName="job_number" />
                 <ScalarProperty Name="service_location_name" ColumnName="service_location_name" />

@@ -12,11 +12,11 @@ namespace AAAService.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ReportBuilderField
+    public partial class AspNetUserRole
     {
-        public short Id { get; set; }
-        public string Name { get; set; }
-        public string ColumnName { get; set; }
-        public string FieldType { get; set; }
+        public string UserId { get; set; }
+        public string RoleId { get; set; }
+    
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

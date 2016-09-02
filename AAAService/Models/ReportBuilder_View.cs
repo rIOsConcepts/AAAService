@@ -18,9 +18,9 @@ namespace AAAService.Models
         public string service_location_name { get; set; }
         public int job_number { get; set; }
         public System.DateTime order_datetime { get; set; }
-        public Nullable<int> PriorityID { get; set; }
+        public string Priority { get; set; }
         public string problem_summary { get; set; }
-        public Nullable<int> StatusID { get; set; }
+        public string Status { get; set; }
         public string company_name { get; set; }
         public Nullable<System.Guid> service_location_guid { get; set; }
         public Nullable<System.Guid> parent_company_guid { get; set; }

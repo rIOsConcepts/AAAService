@@ -251,6 +251,9 @@
     <Compile Include="Models\AspNetUser.cs">
       <DependentUpon>AAAServiceModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AspNetUserRole.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\bid_requests.cs">
       <DependentUpon>AAAServiceModels.tt</DependentUpon>
     </Compile>

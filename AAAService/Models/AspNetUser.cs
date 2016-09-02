@@ -14,6 +14,12 @@ namespace AAAService.Models
     
     public partial class AspNetUser
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public AspNetUser()
+        {
+            this.AspNetUserRoles = new HashSet<AspNetUserRole>();
+        }
+    
         public string Id { get; set; }
         public System.Guid guid { get; set; }
         public string Email { get; set; }
@@ -33,5 +39,8 @@ namespace AAAService.Models
         public string salt { get; set; }
         public bool is_manager { get; set; }
         public string title { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AspNetUserRole> AspNetUserRoles { get; set; }
     }
 }

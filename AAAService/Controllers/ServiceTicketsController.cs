@@ -341,12 +341,12 @@ namespace AAAService.Controllers
                                //"Zone: " + "WHERE DOES THIS VALUE COME FROM?" + "\r\n" +
                                //"Service Type: " + service_tickets.ServiceCategory.ToUpper() + "\r\n" +
 
-                               "Service Rep: " + "WHERE DOES THIS VALUE COME FROM?" + "\r\n" +
+                               //"Service Rep: " + "WHERE DOES THIS VALUE COME FROM?" + "\r\n" +
                                "Taken By: Web Portal\r\n\r\n" +
                                "If you have questions or concerns about this message please contact us at 1-800-892-4784.\r\n\r\n" +
                                "Please do not reply to this e-mail, this account is not monitored.";
 
-                    email.Send(subject:"Web Portal Service Ticket Entered", body:body);
+                    email.Send(subject:"Web Portal Service Ticket Entered", body:body, email:user.Email);
                 }
                 catch (Exception e)
                 {
@@ -463,7 +463,7 @@ namespace AAAService.Controllers
                                        "If you have questions or concerns about this message please contact us at 1-800-892-4784.\r\n\r\n" +
                                        "Please do not reply to this e-mail, this account is not monitored.";
 
-                            email.Send(subject:"Web Portal Service Ticket Update", body:body);
+                            email.Send(subject:"Web Portal Service Ticket Update", body:body, email: user.Email);
                         }
                         catch (Exception e)
                         {

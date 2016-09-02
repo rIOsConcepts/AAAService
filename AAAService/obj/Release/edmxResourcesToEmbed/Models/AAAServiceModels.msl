@@ -666,6 +666,7 @@
     <EntitySetMapping Name="ReportBuilderFields">
       <EntityTypeMapping TypeName="aaahelpModel.ReportBuilderField">
         <MappingFragment StoreEntitySet="ReportBuilderFields">
+          <ScalarProperty Name="FieldType" ColumnName="FieldType" />
           <ScalarProperty Name="ColumnName" ColumnName="ColumnName" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -673,6 +674,14 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="ReportBuilder" FunctionName="aaahelpModel.Store.ReportBuilder" />
+    <EntitySetMapping Name="AspNetUserRoles">
+      <EntityTypeMapping TypeName="aaahelpModel.AspNetUserRole">
+        <MappingFragment StoreEntitySet="AspNetUserRoles">
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="ReportBuilder_View">
       <EntityTypeMapping TypeName="aaahelpModel.ReportBuilder_View">
         <MappingFragment StoreEntitySet="ReportBuilder_View">
@@ -696,9 +705,9 @@
           <ScalarProperty Name="parent_company_guid" ColumnName="parent_company_guid" />
           <ScalarProperty Name="service_location_guid" ColumnName="service_location_guid" />
           <ScalarProperty Name="company_name" ColumnName="company_name" />
-          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="problem_summary" ColumnName="problem_summary" />
-          <ScalarProperty Name="PriorityID" ColumnName="PriorityID" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
           <ScalarProperty Name="order_datetime" ColumnName="order_datetime" />
           <ScalarProperty Name="job_number" ColumnName="job_number" />
           <ScalarProperty Name="service_location_name" ColumnName="service_location_name" />

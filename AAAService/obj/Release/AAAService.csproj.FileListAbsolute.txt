@@ -70,22 +70,12 @@ C:\Users\jim\Documents\Visual Studio 2015\Projects\AAAService\AAAService\bin\Mic
 C:\Users\jim\Documents\Visual Studio 2015\Projects\AAAService\AAAService\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\jim\Documents\Visual Studio 2015\Projects\AAAService\AAAService\obj\Release\AAAService.dll
 C:\Users\jim\Documents\Visual Studio 2015\Projects\AAAService\AAAService\obj\Release\AAAService.pdb
-C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\csc.exe
-C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\Microsoft.CodeAnalysis.dll
-C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\Microsoft.CSharp.Core.targets
-C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\Microsoft.VisualBasic.Core.targets
-C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\System.Collections.Immutable.dll
-C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\System.Reflection.Metadata.dll
-C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\vbc.exe
-C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\VBCSCompiler.exe
-C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\VBCSCompiler.exe.config
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\AAAService.dll.config
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\AAAService.dll
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\AAAService.pdb
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Antlr3.Runtime.dll
+C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Elmah.dll
+C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Elmah.Mvc.dll
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\EntityFramework.dll
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\EntityFramework.SqlServer.dll
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\GridMvc.dll
@@ -116,6 +106,7 @@ C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\System
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\System.Web.WebPages.dll
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\System.Web.WebPages.Razor.dll
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\WebGrease.dll
+C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\System.Data.SqlServerCe.dll
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Antlr3.Runtime.pdb
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\System.Net.Http.Formatting.xml
@@ -142,7 +133,15 @@ C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Micros
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\obj\Release\AAAService.dll
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\obj\Release\AAAService.pdb
-C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Elmah.dll
-C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Elmah.Mvc.dll
-C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\System.Data.SqlServerCe.dll
-C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\obj\Release\AAAService.csprojResolveAssemblyReference.cache
+C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\csc.exe
+C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\System.Collections.Immutable.dll
+C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\System.Reflection.Metadata.dll
+C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\vbc.exe
+C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\VBCSCompiler.exe
+C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\VBCSCompiler.exe.config

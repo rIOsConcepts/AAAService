@@ -195,6 +195,11 @@
     <FunctionImport Name="ReportBuilder">
       <Parameter Name="TSQL" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="AspNetUserRoles" EntityType="aaahelpModel.AspNetUserRole" />
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="aaahelpModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRole" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
     <EntitySet Name="ReportBuilder_View" EntityType="aaahelpModel.ReportBuilder_View" />
   </EntityContainer>
   <EntityType Name="service_boardNew">
@@ -992,6 +997,7 @@
     <Property Name="salt" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
     <Property Name="is_manager" Type="Boolean" Nullable="false" />
     <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="AspNetUserRoles" Relationship="aaahelpModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserRole" />
   </EntityType>
   <EntityType Name="ReportBuilderField">
     <Key>
@@ -1002,7 +1008,31 @@
     <Property Name="Id" Type="Int16" Nullable="false" />
     <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="ColumnName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="FieldType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
   </EntityType>
+  <EntityType Name="AspNetUserRole">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="RoleId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="aaahelpModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" FromRole="AspNetUserRole" ToRole="AspNetUser" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+    <End Type="aaahelpModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="aaahelpModel.AspNetUserRole" Role="AspNetUserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRole">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityType Name="ReportBuilder_View">
     <Key>
       <PropertyRef Name="job_number" />
@@ -1015,9 +1045,9 @@
     <Property Name="service_location_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="job_number" Type="Int32" Nullable="false" />
     <Property Name="order_datetime" Type="DateTime" Nullable="false" Precision="7" />
-    <Property Name="PriorityID" Type="Int32" />
+    <Property Name="Priority" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
     <Property Name="problem_summary" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="StatusID" Type="Int32" />
+    <Property Name="Status" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
     <Property Name="company_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="service_location_guid" Type="Guid" />
     <Property Name="parent_company_guid" Type="Guid" />
