@@ -32,6 +32,13 @@
             </div>
         </div>
         <div class="form-group">
+            @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly = true })
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+        </div>
+        <div class="form-group">
             @Html.LabelFor(model => model.title, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.TextBoxFor(m => m.title, new { @class = "form-control" })
@@ -39,12 +46,20 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.BusinessPhoneNumber, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-               @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly = true })
-               @Html.ValidationMessageFor(model => model.Email)
+                @Html.TextBoxFor(m => m.BusinessPhoneNumber, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BusinessPhoneNumber)
             </div>
         </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.AfterHoursPhoneNumber, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.AfterHoursPhoneNumber, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.AfterHoursPhoneNumber)
+            </div>
+        </div>
+
         
         <div class="form-group">
             @Html.Label("Service Location", new { @class = "col-md-2 control-label" })

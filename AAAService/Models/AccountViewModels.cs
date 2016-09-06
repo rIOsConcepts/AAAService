@@ -84,6 +84,14 @@ namespace AAAService.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
 
+        //[Required(AllowEmptyStrings = true)]
+        [Display(Name = "Business Phone Number")]
+        public string BusinessPhoneNumber { get; set; }
+
+        //[Required(AllowEmptyStrings = true)]
+        [Display(Name = "After Hours Phone Number")]
+        public string AfterHoursPhoneNumber { get; set; }
+
         //[Required]
         //[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         //[DataType(DataType.Password)]

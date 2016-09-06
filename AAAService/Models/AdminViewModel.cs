@@ -37,8 +37,14 @@ namespace AAAService.Models
         [EmailAddress]
         public string Email { get; set; }
 
+        //[Required(AllowEmptyStrings = true)]
+        [Display(Name = "Business Phone Number")]
+        public string BusinessPhoneNumber { get; set; }
 
-       
+        //[Required(AllowEmptyStrings = true)]
+        [Display(Name = "After Hours Phone Number")]
+        public string AfterHoursPhoneNumber { get; set; }
+
         public IEnumerable<SelectListItem> RolesList { get; set; }
         [Display(Name = "Status")]
         public Nullable<int> StatusID;

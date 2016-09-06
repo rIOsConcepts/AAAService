@@ -169,6 +169,17 @@ namespace AAAService.Controllers
                 //Add User to the selected Roles 
                 if (result.Succeeded)
                 {
+                    //MR:Saing User's Phone Numbers
+                    if (userViewModel.BusinessPhoneNumber != null || userViewModel.AfterHoursPhoneNumber != null)
+                    {
+                        var phone_num = new phone_num();
+                        phone_num.guid = Guid.NewGuid();
+                        phone_num.user_guid = user.guid;
+                        phone_num.phone_day = userViewModel.BusinessPhoneNumber;
+                        phone_num.phone_night = userViewModel.AfterHoursPhoneNumber;
+                        db.phone_num.Add(phone_num);                        
+                    }
+
                     //MR:Saving User's Locations
                     var locations = Request.Form["to[]"] != null ? Request.Form["to[]"].Split(',') : new string[0];
 
@@ -182,9 +193,9 @@ namespace AAAService.Controllers
                             user_to_location.location_guid = Guid.Parse(location);
                             db.user_to_location.Add(user_to_location);                            
                         }
-
-                        db.SaveChanges();
                     }
+
+                    db.SaveChanges();
 
                     if (selectedRoles != null)
                     {
@@ -232,6 +243,14 @@ namespace AAAService.Controllers
             if (user == null)
             {
                 return HttpNotFound();
+            }
+
+            var phoneNumbers = db.phone_num.Where(o => o.user_guid == user.guid);
+            var phoneNumbersFound = new phone_num();
+
+            if (phoneNumbers.Count() > 0)
+            {
+                phoneNumbersFound = phoneNumbers.ToList()[0];
             }
 
             var userRoles = await UserManager.GetRolesAsync(user.Id);
@@ -289,8 +308,9 @@ namespace AAAService.Controllers
                 lname = user.lname,
                 title = user.title,
                 Email = user.Email,
+                BusinessPhoneNumber = phoneNumbersFound.phone_day,
+                AfterHoursPhoneNumber = phoneNumbersFound.phone_night,
 
-                               
                 RolesList = RoleManager.Roles.ToList().Select(x => new SelectListItem()
                 {
                     Selected = userRoles.Contains(x.Name),
@@ -304,11 +324,12 @@ namespace AAAService.Controllers
         // POST: /Users/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Email,Id,lname,fname,title")] EditUserViewModel editUser, params string[] selectedRole)
+        public async Task<ActionResult> Edit([Bind(Include = "Email,Id,lname,fname,title,BusinessPhoneNumber,AfterHoursPhoneNumber")] EditUserViewModel editUser, params string[] selectedRole)
         {
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByIdAsync(editUser.Id);
+
                 if (user == null)
                 {
                     return HttpNotFound();
@@ -321,6 +342,38 @@ namespace AAAService.Controllers
                 user.title = editUser.title;
                 var statusID = int.Parse(Request.Form["StatusID"]);
                 user.account_status = statusID;
+
+                //MR:Saing User's Phone Numbers
+                if (editUser.BusinessPhoneNumber != null || editUser.AfterHoursPhoneNumber != null)
+                {
+                    var phoneNum = db.phone_num.Where(o => o.user_guid == user.guid);
+
+                    if (phoneNum.Count() > 0)
+                    {
+                        phoneNum.ToList()[0].phone_day = editUser.BusinessPhoneNumber;
+                        phoneNum.ToList()[0].phone_night = editUser.AfterHoursPhoneNumber;
+                    }
+                    else
+                    {
+                        var phone_num = new phone_num();
+                        phone_num.guid = Guid.NewGuid();
+                        phone_num.user_guid = user.guid;
+                        phone_num.phone_day = editUser.BusinessPhoneNumber;
+                        phone_num.phone_night = editUser.AfterHoursPhoneNumber;
+                        db.phone_num.Add(phone_num);
+                    }
+                }
+                else
+                {
+                    var phoneNumbersToDelete = from pn in db.phone_num
+                                               where pn.user_guid == user.guid
+                                               select pn;
+
+                    if (phoneNumbersToDelete.Count() > 0)
+                    {
+                        db.phone_num.RemoveRange(phoneNumbersToDelete);
+                    }
+                }
 
                 //MR:Saving User's Locations
                 var locations = Request.Form["to[]"] != null ? Request.Form["to[]"].Split(',') : new string[0];
@@ -385,8 +438,10 @@ namespace AAAService.Controllers
                     ModelState.AddModelError("", result.Errors.First());
                     return View();
                 }
+
                 return RedirectToAction("Index");
             }
+
             ModelState.AddModelError("", "Something failed.");
             return View();
         }
