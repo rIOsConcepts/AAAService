@@ -448,17 +448,20 @@ namespace AAAService.Controllers
 
         //
         // GET: /Users/Delete/5
-        public async Task<ActionResult> Delete(string id)
+        public async Task<ActionResult> Delete(string email)
         {
-            if (id == null)
+            if (email == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var user = await UserManager.FindByIdAsync(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
+
+            var user = await UserManager.FindByEmailAsync(email);
+
+            //if (user == null)
+            //{
+            //    return HttpNotFound();
+            //}
+
             return View(user);
         }
 
@@ -466,28 +469,53 @@ namespace AAAService.Controllers
         // POST: /Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string id)
+        //public async Task<ActionResult> DeleteConfirmed([Bind(Include = "guid,fname,lname,title,account_status,is_manager")] ApplicationUser deleteUser)
+        public async Task<ActionResult> DeleteConfirmed(string email)
         {
             if (ModelState.IsValid)
             {
-                if (id == null)
+                if (email == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                var user = await UserManager.FindByIdAsync(id);
-                if (user == null)
+                var user = await UserManager.FindByEmailAsync(email);
+
+                //if (user == null)
+                //{
+                //    return HttpNotFound();
+                //}
+
+                IdentityResult result = new IdentityResult();
+
+                try
                 {
-                    return HttpNotFound();
+                    var phoneNumbersToDelete = from pn in db.phone_num
+                                               where pn.user_guid == user.guid
+                                               select pn;
+
+                    if (phoneNumbersToDelete.Count() > 0)
+                    {
+                        db.phone_num.RemoveRange(phoneNumbersToDelete);
+                        db.SaveChanges();
+                    }
+
+                    result = await UserManager.DeleteAsync(user);
+
+                    if (!result.Succeeded)
+                    {
+                        ModelState.AddModelError("", result.Errors.First());
+                        return View();
+                    }
+
+                    return RedirectToAction("Index");
                 }
-                var result = await UserManager.DeleteAsync(user);
-                if (!result.Succeeded)
+                catch (Exception e)
                 {
-                    ModelState.AddModelError("", result.Errors.First());
-                    return View();
-                }
-                return RedirectToAction("Index");
+                    ModelState.AddModelError("", e.Message + "\r\n\\" + e.InnerException != null ? e.InnerException.InnerException != null ? e.InnerException.InnerException.Message : "" : "");
+                }                
             }
+
             return View();
         }
     }
