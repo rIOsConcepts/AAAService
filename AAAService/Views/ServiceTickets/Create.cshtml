@@ -41,19 +41,32 @@
             @*@Html.LabelFor(model => model.CompanyID, "Company", htmlAttributes: new { @class = "control-label col-md-2" })*@
             @Html.Label("Company", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("CompanyList", null, "Please Choose", htmlAttributes: new { @id = "CompanyList", @class = "form-control", @onchange = "javascript:GetServiceLocation(this.value);" })
+                @*@Html.DropDownList("CompanyList", null, "Please Choose", htmlAttributes: new { @id = "CompanyList", @class = "form-control", @onchange = "javascript:GetServiceLocation(this.value);" })*@
+                @Html.TextBoxFor(model => model.Company, new { @class = "form-control", @readonly = true })
                 @*@Html.DropDownListFor(tuple => tuple.Item1.StateModel, new SelectList(Model.Item1.StateModel, "Id", "StateName"), new { @id = "ddlcompany", @style = "width:200px;", @onchange = "javascript:GetServiceLocation(this.value);" })*@
                 @*@Html.ValidationMessageFor(model => model.CompanyID, "", new { @class = "text-danger" })*@
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Location, "Service Location", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @*@Html.DropDownList("LocationID", null, "Please Choose", htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.PriorityID, "", new { @class = "text-danger" })*@
-                <select class="form-control" id="ddlservicelocation" name="ddlservicelocation" style="width: 200px" onchange = "javascript:SetServiceLocation(this.value)"></select>
+        @if (User.IsInRole("CorpAdmin"))
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Location, "Service Location", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @*@Html.DropDownList("LocationID", null, "Please Choose", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PriorityID, "", new { @class = "text-danger" })*@
+                    <select class="form-control" id="ddlservicelocation" name="ddlservicelocation" style="width: 200px" onchange = "javascript:SetServiceLocation(this.value)"></select>
+                </div>
             </div>
-        </div>
+        }
+        else
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Location, "Service Location", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Location, new { @class = "form-control", @readonly = true })
+                </div>
+            </div>
+        }
         <div class="form-group">
             @Html.LabelFor(model => model.location_contact_name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

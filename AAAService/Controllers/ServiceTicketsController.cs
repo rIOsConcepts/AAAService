@@ -164,6 +164,7 @@ namespace AAAService.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
+            var view = new service_tickets();
             ViewBag.Id = id;
             //var myguid = id;
             TempData["LocationGuid"] = id;
@@ -179,12 +180,22 @@ namespace AAAService.Controllers
                 ViewBag.NightPhone = phones[1];
             }
 
-            var companyGUID = db.locationinfoes.Where(o => o.active == true && o.guid.ToString() == id.ToString()).ToList()[0].parentguid;
-            //var companyName = db.Companies.Where(o => o.active == true && o.guid.ToString() == companyGUID).ToList()[0].name;
-            var companyList = CompanyList(companyGUID);
-            ViewBag.CompanyList = companyList;
+            var locationInfo = db.locationinfoes.Where(o => o.active == true && o.guid == id);
+
+            if (locationInfo.Count() > 0)
+            {
+                var locationInfoToList = locationInfo.ToList()[0];
+                var companyGUID = locationInfoToList.parentguid;
+                view.Location = locationInfoToList.name;
+                var companyName = db.Companies.Where(o => o.active == true && o.guid == companyGUID).ToList()[0].name;
+                view.Company = companyName;
+                ViewBag.CompanyGUID = companyGUID;
+            }            
+            
+            //var companyList = CompanyList(companyGUID);
+            //ViewBag.CompanyList = companyList;
             //TempData["CompanyGUID"] = companyGUID;
-            ViewBag.CompanyGUID = companyGUID;
+            
             //ViewBag.LocationName = db.locationinfoes.Where(o => o.active == true && o.guid.ToString() == id.ToString()).ToList()[0].name;
             ViewBag.LocationName = id;
             //ViewBag.LocationDD = new SelectList(db.locationinfoes.Where(o => o.active == true).OrderBy(o => o.name), "guid", "name", service_tickets.service_location_guid);            
@@ -199,7 +210,8 @@ namespace AAAService.Controllers
                                orderby s.date_in descending
                                select s;
 
-            return View();
+            //return View();
+            return View(view);
             //return View(new Tuple<AAAService.Models.CountryModel, AAAService.Models.service_tickets>(objcountrymodel, new service_tickets()));
         }
 
@@ -224,7 +236,7 @@ namespace AAAService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "problem_summary,problem_details,CompanyID,LocationID,location_contact_name,location_contact_phone,location_contact_phone_night,cost_code,EQmodel,EQserial,EQProbDesc,service_provider,cust_po_num,CategoryID,Region,PriorityID,StatusName,StatusID,Location,City")] service_tickets service_tickets)
+        public ActionResult Create([Bind(Include = "problem_summary,problem_details,CompanyID,LocationID,Company,Location,location_contact_name,location_contact_phone,location_contact_phone_night,cost_code,EQmodel,EQserial,EQProbDesc,service_provider,cust_po_num,CategoryID,Region,PriorityID,StatusName,StatusID,Location,City")] service_tickets service_tickets)
         {
             var id = TempData.Peek("LocationGuid");
             Guid locationGUID = Guid.Parse(id.ToString());
