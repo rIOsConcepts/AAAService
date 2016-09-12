@@ -13,12 +13,14 @@ namespace AAAService.Helpers
 {
     class SvcHelper
     {
+        //public static List<Guid> getLocation()
         public static Guid getLocation()
         {
             aaahelpEntities db = new aaahelpEntities();
             ApplicationDbContext dbI = new ApplicationDbContext();
             var user = dbI.Users.FirstOrDefault(u => u.UserName == HttpContext.Current.User.Identity.Name);
             var myuserguid = user.guid;
+
             var mylist = from c in db.user_to_location
                          where c.user_guid.Equals(myuserguid)
                          select c;
@@ -27,12 +29,14 @@ namespace AAAService.Helpers
 
             if (x > 0)
             {
-                var mylocationnguid = mylist.First().location_guid;
-
+                //var mylocationnguid = mylist.First().location_guid;
                 return mylist.First().location_guid;
+                //return mylist.Select(o => o.location_guid).ToList();
             }
             else
             {
+                //var WTF = Guid.Parse("6FFB64D7-4D69-4F1C-BC55-5376588A39F4");
+                //return new List<Guid> { WTF };
                 return Guid.Parse("6FFB64D7-4D69-4F1C-BC55-5376588A39F4");
             }
         }
@@ -43,9 +47,11 @@ namespace AAAService.Helpers
             ApplicationDbContext dbI = new ApplicationDbContext();
             var user = dbI.Users.FirstOrDefault(u => u.UserName == HttpContext.Current.User.Identity.Name);
             var myuserguid = user.guid;
+
             var mylist = from c in db.user_viewable_locations
                          where c.user_guid.Equals(myuserguid)
                          select c;
+
             var x = mylist.Count();
             
             return x;

@@ -47,14 +47,14 @@
                 @*@Html.ValidationMessageFor(model => model.CompanyID, "", new { @class = "text-danger" })*@
             </div>
         </div>
-        @if (User.IsInRole("CorpAdmin"))
+        @if (User.IsInRole("CorpAdmin") || bool.Parse(TempData.Peek("SeveralLocations").ToString()))
         {
             <div class="form-group">
                 @Html.LabelFor(model => model.Location, "Service Location", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @*@Html.DropDownList("LocationID", null, "Please Choose", htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.PriorityID, "", new { @class = "text-danger" })*@
+                    @*@Html.DropDownList("LocationID", null, "Please Choose", htmlAttributes: new { @class = "form-control" })*@                    
                     <select class="form-control" id="ddlservicelocation" name="ddlservicelocation" style="width: 200px" onchange = "javascript:SetServiceLocation(this.value)"></select>
+                    @*@Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })*@
                 </div>
             </div>
         }
@@ -439,15 +439,15 @@ $(document).ready(
             cache: false,
             type: "POST",
             success: function (data) {
-                var markup = "<option value='0'>Please Choose</option>";
+                var markup = "<option value='0' selected>Please Choose</option>";
 
                 for (var x = 0; x < data.length; x++) {
-                    if (data[x].Value == "@ViewBag.LocationName") {
-                        markup += "<option value=" + data[x].Value + " selected>" + data[x].Text + "</option>";
-                    }
-                    else {
+                    @*if (data[x].Value == "@ViewBag.LocationName") {*@
+                        //markup += "<option value=" + data[x].Value + " selected>" + data[x].Text + "</option>";
+                    //}
+                    //else {
                         markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
-                    }
+                    //}
                 }
 
                 $("#ddlservicelocation").html(markup).show();

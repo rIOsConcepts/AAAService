@@ -25,14 +25,13 @@ namespace AAAService.Controllers
 
             if (mylocationguid == Guid.Parse("6FFB64D7-4D69-4F1C-BC55-5376588A39F4"))
             {
-
                 return View("NoLocation");
-
             }
             else
             {
                 // Check to see if that have more than one viewable location
                 var numlocs = AAAService.Helpers.SvcHelper.getnumLocations();
+
                 if (numlocs > 1)
                 {
                     // They do have at least two, so let them choose which one
@@ -41,9 +40,6 @@ namespace AAAService.Controllers
                     multilocs = multilocs.Where(s => s.user_guid == myuserguid).OrderByDescending(s => s.name);
 
                     return View(multilocs.ToList<user_viewable_locations_view>());
-
-
-
                 }
                 else
                 {

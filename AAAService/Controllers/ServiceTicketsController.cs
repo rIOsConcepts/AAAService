@@ -28,7 +28,19 @@ namespace AAAService.Controllers
         [HttpPost]
         public ActionResult GetServiceLocation(string companyGUID)
         {
-            SelectList obg = new SelectList(db.locationinfoes.Where(o => o.parentguid.ToString() == companyGUID && o.active == true).OrderBy(o => o.name), "guid", "Name");
+            SelectList obg;
+
+            if (User.IsInRole("CorpAdmin"))
+            {
+                obg = new SelectList(db.locationinfoes.Where(o => o.parentguid.ToString() == companyGUID && o.active == true).OrderBy(o => o.name), "guid", "Name");                
+            }
+            else
+            {
+                var userGUID = Helpers.UserHelper.getUserGuid();
+                var locationsOfUser = db.user_to_location.Where(o => o.user_guid == userGUID).Select(o => o.location_guid.ToString()).ToList();
+                obg = new SelectList(db.locationinfoes.Where(o => o.parentguid.ToString() == companyGUID && o.active == true && locationsOfUser.Contains(o.guid.ToString())).OrderBy(o => o.name), "guid", "Name");
+            }
+
             return Json(obg);
         }
         public ActionResult SetServiceLocation(string locationGUID)
@@ -166,8 +178,23 @@ namespace AAAService.Controllers
 
             var view = new service_tickets();
             ViewBag.Id = id;
-            //var myguid = id;
-            TempData["LocationGuid"] = id;
+            //var myguid = id;            
+            var userGUID = Helpers.UserHelper.getUserGuid();
+            var locationsOfUser = db.user_to_location.Where(o => o.user_guid == userGUID).Select(o => o.location_guid.ToString());
+            var parentGUID = db.locationinfoes.Where(o => o.guid == id).Select(o => o.parentguid).FirstOrDefault();
+            TempData["ParentGuid"] = parentGUID;
+
+            if (locationsOfUser.Count() > 1)
+            {
+                TempData["LocationGuid"] = "0";
+                TempData["SeveralLocations"] = true;
+            }
+            else
+            {
+                TempData["LocationGuid"] = id;
+                TempData["SeveralLocations"] = false;
+            }
+
             //var myloc = Helpers.SvcHelper.getParentGuid(id);
             // TempData["ParentLocation"] = ;
             ViewBag.FullName = Helpers.UserHelper.getUserName();
@@ -239,20 +266,40 @@ namespace AAAService.Controllers
         public ActionResult Create([Bind(Include = "problem_summary,problem_details,CompanyID,LocationID,Company,Location,location_contact_name,location_contact_phone,location_contact_phone_night,cost_code,EQmodel,EQserial,EQProbDesc,service_provider,cust_po_num,CategoryID,Region,PriorityID,StatusName,StatusID,Location,City")] service_tickets service_tickets)
         {
             var id = TempData.Peek("LocationGuid");
-            Guid locationGUID = Guid.Parse(id.ToString());
+            var parentGUID = Guid.Parse(TempData.Peek("ParentGuid").ToString());
+            var idString = id.ToString();
+
+            if (idString == "0")
+            {
+                ModelState.AddModelError("", "Please select a location");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.CompanyGUID = parentGUID;
+                ViewBag.FullName = service_tickets.location_contact_name;
+                ViewBag.DayPhone = service_tickets.location_contact_phone;
+                ViewBag.NightPhone = service_tickets.location_contact_phone_night;
+                ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true), "ID", "Name", service_tickets.PriorityStatus);
+                ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.active == true), "ID", "Name", service_tickets.ServiceCategory);
+                ViewBag.StatusID = new SelectList(db.StatusLists.Where(o => o.active == true), "ID", "Name", service_tickets.StatusName);
+                return View(service_tickets);
+            }
+
+            Guid locationGUID = Guid.Parse(idString);
             var mySvcCat = Request.Form["SvcCat"];
             var myPriStatus = Request.Form["PriStatus"];
             var myPriorityID = string.IsNullOrEmpty(Request.Form["PriorityID"]) ? 0 : int.Parse(Request.Form["PriorityID"]);
 
             var found = db.locationinfoes.FirstOrDefault(u => u.guid.Equals(locationGUID));
             var LocationName = found.name;
-            var ParentLoactionGuid = found.parentguid.ToString();
-            Guid parentGUID = Guid.Parse(ParentLoactionGuid);
+            //var ParentLoactionGuid = found.parentguid.ToString();
+            //Guid parentGUID = Guid.Parse(ParentLoactionGuid);
             var LocationRegion = found.region;
             var LocationCity = found.city;
             var LastUserGUID = Helpers.UserHelper.getUserGuid();
             int maxNumID = Helpers.SvcHelper.getSvcIDMax() + 1;
-            int maxNumST = Helpers.SvcHelper.getjobNumMax() + 1;
+            int maxNumST = Helpers.SvcHelper.getjobNumMax() + 1;            
 
             // var errors = ModelState.Values.SelectMany(v => v.Errors);*/
             if (ModelState.IsValid)
@@ -369,7 +416,7 @@ namespace AAAService.Controllers
             }
 
             var companyList = CompanyList(parentGUID);
-            ViewBag.CompanyList = companyList;
+            //ViewBag.CompanyList = companyList;
             ViewBag.CompanyGUID = parentGUID;
             ViewBag.LocationName = locationGUID;
             ViewBag.FullName = service_tickets.location_contact_name;

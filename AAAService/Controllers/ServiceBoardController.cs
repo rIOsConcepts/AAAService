@@ -33,30 +33,28 @@ namespace AAAService.Controllers
             else
             { 
                 var mylist2 = from d in db.locationinfoes
-                      where d.guid.Equals(mylocationguid)
-                      select d;
+                              where d.guid.Equals(mylocationguid)
+                              select d;
 
                 var mycompanyguid = mylist2.First().parentguid;
-
                 var x = Helpers.SvcHelper.getnumLocations();
 
-            if (mylocationguid.Equals(mycompanyguid))
-            {
-                    var multilocs = from s in db.service_boardNew
-                                    select s;
-                    multilocs = multilocs.Where(s => s.parent_company_guid == mycompanyguid).OrderByDescending(s => s.job_number);
-
-                    return View(multilocs.ToList<service_boardNew>());
-                }
-
-            if (x>0)
+                if (mylocationguid.Equals(mycompanyguid))
                 {
                     var multilocs = from s in db.service_boardNew
                                     select s;
+
                     multilocs = multilocs.Where(s => s.parent_company_guid == mycompanyguid).OrderByDescending(s => s.job_number);
-
                     return View(multilocs.ToList<service_boardNew>());
+                }
 
+                if (x > 0)
+                {
+                    var multilocs = from s in db.service_boardNew
+                                    select s;
+
+                    multilocs = multilocs.Where(s => s.parent_company_guid == mycompanyguid).OrderByDescending(s => s.job_number);
+                    return View(multilocs.ToList<service_boardNew>());
                 }
                 else
                 {
@@ -75,11 +73,7 @@ namespace AAAService.Controllers
 
                     return View(view);
                 }
-
-
-
-            }
-           
+            }           
         }
 
         //Action result for ajax call 
