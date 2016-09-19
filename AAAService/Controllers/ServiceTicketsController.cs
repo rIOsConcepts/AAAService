@@ -412,7 +412,8 @@ namespace AAAService.Controllers
                     System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + "log.txt", DateTime.Now + " => " + e.ToString());
                 }
 
-                return RedirectToAction("Index", "Home");
+                //return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "ServiceBoard");
             }
 
             var companyList = CompanyList(parentGUID);

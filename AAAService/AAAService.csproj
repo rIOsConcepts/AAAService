@@ -199,6 +199,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminBidRequestsBoardController.cs" />
     <Compile Include="Controllers\AdminTicketsController.cs" />
     <Compile Include="Controllers\BidRequestsBoardController.cs" />
     <Compile Include="Controllers\BidRequestsController.cs" />
@@ -782,6 +783,10 @@
     <Content Include="Views\ExportToCF\Index.cshtml" />
     <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\ReportBuilder\Index.cshtml" />
+    <Content Include="Views\AdminBidRequestsBoard\Index.cshtml" />
+    <Content Include="Views\AdminBidRequestsBoard\Details.cshtml" />
+    <Content Include="Views\AdminBidRequestsBoard\Delete.cshtml" />
+    <Content Include="Views\AdminBidRequestsBoard\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />

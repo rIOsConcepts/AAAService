@@ -1,0 +1,217 @@
+﻿@model AAAService.Models.bid_requests
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h3>Edit AAA Bid Request: @ViewBag.BidNumber   Created by @ViewBag.CreatedBy</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Administrator Edit</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("Company", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.CompanyName, new { @class = "form-control", @readonly = true })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Service Location", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.LocationName, new { @class = "form-control", @readonly = true })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.order_datetime, htmlAttributes: new { @class = "control-label col-md-2", @readonly = true })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.order_datetime, new
+                {
+                   htmlAttributes = new
+                   {
+                       @class = "form-control"
+                   }
+                })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.complete_datetime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.complete_datetime, new
+                {
+                    htmlAttributes = new
+                    {
+                        @class = "form-control",
+                        @onclick = "javascript:SetStatus(1);"
+                    }
+                })
+
+                @Html.ValidationMessageFor(model => model.complete_datetime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.location_contact_name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.location_contact_name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.location_contact_name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.location_contact_phone, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.location_contact_phone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.location_contact_phone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.location_contact_phone_night, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.location_contact_phone_night, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.location_contact_phone_night, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div id="monikersam" display none;>
+            <div class="form-group">
+                @Html.Label("Priority Level", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextArea("PriorityName", htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PriorityID, "Priority Level", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("PriorityID", null, "Please Choose", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PriorityID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.problem_summary, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.problem_summary, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.problem_details, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.problem_details, htmlAttributes: new { @class = "form-control", @rows = "10" })
+            </div>
+        </div>
+
+        <div id="monikersam2" display none;>
+            <div class="form-group">
+                @Html.Label("Status", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextArea("StatusName", htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StatusID, "Status", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("StatusID", null, htmlAttributes: new { @id = "StatusID", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.StatusID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.notes, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.notes, htmlAttributes: new { @class = "form-control", @rows = "7" })
+                @Html.ValidationMessageFor(model => model.notes, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.closed_datetime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.closed_datetime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.closed_datetime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.active, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.active)
+                    @Html.ValidationMessageFor(model => model.active, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+        </div>
+    </div>        
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $('#order_datetime').datetimepicker({
+                defaultDate: '@Model.order_datetime',
+                showClose: true,
+                showClear: true,
+                toolbarPlacement: 'top',
+            });
+
+            $('#complete_datetime').datetimepicker({
+                defaultDate: '@Model.complete_datetime',
+                showClose: true,
+                showClear: true,
+                toolbarPlacement: 'top',
+            });
+
+            $('#closed_datetime').datetimepicker({
+                defaultDate: '@Model.closed_datetime',
+                showClose: true,
+                showClear: true,
+                toolbarPlacement: 'top',
+            });
+        });
+    </script>
+}
+<script>
+    $(document).ready(
+    function () {
+        $("#monikersam").hide();
+        $("#monikersam2").hide();
+
+        $("#PriorityID").change(function () {
+            $(this).find("option:selected");
+            var newText = $("#PriorityID option:selected").text();
+            $('#PriorityName').text(newText);
+            $("#monikersam").hide();
+        })
+
+        $("#StatusID").change(function () {
+            $(this).find("option:selected");
+            var newText = $("#StatusID option:selected").text();
+            $('#StatusName').text(newText);
+            $("#monikersam2").hide();
+        })        
+    });
+</script>

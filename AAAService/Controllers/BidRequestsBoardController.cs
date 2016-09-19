@@ -77,23 +77,21 @@ namespace AAAService.Controllers
 
             }
 
-        }
-    
+        }    
 
         // GET: BidRequestsBoard/Details/5
         public ActionResult Details()
-        {
-           
+        {           
             return View();
         }
-
        
-     protected override void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
                 db.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }

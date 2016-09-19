@@ -43,11 +43,63 @@ namespace AAAService.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            var userGUID = Helpers.UserHelper.getUserGuid();
+            var locationsOfUser = db.user_to_location.Where(o => o.user_guid == userGUID).Select(o => o.location_guid.ToString());
+
+            if (locationsOfUser.Count() > 1)
+            {
+                TempData["SeveralLocations"] = true;
+            }
+            else
+            {
+                TempData["SeveralLocations"] = false;
+            }
+
+            var view = new bid_requests();
+            var locationInfo = db.locationinfoes.Where(o => o.active == true && o.guid == id);
+
+            if (locationInfo.Count() > 0)
+            {
+                var locationInfoToList = locationInfo.ToList()[0];
+                var companyGUID = locationInfoToList.parentguid;
+                view.LocationName = locationInfoToList.name;
+                var companyInfo = db.Companies.Where(o => o.active == true && o.guid == companyGUID);
+
+                if (companyInfo.Count() > 0)
+                {
+                    var companyName = companyInfo.ToList()[0].name;
+                    view.CompanyName = companyName;
+                    ViewBag.CompanyGUID = companyGUID;
+                }
+
+                if (locationInfo.Count() == 1)
+                {
+                    var primaryContact = db.user_to_location.Where(o => o.location_guid == id && o.primary_contact_bit == true);
+
+                    if (primaryContact.Count() > 0)
+                    {
+                        var primaryContactUserGUID = primaryContact.ToList()[0].user_guid;
+                        var primaryContactASPNetUsers = db.AspNetUsers.Where(o => o.guid == primaryContactUserGUID);
+                        var primaryContactPhoneNum = db.phone_num.Where(o => o.user_guid == primaryContactUserGUID);
+
+                        if (primaryContactASPNetUsers.Count() > 0)
+                        {
+                            view.location_contact_name = primaryContactASPNetUsers.ToList()[0].fname + " " + primaryContactASPNetUsers.ToList()[0].lname;
+                        }
+
+                        if (primaryContactPhoneNum.Count() > 0)
+                        {
+                            view.location_contact_phone = primaryContactPhoneNum.ToList()[0].phone_day;
+                            view.location_contact_phone_night = primaryContactPhoneNum.ToList()[0].phone_night;
+                        }
+                    }
+                }
+            }
+
             TempData["LocationGuid"] = id;
-            
-            ViewBag.PriorityID = new SelectList(db.PriorityLists, "ID", "Name");
-           
-            return View();
+            ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true), "ID", "Name");
+            return View(view);
         }
 
         // POST: BidRequests/Create
@@ -55,9 +107,9 @@ namespace AAAService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "problem_summary,problem_details,location_contact_name,location_contact_phone,location_contact_phone_night,PriorityID,")] bid_requests bid_requests)
+        public ActionResult Create([Bind(Include = "problem_summary,problem_details,CompanyName,LocationName,location_contact_name,location_contact_phone,location_contact_phone_night,PriorityID,")] bid_requests bid_requests)
         {
-            var mynewguid = TempData["LocationGuid"].ToString();
+            var mynewguid = TempData.Peek("LocationGuid").ToString();
             Guid mytest = Guid.Parse(mynewguid);
 
             var myPriStatus = Request.Form["PriStatus"];
@@ -85,7 +137,8 @@ namespace AAAService.Controllers
                 bid_requests.guid = Guid.NewGuid();
                 db.bid_requests.Add(bid_requests);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return RedirectToAction("Index", "BidRequestsBoard");
             }
 
            
@@ -101,8 +154,24 @@ namespace AAAService.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             bid_requests bid_requests = db.bid_requests.Find(id);
-            
+            var locationInfo = db.locationinfoes.Where(o => o.active == true && o.guid == bid_requests.service_location_guid);
+
+            if (locationInfo.Count() > 0)
+            {
+                var locationInfoToList = locationInfo.ToList()[0];
+                var companyGUID = locationInfoToList.parentguid;
+                bid_requests.LocationName = locationInfoToList.name;
+                var companyInfo = db.Companies.Where(o => o.active == true && o.guid == companyGUID);
+
+                if (companyInfo.Count() > 0)
+                {
+                    var companyName = companyInfo.ToList()[0].name;
+                    bid_requests.CompanyName = companyName;
+                }
+            }
+
             ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true), "ID", "Name", bid_requests.PriorityID);
             ViewBag.StatusID = new SelectList(db.StatusLists.Where(o => o.active == true), "ID", "Name", bid_requests.StatusID);
 
@@ -120,25 +189,49 @@ namespace AAAService.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             var bidToUpdate = db.bid_requests.Find(id);
             var mylastuserguid = Helpers.UserHelper.getUserGuid();
 
             if (TryUpdateModel(bidToUpdate, "",
-                new string[] { "problem_details", "problem_summary", "location_contact_name", "location_contact_phone", }))
+                new string[] { "problem_details", "problem_summary", "location_contact_name", "location_contact_phone", "location_contact_phone_night", }))
             {
                 try
                 {
                     bidToUpdate.last_updated_by_user_guid = mylastuserguid;
                     bidToUpdate.last_update_datetime = DateTime.Now;
-                    var priorityID = int.Parse(Request.Form["PriorityID"]);
-                    bidToUpdate.PriorityID = priorityID;
-                    bidToUpdate.PriorityStatus = db.PriorityLists.Where(o => o.active == true && o.ID == priorityID).ToList()[0].Name;
-                    var statusID = int.Parse(Request.Form["StatusID"]);
-                    bidToUpdate.StatusID = statusID;
-                    bidToUpdate.StatusName = db.StatusLists.Where(o => o.active == true && o.ID == statusID).ToList()[0].Name;
+                    //var priorityID = int.Parse(Request.Form["PriorityID"]);
+                    //bidToUpdate.PriorityID = priorityID;
+                    //bidToUpdate.PriorityStatus = db.PriorityLists.Where(o => o.active == true && o.ID == priorityID).ToList()[0].Name;
+                    //Users not allowed to change Status, therefore commenting out code below
+                    //var statusID = int.Parse(Request.Form["StatusID"]);
+                    //bidToUpdate.StatusID = statusID;
+                    //bidToUpdate.StatusName = db.StatusLists.Where(o => o.active == true && o.ID == statusID).ToList()[0].Name;
+
+                    var mytime = DateTime.Now.ToString();
+                    var newNotes = Request.Form["ProbSum"];
+
+                    if (newNotes != "")
+                    {
+                        var problem_details = Request.Form["problem_details"];
+                        var internalNotes = Request.Form["internal_notes"];
+
+                        if (problem_details != "")
+                        {
+                            problem_details = "Updated " + mytime + System.Environment.NewLine + newNotes + System.Environment.NewLine + System.Environment.NewLine + problem_details;
+                        }
+                        else
+                        {
+                            problem_details = Request.Form["ProbSum"];
+                        }
+
+                        bidToUpdate.problem_details = problem_details;
+                    }
+
                     db.SaveChanges();
 
-                    return RedirectToAction("Index");
+                    //return RedirectToAction("Index");
+                    return RedirectToAction("Index", "BidRequestsBoard");
                 }
                 catch (DataException /* dex */)
                 {
@@ -147,6 +240,7 @@ namespace AAAService.Controllers
                 }
 
             }
+
             ViewBag.PriorityID = new SelectList(db.PriorityLists, "ID", "Name", bidToUpdate.PriorityID);
            
             return View(bidToUpdate);
@@ -185,6 +279,32 @@ namespace AAAService.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        //Action result for ajax call
+        [HttpPost]
+        public ActionResult GetServiceLocation(string companyGUID)
+        {
+            SelectList obg;
+
+            if (User.IsInRole("CorpAdmin"))
+            {
+                obg = new SelectList(db.locationinfoes.Where(o => o.parentguid.ToString() == companyGUID && o.active == true).OrderBy(o => o.name), "guid", "Name");
+            }
+            else
+            {
+                var userGUID = Helpers.UserHelper.getUserGuid();
+                var locationsOfUser = db.user_to_location.Where(o => o.user_guid == userGUID).Select(o => o.location_guid.ToString()).ToList();
+                obg = new SelectList(db.locationinfoes.Where(o => o.parentguid.ToString() == companyGUID && o.active == true && locationsOfUser.Contains(o.guid.ToString())).OrderBy(o => o.name), "guid", "Name");
+            }
+
+            return Json(obg);
+        }
+
+        public ActionResult SetServiceLocation(string locationGUID)
+        {
+            TempData["LocationGuid"] = locationGUID;
+            return null;
         }
     }
 }
