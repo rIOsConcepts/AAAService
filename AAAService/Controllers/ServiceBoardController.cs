@@ -29,7 +29,6 @@ namespace AAAService.Controllers
                 //return RedirectToAction("Edit");
                 return View(new List<service_boardNew>());
             }
-
             else
             { 
                 var mylist2 = from d in db.locationinfoes
@@ -37,14 +36,28 @@ namespace AAAService.Controllers
                               select d;
 
                 var mycompanyguid = mylist2.First().parentguid;
-                var x = Helpers.SvcHelper.getnumLocations();
+                //var x = Helpers.SvcHelper.getnumLocations();
+                var mylist = from c in db.user_to_location
+                             where c.user_guid.Equals(myuserguid)
+                             select c;
+
+                var x = mylist.Count();
 
                 if (mylocationguid.Equals(mycompanyguid))
                 {
                     var multilocs = from s in db.service_boardNew
                                     select s;
 
-                    multilocs = multilocs.Where(s => s.parent_company_guid == mycompanyguid).OrderByDescending(s => s.job_number);
+                    if (User.IsInRole("CorpAdmin"))
+                    {
+                        multilocs = multilocs.Where(s => s.parent_company_guid == mycompanyguid).OrderByDescending(s => s.job_number);
+                    }
+                    else
+                    {
+                        var locationsOfUser = mylist.Select(o => o.location_guid.ToString()).ToList();
+                        multilocs = multilocs.Where(s => locationsOfUser.Contains(s.service_location_guid.ToString())).OrderByDescending(s => s.job_number);
+                    }
+
                     return View(multilocs.ToList<service_boardNew>());
                 }
 
@@ -53,7 +66,16 @@ namespace AAAService.Controllers
                     var multilocs = from s in db.service_boardNew
                                     select s;
 
-                    multilocs = multilocs.Where(s => s.parent_company_guid == mycompanyguid).OrderByDescending(s => s.job_number);
+                    if (User.IsInRole("CorpAdmin"))
+                    {
+                        multilocs = multilocs.Where(s => s.parent_company_guid == mycompanyguid).OrderByDescending(s => s.job_number);
+                    }
+                    else
+                    {
+                        var locationsOfUser = mylist.Select(o => o.location_guid.ToString()).ToList();
+                        multilocs = multilocs.Where(s => locationsOfUser.Contains(s.service_location_guid.ToString())).OrderByDescending(s => s.job_number);
+                    }
+
                     return View(multilocs.ToList<service_boardNew>());
                 }
                 else

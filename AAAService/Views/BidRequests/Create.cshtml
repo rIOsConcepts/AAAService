@@ -20,6 +20,7 @@
                 @Html.TextBoxFor(model => model.CompanyName, new { @class = "form-control", @readonly = true })
             </div>
         </div>
+
         @if (User.IsInRole("CorpAdmin") || bool.Parse(TempData.Peek("SeveralLocations").ToString()))
         {
             <div class="form-group">
@@ -36,7 +37,7 @@
                 <div class="col-md-10">
                     @Html.TextBoxFor(model => model.LocationName, new { @class = "form-control", @readonly = true })
                 </div>
-            </div>
+            </div>            
         }
 
         <div class="form-group">
@@ -54,6 +55,7 @@
                 @Html.ValidationMessageFor(model => model.location_contact_phone, "", new { @class = "text-danger" })
             </div>
         </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.location_contact_phone_night, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -61,6 +63,7 @@
                 @Html.ValidationMessageFor(model => model.location_contact_phone_night, "", new { @class = "text-danger" })
             </div>
         </div>
+        
         <div id="monikersam" display none;>
             <div class="form-group">
                 @Html.Label("Priority Level", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -69,6 +72,7 @@
                 </div>
             </div>
         </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.PriorityID, "Priority Level", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -76,6 +80,7 @@
                 @Html.ValidationMessageFor(model => model.PriorityID, "", new { @class = "text-danger" })
             </div>
         </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.problem_summary, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -104,19 +109,20 @@
 <div>
     @Html.RouteLink("Back to List", new { controller = "BidRequestsBoard", action = "Index", id = "" })
 </div>
+
 <script>
     $(document).ready(
-      function() {
-      $("#monikersam").hide();
-      $("#PriorityID").change(function () {
-          $(this).find("option:selected");
-          var newText = $("#PriorityID option:selected").text();
-          $('#PriStatus').text(newText);
+      function () {
           $("#monikersam").hide();
-      })
+          $("#PriorityID").change(function () {
+              $(this).find("option:selected");
+              var newText = $("#PriorityID option:selected").text();
+              $('#PriStatus').text(newText);
+              $("#monikersam").hide();
+          })
 
-      GetServiceLocation("@ViewBag.CompanyGUID");
-    });
+          GetServiceLocation("@ViewBag.CompanyGUID");
+      });
 
     function GetServiceLocation(_companyGUID) {
         var procemessage = "<option value='0'> Please wait...</option>";
@@ -129,23 +135,30 @@
             cache: false,
             type: "POST",
             success: function (data) {
-                var markup = "<option value='0' selected>Please Choose</option>";
+                var markup = "";
+
+                if ("@TempData.Peek("LocationGuid")" == "") {
+                    markup = "<option value='0' selected>Please Choose</option>";
+                }
+                else {
+                    markup = "<option value='0'>Please Choose</option>";
+                }
 
                 for (var x = 0; x < data.length; x++) {
-                    @*if (data[x].Value == "@ViewBag.LocationName") {*@
-                        //markup += "<option value=" + data[x].Value + " selected>" + data[x].Text + "</option>";
-                    //}
-                    //else {
-                        markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
-                        //}
+                    if (data[x].Value == "@TempData.Peek("LocationGuid")") {
+                        markup += "<option value=" + data[x].Value + " selected>" + data[x].Text + "</option>";
                     }
-
-                    $("#ddlservicelocation").html(markup).show();
-                },
-                error: function (reponse) {
-                    alert("error : " + reponse);
+                    else {
+                        markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                    }
                 }
-            });
+
+                $("#ddlservicelocation").html(markup).show();
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
     }
 
     function SetServiceLocation(_locationGUID) {
@@ -157,6 +170,9 @@
             cache: false,
             type: "POST",
             success: function (data) {
+                $("#location_contact_name").val(data.Name);
+                $("#location_contact_phone").val(data.PhoneDay);
+                $("#location_contact_phone_night").val(data.PhoneNight);
             },
             error: function (reponse) {
                 alert("error : " + reponse);

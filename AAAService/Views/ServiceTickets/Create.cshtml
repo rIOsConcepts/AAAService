@@ -439,15 +439,22 @@ $(document).ready(
             cache: false,
             type: "POST",
             success: function (data) {
-                var markup = "<option value='0' selected>Please Choose</option>";
+                var markup = "";
+
+                if ("@TempData.Peek("LocationGuid")" == "") {
+                    markup = "<option value='0' selected>Please Choose</option>";
+                }
+                else {
+                    markup = "<option value='0'>Please Choose</option>";
+                }
 
                 for (var x = 0; x < data.length; x++) {
-                    @*if (data[x].Value == "@ViewBag.LocationName") {*@
-                        //markup += "<option value=" + data[x].Value + " selected>" + data[x].Text + "</option>";
-                    //}
-                    //else {
+                    if (data[x].Value == "@TempData.Peek("LocationGuid")") {
+                        markup += "<option value=" + data[x].Value + " selected>" + data[x].Text + "</option>";
+                    }
+                    else {
                         markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
-                    //}
+                    }
                 }
 
                 $("#ddlservicelocation").html(markup).show();
@@ -472,5 +479,5 @@ $(document).ready(
                 alert("error : " + reponse);
             }
         });
-    }    
+    }
 </script>

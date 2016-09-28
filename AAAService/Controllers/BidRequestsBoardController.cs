@@ -26,6 +26,7 @@ namespace AAAService.Controllers
             var mylist = from c in db.user_to_location
                          where c.user_guid.Equals(myuserguid)
                          select c;
+
             var x = mylist.Count();
             var mylocationnguid = mylist.Count() > 0 ? mylist.First().location_guid : Guid.NewGuid();
 
@@ -46,22 +47,28 @@ namespace AAAService.Controllers
             }
             else
             {
-
-
-
                 if (x > 1)
                 {
                     var multilocs = from s in db.Bid_Requests_View
                                     select s;
-                    multilocs = multilocs.Where(s => s.parent_company_guid == mycompanyguid).OrderByDescending(s => s.bid_num);
+
+                    if (User.IsInRole("CorpAdmin"))
+                    {
+                        multilocs = multilocs.Where(s => s.parent_company_guid == mycompanyguid).OrderByDescending(s => s.bid_num);
+                    }
+                    else
+                    {
+                        var locationsOfUser = mylist.Select(o => o.location_guid.ToString()).ToList();
+                        multilocs = multilocs.Where(s => locationsOfUser.Contains(s.service_location_guid.ToString())).OrderByDescending(s => s.bid_num);
+                    }
 
                     return View(multilocs.ToList<Bid_Requests_View>());
-
                 }
                 else
                 {
                     var singleloc = from s in db.Bid_Requests_View
                                     select s;
+
                     singleloc = singleloc.Where(s => s.service_location_guid == (mylocationnguid)).OrderByDescending(s => s.bid_num);
                     var view = singleloc.ToList<Bid_Requests_View>();
 
@@ -72,12 +79,8 @@ namespace AAAService.Controllers
 
                     return View(view);
                 }
-
-
-
             }
-
-        }    
+        }
 
         // GET: BidRequestsBoard/Details/5
         public ActionResult Details()

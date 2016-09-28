@@ -110,17 +110,17 @@ namespace AAAService.Controllers
         public ActionResult Create([Bind(Include = "problem_summary,problem_details,CompanyName,LocationName,location_contact_name,location_contact_phone,location_contact_phone_night,PriorityID,")] bid_requests bid_requests)
         {
             var mynewguid = TempData.Peek("LocationGuid").ToString();
-            Guid mytest = Guid.Parse(mynewguid);
-
+            Guid locationGUID = Guid.Parse(mynewguid);
             var myPriStatus = Request.Form["PriStatus"];
             int maxNumBQ = Helpers.SvcHelper.getBidMax() + 1;
-            var found = db.locationinfoes.FirstOrDefault(u => u.guid.Equals(mytest));
+            var found = db.locationinfoes.FirstOrDefault(u => u.guid.Equals(locationGUID));
             var LocationName = found.name;
             var ParentLoactionGuid = found.parentguid.ToString();
             Guid mypappy = Guid.Parse(ParentLoactionGuid);
             var LocationRegion = found.region;
             var LocationCity = found.city;
             var LastUserGUID = Helpers.UserHelper.getUserGuid();
+
             if (ModelState.IsValid)
             {
                 bid_requests.bid_num = maxNumBQ;
@@ -130,7 +130,7 @@ namespace AAAService.Controllers
                 bid_requests.order_datetime = DateTime.Now;
                 bid_requests.last_updated_by_user_guid = LastUserGUID;
                 bid_requests.last_update_datetime = DateTime.Now;
-                bid_requests.service_location_guid = mytest;
+                bid_requests.service_location_guid = locationGUID;
                 bid_requests.StatusID = 9;
                 bid_requests.StatusName = "Open";
                 bid_requests.created_by_user_guid = LastUserGUID;
@@ -138,12 +138,62 @@ namespace AAAService.Controllers
                 db.bid_requests.Add(bid_requests);
                 db.SaveChanges();
                 //return RedirectToAction("Index");
+
+                try
+                {
+                    var email = new Correspondence.Mail();
+                    var user = db.AspNetUsers.Where(o => o.guid == bid_requests.last_updated_by_user_guid).ToList()[0];
+
+                    var body = "AAA Web Portal Service Ticket\r\n\r\n" +
+                               "Requested By: " + user.fname.ToUpper() + " " + user.lname.ToUpper() + "\r\n" +
+                               "Customer Number " + found.cf_location_num + "\r\n" +
+                               "Cost Code " + service_tickets.cost_code + "\r\n" +
+                               "Customer PO# " + service_tickets.cust_po_num + "\r\n" +
+                               "Service Provider " + service_tickets.service_provider + "\r\n" +
+                               "Service Location: " + service_tickets.Location.ToUpper() + "\r\n" +
+                               "Address Line 1: " + found.addressline1.ToUpper() + "\r\n" +
+                               "Address Line 2: " + found.addressline2.ToUpper() + "\r\n" +
+                               "City: " + found.city.ToUpper() + "\r\n" +
+                               "State: " + found.state.ToUpper() + "\r\n" +
+                               "Zip: " + found.zip + "\r\n" +
+                               "Job Number: " + service_tickets.job_number + "\r\n" +
+                               "Contact Name: " + found.name.ToUpper() + "\r\n" +
+                               "Contact Number: " + service_tickets.location_contact_phone + "\r\n" +
+                               "Contact After Hours Number: " + service_tickets.location_contact_phone_night + "\r\n" +
+                               "Priority Code: " + service_tickets.PriorityID + " - " + db.PriorityLists.Where(o => o.ID == service_tickets.PriorityID).ToList()[0].Name.ToUpper() + "\r\n" +
+                               "Priority Code: " + service_tickets.PriorityID + "\r\n" +
+                               "Order Date: " + service_tickets.order_datetime.ToShortDateString() + "\r\n" +
+                               "Order Time: " + service_tickets.order_datetime.ToShortTimeString() + "\r\n" +
+                               "Category " + service_tickets.CategoryID + "\r\n" +
+                               "Request Summary\r\n" +
+                               service_tickets.problem_summary.ToUpper() + "\r\n" +
+                               "Request Details\r\n" +
+                               service_tickets.problem_details.ToUpper() + "\r\n" +
+                               "Status Code: " + service_tickets.StatusName.ToUpper() + "\r\n" +
+
+                               //I checked with our reps.They never used Zone or service rep function in old portal.  We can drop it off and make the list small.
+                               //"Zone: " + "WHERE DOES THIS VALUE COME FROM?" + "\r\n" +
+                               //"Service Type: " + service_tickets.ServiceCategory.ToUpper() + "\r\n" +
+
+                               //"Service Rep: " + "WHERE DOES THIS VALUE COME FROM?" + "\r\n" +
+                               "Taken By: Web Portal\r\n\r\n" +
+                               "If you have questions or concerns about this message please contact us at 1-800-892-4784.\r\n\r\n" +
+                               "Please do not reply to this e-mail, this account is not monitored.";
+
+                    email.Send(subject: "Web Portal Service Ticket Entered", body: body, email: user.Email);
+                }
+                catch (Exception e)
+                {
+                    System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + "log.txt", DateTime.Now + " => " + e.ToString());
+                }
+
                 return RedirectToAction("Index", "BidRequestsBoard");
             }
 
            
-            ViewBag.PriorityID = new SelectList(db.PriorityLists, "ID", "Name", bid_requests.PriorityID);
-           
+            ViewBag.PriorityID = new SelectList(db.PriorityLists, "ID", "Name", bid_requests.PriorityID);                
+            var companyGUID = found.parentguid;
+            ViewBag.CompanyGUID = companyGUID;
             return View(bid_requests);
         }
 
@@ -303,8 +353,30 @@ namespace AAAService.Controllers
 
         public ActionResult SetServiceLocation(string locationGUID)
         {
+            var locationContact = new LocationContact();
             TempData["LocationGuid"] = locationGUID;
-            return null;
+            var location = Guid.Parse(locationGUID);
+            var primaryContact = db.user_to_location.Where(o => o.location_guid == location && o.primary_contact_bit == true);
+
+            if (primaryContact.Count() > 0)
+            {
+                var primaryContactUserGUID = primaryContact.ToList()[0].user_guid;
+                var primaryContactASPNetUsers = db.AspNetUsers.Where(o => o.guid == primaryContactUserGUID);
+                var primaryContactPhoneNum = db.phone_num.Where(o => o.user_guid == primaryContactUserGUID);
+
+                if (primaryContactASPNetUsers.Count() > 0)
+                {
+                    locationContact.Name = primaryContactASPNetUsers.ToList()[0].fname + " " + primaryContactASPNetUsers.ToList()[0].lname;
+                }
+
+                if (primaryContactPhoneNum.Count() > 0)
+                {
+                    locationContact.PhoneDay = primaryContactPhoneNum.ToList()[0].phone_day;
+                    locationContact.PhoneNight = primaryContactPhoneNum.ToList()[0].phone_night;
+                }
+            }
+
+            return Json(locationContact);
         }
-    }
+    }    
 }
