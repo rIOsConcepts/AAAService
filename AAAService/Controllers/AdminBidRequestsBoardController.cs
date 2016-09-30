@@ -20,53 +20,18 @@ namespace AAAService.Controllers
 
         public ActionResult Index()
         {
-            var mylist = from c in db.user_to_location
-                         select c;
+            var multilocs = from s in db.Bid_Requests_View
+                            select s;
 
-            var x = mylist.Count();
-            var mylocationnguid = mylist.Count() > 0 ? mylist.First().location_guid : Guid.NewGuid();
+            multilocs = multilocs.OrderByDescending(s => s.bid_num);
+            var view = multilocs.ToList<Bid_Requests_View>();
 
-            var mylist2 = from d in db.locationinfoes
-                          where d.guid.Equals(mylocationnguid)
-                          select d;
-
-            var mycompanyguid = mylist2.Count() > 0 ? mylist2.First().parentguid : Guid.NewGuid();
-
-            if (mylocationnguid.Equals(mycompanyguid))
+            foreach (var item in view)
             {
-                x = 2;
+                item.order_datetime = item.order_datetime.Date;
             }
 
-            if (mylist == null)
-            {
-                return View("Details");
-            }
-            else
-            {
-                if (x > 1)
-                {
-                    var multilocs = from s in db.Bid_Requests_View
-                                    select s;
-
-                    multilocs = multilocs.Where(s => s.parent_company_guid == mycompanyguid).OrderByDescending(s => s.bid_num);
-                    return View(multilocs.ToList<Bid_Requests_View>());
-                }
-                else
-                {
-                    var singleloc = from s in db.Bid_Requests_View
-                                    select s;
-
-                    singleloc = singleloc.Where(s => s.service_location_guid == (mylocationnguid)).OrderByDescending(s => s.bid_num);
-                    var view = singleloc.ToList<Bid_Requests_View>();
-
-                    foreach (var item in view)
-                    {
-                        item.order_datetime = item.order_datetime.Date;
-                    }
-
-                    return View(view);
-                }
-            }
+            return View(view);
         }
 
         public ActionResult Edit(Guid? id)
@@ -139,6 +104,42 @@ namespace AAAService.Controllers
                     bid_requests.last_update_datetime = DateTime.Now;
                     bid_requests.last_updated_by_user_guid = lastuserguid;
                     db.SaveChanges();
+
+                    try
+                    {
+                        var email = new Correspondence.Mail();
+                        var user = db.AspNetUsers.Where(o => o.guid == bid_requests.last_updated_by_user_guid).ToList()[0];
+                        var found = db.locationinfoes.FirstOrDefault(u => u.guid.Equals(bid_requests.service_location_guid));
+                        var parentCompanyName = db.Companies.Where(o => o.active == true && o.guid == found.parentguid);
+
+                        var body = "Bid Number #: " + bid_requests.bid_num + "\r\n" +
+                                   "Request Date: " + bid_requests.order_datetime.ToShortDateString() + "\r\n" +
+                                   "Request Time: " + bid_requests.order_datetime.ToShortTimeString() + "\r\n" +
+                                   "CF Data Company #: " + (parentCompanyName.Count() > 0 ? parentCompanyName.ToList()[0].cf_company_num : "") + "\r\n" +
+                                   "Parent Company Name: " + (parentCompanyName.Count() > 0 ? parentCompanyName.ToList()[0].name : "") + "\r\n" +
+                                   "\r\n" +
+                                   "CF Data Service Location #: " + found.cf_location_num + "\r\n" +
+                                   "Service Location Name: " + found.cf_location_num + "\r\n" +
+                                   "Service Location Address Line 1: " + found.addressline1.ToUpper() + "\r\n" +
+                                   "Service Location Address Line 2: " + found.addressline2.ToUpper() + "\r\n" +
+                                   "Service Location City: " + found.city.ToUpper() + "\r\n" +
+                                   "Service Location State: " + found.state.ToUpper() + "\r\n" +
+                                   "Service Location Zip: " + found.zip + "\r\n" +
+                                   "\r\n" +
+                                   "Request Priority Code: " + bid_requests.PriorityID + "\r\n" +
+                                   "Request Summary: " + bid_requests.problem_summary.ToUpper() + "\r\n" +
+                                   "Request Details: " + bid_requests.problem_details.ToUpper() + "\r\n" +
+                                   "Request Created By: " + user.fname.ToUpper() + " " + user.lname.ToUpper() + "\r\n" +
+                                   "Person To Contact: " + found.name.ToUpper() + "\r\n" +
+                                   "Contact Phone: " + bid_requests.location_contact_phone + "\r\n" +
+                                   "Contact After Hours Phone: " + bid_requests.location_contact_phone_night + "\r\n";
+
+                        email.Send(subject: "Web Portal Bid Request Updated", body: body, email: user.Email);
+                    }
+                    catch (Exception e)
+                    {
+                        System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + "log.txt", DateTime.Now + " => " + e.ToString());
+                    }
 
                     return RedirectToAction("Index");
                 }

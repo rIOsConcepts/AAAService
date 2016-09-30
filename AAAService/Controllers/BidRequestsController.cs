@@ -143,44 +143,31 @@ namespace AAAService.Controllers
                 {
                     var email = new Correspondence.Mail();
                     var user = db.AspNetUsers.Where(o => o.guid == bid_requests.last_updated_by_user_guid).ToList()[0];
+                    var parentCompanyName = db.Companies.Where(o => o.active == true && o.guid == found.parentguid);
 
-                    var body = "AAA Web Portal Service Ticket\r\n\r\n" +
-                               "Requested By: " + user.fname.ToUpper() + " " + user.lname.ToUpper() + "\r\n" +
-                               "Customer Number " + found.cf_location_num + "\r\n" +
-                               "Cost Code " + service_tickets.cost_code + "\r\n" +
-                               "Customer PO# " + service_tickets.cust_po_num + "\r\n" +
-                               "Service Provider " + service_tickets.service_provider + "\r\n" +
-                               "Service Location: " + service_tickets.Location.ToUpper() + "\r\n" +
-                               "Address Line 1: " + found.addressline1.ToUpper() + "\r\n" +
-                               "Address Line 2: " + found.addressline2.ToUpper() + "\r\n" +
-                               "City: " + found.city.ToUpper() + "\r\n" +
-                               "State: " + found.state.ToUpper() + "\r\n" +
-                               "Zip: " + found.zip + "\r\n" +
-                               "Job Number: " + service_tickets.job_number + "\r\n" +
-                               "Contact Name: " + found.name.ToUpper() + "\r\n" +
-                               "Contact Number: " + service_tickets.location_contact_phone + "\r\n" +
-                               "Contact After Hours Number: " + service_tickets.location_contact_phone_night + "\r\n" +
-                               "Priority Code: " + service_tickets.PriorityID + " - " + db.PriorityLists.Where(o => o.ID == service_tickets.PriorityID).ToList()[0].Name.ToUpper() + "\r\n" +
-                               "Priority Code: " + service_tickets.PriorityID + "\r\n" +
-                               "Order Date: " + service_tickets.order_datetime.ToShortDateString() + "\r\n" +
-                               "Order Time: " + service_tickets.order_datetime.ToShortTimeString() + "\r\n" +
-                               "Category " + service_tickets.CategoryID + "\r\n" +
-                               "Request Summary\r\n" +
-                               service_tickets.problem_summary.ToUpper() + "\r\n" +
-                               "Request Details\r\n" +
-                               service_tickets.problem_details.ToUpper() + "\r\n" +
-                               "Status Code: " + service_tickets.StatusName.ToUpper() + "\r\n" +
+                    var body = "Bid Number #: " + bid_requests.bid_num + "\r\n" +
+                               "Request Date: " + bid_requests.order_datetime.ToShortDateString() + "\r\n" +
+                               "Request Time: " + bid_requests.order_datetime.ToShortTimeString() + "\r\n" +
+                               "CF Data Company #: " + (parentCompanyName.Count() > 0 ? parentCompanyName.ToList()[0].cf_company_num : "") + "\r\n" +
+                               "Parent Company Name: " + (parentCompanyName.Count() > 0 ? parentCompanyName.ToList()[0].name : "") + "\r\n" +
+                               "\r\n" +
+                               "CF Data Service Location #: " + found.cf_location_num + "\r\n" +
+                               "Service Location Name: " + found.cf_location_num + "\r\n" +
+                               "Service Location Address Line 1: " + found.addressline1.ToUpper() + "\r\n" +
+                               "Service Location Address Line 2: " + found.addressline2.ToUpper() + "\r\n" +
+                               "Service Location City: " + found.city.ToUpper() + "\r\n" +
+                               "Service Location State: " + found.state.ToUpper() + "\r\n" +
+                               "Service Location Zip: " + found.zip + "\r\n" +
+                               "\r\n" +
+                               "Request Priority Code: " + bid_requests.PriorityID + "\r\n" +
+                               "Request Summary: " + bid_requests.problem_summary.ToUpper() + "\r\n" +
+                               "Request Details: " + bid_requests.problem_details.ToUpper() + "\r\n" +
+                               "Request Created By: " + user.fname.ToUpper() + " " + user.lname.ToUpper() + "\r\n" +
+                               "Person To Contact: " + found.name.ToUpper() + "\r\n" +
+                               "Contact Phone: " + bid_requests.location_contact_phone + "\r\n" +
+                               "Contact After Hours Phone: " + bid_requests.location_contact_phone_night + "\r\n";
 
-                               //I checked with our reps.They never used Zone or service rep function in old portal.  We can drop it off and make the list small.
-                               //"Zone: " + "WHERE DOES THIS VALUE COME FROM?" + "\r\n" +
-                               //"Service Type: " + service_tickets.ServiceCategory.ToUpper() + "\r\n" +
-
-                               //"Service Rep: " + "WHERE DOES THIS VALUE COME FROM?" + "\r\n" +
-                               "Taken By: Web Portal\r\n\r\n" +
-                               "If you have questions or concerns about this message please contact us at 1-800-892-4784.\r\n\r\n" +
-                               "Please do not reply to this e-mail, this account is not monitored.";
-
-                    email.Send(subject: "Web Portal Service Ticket Entered", body: body, email: user.Email);
+                    email.Send(subject: "Web Portal Bid Request Submitted", body: body, email: user.Email);
                 }
                 catch (Exception e)
                 {
@@ -279,6 +266,42 @@ namespace AAAService.Controllers
                     }
 
                     db.SaveChanges();
+
+                    try
+                    {
+                        var email = new Correspondence.Mail();
+                        var user = db.AspNetUsers.Where(o => o.guid == bidToUpdate.last_updated_by_user_guid).ToList()[0];
+                        var found = db.locationinfoes.FirstOrDefault(u => u.guid.Equals(bidToUpdate.service_location_guid));
+                        var parentCompanyName = db.Companies.Where(o => o.active == true && o.guid == found.parentguid);
+
+                        var body = "Bid Number #: " + bidToUpdate.bid_num + "\r\n" +
+                                   "Request Date: " + bidToUpdate.order_datetime.ToShortDateString() + "\r\n" +
+                                   "Request Time: " + bidToUpdate.order_datetime.ToShortTimeString() + "\r\n" +
+                                   "CF Data Company #: " + (parentCompanyName.Count() > 0 ? parentCompanyName.ToList()[0].cf_company_num : "") + "\r\n" +
+                                   "Parent Company Name: " + (parentCompanyName.Count() > 0 ? parentCompanyName.ToList()[0].name : "") + "\r\n" +
+                                   "\r\n" +
+                                   "CF Data Service Location #: " + found.cf_location_num + "\r\n" +
+                                   "Service Location Name: " + found.cf_location_num + "\r\n" +
+                                   "Service Location Address Line 1: " + found.addressline1.ToUpper() + "\r\n" +
+                                   "Service Location Address Line 2: " + found.addressline2.ToUpper() + "\r\n" +
+                                   "Service Location City: " + found.city.ToUpper() + "\r\n" +
+                                   "Service Location State: " + found.state.ToUpper() + "\r\n" +
+                                   "Service Location Zip: " + found.zip + "\r\n" +
+                                   "\r\n" +
+                                   "Request Priority Code: " + bidToUpdate.PriorityID + "\r\n" +
+                                   "Request Summary: " + bidToUpdate.problem_summary.ToUpper() + "\r\n" +
+                                   "Request Details: " + bidToUpdate.problem_details.ToUpper() + "\r\n" +
+                                   "Request Created By: " + user.fname.ToUpper() + " " + user.lname.ToUpper() + "\r\n" +
+                                   "Person To Contact: " + found.name.ToUpper() + "\r\n" +
+                                   "Contact Phone: " + bidToUpdate.location_contact_phone + "\r\n" +
+                                   "Contact After Hours Phone: " + bidToUpdate.location_contact_phone_night + "\r\n";
+
+                        email.Send(subject: "Web Portal Bid Request Updated", body: body, email: user.Email);
+                    }
+                    catch (Exception e)
+                    {
+                        System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + "log.txt", DateTime.Now + " => " + e.ToString());
+                    }
 
                     //return RedirectToAction("Index");
                     return RedirectToAction("Index", "BidRequestsBoard");
