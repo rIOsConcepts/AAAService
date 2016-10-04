@@ -224,6 +224,7 @@ namespace AAAService.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             var strLocationGuid = Request.Form["LocationDD"];
             var mylocguid = Guid.Parse(strLocationGuid);
             var found = db.locationinfoes.FirstOrDefault(u => u.guid.Equals(mylocguid));
@@ -237,6 +238,7 @@ namespace AAAService.Controllers
             var myNotes2 = "Updated " + mytime + System.Environment.NewLine + myNotes;
             var myProblems = Request.Form["problem_details"];
             string myNotes3 = "";
+
             if (myNotes != "")
             {
                 myNotes3 = myProblems + System.Environment.NewLine + System.Environment.NewLine + myNotes2;
@@ -245,11 +247,13 @@ namespace AAAService.Controllers
             {
                 myNotes3 = myProblems;
             }
+
             var myStatus = Request.Form["mStatusName"];
             var myVNotes = Request.Form["ResNotes"];
             var myVNotes2 = "Updated " + mytime + System.Environment.NewLine + myVNotes;
             var myVProblems = Request.Form["notes"];
             string myVNotes3 = "";
+
             if (myVNotes != "")
             {
                 myVNotes3 = myVProblems + System.Environment.NewLine + System.Environment.NewLine + myVNotes2;
@@ -258,6 +262,7 @@ namespace AAAService.Controllers
             {
                 myVNotes3 = myVProblems;
             }
+
             if (TryUpdateModel(ticketToUpdate, "",
             new string[] { "service_location_guid", "StatusID", "complete_datetime", "service_provider", "cost_code", "cust_po_num", "total_billing", "location_contact_name", "accepted_datetime", "dispatch_datetime", "problem_details", "location_contact_phone", "location_contact_phone_night", "closed_datetime", "notes", "active", "internal_notes" }))
             {
@@ -274,6 +279,54 @@ namespace AAAService.Controllers
                     ticketToUpdate.last_updated_by_user_guid = lastuserguid;
                     db.SaveChanges();
 
+                    try
+                    {
+                        var email = new Correspondence.Mail();
+                        var user = db.AspNetUsers.Where(o => o.guid == ticketToUpdate.last_updated_by_user_guid).ToList()[0];
+
+                        var body = "AAA Web Portal Service Ticket\r\n\r\n" +
+                                   "Requested By: " + user.fname.ToUpper() + " " + user.lname.ToUpper() + "\r\n" +
+                                   "Customer Number " + found.cf_location_num + "\r\n" +
+                                   "Cost Code " + ticketToUpdate.cost_code + "\r\n" +
+                                   "Customer PO# " + ticketToUpdate.cust_po_num + "\r\n" +
+                                   "Service Provider " + ticketToUpdate.service_provider + "\r\n" +
+                                   "Service Location: " + ticketToUpdate.Location.ToUpper() + "\r\n" +
+                                   "Address Line 1: " + found.addressline1.ToUpper() + "\r\n" +
+                                   "Address Line 2: " + found.addressline2.ToUpper() + "\r\n" +
+                                   "City: " + found.city.ToUpper() + "\r\n" +
+                                   "State: " + found.state.ToUpper() + "\r\n" +
+                                   "Zip: " + found.zip + "\r\n" +
+                                   "Job Number: " + ticketToUpdate.job_number + "\r\n" +
+                                   "Contact Name: " + found.name.ToUpper() + "\r\n" +
+                                   "Contact Number: " + ticketToUpdate.location_contact_phone + "\r\n" +
+                                   "Contact After Hours Number: " + ticketToUpdate.location_contact_phone_night + "\r\n" +
+                                   "Priority Code: " + ticketToUpdate.PriorityID + " - " + db.PriorityLists.Where(o => o.ID == ticketToUpdate.PriorityID).ToList()[0].Name.ToUpper() + "\r\n" +
+                                   "Priority Code: " + ticketToUpdate.PriorityID + "\r\n" +
+                                   "Order Date: " + ticketToUpdate.order_datetime.ToShortDateString() + "\r\n" +
+                                   "Order Time: " + ticketToUpdate.order_datetime.ToShortTimeString() + "\r\n" +
+                                   "Category " + ticketToUpdate.CategoryID + "\r\n" +
+                                   "Request Summary\r\n" +
+                                   ticketToUpdate.problem_summary.ToUpper() + "\r\n" +
+                                   "Request Details\r\n" +
+                                   ticketToUpdate.problem_details.ToUpper() + "\r\n" +
+                                   "Status Code: " + ticketToUpdate.StatusName.ToUpper() + "\r\n" +
+
+                                   //I checked with our reps.They never used Zone or service rep function in old portal.  We can drop it off and make the list small.
+                                   //"Zone: " + "WHERE DOES THIS VALUE COME FROM?" + "\r\n" +
+                                   //"Service Type: " + service_tickets.ServiceCategory.ToUpper() + "\r\n" +
+
+                                   //"Service Rep: " + "WHERE DOES THIS VALUE COME FROM?" + "\r\n" +
+                                   "Taken By: Web Portal\r\n\r\n" +
+                                   "If you have questions or concerns about this message please contact us at 1-800-892-4784.\r\n\r\n" +
+                                   "Please do not reply to this e-mail, this account is not monitored.";
+
+                        email.Send(subject: "Web Portal Service Ticket Entered", body: body, email: user.Email);
+                    }
+                    catch (Exception e)
+                    {
+                        System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + "log.txt", DateTime.Now + " => " + e.ToString());
+                    }
+
                     return RedirectToAction("Index");
                 }
                 catch (DataException /* dex */)
@@ -282,8 +335,8 @@ namespace AAAService.Controllers
                     ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
                 }
             }
-            var gparentGuid = ticketToUpdate.parent_company_guid;
 
+            var gparentGuid = ticketToUpdate.parent_company_guid;
             ViewBag.PriorityID = new SelectList(db.PriorityLists, "ID", "Name", ticketToUpdate.PriorityID);
             ViewBag.StatusID = new SelectList(db.StatusLists, "ID", "Name", ticketToUpdate.StatusID);
             ViewBag.CategoryID = new SelectList(db.ServiceCategories, "ID", "Name", ticketToUpdate.CategoryID);

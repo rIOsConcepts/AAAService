@@ -328,5 +328,7 @@ function () {
 
 function SetStatus(_statusID) {
     $("#StatusID").val(_statusID);
+    var newText = $("#StatusID option:selected").text();
+    $('#mStatusName').text(newText);
 }
 </script>
