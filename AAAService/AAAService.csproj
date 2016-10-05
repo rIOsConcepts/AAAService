@@ -379,7 +379,7 @@
       <DependentUpon>AAAServiceModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Helpers\Routing.cs" />
+    <Compile Include="Helpers\RoutingHelper.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CreateTicketVM.cs" />
   </ItemGroup>

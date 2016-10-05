@@ -75,24 +75,40 @@ namespace AAAService.Controllers
 
                 if (locationInfo.Count() == 1)
                 {
-                    var primaryContact = db.user_to_location.Where(o => o.location_guid == id && o.primary_contact_bit == true);
+                    // Using Primary Contact Approach
+                    //var primaryContact = db.user_to_location.Where(o => o.location_guid == id && o.primary_contact_bit == true);
 
-                    if (primaryContact.Count() > 0)
+                    //if (primaryContact.Count() > 0)
+                    //{
+                    //    var primaryContactUserGUID = primaryContact.ToList()[0].user_guid;
+                    //    var primaryContactASPNetUsers = db.AspNetUsers.Where(o => o.guid == primaryContactUserGUID);
+                    //    var primaryContactPhoneNum = db.phone_num.Where(o => o.user_guid == primaryContactUserGUID);
+
+                    //    if (primaryContactASPNetUsers.Count() > 0)
+                    //    {
+                    //        view.location_contact_name = primaryContactASPNetUsers.ToList()[0].fname + " " + primaryContactASPNetUsers.ToList()[0].lname;
+                    //    }
+
+                    //    if (primaryContactPhoneNum.Count() > 0)
+                    //    {
+                    //        view.location_contact_phone = primaryContactPhoneNum.ToList()[0].phone_day;
+                    //        view.location_contact_phone_night = primaryContactPhoneNum.ToList()[0].phone_night;
+                    //    }
+                    //}
+
+                    // Using New Approach per Request
+                    var primaryContactASPNetUsers = db.AspNetUsers.Where(o => o.guid == userGUID);
+                    var primaryContactPhoneNum = db.phone_num.Where(o => o.user_guid == userGUID);
+
+                    if (primaryContactASPNetUsers.Count() > 0)
                     {
-                        var primaryContactUserGUID = primaryContact.ToList()[0].user_guid;
-                        var primaryContactASPNetUsers = db.AspNetUsers.Where(o => o.guid == primaryContactUserGUID);
-                        var primaryContactPhoneNum = db.phone_num.Where(o => o.user_guid == primaryContactUserGUID);
+                        view.location_contact_name = primaryContactASPNetUsers.ToList()[0].fname + " " + primaryContactASPNetUsers.ToList()[0].lname;
+                    }
 
-                        if (primaryContactASPNetUsers.Count() > 0)
-                        {
-                            view.location_contact_name = primaryContactASPNetUsers.ToList()[0].fname + " " + primaryContactASPNetUsers.ToList()[0].lname;
-                        }
-
-                        if (primaryContactPhoneNum.Count() > 0)
-                        {
-                            view.location_contact_phone = primaryContactPhoneNum.ToList()[0].phone_day;
-                            view.location_contact_phone_night = primaryContactPhoneNum.ToList()[0].phone_night;
-                        }
+                    if (primaryContactPhoneNum.Count() > 0)
+                    {
+                        view.location_contact_phone = primaryContactPhoneNum.ToList()[0].phone_day;
+                        view.location_contact_phone_night = primaryContactPhoneNum.ToList()[0].phone_night;
                     }
                 }
             }
