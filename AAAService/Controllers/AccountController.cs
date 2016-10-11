@@ -60,7 +60,7 @@ namespace AAAService.Controllers
         public ActionResult Login(string returnUrl, string subdomain)
         {
             ViewBag.ReturnUrl = returnUrl;
-            ViewBag.Subdomain = subdomain;            
+            ViewBag.Subdomain = subdomain;
             return View();
         }
 

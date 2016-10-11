@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -31,13 +32,22 @@ namespace AAAService.Helpers
                 return null;
             }
 
-            string controller = (segments.Length > 0) ? segments[0] : "Home";
-            string action = (segments.Length > 1) ? segments[1] : "Index";
+            string controller = "Home", action = "Index";
+            Guid id = Guid.Empty;
+
+            if (segments.Length > 0 && segments[0] != "")
+            {
+                controller = (segments.Length > 0) ? segments[0] : "Home";
+                action = (segments.Length > 1) ? segments[1] : "Index";
+                id = Guid.Parse((segments.Length > 2 && segments[2] != "") ? segments[2] : Guid.Empty.ToString());
+            }
 
             var routeData = new RouteData(this, new MvcRouteHandler());
             routeData.Values.Add("controller", controller); //Goes to the relevant Controller  class
             routeData.Values.Add("action", action); //Goes to the relevant action method on the specified Controller
             routeData.Values.Add("subdomain", subdomain); //pass subdomain as argument to action method
+            //routeData.Values.Add("id", UrlParameter.Optional);
+            routeData.Values.Add("id", id); //pass id as argument to action method
             return routeData;
         }
 

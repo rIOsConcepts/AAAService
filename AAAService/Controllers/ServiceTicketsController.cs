@@ -152,6 +152,7 @@ namespace AAAService.Controllers
             }
             return View(service_tickets);
         }
+
         public ActionResult Download(Guid? id)
         {
             var fileNameGuid = id.ToString();
@@ -168,6 +169,7 @@ namespace AAAService.Controllers
             byte[] fileBytes = System.IO.File.ReadAllBytes(@myPath);
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, myFileName);
         }
+
         // GET: ServiceTickets/Create
         public ActionResult Create(Guid? id)
         {

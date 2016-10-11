@@ -5,12 +5,12 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace AAAService.Controllers
-{
-   
+{   
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(string returnUrl, string subdomain)
         {
+            ViewBag.Subdomain = subdomain;
             return View();
         }
 
@@ -43,7 +43,6 @@ namespace AAAService.Controllers
 
             return View();
         }
-
 
         [Authorize]
         public ActionResult FireExt()

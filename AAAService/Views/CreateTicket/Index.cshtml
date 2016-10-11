@@ -16,17 +16,14 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.name)
-        </td>
-        <td>
-           @Html.RouteLink("Select", new { controller = "ServiceTickets", action = "Create", id = item.location_guid })); 
-
-          
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+               @Html.RouteLink("Select", new { controller = "ServiceTickets", action = "Create", id = item.location_guid }));          
+            </td>
+        </tr>
+    }
 </table>
