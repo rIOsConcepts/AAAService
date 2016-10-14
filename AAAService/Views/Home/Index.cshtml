@@ -17,7 +17,11 @@
         </div>
         </div>
             <p class="lead">&nbsp; Customer Service Portal - AAA Companies - Anything Anywhere Anytime</p>
-            <p><a href="http://www.aaacompanies.com/" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+
+            @if (ViewBag.Subdomain != "rabobank")
+            {
+                <p><a href="http://www.aaacompanies.com/" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+            }
         </div>
 
         @if (ViewBag.Subdomain != "rabobank")

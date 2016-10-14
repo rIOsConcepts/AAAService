@@ -241,7 +241,7 @@ namespace AAAService.Controllers
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
+        public ActionResult ResetPassword(string userId, string code, string subdomain)
         {
             return code == null ? View("Error") : View();
         }
