@@ -45,6 +45,7 @@ namespace AAAService.Helpers
                 {
                     userId = action.Substring(action.IndexOf("?userId=") + 8, action.IndexOf("&code=") - action.IndexOf("?userId=") - 8);
                     code = action.Substring(action.IndexOf("&code=") + 6, action.Length - action.IndexOf("&code=") - 6);
+                    code = code.Replace("%2B", "+").Replace("%2F", "/").Replace("%3D", "=");
                     action = action.Substring(0, action.IndexOf("?userId="));
                 }
                 else
