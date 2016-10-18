@@ -222,7 +222,7 @@ namespace AAAService.Controllers
                 // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                  var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                 await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                 await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a><br><br>Password requirements:<br><ul><li>The Password must be at least 6 characters long.</li><li>Passwords must have at least one non letter or digit character.</li><li>Passwords must have at least one lowercase ('a'-'z').</li><li>Passwords must have at least one uppercase ('A'-'Z').</li></ul>");
                  return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 

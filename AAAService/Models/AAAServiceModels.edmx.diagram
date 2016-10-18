@@ -59,6 +59,7 @@
         <EntityTypeShape EntityType="aaahelpModel.AspNetUserRole" Width="1.625" PointX="9.625" PointY="18.375" />
         <AssociationConnector Association="aaahelpModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" />
         <EntityTypeShape EntityType="aaahelpModel.ReportBuilder_View" Width="2.375" PointX="3.375" PointY="15.75" />
+        <EntityTypeShape EntityType="aaahelpModel.Calendar" Width="1.5" PointX="4.625" PointY="0.5" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

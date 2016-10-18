@@ -23,6 +23,7 @@ namespace AAAService.Models
     
         public int id { get; set; }
         public System.Guid guid { get; set; }
+        public string Company { get; set; }
         public int job_number { get; set; }
         public System.DateTime order_datetime { get; set; }
         public Nullable<System.DateTime> complete_datetime { get; set; }
@@ -33,7 +34,6 @@ namespace AAAService.Models
         public System.Guid last_updated_by_user_guid { get; set; }
         public string problem_summary { get; set; }
         public string problem_details { get; set; }
-        public string Company { get; set; }
         public string location_contact_name { get; set; }
         public string location_contact_phone { get; set; }
         public string location_contact_phone_night { get; set; }

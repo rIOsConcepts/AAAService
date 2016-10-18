@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AAAService.Models;
 
 namespace AAAService.Controllers
 {   
     public class HomeController : Controller
     {
+        private aaahelpEntities db = new aaahelpEntities();
+
         public ActionResult Index(string returnUrl, string subdomain)
         {
             ViewBag.Subdomain = subdomain;
@@ -64,7 +67,8 @@ namespace AAAService.Controllers
         public ActionResult BankMaintenance()
         {
             ViewBag.Message = "Bank Maintenance Calendar";
-
+            var calendars = db.Calendars.Find(4);
+            ViewBag.CalendarPath = calendars.Path;
             return View();
         }
 

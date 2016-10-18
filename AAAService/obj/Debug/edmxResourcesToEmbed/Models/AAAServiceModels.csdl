@@ -201,6 +201,7 @@
       <End Role="AspNetUserRole" EntitySet="AspNetUserRoles" />
     </AssociationSet>
     <EntitySet Name="ReportBuilder_View" EntityType="aaahelpModel.ReportBuilder_View" />
+    <EntitySet Name="Calendars" EntityType="aaahelpModel.Calendar" />
   </EntityContainer>
   <EntityType Name="service_boardNew">
     <Key>
@@ -1054,7 +1055,7 @@
     <Property Name="guid" Type="Guid" Nullable="false" />
     <Property Name="complete_datetime" Type="DateTime" Precision="7" />
     <Property Name="region" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="category" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="service_provider" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="dispatch_datetime" Type="DateTime" Precision="7" />
@@ -1068,5 +1069,13 @@
     <Property Name="cost_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="total_billing" Type="String" MaxLength="28" FixedLength="false" Unicode="false" />
     <Property Name="requested_by" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Calendar">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Path" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

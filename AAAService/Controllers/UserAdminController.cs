@@ -155,6 +155,11 @@ namespace AAAService.Controllers
                                "Or cut and paste the following into your web browser.<br><br>" +
                                callbackUrl + "<br><br>" +
                                "Your temporary password is: " + password + "<br><br>" +
+                               "Password requirements:<br>" +
+                               "<ul><li>The Password must be at least 6 characters long.</li>" + 
+                               "<li>Passwords must have at least one non letter or digit character.</li>" + 
+                               "<li>Passwords must have at least one lowercase ('a'-'z').</li>" + 
+                               "<li>Passwords must have at least one uppercase ('A'-'Z').</li></ul>" +
                                "Thank You<br><br>" +
                                "If you have questions or concerns about this message please contact us at 1-800-892-4784.<br>" +
                                "Please do not reply to this e-mail, this account is not monitored.";

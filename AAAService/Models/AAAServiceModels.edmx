@@ -63,6 +63,14 @@
           <Property Name="StatusName" Type="varchar" MaxLength="50" />
           <Property Name="StatusID" Type="int" />
         </EntityType>
+        <EntityType Name="Calendars">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Path" Type="varchar" MaxLength="5000" />
+        </EntityType>
         <EntityType Name="CommentRatings">
           <Key>
             <PropertyRef Name="RatingID" />
@@ -236,7 +244,7 @@
           <Property Name="active" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'aaahelp.dbo.ReportBuilderFields' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DB_105883_prod.dbo.ReportBuilderFields' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ReportBuilderFields">
           <Key>
             <PropertyRef Name="Id" />
@@ -368,7 +376,7 @@ warning 6002: The table/view 'aaahelp.dbo.ReportBuilderFields' does not have a p
           <Property Name="location_guid" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'aaahelp.aaaadmin.LocationEmails_viewMVC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DB_105883_prod.aaaadmin.LocationEmails_viewMVC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="LocationEmails_viewMVC">
           <Key>
             <PropertyRef Name="LocationName" />
@@ -382,7 +390,7 @@ warning 6002: The table/view 'aaahelp.aaaadmin.LocationEmails_viewMVC' does not 
           <Property Name="account_status" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'aaahelp.dbo.Bid_Requests_View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DB_105883_prod.dbo.Bid_Requests_View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Bid_Requests_View">
           <Key>
             
@@ -403,7 +411,7 @@ warning 6002: The table/view 'aaahelp.dbo.Bid_Requests_View' does not have a pri
           <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'aaahelp.dbo.Comments_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DB_105883_prod.dbo.Comments_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Comments_view">
           <Key>
             
@@ -434,7 +442,7 @@ warning 6002: The table/view 'aaahelp.dbo.Comments_view' does not have a primary
           <Property Name="addr2" Type="varchar" MaxLength="85" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'aaahelp.dbo.Emails_Log_ViewMVC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DB_105883_prod.dbo.Emails_Log_ViewMVC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Emails_Log_ViewMVC">
           <Key>
             <PropertyRef Name="ID" />
@@ -458,7 +466,7 @@ warning 6002: The table/view 'aaahelp.dbo.Emails_Log_ViewMVC' does not have a pr
           <Property Name="who_to" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'aaahelp.dbo.ExportToCF' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DB_105883_prod.dbo.ExportToCF' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ExportToCF">
           <Key>
             <PropertyRef Name="Job Number" />
@@ -533,7 +541,7 @@ warning 6002: The table/view 'aaahelp.dbo.ExportToCF' does not have a primary ke
           <Property Name="USER DEFINED 4" Type="varchar" MaxLength="1" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'aaahelp.dbo.Location_Mgt_ViewMVC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DB_105883_prod.dbo.Location_Mgt_ViewMVC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Location_Mgt_ViewMVC">
           <Key>
             
@@ -564,7 +572,7 @@ warning 6002: The table/view 'aaahelp.dbo.Location_Mgt_ViewMVC' does not have a 
           <Property Name="primary_contact_bit" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'aaahelp.dbo.LocationEmails_ViewMVC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DB_105883_prod.dbo.LocationEmails_ViewMVC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="LocationEmails_ViewMVC1">
           <Key>
             
@@ -578,7 +586,7 @@ warning 6002: The table/view 'aaahelp.dbo.LocationEmails_ViewMVC' does not have 
           <Property Name="account_status" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'aaahelp.dbo.ReportBuilder_View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DB_105883_prod.dbo.ReportBuilder_View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ReportBuilder_View">
           <Key>
             <PropertyRef Name="job_number" />
@@ -600,7 +608,7 @@ warning 6002: The table/view 'aaahelp.dbo.ReportBuilder_View' does not have a pr
           <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="complete_datetime" Type="datetime2" Precision="7" />
           <Property Name="region" Type="varchar" MaxLength="50" />
-          <Property Name="category" Type="varchar" MaxLength="40" />
+          <Property Name="category" Type="varchar" MaxLength="50" />
           <Property Name="service_provider" Type="varchar" MaxLength="30" />
           <Property Name="city" Type="varchar" MaxLength="50" />
           <Property Name="dispatch_datetime" Type="datetime2" Precision="7" />
@@ -616,7 +624,7 @@ warning 6002: The table/view 'aaahelp.dbo.ReportBuilder_View' does not have a pr
           <Property Name="requested_by" Type="varchar" MaxLength="41" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'aaahelp.dbo.service_boardNew' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DB_105883_prod.dbo.service_boardNew' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="service_boardNew">
           <Key>
             
@@ -655,7 +663,7 @@ warning 6002: The table/view 'aaahelp.dbo.service_boardNew' does not have a prim
           <Property Name="Attachment" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'aaahelp.dbo.service_tickets_viewMVC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DB_105883_prod.dbo.service_tickets_viewMVC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="service_tickets_viewMVC">
           <Key>
             <PropertyRef Name="Created_By_User_fname" />
@@ -729,7 +737,7 @@ warning 6002: The table/view 'aaahelp.dbo.service_tickets_viewMVC' does not have
           <Property Name="total_billing" Type="varchar" MaxLength="28" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'aaahelp.dbo.User_Assigned_Locations_View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DB_105883_prod.dbo.User_Assigned_Locations_View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="User_Assigned_Locations_View">
           <Key>
             
@@ -741,7 +749,7 @@ warning 6002: The table/view 'aaahelp.dbo.User_Assigned_Locations_View' does not
           <Property Name="parentguid" Type="uniqueidentifier" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'aaahelp.dbo.User_Info_ViewMVC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DB_105883_prod.dbo.User_Info_ViewMVC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="User_Info_ViewMVC">
           
           <Key>
@@ -761,7 +769,7 @@ warning 6002: The table/view 'aaahelp.dbo.User_Info_ViewMVC' does not have a pri
           <Property Name="account_status" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'aaahelp.dbo.user_viewable_locations_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DB_105883_prod.dbo.user_viewable_locations_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="user_viewable_locations_view">
           <Key>
             <PropertyRef Name="location_guid" />
@@ -888,6 +896,9 @@ warning 6035: The relationship 'FK_Location_Service_Provider_AspNetUsers' has co
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_phone_num_user_login' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_phone_num_user_login" />-->
         <Association Name="FK_service_ticket_files_service_tickets">
           <End Role="service_tickets" Type="Self.service_tickets" Multiplicity="1" />
           <End Role="service_ticket_files" Type="Self.service_ticket_files" Multiplicity="*" />
@@ -988,6 +999,7 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="bid_requests" EntityType="Self.bid_requests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Calendars" EntityType="Self.Calendars" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CommentRatings" EntityType="Self.CommentRatings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="email_log" EntityType="Self.email_log" Schema="dbo" store:Type="Tables" />
@@ -1565,6 +1577,7 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
             <End Role="AspNetUserRole" EntitySet="AspNetUserRoles" />
           </AssociationSet>
           <EntitySet Name="ReportBuilder_View" EntityType="aaahelpModel.ReportBuilder_View" />
+          <EntitySet Name="Calendars" EntityType="aaahelpModel.Calendar" />
           </EntityContainer>
         <EntityType Name="service_boardNew">
           <Key>
@@ -2418,7 +2431,7 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
           <Property Name="guid" Type="Guid" Nullable="false" />
           <Property Name="complete_datetime" Type="DateTime" Precision="7" />
           <Property Name="region" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="category" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="service_provider" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="dispatch_datetime" Type="DateTime" Precision="7" />
@@ -2432,6 +2445,14 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
           <Property Name="cost_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="total_billing" Type="String" MaxLength="28" FixedLength="false" Unicode="false" />
           <Property Name="requested_by" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Calendar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Path" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -3150,6 +3171,15 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
                 <ScalarProperty Name="job_number" ColumnName="job_number" />
                 <ScalarProperty Name="service_location_name" ColumnName="service_location_name" />
                 <ScalarProperty Name="age" ColumnName="age" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Calendars">
+            <EntityTypeMapping TypeName="aaahelpModel.Calendar">
+              <MappingFragment StoreEntitySet="Calendars">
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
