@@ -38,7 +38,7 @@ namespace AAAService.Controllers
 
                     var calendars = db.Calendars.Find(4);
                     calendars.Id = 4;
-                    calendars.Path = "~/" + path.Substring(path.IndexOf("Images", 0), path.Length - path.IndexOf("Images", 0)).Replace("\\", "/");
+                    calendars.Path = path.Substring(path.IndexOf("\\Images", 0), path.Length - path.IndexOf("Images", 0) + 1).Replace("\\", "/");
                     db.SaveChanges();
                 }
 
@@ -48,7 +48,7 @@ namespace AAAService.Controllers
             catch (Exception e)
             {
                 ViewBag.Message = "Upload failed";
-                return RedirectToAction("Upload");
+                return RedirectToAction("Error");
             }
         }
     }

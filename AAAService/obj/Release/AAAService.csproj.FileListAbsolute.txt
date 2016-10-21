@@ -145,3 +145,4 @@ C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\vbc.exe
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\VBCSCompiler.exe
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\roslyn\VBCSCompiler.exe.config
+C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\obj\Release\AAAService.csprojResolveAssemblyReference.cache

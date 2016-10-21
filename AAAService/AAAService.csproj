@@ -792,6 +792,7 @@
     <Content Include="Views\AdminBidRequestsBoard\Details.cshtml" />
     <Content Include="Views\AdminBidRequestsBoard\Delete.cshtml" />
     <Content Include="Views\AdminBidRequestsBoard\Edit.cshtml" />
+    <Content Include="Views\UpLoadToCalendar\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />
