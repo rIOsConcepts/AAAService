@@ -15,9 +15,9 @@ namespace AAAService.Models
     public partial class bid_requests
     {
         public int bid_num { get; set; }
-        public System.Guid guid { get; set; }
         public string CompanyName { get; set; }
         public string LocationName { get; set; }
+        public System.Guid guid { get; set; }
         public System.DateTime order_datetime { get; set; }
         public Nullable<System.DateTime> complete_datetime { get; set; }
         public System.DateTime last_update_datetime { get; set; }

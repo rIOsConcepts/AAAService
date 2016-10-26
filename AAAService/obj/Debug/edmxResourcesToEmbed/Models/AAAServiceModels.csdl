@@ -189,7 +189,6 @@
       <End Role="service_tickets" EntitySet="service_tickets" />
     </AssociationSet>
     <EntitySet Name="OtherStatusLists" EntityType="aaahelpModel.OtherStatusList" />
-    <EntitySet Name="ExportToCFs" EntityType="aaahelpModel.ExportToCF" />
     <EntitySet Name="AspNetUsers" EntityType="aaahelpModel.AspNetUser" />
     <EntitySet Name="ReportBuilderFields" EntityType="aaahelpModel.ReportBuilderField" />
     <FunctionImport Name="ReportBuilder">
@@ -202,6 +201,7 @@
     </AssociationSet>
     <EntitySet Name="ReportBuilder_View" EntityType="aaahelpModel.ReportBuilder_View" />
     <EntitySet Name="Calendars" EntityType="aaahelpModel.Calendar" />
+    <EntitySet Name="ExportToCFs" EntityType="aaahelpModel.ExportToCF" />
   </EntityContainer>
   <EntityType Name="service_boardNew">
     <Key>
@@ -902,79 +902,6 @@
     <Property Name="Active" Type="Boolean" />
     <Property Name="Value" Type="Int16" Nullable="false" />
   </EntityType>
-  <EntityType Name="ExportToCF">
-    <Key>
-      <PropertyRef Name="Job_Number" />
-      <PropertyRef Name="C_O_EXT" />
-      <PropertyRef Name="C_T" />
-      <PropertyRef Name="Cust_Location_No" />
-      <PropertyRef Name="JOB_LOCATION_LINE_1" />
-      <PropertyRef Name="JOB_LOCATION_LINE_2" />
-      <PropertyRef Name="JOB_REFERENCE" />
-      <PropertyRef Name="PROJECT_MANAGER" />
-      <PropertyRef Name="SUBMITTED_AMOUNT" />
-      <PropertyRef Name="C_O_Status" />
-      <PropertyRef Name="APPROVED_AMOUNT" />
-      <PropertyRef Name="ESTIMATED_TAX_INCLUDED" />
-      <PropertyRef Name="ESTIMATED_TAX_ADDITIONAL" />
-      <PropertyRef Name="RET_" />
-      <PropertyRef Name="COUNTY" />
-      <PropertyRef Name="SALES_REP" />
-      <PropertyRef Name="Sales_Tax" />
-      <PropertyRef Name="Labor_Tax" />
-      <PropertyRef Name="Use_Tax" />
-      <PropertyRef Name="Condense_Costs" />
-      <PropertyRef Name="Job_Complete" />
-      <PropertyRef Name="Alt_G_L_" />
-      <PropertyRef Name="Std_Phs_Cat" />
-      <PropertyRef Name="Markups" />
-      <PropertyRef Name="SORT_DATE" />
-      <PropertyRef Name="JOB_END_DATE" />
-      <PropertyRef Name="USER_DEFINED_1" />
-      <PropertyRef Name="USER_DEFINED_3" />
-      <PropertyRef Name="USER_DEFINED_4" />
-    </Key>
-    <Property Name="Job_Number" Type="Int32" Nullable="false" />
-    <Property Name="C_O_EXT" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
-    <Property Name="C_T" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="Job_Date" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="CUST__NO_" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="Cust_Location_No" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="Job_Location_Code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="JOB_LOCATION_LINE_1" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="JOB_LOCATION_LINE_2" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="JOB_LOCATION_LINE_3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="JOB_LOCATION_LINE_4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="JOB_REFERENCE" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="JOB_CONTACT" Type="Int32" />
-    <Property Name="PROJECT_MANAGER" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="CUSTOMER_PO_" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Name="SUBMITTED_AMOUNT" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="C_O_Status" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="STATUS_DATE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="APPROVED_AMOUNT" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="ESTIMATED_TAX_INCLUDED" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="ESTIMATED_TAX_ADDITIONAL" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="RET_" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="TAX_STATE" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-    <Property Name="COUNTY" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="SALES_REP" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-    <Property Name="Sales_Tax" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="Labor_Tax" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="Use_Tax" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="Condense_Costs" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="Job_Complete" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="Alt_G_L_" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-    <Property Name="Std_Phs_Cat" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-    <Property Name="Markups" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="SORT_DATE" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="JOB_START_DATE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="JOB_END_DATE" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="USER_DEFINED_1" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="USER_DEFINED_2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="USER_DEFINED_3" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="USER_DEFINED_4" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-  </EntityType>
   <EntityType Name="AspNetUser">
     <Key>
       <PropertyRef Name="Id" />
@@ -1077,5 +1004,78 @@
     <Property Name="Id" Type="Int16" Nullable="false" />
     <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Path" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="ExportToCF">
+    <Key>
+      <PropertyRef Name="Job_Number" />
+      <PropertyRef Name="C_O_EXT" />
+      <PropertyRef Name="C_T" />
+      <PropertyRef Name="Cust_Location_No" />
+      <PropertyRef Name="JOB_LOCATION_LINE_1" />
+      <PropertyRef Name="JOB_LOCATION_LINE_2" />
+      <PropertyRef Name="JOB_REFERENCE" />
+      <PropertyRef Name="PROJECT_MANAGER" />
+      <PropertyRef Name="SUBMITTED_AMOUNT" />
+      <PropertyRef Name="C_O_Status" />
+      <PropertyRef Name="APPROVED_AMOUNT" />
+      <PropertyRef Name="ESTIMATED_TAX_INCLUDED" />
+      <PropertyRef Name="ESTIMATED_TAX_ADDITIONAL" />
+      <PropertyRef Name="RET_" />
+      <PropertyRef Name="COUNTY" />
+      <PropertyRef Name="SALES_REP" />
+      <PropertyRef Name="Sales_Tax" />
+      <PropertyRef Name="Labor_Tax" />
+      <PropertyRef Name="Use_Tax" />
+      <PropertyRef Name="Condense_Costs" />
+      <PropertyRef Name="Job_Complete" />
+      <PropertyRef Name="Alt_G_L_" />
+      <PropertyRef Name="Std_Phs_Cat" />
+      <PropertyRef Name="Markups" />
+      <PropertyRef Name="SORT_DATE" />
+      <PropertyRef Name="JOB_END_DATE" />
+      <PropertyRef Name="USER_DEFINED_1" />
+      <PropertyRef Name="USER_DEFINED_3" />
+      <PropertyRef Name="USER_DEFINED_4" />
+    </Key>
+    <Property Name="Job_Number" Type="Int32" Nullable="false" />
+    <Property Name="C_O_EXT" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="C_T" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="Job_Date" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="Job_Location_Code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Cust_Location_No" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="CUST__NO_" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="JOB_LOCATION_LINE_1" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="JOB_LOCATION_LINE_2" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="JOB_LOCATION_LINE_3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="JOB_LOCATION_LINE_4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="JOB_REFERENCE" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="JOB_CONTACT" Type="Int32" />
+    <Property Name="PROJECT_MANAGER" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="CUSTOMER_PO_" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="SUBMITTED_AMOUNT" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="C_O_Status" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="STATUS_DATE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="APPROVED_AMOUNT" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="ESTIMATED_TAX_INCLUDED" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="ESTIMATED_TAX_ADDITIONAL" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="RET_" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="TAX_STATE" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="COUNTY" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="SALES_REP" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="Sales_Tax" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="Labor_Tax" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="Use_Tax" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="Condense_Costs" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="Job_Complete" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="Alt_G_L_" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="Std_Phs_Cat" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="Markups" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="SORT_DATE" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="JOB_START_DATE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="JOB_END_DATE" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="USER_DEFINED_1" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="USER_DEFINED_2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="USER_DEFINED_3" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="USER_DEFINED_4" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

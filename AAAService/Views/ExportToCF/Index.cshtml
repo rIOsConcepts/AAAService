@@ -14,124 +14,138 @@
 @Html.ActionLink("Export to Excel", "ExportToExcel")
 
 <div style="width:auto">
-@Html.Grid(Model).Columns(columns =>
+@using (Html.BeginForm())
 {
-    columns.Add(o => o.Job_Number)
-           .Filterable(true);
+    @Html.AntiForgeryToken()
 
-    columns.Add(o => o.C_O_EXT)
-           .Filterable(true);
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Index" id="submit7" class="btn btn-success" />
+        </div>
+    </div>
 
-    columns.Add(o => o.C_T)
-           .Filterable(true);
+    @Html.Grid(Model).Columns(columns =>
+    {
+        columns.Add(o => o.Job_Number)
+                .Filterable(true);
 
-    columns.Add(o => o.Job_Date)
-           .Filterable(true);
+        columns.Add(o => o.C_O_EXT)
+                .Filterable(true);
 
-    columns.Add(o => o.Job_Location_Code)
-           .Filterable(true);
+        columns.Add(o => o.C_T)
+                .Filterable(true);
 
-    columns.Add(o => o.Cust_Location_No)
-           .Filterable(true);
+        columns.Add(o => o.Job_Date)
+                .Format("{0:MM/dd/yy}")
+                .Filterable(true);
 
-    columns.Add(o => o.CUST__NO_)
-           .Filterable(true);
+        columns.Add(o => o.Job_Location_Code)
+                .Filterable(true);
 
-    columns.Add(o => o.JOB_LOCATION_LINE_1)
-           .Filterable(true);
+        columns.Add(o => o.Cust_Location_No)
+                .Filterable(true);
 
-    columns.Add(o => o.JOB_LOCATION_LINE_2)
-           .Filterable(true);
+        columns.Add(o => o.CUST__NO_)
+                .Filterable(true);
 
-    columns.Add(o => o.JOB_LOCATION_LINE_3)
-           .Filterable(true);
+        columns.Add(o => o.JOB_LOCATION_LINE_1)
+                .Filterable(true);
 
-    columns.Add(o => o.JOB_LOCATION_LINE_4)
-           .Filterable(true);
+        columns.Add(o => o.JOB_LOCATION_LINE_2)
+                .Filterable(true);
 
-    columns.Add(o => o.JOB_REFERENCE)
-           .Filterable(true);
+        columns.Add(o => o.JOB_LOCATION_LINE_3)
+                .Filterable(true);
 
-    columns.Add(o => o.JOB_CONTACT)
-           .Filterable(true);
+        columns.Add(o => o.JOB_LOCATION_LINE_4)
+                .Filterable(true);
 
-    columns.Add(o => o.PROJECT_MANAGER)
-           .Filterable(true);
+        columns.Add(o => o.JOB_REFERENCE)
+                .Filterable(true);
 
-    columns.Add(o => o.CUSTOMER_PO_)
-           .Filterable(true);
+        columns.Add(o => o.JOB_CONTACT)
+                .Filterable(true);
 
-    columns.Add(o => o.SUBMITTED_AMOUNT)
-           .Filterable(true);
+        columns.Add(o => o.PROJECT_MANAGER)
+                .Filterable(true);
 
-    columns.Add(o => o.C_O_Status)
-           .Filterable(true);
+        columns.Add(o => o.CUSTOMER_PO_)
+                .Filterable(true);
 
-    columns.Add(o => o.STATUS_DATE)
-           .Filterable(true);
+        columns.Add(o => o.SUBMITTED_AMOUNT)
+                .Filterable(true);
 
-    columns.Add(o => o.APPROVED_AMOUNT)
-           .Filterable(true);
+        columns.Add(o => o.C_O_Status)
+                .Filterable(true);
 
-    columns.Add(o => o.ESTIMATED_TAX_INCLUDED)
-           .Filterable(true);
+        columns.Add(o => o.STATUS_DATE)
+                .Format("{0:MM/dd/yy}")
+                .Filterable(true);
 
-    columns.Add(o => o.ESTIMATED_TAX_ADDITIONAL)
-           .Filterable(true);
+        columns.Add(o => o.APPROVED_AMOUNT)
+                .Filterable(true);
 
-    columns.Add(o => o.RET_)
-           .Filterable(true);
+        columns.Add(o => o.ESTIMATED_TAX_INCLUDED)
+                .Filterable(true);
 
-    columns.Add(o => o.TAX_STATE)
-           .Filterable(true);
+        columns.Add(o => o.ESTIMATED_TAX_ADDITIONAL)
+                .Filterable(true);
 
-    columns.Add(o => o.COUNTY)
-           .Filterable(true);
+        columns.Add(o => o.RET_)
+                .Filterable(true);
 
-    columns.Add(o => o.SALES_REP)
-           .Filterable(true);
+        columns.Add(o => o.TAX_STATE)
+                .Filterable(true);
 
-    columns.Add(o => o.Sales_Tax)
-           .Filterable(true);
+        columns.Add(o => o.COUNTY)
+                .Filterable(true);
 
-    columns.Add(o => o.Labor_Tax)
-           .Filterable(true);
+        columns.Add(o => o.SALES_REP)
+                .Filterable(true);
 
-    columns.Add(o => o.Use_Tax)
-           .Filterable(true);
+        columns.Add(o => o.Sales_Tax)
+                .Filterable(true);
 
-    columns.Add(o => o.Condense_Costs)
-           .Filterable(true);
+        columns.Add(o => o.Labor_Tax)
+                .Filterable(true);
 
-    columns.Add(o => o.Job_Complete)
-           .Filterable(true);
+        columns.Add(o => o.Use_Tax)
+                .Filterable(true);
 
-    columns.Add(o => o.Alt_G_L_)
-           .Filterable(true);
+        columns.Add(o => o.Condense_Costs)
+                .Filterable(true);
 
-    columns.Add(o => o.Std_Phs_Cat)
-           .Filterable(true);
+        columns.Add(o => o.Job_Complete)
+                .Filterable(true);
 
-    columns.Add(o => o.Markups)
-           .Filterable(true);
+        columns.Add(o => o.Alt_G_L_)
+                .Filterable(true);
 
-    columns.Add(o => o.SORT_DATE)
-           .Filterable(true);
+        columns.Add(o => o.Std_Phs_Cat)
+                .Filterable(true);
 
-    columns.Add(o => o.JOB_START_DATE)
-           .Filterable(true);
+        columns.Add(o => o.Markups)
+                .Filterable(true);
 
-    columns.Add(o => o.USER_DEFINED_1)
-           .Filterable(true);
+        columns.Add(o => o.SORT_DATE)
+                .Filterable(true);
 
-    columns.Add(o => o.USER_DEFINED_2)
-           .Filterable(true);
+        columns.Add(o => o.JOB_START_DATE)
+                .Format("{0:MM/dd/yy}")
+                .Filterable(true);
 
-    columns.Add(o => o.USER_DEFINED_3)
-           .Filterable(true);
+        columns.Add(o => o.USER_DEFINED_1)
+                .Filterable(true);
 
-    columns.Add(o => o.USER_DEFINED_4)
-           .Filterable(true);
+        columns.Add(o => o.USER_DEFINED_2)
+                .Filterable(true);
 
-}).WithPaging(50).Sortable(true)
+        columns.Add(o => o.USER_DEFINED_3)
+                .Filterable(true);
+
+        columns.Add(o => o.USER_DEFINED_4)
+                .Filterable(true);
+
+    }).WithPaging(20).Sortable(true)
+}
 </div>

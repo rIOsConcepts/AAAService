@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -18,17 +19,27 @@ namespace AAAService.Controllers
         // GET: ExportToCF
         public ActionResult Index()
         {
-            var exportToCFData = from etcfd in db.ExportToCFs
-                                 select etcfd;
+            var exportToCFData = (from etcfd in db.ExportToCFs
+                                 orderby etcfd.Job_Number descending
+                                 select etcfd).Take(100);
 
-            return View(exportToCFData.ToList<ExportToCF>());
+            var view = exportToCFData.ToList<ExportToCF>();
+            Session["ExportToCFs"] = view;
+            return View(view);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index([Bind(Include = "Job_Number,C_O_EXT")] List<ExportToCF> model)
+        {
+            return View(model);
         }
 
         public ActionResult ExportToExcel()
         {
-            var exportToCFData = this.db.ExportToCFs.ToList();
+            //var exportToCFData = this.db.ExportToCFs.ToList();
             var grid = new GridView();
-            grid.DataSource = exportToCFData;            
+            grid.DataSource = Session["ExportToCFs"];
             grid.DataBind();
             grid.Font.Size = 8;
             grid.BorderStyle = BorderStyle.None;
@@ -119,12 +130,7 @@ namespace AAAService.Controllers
             {
                 grid.HeaderRow.Cells[i].Font.Bold = false;
                 grid.HeaderRow.Cells[i].VerticalAlign = VerticalAlign.Bottom;                
-            }
-
-            for (var i = 0; i <= grid.Rows.Count; i++)
-            {
-                grid.Rows[i].Cells[3].Text.num.Text.ToString("MM/DD/YY");
-            }
+            }          
 
             Response.ClearContent();
             Response.Buffer = true;
@@ -133,7 +139,10 @@ namespace AAAService.Controllers
             Response.Charset = "";
             StringWriter sw = new StringWriter();
             HtmlTextWriter htw = new HtmlTextWriter(sw);
-            grid.RenderControl(htw);
+            //Line of code below fixes the issue with the date to be treated as date instead of text. This way we can leave the date as mm/dd/yy
+            string style = @"<style> TD { mso-number-format:\@; } </style> ";
+            Response.Write(style);
+            grid.RenderControl(htw);            
             Response.Output.Write(sw.ToString());
             Response.Flush();
             Response.End();

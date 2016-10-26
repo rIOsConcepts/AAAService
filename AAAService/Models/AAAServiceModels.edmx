@@ -502,10 +502,10 @@ warning 6002: The table/view 'DB_105883_prod.dbo.ExportToCF' does not have a pri
           <Property Name="Job Number" Type="int" Nullable="false" />
           <Property Name="C/O EXT" Type="varchar" MaxLength="3" Nullable="false" />
           <Property Name="C/T" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="Job Date" Type="varchar" MaxLength="10" />
-          <Property Name="CUST. NO." Type="varchar" MaxLength="10" />
-          <Property Name="Cust Location No" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Job Date" Type="varchar" MaxLength="8" />
           <Property Name="Job Location Code" Type="varchar" MaxLength="10" />
+          <Property Name="Cust Location No" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="CUST. NO." Type="varchar" MaxLength="10" />
           <Property Name="JOB LOCATION LINE 1" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="JOB LOCATION LINE 2" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="JOB LOCATION LINE 3" Type="varchar" MaxLength="50" />
@@ -516,7 +516,7 @@ warning 6002: The table/view 'DB_105883_prod.dbo.ExportToCF' does not have a pri
           <Property Name="CUSTOMER PO#" Type="varchar" MaxLength="30" />
           <Property Name="SUBMITTED AMOUNT" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="C/O Status" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="STATUS DATE" Type="varchar" MaxLength="10" />
+          <Property Name="STATUS DATE" Type="varchar" MaxLength="8" />
           <Property Name="APPROVED AMOUNT" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="ESTIMATED TAX INCLUDED" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="ESTIMATED TAX ADDITIONAL" Type="varchar" MaxLength="1" Nullable="false" />
@@ -533,7 +533,7 @@ warning 6002: The table/view 'DB_105883_prod.dbo.ExportToCF' does not have a pri
           <Property Name="Std Phs/Cat" Type="varchar" MaxLength="2" Nullable="false" />
           <Property Name="Markups" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="SORT DATE" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="JOB START DATE" Type="varchar" MaxLength="10" />
+          <Property Name="JOB START DATE" Type="varchar" MaxLength="8" />
           <Property Name="JOB END DATE" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="USER DEFINED 1" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="USER DEFINED 2" Type="varchar" MaxLength="50" />
@@ -1097,9 +1097,9 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
     [ExportToCF].[C/O EXT] AS [C/O EXT], 
     [ExportToCF].[C/T] AS [C/T], 
     [ExportToCF].[Job Date] AS [Job Date], 
-    [ExportToCF].[CUST. NO.] AS [CUST. NO.], 
-    [ExportToCF].[Cust Location No] AS [Cust Location No], 
     [ExportToCF].[Job Location Code] AS [Job Location Code], 
+    [ExportToCF].[Cust Location No] AS [Cust Location No], 
+    [ExportToCF].[CUST. NO.] AS [CUST. NO.], 
     [ExportToCF].[JOB LOCATION LINE 1] AS [JOB LOCATION LINE 1], 
     [ExportToCF].[JOB LOCATION LINE 2] AS [JOB LOCATION LINE 2], 
     [ExportToCF].[JOB LOCATION LINE 3] AS [JOB LOCATION LINE 3], 
@@ -1565,7 +1565,6 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
             <End Role="service_tickets" EntitySet="service_tickets" />
           </AssociationSet>
           <EntitySet Name="OtherStatusLists" EntityType="aaahelpModel.OtherStatusList" />
-          <EntitySet Name="ExportToCFs" EntityType="aaahelpModel.ExportToCF" />
           <EntitySet Name="AspNetUsers" EntityType="aaahelpModel.AspNetUser" />
           <EntitySet Name="ReportBuilderFields" EntityType="aaahelpModel.ReportBuilderField" />
           <FunctionImport Name="ReportBuilder">
@@ -1578,6 +1577,7 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
           </AssociationSet>
           <EntitySet Name="ReportBuilder_View" EntityType="aaahelpModel.ReportBuilder_View" />
           <EntitySet Name="Calendars" EntityType="aaahelpModel.Calendar" />
+          <EntitySet Name="ExportToCFs" EntityType="aaahelpModel.ExportToCF" />
           </EntityContainer>
         <EntityType Name="service_boardNew">
           <Key>
@@ -2278,79 +2278,6 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
           <Property Name="Active" Type="Boolean" />
           <Property Name="Value" Type="Int16" Nullable="false" />
         </EntityType>
-        <EntityType Name="ExportToCF">
-          <Key>
-            <PropertyRef Name="Job_Number" />
-            <PropertyRef Name="C_O_EXT" />
-            <PropertyRef Name="C_T" />
-            <PropertyRef Name="Cust_Location_No" />
-            <PropertyRef Name="JOB_LOCATION_LINE_1" />
-            <PropertyRef Name="JOB_LOCATION_LINE_2" />
-            <PropertyRef Name="JOB_REFERENCE" />
-            <PropertyRef Name="PROJECT_MANAGER" />
-            <PropertyRef Name="SUBMITTED_AMOUNT" />
-            <PropertyRef Name="C_O_Status" />
-            <PropertyRef Name="APPROVED_AMOUNT" />
-            <PropertyRef Name="ESTIMATED_TAX_INCLUDED" />
-            <PropertyRef Name="ESTIMATED_TAX_ADDITIONAL" />
-            <PropertyRef Name="RET_" />
-            <PropertyRef Name="COUNTY" />
-            <PropertyRef Name="SALES_REP" />
-            <PropertyRef Name="Sales_Tax" />
-            <PropertyRef Name="Labor_Tax" />
-            <PropertyRef Name="Use_Tax" />
-            <PropertyRef Name="Condense_Costs" />
-            <PropertyRef Name="Job_Complete" />
-            <PropertyRef Name="Alt_G_L_" />
-            <PropertyRef Name="Std_Phs_Cat" />
-            <PropertyRef Name="Markups" />
-            <PropertyRef Name="SORT_DATE" />
-            <PropertyRef Name="JOB_END_DATE" />
-            <PropertyRef Name="USER_DEFINED_1" />
-            <PropertyRef Name="USER_DEFINED_3" />
-            <PropertyRef Name="USER_DEFINED_4" />
-          </Key>
-          <Property Name="Job_Number" Type="Int32" Nullable="false" />
-          <Property Name="C_O_EXT" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="C_T" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="Job_Date" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="CUST__NO_" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Cust_Location_No" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="Job_Location_Code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="JOB_LOCATION_LINE_1" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="JOB_LOCATION_LINE_2" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="JOB_LOCATION_LINE_3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="JOB_LOCATION_LINE_4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="JOB_REFERENCE" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="JOB_CONTACT" Type="Int32" />
-          <Property Name="PROJECT_MANAGER" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="CUSTOMER_PO_" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="SUBMITTED_AMOUNT" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="C_O_Status" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="STATUS_DATE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="APPROVED_AMOUNT" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="ESTIMATED_TAX_INCLUDED" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="ESTIMATED_TAX_ADDITIONAL" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="RET_" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="TAX_STATE" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="COUNTY" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="SALES_REP" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="Sales_Tax" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="Labor_Tax" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="Use_Tax" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="Condense_Costs" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="Job_Complete" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="Alt_G_L_" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="Std_Phs_Cat" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="Markups" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="SORT_DATE" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="JOB_START_DATE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="JOB_END_DATE" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="USER_DEFINED_1" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="USER_DEFINED_2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="USER_DEFINED_3" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="USER_DEFINED_4" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="AspNetUser">
           <Key>
             <PropertyRef Name="Id" />
@@ -2453,6 +2380,79 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
           <Property Name="Id" Type="Int16" Nullable="false" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Path" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ExportToCF">
+          <Key>
+            <PropertyRef Name="Job_Number" />
+            <PropertyRef Name="C_O_EXT" />
+            <PropertyRef Name="C_T" />
+            <PropertyRef Name="Cust_Location_No" />
+            <PropertyRef Name="JOB_LOCATION_LINE_1" />
+            <PropertyRef Name="JOB_LOCATION_LINE_2" />
+            <PropertyRef Name="JOB_REFERENCE" />
+            <PropertyRef Name="PROJECT_MANAGER" />
+            <PropertyRef Name="SUBMITTED_AMOUNT" />
+            <PropertyRef Name="C_O_Status" />
+            <PropertyRef Name="APPROVED_AMOUNT" />
+            <PropertyRef Name="ESTIMATED_TAX_INCLUDED" />
+            <PropertyRef Name="ESTIMATED_TAX_ADDITIONAL" />
+            <PropertyRef Name="RET_" />
+            <PropertyRef Name="COUNTY" />
+            <PropertyRef Name="SALES_REP" />
+            <PropertyRef Name="Sales_Tax" />
+            <PropertyRef Name="Labor_Tax" />
+            <PropertyRef Name="Use_Tax" />
+            <PropertyRef Name="Condense_Costs" />
+            <PropertyRef Name="Job_Complete" />
+            <PropertyRef Name="Alt_G_L_" />
+            <PropertyRef Name="Std_Phs_Cat" />
+            <PropertyRef Name="Markups" />
+            <PropertyRef Name="SORT_DATE" />
+            <PropertyRef Name="JOB_END_DATE" />
+            <PropertyRef Name="USER_DEFINED_1" />
+            <PropertyRef Name="USER_DEFINED_3" />
+            <PropertyRef Name="USER_DEFINED_4" />
+          </Key>
+          <Property Name="Job_Number" Type="Int32" Nullable="false" />
+          <Property Name="C_O_EXT" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="C_T" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Job_Date" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Job_Location_Code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Cust_Location_No" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="CUST__NO_" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="JOB_LOCATION_LINE_1" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="JOB_LOCATION_LINE_2" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="JOB_LOCATION_LINE_3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JOB_LOCATION_LINE_4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JOB_REFERENCE" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="JOB_CONTACT" Type="Int32" />
+          <Property Name="PROJECT_MANAGER" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="CUSTOMER_PO_" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="SUBMITTED_AMOUNT" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="C_O_Status" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="STATUS_DATE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="APPROVED_AMOUNT" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="ESTIMATED_TAX_INCLUDED" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="ESTIMATED_TAX_ADDITIONAL" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="RET_" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="TAX_STATE" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="COUNTY" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="SALES_REP" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Sales_Tax" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Labor_Tax" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Use_Tax" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Condense_Costs" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Job_Complete" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Alt_G_L_" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Std_Phs_Cat" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Markups" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="SORT_DATE" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="JOB_START_DATE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="JOB_END_DATE" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="USER_DEFINED_1" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="USER_DEFINED_2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="USER_DEFINED_3" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="USER_DEFINED_4" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -3051,52 +3051,6 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ExportToCFs">
-            <EntityTypeMapping TypeName="aaahelpModel.ExportToCF">
-              <MappingFragment StoreEntitySet="ExportToCF">
-                <ScalarProperty Name="USER_DEFINED_4" ColumnName="USER DEFINED 4" />
-                <ScalarProperty Name="USER_DEFINED_3" ColumnName="USER DEFINED 3" />
-                <ScalarProperty Name="USER_DEFINED_2" ColumnName="USER DEFINED 2" />
-                <ScalarProperty Name="USER_DEFINED_1" ColumnName="USER DEFINED 1" />
-                <ScalarProperty Name="JOB_END_DATE" ColumnName="JOB END DATE" />
-                <ScalarProperty Name="JOB_START_DATE" ColumnName="JOB START DATE" />
-                <ScalarProperty Name="SORT_DATE" ColumnName="SORT DATE" />
-                <ScalarProperty Name="Markups" ColumnName="Markups" />
-                <ScalarProperty Name="Std_Phs_Cat" ColumnName="Std Phs/Cat" />
-                <ScalarProperty Name="Alt_G_L_" ColumnName="Alt G/L#" />
-                <ScalarProperty Name="Job_Complete" ColumnName="Job Complete" />
-                <ScalarProperty Name="Condense_Costs" ColumnName="Condense Costs" />
-                <ScalarProperty Name="Use_Tax" ColumnName="Use Tax" />
-                <ScalarProperty Name="Labor_Tax" ColumnName="Labor Tax" />
-                <ScalarProperty Name="Sales_Tax" ColumnName="Sales Tax" />
-                <ScalarProperty Name="SALES_REP" ColumnName="SALES REP" />
-                <ScalarProperty Name="COUNTY" ColumnName="COUNTY" />
-                <ScalarProperty Name="TAX_STATE" ColumnName="TAX STATE" />
-                <ScalarProperty Name="RET_" ColumnName="RET." />
-                <ScalarProperty Name="ESTIMATED_TAX_ADDITIONAL" ColumnName="ESTIMATED TAX ADDITIONAL" />
-                <ScalarProperty Name="ESTIMATED_TAX_INCLUDED" ColumnName="ESTIMATED TAX INCLUDED" />
-                <ScalarProperty Name="APPROVED_AMOUNT" ColumnName="APPROVED AMOUNT" />
-                <ScalarProperty Name="STATUS_DATE" ColumnName="STATUS DATE" />
-                <ScalarProperty Name="C_O_Status" ColumnName="C/O Status" />
-                <ScalarProperty Name="SUBMITTED_AMOUNT" ColumnName="SUBMITTED AMOUNT" />
-                <ScalarProperty Name="CUSTOMER_PO_" ColumnName="CUSTOMER PO#" />
-                <ScalarProperty Name="PROJECT_MANAGER" ColumnName="PROJECT MANAGER" />
-                <ScalarProperty Name="JOB_CONTACT" ColumnName="JOB CONTACT" />
-                <ScalarProperty Name="JOB_REFERENCE" ColumnName="JOB REFERENCE" />
-                <ScalarProperty Name="JOB_LOCATION_LINE_4" ColumnName="JOB LOCATION LINE 4" />
-                <ScalarProperty Name="JOB_LOCATION_LINE_3" ColumnName="JOB LOCATION LINE 3" />
-                <ScalarProperty Name="JOB_LOCATION_LINE_2" ColumnName="JOB LOCATION LINE 2" />
-                <ScalarProperty Name="JOB_LOCATION_LINE_1" ColumnName="JOB LOCATION LINE 1" />
-                <ScalarProperty Name="Job_Location_Code" ColumnName="Job Location Code" />
-                <ScalarProperty Name="Cust_Location_No" ColumnName="Cust Location No" />
-                <ScalarProperty Name="CUST__NO_" ColumnName="CUST. NO." />
-                <ScalarProperty Name="Job_Date" ColumnName="Job Date" />
-                <ScalarProperty Name="C_T" ColumnName="C/T" />
-                <ScalarProperty Name="C_O_EXT" ColumnName="C/O EXT" />
-                <ScalarProperty Name="Job_Number" ColumnName="Job Number" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="aaahelpModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
@@ -3180,6 +3134,52 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
                 <ScalarProperty Name="Path" ColumnName="Path" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExportToCFs">
+            <EntityTypeMapping TypeName="aaahelpModel.ExportToCF">
+              <MappingFragment StoreEntitySet="ExportToCF">
+                <ScalarProperty Name="USER_DEFINED_4" ColumnName="USER DEFINED 4" />
+                <ScalarProperty Name="USER_DEFINED_3" ColumnName="USER DEFINED 3" />
+                <ScalarProperty Name="USER_DEFINED_2" ColumnName="USER DEFINED 2" />
+                <ScalarProperty Name="USER_DEFINED_1" ColumnName="USER DEFINED 1" />
+                <ScalarProperty Name="JOB_END_DATE" ColumnName="JOB END DATE" />
+                <ScalarProperty Name="JOB_START_DATE" ColumnName="JOB START DATE" />
+                <ScalarProperty Name="SORT_DATE" ColumnName="SORT DATE" />
+                <ScalarProperty Name="Markups" ColumnName="Markups" />
+                <ScalarProperty Name="Std_Phs_Cat" ColumnName="Std Phs/Cat" />
+                <ScalarProperty Name="Alt_G_L_" ColumnName="Alt G/L#" />
+                <ScalarProperty Name="Job_Complete" ColumnName="Job Complete" />
+                <ScalarProperty Name="Condense_Costs" ColumnName="Condense Costs" />
+                <ScalarProperty Name="Use_Tax" ColumnName="Use Tax" />
+                <ScalarProperty Name="Labor_Tax" ColumnName="Labor Tax" />
+                <ScalarProperty Name="Sales_Tax" ColumnName="Sales Tax" />
+                <ScalarProperty Name="SALES_REP" ColumnName="SALES REP" />
+                <ScalarProperty Name="COUNTY" ColumnName="COUNTY" />
+                <ScalarProperty Name="TAX_STATE" ColumnName="TAX STATE" />
+                <ScalarProperty Name="RET_" ColumnName="RET." />
+                <ScalarProperty Name="ESTIMATED_TAX_ADDITIONAL" ColumnName="ESTIMATED TAX ADDITIONAL" />
+                <ScalarProperty Name="ESTIMATED_TAX_INCLUDED" ColumnName="ESTIMATED TAX INCLUDED" />
+                <ScalarProperty Name="APPROVED_AMOUNT" ColumnName="APPROVED AMOUNT" />
+                <ScalarProperty Name="STATUS_DATE" ColumnName="STATUS DATE" />
+                <ScalarProperty Name="C_O_Status" ColumnName="C/O Status" />
+                <ScalarProperty Name="SUBMITTED_AMOUNT" ColumnName="SUBMITTED AMOUNT" />
+                <ScalarProperty Name="CUSTOMER_PO_" ColumnName="CUSTOMER PO#" />
+                <ScalarProperty Name="PROJECT_MANAGER" ColumnName="PROJECT MANAGER" />
+                <ScalarProperty Name="JOB_CONTACT" ColumnName="JOB CONTACT" />
+                <ScalarProperty Name="JOB_REFERENCE" ColumnName="JOB REFERENCE" />
+                <ScalarProperty Name="JOB_LOCATION_LINE_4" ColumnName="JOB LOCATION LINE 4" />
+                <ScalarProperty Name="JOB_LOCATION_LINE_3" ColumnName="JOB LOCATION LINE 3" />
+                <ScalarProperty Name="JOB_LOCATION_LINE_2" ColumnName="JOB LOCATION LINE 2" />
+                <ScalarProperty Name="JOB_LOCATION_LINE_1" ColumnName="JOB LOCATION LINE 1" />
+                <ScalarProperty Name="CUST__NO_" ColumnName="CUST. NO." />
+                <ScalarProperty Name="Cust_Location_No" ColumnName="Cust Location No" />
+                <ScalarProperty Name="Job_Location_Code" ColumnName="Job Location Code" />
+                <ScalarProperty Name="Job_Date" ColumnName="Job Date" />
+                <ScalarProperty Name="C_T" ColumnName="C/T" />
+                <ScalarProperty Name="C_O_EXT" ColumnName="C/O EXT" />
+                <ScalarProperty Name="Job_Number" ColumnName="Job Number" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

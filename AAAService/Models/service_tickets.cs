@@ -22,8 +22,8 @@ namespace AAAService.Models
         }
     
         public int id { get; set; }
-        public System.Guid guid { get; set; }
         public string Company { get; set; }
+        public System.Guid guid { get; set; }
         public int job_number { get; set; }
         public System.DateTime order_datetime { get; set; }
         public Nullable<System.DateTime> complete_datetime { get; set; }
