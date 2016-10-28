@@ -21,25 +21,23 @@ namespace AAAService.Controllers
         {
             var exportToCFData = (from etcfd in db.ExportToCFs
                                  orderby etcfd.Job_Number descending
-                                 select etcfd).Take(100);
+                                 select etcfd)/*.Take(100)*/;
 
-            var view = exportToCFData.ToList<ExportToCF>();
-            Session["ExportToCFs"] = view;
+            var view = exportToCFData.ToList<ExportToCF>();            
             return View(view);
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Index([Bind(Include = "Job_Number,C_O_EXT")] List<ExportToCF> model)
+        public ActionResult Index(List<ExportToCF> model)
         {
             return View(model);
         }
 
         public ActionResult ExportToExcel()
         {
-            //var exportToCFData = this.db.ExportToCFs.ToList();
+            var filteredRows = (List<ExportToCF>)Session["Items"];
             var grid = new GridView();
-            grid.DataSource = Session["ExportToCFs"];
+            grid.DataSource = filteredRows;
             grid.DataBind();
             grid.Font.Size = 8;
             grid.BorderStyle = BorderStyle.None;

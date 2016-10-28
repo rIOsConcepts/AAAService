@@ -490,10 +490,10 @@ warning 6002: The table/view 'DB_105883_prod.dbo.ExportToCF' does not have a pri
     <Property Name="Job Number" Type="int" Nullable="false" />
     <Property Name="C/O EXT" Type="varchar" MaxLength="3" Nullable="false" />
     <Property Name="C/T" Type="varchar" MaxLength="1" Nullable="false" />
-    <Property Name="Job Date" Type="varchar" MaxLength="10" />
-    <Property Name="CUST. NO." Type="varchar" MaxLength="10" />
-    <Property Name="Cust Location No" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="Job Date" Type="varchar" MaxLength="8" />
     <Property Name="Job Location Code" Type="varchar" MaxLength="10" />
+    <Property Name="Cust Location No" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="CUST. NO." Type="varchar" MaxLength="10" />
     <Property Name="JOB LOCATION LINE 1" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="JOB LOCATION LINE 2" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="JOB LOCATION LINE 3" Type="varchar" MaxLength="50" />
@@ -504,7 +504,7 @@ warning 6002: The table/view 'DB_105883_prod.dbo.ExportToCF' does not have a pri
     <Property Name="CUSTOMER PO#" Type="varchar" MaxLength="30" />
     <Property Name="SUBMITTED AMOUNT" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="C/O Status" Type="varchar" MaxLength="1" Nullable="false" />
-    <Property Name="STATUS DATE" Type="varchar" MaxLength="10" />
+    <Property Name="STATUS DATE" Type="varchar" MaxLength="8" />
     <Property Name="APPROVED AMOUNT" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="ESTIMATED TAX INCLUDED" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="ESTIMATED TAX ADDITIONAL" Type="varchar" MaxLength="1" Nullable="false" />
@@ -521,7 +521,7 @@ warning 6002: The table/view 'DB_105883_prod.dbo.ExportToCF' does not have a pri
     <Property Name="Std Phs/Cat" Type="varchar" MaxLength="2" Nullable="false" />
     <Property Name="Markups" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="SORT DATE" Type="varchar" MaxLength="1" Nullable="false" />
-    <Property Name="JOB START DATE" Type="varchar" MaxLength="10" />
+    <Property Name="JOB START DATE" Type="varchar" MaxLength="8" />
     <Property Name="JOB END DATE" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="USER DEFINED 1" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="USER DEFINED 2" Type="varchar" MaxLength="50" />
@@ -1064,9 +1064,9 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
     [ExportToCF].[C/O EXT] AS [C/O EXT], 
     [ExportToCF].[C/T] AS [C/T], 
     [ExportToCF].[Job Date] AS [Job Date], 
-    [ExportToCF].[CUST. NO.] AS [CUST. NO.], 
-    [ExportToCF].[Cust Location No] AS [Cust Location No], 
     [ExportToCF].[Job Location Code] AS [Job Location Code], 
+    [ExportToCF].[Cust Location No] AS [Cust Location No], 
+    [ExportToCF].[CUST. NO.] AS [CUST. NO.], 
     [ExportToCF].[JOB LOCATION LINE 1] AS [JOB LOCATION LINE 1], 
     [ExportToCF].[JOB LOCATION LINE 2] AS [JOB LOCATION LINE 2], 
     [ExportToCF].[JOB LOCATION LINE 3] AS [JOB LOCATION LINE 3], 

@@ -7,7 +7,6 @@
 }
 else
 {
-    
         <div class="grid-mvc" data-lang="@Model.Language" data-gridname="@Model.RenderOptions.GridName" data-selectable="@Model.RenderOptions.Selectable.ToString().ToLower()" data-multiplefilters="@Model.RenderOptions.AllowMultipleFilters.ToString().ToLower()">
             <div class="grid-wrap">
                 <table class="table table-striped grid-table">
@@ -38,6 +37,8 @@ else
 {
     foreach (object item in Model.ItemsToDisplay)
     {
+            Session["Items"] = Model.ItemsToDisplay;
+
             <tr class="grid-row @Model.GetRowCssClasses(item)">
                 @foreach (IGridColumn column in Model.Columns)
                 {
