@@ -505,6 +505,16 @@ namespace AAAService.Controllers
                         db.SaveChanges();
                     }
 
+                    var userLocationToDelete = from utl in db.user_to_location
+                                               where utl.user_guid == user.guid
+                                               select utl;
+
+                    if (userLocationToDelete.Count() > 0)
+                    {
+                        db.user_to_location.RemoveRange(userLocationToDelete);
+                        db.SaveChanges();
+                    }
+
                     result = await UserManager.DeleteAsync(user);
 
                     if (!result.Succeeded)

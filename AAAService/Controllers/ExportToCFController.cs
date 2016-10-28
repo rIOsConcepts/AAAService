@@ -21,7 +21,7 @@ namespace AAAService.Controllers
         {
             var exportToCFData = (from etcfd in db.ExportToCFs
                                  orderby etcfd.Job_Number descending
-                                 select etcfd)/*.Take(100)*/;
+                                 select etcfd).Take(500);
 
             var view = exportToCFData.ToList<ExportToCF>();            
             return View(view);

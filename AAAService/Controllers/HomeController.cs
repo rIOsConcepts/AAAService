@@ -11,9 +11,14 @@ namespace AAAService.Controllers
     {
         private aaahelpEntities db = new aaahelpEntities();
 
-        public ActionResult Index(string returnUrl, string subdomain)
+        //public ActionResult Index(string returnUrl, string subdomain)
+        public ActionResult Index(string returnUrl)
         {
-            ViewBag.Subdomain = subdomain;
+            if (HttpContext.Request.Url.ToString().ToLower().Contains("rabobank"))
+            {
+                ViewBag.Subdomain = "rabobank";
+            }
+                
             return View();
         }
 
