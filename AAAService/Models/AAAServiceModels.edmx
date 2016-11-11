@@ -475,7 +475,9 @@ warning 6002: The table/view 'DB_105883_prod.dbo.ExportToCF' does not have a pri
             <PropertyRef Name="Cust Location No" />
             <PropertyRef Name="JOB LOCATION LINE 1" />
             <PropertyRef Name="JOB LOCATION LINE 2" />
+            <PropertyRef Name="JOB LOCATION LINE 3" />
             <PropertyRef Name="JOB REFERENCE" />
+            <PropertyRef Name="JOB CONTACT" />
             <PropertyRef Name="PROJECT MANAGER" />
             <PropertyRef Name="SUBMITTED AMOUNT" />
             <PropertyRef Name="C/O Status" />
@@ -495,7 +497,6 @@ warning 6002: The table/view 'DB_105883_prod.dbo.ExportToCF' does not have a pri
             <PropertyRef Name="Markups" />
             <PropertyRef Name="SORT DATE" />
             <PropertyRef Name="JOB END DATE" />
-            <PropertyRef Name="USER DEFINED 1" />
             <PropertyRef Name="USER DEFINED 3" />
             <PropertyRef Name="USER DEFINED 4" />
           </Key>
@@ -503,15 +504,15 @@ warning 6002: The table/view 'DB_105883_prod.dbo.ExportToCF' does not have a pri
           <Property Name="C/O EXT" Type="varchar" MaxLength="3" Nullable="false" />
           <Property Name="C/T" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="Job Date" Type="varchar" MaxLength="8" />
-          <Property Name="Job Location Code" Type="varchar" MaxLength="10" />
-          <Property Name="Cust Location No" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="CUST. NO." Type="varchar" MaxLength="10" />
+          <Property Name="Cust Location No" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Job Location Code" Type="varchar" MaxLength="10" />
           <Property Name="JOB LOCATION LINE 1" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="JOB LOCATION LINE 2" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="JOB LOCATION LINE 3" Type="varchar" MaxLength="50" />
+          <Property Name="JOB LOCATION LINE 3" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="JOB LOCATION LINE 4" Type="varchar" MaxLength="50" />
           <Property Name="JOB REFERENCE" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="JOB CONTACT" Type="int" />
+          <Property Name="JOB CONTACT" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="PROJECT MANAGER" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="CUSTOMER PO#" Type="varchar" MaxLength="30" />
           <Property Name="SUBMITTED AMOUNT" Type="varchar" MaxLength="1" Nullable="false" />
@@ -535,10 +536,10 @@ warning 6002: The table/view 'DB_105883_prod.dbo.ExportToCF' does not have a pri
           <Property Name="SORT DATE" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="JOB START DATE" Type="varchar" MaxLength="8" />
           <Property Name="JOB END DATE" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="USER DEFINED 1" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="USER DEFINED 1" Type="varchar" MaxLength="50" />
           <Property Name="USER DEFINED 2" Type="varchar" MaxLength="50" />
           <Property Name="USER DEFINED 3" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="USER DEFINED 4" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="USER DEFINED 4" Type="varchar" MaxLength="6" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'DB_105883_prod.dbo.Location_Mgt_ViewMVC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1097,9 +1098,9 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
     [ExportToCF].[C/O EXT] AS [C/O EXT], 
     [ExportToCF].[C/T] AS [C/T], 
     [ExportToCF].[Job Date] AS [Job Date], 
-    [ExportToCF].[Job Location Code] AS [Job Location Code], 
-    [ExportToCF].[Cust Location No] AS [Cust Location No], 
     [ExportToCF].[CUST. NO.] AS [CUST. NO.], 
+    [ExportToCF].[Cust Location No] AS [Cust Location No], 
+    [ExportToCF].[Job Location Code] AS [Job Location Code], 
     [ExportToCF].[JOB LOCATION LINE 1] AS [JOB LOCATION LINE 1], 
     [ExportToCF].[JOB LOCATION LINE 2] AS [JOB LOCATION LINE 2], 
     [ExportToCF].[JOB LOCATION LINE 3] AS [JOB LOCATION LINE 3], 
@@ -2389,7 +2390,9 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
             <PropertyRef Name="Cust_Location_No" />
             <PropertyRef Name="JOB_LOCATION_LINE_1" />
             <PropertyRef Name="JOB_LOCATION_LINE_2" />
+            <PropertyRef Name="JOB_LOCATION_LINE_3" />
             <PropertyRef Name="JOB_REFERENCE" />
+            <PropertyRef Name="JOB_CONTACT" />
             <PropertyRef Name="PROJECT_MANAGER" />
             <PropertyRef Name="SUBMITTED_AMOUNT" />
             <PropertyRef Name="C_O_Status" />
@@ -2409,7 +2412,6 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
             <PropertyRef Name="Markups" />
             <PropertyRef Name="SORT_DATE" />
             <PropertyRef Name="JOB_END_DATE" />
-            <PropertyRef Name="USER_DEFINED_1" />
             <PropertyRef Name="USER_DEFINED_3" />
             <PropertyRef Name="USER_DEFINED_4" />
           </Key>
@@ -2417,15 +2419,15 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
           <Property Name="C_O_EXT" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="C_T" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="Job_Date" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="Job_Location_Code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Cust_Location_No" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="CUST__NO_" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Cust_Location_No" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Job_Location_Code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="JOB_LOCATION_LINE_1" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="JOB_LOCATION_LINE_2" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="JOB_LOCATION_LINE_3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JOB_LOCATION_LINE_3" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="JOB_LOCATION_LINE_4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="JOB_REFERENCE" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="JOB_CONTACT" Type="Int32" />
+          <Property Name="JOB_CONTACT" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PROJECT_MANAGER" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="CUSTOMER_PO_" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="SUBMITTED_AMOUNT" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
@@ -2449,10 +2451,10 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
           <Property Name="SORT_DATE" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="JOB_START_DATE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="JOB_END_DATE" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="USER_DEFINED_1" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="USER_DEFINED_1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="USER_DEFINED_2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="USER_DEFINED_3" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="USER_DEFINED_4" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="USER_DEFINED_4" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -3173,9 +3175,9 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
                 <ScalarProperty Name="JOB_LOCATION_LINE_3" ColumnName="JOB LOCATION LINE 3" />
                 <ScalarProperty Name="JOB_LOCATION_LINE_2" ColumnName="JOB LOCATION LINE 2" />
                 <ScalarProperty Name="JOB_LOCATION_LINE_1" ColumnName="JOB LOCATION LINE 1" />
-                <ScalarProperty Name="CUST__NO_" ColumnName="CUST. NO." />
-                <ScalarProperty Name="Cust_Location_No" ColumnName="Cust Location No" />
                 <ScalarProperty Name="Job_Location_Code" ColumnName="Job Location Code" />
+                <ScalarProperty Name="Cust_Location_No" ColumnName="Cust Location No" />
+                <ScalarProperty Name="CUST__NO_" ColumnName="CUST. NO." />
                 <ScalarProperty Name="Job_Date" ColumnName="Job Date" />
                 <ScalarProperty Name="C_T" ColumnName="C/T" />
                 <ScalarProperty Name="C_O_EXT" ColumnName="C/O EXT" />

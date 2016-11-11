@@ -714,9 +714,9 @@
           <ScalarProperty Name="JOB_LOCATION_LINE_3" ColumnName="JOB LOCATION LINE 3" />
           <ScalarProperty Name="JOB_LOCATION_LINE_2" ColumnName="JOB LOCATION LINE 2" />
           <ScalarProperty Name="JOB_LOCATION_LINE_1" ColumnName="JOB LOCATION LINE 1" />
-          <ScalarProperty Name="CUST__NO_" ColumnName="CUST. NO." />
-          <ScalarProperty Name="Cust_Location_No" ColumnName="Cust Location No" />
           <ScalarProperty Name="Job_Location_Code" ColumnName="Job Location Code" />
+          <ScalarProperty Name="Cust_Location_No" ColumnName="Cust Location No" />
+          <ScalarProperty Name="CUST__NO_" ColumnName="CUST. NO." />
           <ScalarProperty Name="Job_Date" ColumnName="Job Date" />
           <ScalarProperty Name="C_T" ColumnName="C/T" />
           <ScalarProperty Name="C_O_EXT" ColumnName="C/O EXT" />

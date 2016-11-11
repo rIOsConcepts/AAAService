@@ -18,15 +18,15 @@ namespace AAAService.Models
         public string C_O_EXT { get; set; }
         public string C_T { get; set; }
         public string Job_Date { get; set; }
-        public string Job_Location_Code { get; set; }
-        public string Cust_Location_No { get; set; }
         public string CUST__NO_ { get; set; }
+        public string Cust_Location_No { get; set; }
+        public string Job_Location_Code { get; set; }
         public string JOB_LOCATION_LINE_1 { get; set; }
         public string JOB_LOCATION_LINE_2 { get; set; }
         public string JOB_LOCATION_LINE_3 { get; set; }
         public string JOB_LOCATION_LINE_4 { get; set; }
         public string JOB_REFERENCE { get; set; }
-        public Nullable<int> JOB_CONTACT { get; set; }
+        public string JOB_CONTACT { get; set; }
         public string PROJECT_MANAGER { get; set; }
         public string CUSTOMER_PO_ { get; set; }
         public string SUBMITTED_AMOUNT { get; set; }
