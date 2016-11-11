@@ -106,7 +106,6 @@ C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\System
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\System.Web.WebPages.dll
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\System.Web.WebPages.Razor.dll
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\WebGrease.dll
-C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\System.Data.SqlServerCe.dll
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Antlr3.Runtime.pdb
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\bin\System.Net.Http.Formatting.xml
