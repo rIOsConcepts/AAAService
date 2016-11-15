@@ -465,7 +465,6 @@ warning 6002: The table/view 'DB_105883_prod.dbo.ExportToCF' does not have a pri
       <PropertyRef Name="JOB LOCATION LINE 2" />
       <PropertyRef Name="JOB LOCATION LINE 3" />
       <PropertyRef Name="JOB REFERENCE" />
-      <PropertyRef Name="JOB CONTACT" />
       <PropertyRef Name="PROJECT MANAGER" />
       <PropertyRef Name="SUBMITTED AMOUNT" />
       <PropertyRef Name="C/O Status" />
@@ -500,7 +499,7 @@ warning 6002: The table/view 'DB_105883_prod.dbo.ExportToCF' does not have a pri
     <Property Name="JOB LOCATION LINE 3" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="JOB LOCATION LINE 4" Type="varchar" MaxLength="50" />
     <Property Name="JOB REFERENCE" Type="varchar" MaxLength="100" Nullable="false" />
-    <Property Name="JOB CONTACT" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="JOB CONTACT" Type="varchar" MaxLength="15" />
     <Property Name="PROJECT MANAGER" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="CUSTOMER PO#" Type="varchar" MaxLength="30" />
     <Property Name="SUBMITTED AMOUNT" Type="varchar" MaxLength="1" Nullable="false" />

@@ -391,7 +391,7 @@ namespace AAAService.Controllers
                                "Priority Code: " + service_tickets.PriorityID + "\r\n" +
                                "Order Date: " + service_tickets.order_datetime.ToShortDateString() + "\r\n" +
                                "Order Time: " + service_tickets.order_datetime.ToShortTimeString() + "\r\n" +
-                               "Category " + service_tickets.CategoryID + "\r\n" +
+                               "Category: " + service_tickets.ServiceCategory + "\r\n" +
                                "Request Summary\r\n" +
                                service_tickets.problem_summary.ToUpper() + "\r\n" +
                                "Request Details\r\n" +

@@ -14,6 +14,8 @@ namespace AAAService.Models
     
     public partial class bid_requests
     {
+        public string CompanyName { get; set; }
+        public string LocationName { get; set; }
         public int bid_num { get; set; }
         public System.Guid guid { get; set; }
         public System.DateTime order_datetime { get; set; }
@@ -23,10 +25,8 @@ namespace AAAService.Models
         public System.Guid service_location_guid { get; set; }
         public System.Guid created_by_user_guid { get; set; }
         public System.Guid last_updated_by_user_guid { get; set; }
-        public string CompanyName { get; set; }
         public string problem_summary { get; set; }
         public string problem_details { get; set; }
-        public string LocationName { get; set; }
         public string location_contact_name { get; set; }
         public string location_contact_phone { get; set; }
         public string location_contact_phone_night { get; set; }

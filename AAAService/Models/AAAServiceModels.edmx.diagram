@@ -59,7 +59,7 @@
         <AssociationConnector Association="aaahelpModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" />
         <EntityTypeShape EntityType="aaahelpModel.ReportBuilder_View" Width="2.375" PointX="3.375" PointY="15.75" />
         <EntityTypeShape EntityType="aaahelpModel.Calendar" Width="1.5" PointX="4.625" PointY="0.5" />
-        <EntityTypeShape EntityType="aaahelpModel.ExportToCF" Width="2.25" PointX="11.5" PointY="12.375" />
+        <EntityTypeShape EntityType="aaahelpModel.ExportToCF" Width="2.25" PointX="11.5" PointY="11.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

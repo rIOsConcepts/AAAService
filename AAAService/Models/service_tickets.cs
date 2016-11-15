@@ -20,9 +20,9 @@ namespace AAAService.Models
             this.service_ticket_files = new HashSet<service_ticket_files>();
             this.ST_SL_Edits = new HashSet<ST_SL_Edits>();
         }
-    
-        public int id { get; set; }
+
         public string Company { get; set; }
+        public int id { get; set; }
         public System.Guid guid { get; set; }
         public int job_number { get; set; }
         public System.DateTime order_datetime { get; set; }

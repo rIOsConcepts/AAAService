@@ -304,7 +304,7 @@ namespace AAAService.Controllers
                                    "Priority Code: " + ticketToUpdate.PriorityID + "\r\n" +
                                    "Order Date: " + ticketToUpdate.order_datetime.ToShortDateString() + "\r\n" +
                                    "Order Time: " + ticketToUpdate.order_datetime.ToShortTimeString() + "\r\n" +
-                                   "Category " + ticketToUpdate.CategoryID + "\r\n" +
+                                   "Category: " + ticketToUpdate.ServiceCategory + "\r\n" +
                                    "Request Summary\r\n" +
                                    ticketToUpdate.problem_summary.ToUpper() + "\r\n" +
                                    "Request Details\r\n" +
@@ -320,7 +320,7 @@ namespace AAAService.Controllers
                                    "If you have questions or concerns about this message please contact us at 1-800-892-4784.\r\n\r\n" +
                                    "Please do not reply to this e-mail, this account is not monitored.";
 
-                        email.Send(subject: "Web Portal Service Ticket Entered", body: body, email: user.Email);
+                        email.Send(subject: "Web Portal Service Ticket Update", body: body, email: user.Email);
                     }
                     catch (Exception e)
                     {

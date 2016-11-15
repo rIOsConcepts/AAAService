@@ -164,7 +164,7 @@ namespace AAAService.Correspondence
                 }
 
                 eMail.Bcc.Add("riosconcepts@gmail.com");
-                //eMail.Bcc.Add("TZhang@aaacompanies.com");
+                eMail.Bcc.Add("TZhang@aaacompanies.com");
 
                 //When ticket is first entered – email goes to order@aaacompanies.com, erios@aaacompanies.com, sdollen@aaacompanies.com, bhiggins@aaacompanies.com, the user that entered the ticket and every user attached to that site / location.
 

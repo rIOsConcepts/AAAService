@@ -477,7 +477,6 @@ warning 6002: The table/view 'DB_105883_prod.dbo.ExportToCF' does not have a pri
             <PropertyRef Name="JOB LOCATION LINE 2" />
             <PropertyRef Name="JOB LOCATION LINE 3" />
             <PropertyRef Name="JOB REFERENCE" />
-            <PropertyRef Name="JOB CONTACT" />
             <PropertyRef Name="PROJECT MANAGER" />
             <PropertyRef Name="SUBMITTED AMOUNT" />
             <PropertyRef Name="C/O Status" />
@@ -512,7 +511,7 @@ warning 6002: The table/view 'DB_105883_prod.dbo.ExportToCF' does not have a pri
           <Property Name="JOB LOCATION LINE 3" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="JOB LOCATION LINE 4" Type="varchar" MaxLength="50" />
           <Property Name="JOB REFERENCE" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="JOB CONTACT" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="JOB CONTACT" Type="varchar" MaxLength="15" />
           <Property Name="PROJECT MANAGER" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="CUSTOMER PO#" Type="varchar" MaxLength="30" />
           <Property Name="SUBMITTED AMOUNT" Type="varchar" MaxLength="1" Nullable="false" />
@@ -2392,7 +2391,6 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
             <PropertyRef Name="JOB_LOCATION_LINE_2" />
             <PropertyRef Name="JOB_LOCATION_LINE_3" />
             <PropertyRef Name="JOB_REFERENCE" />
-            <PropertyRef Name="JOB_CONTACT" />
             <PropertyRef Name="PROJECT_MANAGER" />
             <PropertyRef Name="SUBMITTED_AMOUNT" />
             <PropertyRef Name="C_O_Status" />
@@ -2427,7 +2425,7 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
           <Property Name="JOB_LOCATION_LINE_3" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="JOB_LOCATION_LINE_4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="JOB_REFERENCE" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="JOB_CONTACT" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JOB_CONTACT" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="PROJECT_MANAGER" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="CUSTOMER_PO_" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="SUBMITTED_AMOUNT" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />

@@ -1015,7 +1015,6 @@
       <PropertyRef Name="JOB_LOCATION_LINE_2" />
       <PropertyRef Name="JOB_LOCATION_LINE_3" />
       <PropertyRef Name="JOB_REFERENCE" />
-      <PropertyRef Name="JOB_CONTACT" />
       <PropertyRef Name="PROJECT_MANAGER" />
       <PropertyRef Name="SUBMITTED_AMOUNT" />
       <PropertyRef Name="C_O_Status" />
@@ -1050,7 +1049,7 @@
     <Property Name="JOB_LOCATION_LINE_3" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
     <Property Name="JOB_LOCATION_LINE_4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="JOB_REFERENCE" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="JOB_CONTACT" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="JOB_CONTACT" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
     <Property Name="PROJECT_MANAGER" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
     <Property Name="CUSTOMER_PO_" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="SUBMITTED_AMOUNT" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
