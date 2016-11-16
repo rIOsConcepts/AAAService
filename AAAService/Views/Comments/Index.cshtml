@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AAAService.Models.errors_and_comments>
+﻿@model IEnumerable<AAAService.Models.error_and_comments_view>
 @using GridMvc.Html
 <link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
@@ -57,7 +57,14 @@
                .Filterable(true)
                .Titled("Rating");
 
+       /* Adding "User Name" column: */
+       columns.Add(o => o.user_full_name)
+               .Filterable(true)
+               .Titled("User Name");
 
-
+       /* Adding "Location" column: */
+       columns.Add(o => o.service_location)
+               .Filterable(true)
+               .Titled("Location");
    }).WithPaging(20).Sortable(true)
-    </div>
+</div>

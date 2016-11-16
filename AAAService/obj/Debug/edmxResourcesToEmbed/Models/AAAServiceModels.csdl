@@ -202,6 +202,7 @@
     <EntitySet Name="ReportBuilder_View" EntityType="aaahelpModel.ReportBuilder_View" />
     <EntitySet Name="Calendars" EntityType="aaahelpModel.Calendar" />
     <EntitySet Name="ExportToCFs" EntityType="aaahelpModel.ExportToCF" />
+    <EntitySet Name="error_and_comments_view" EntityType="aaahelpModel.error_and_comments_view" />
   </EntityContainer>
   <EntityType Name="service_boardNew">
     <Key>
@@ -1013,6 +1014,7 @@
       <PropertyRef Name="Cust_Location_No" />
       <PropertyRef Name="JOB_LOCATION_LINE_1" />
       <PropertyRef Name="JOB_LOCATION_LINE_2" />
+      <PropertyRef Name="JOB_LOCATION_LINE_3" />
       <PropertyRef Name="JOB_REFERENCE" />
       <PropertyRef Name="PROJECT_MANAGER" />
       <PropertyRef Name="SUBMITTED_AMOUNT" />
@@ -1033,7 +1035,6 @@
       <PropertyRef Name="Markups" />
       <PropertyRef Name="SORT_DATE" />
       <PropertyRef Name="JOB_END_DATE" />
-      <PropertyRef Name="USER_DEFINED_1" />
       <PropertyRef Name="USER_DEFINED_3" />
       <PropertyRef Name="USER_DEFINED_4" />
     </Key>
@@ -1041,15 +1042,15 @@
     <Property Name="C_O_EXT" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
     <Property Name="C_T" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
     <Property Name="Job_Date" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-    <Property Name="Job_Location_Code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="Cust_Location_No" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
     <Property Name="CUST__NO_" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Cust_Location_No" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="Job_Location_Code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="JOB_LOCATION_LINE_1" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
     <Property Name="JOB_LOCATION_LINE_2" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="JOB_LOCATION_LINE_3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="JOB_LOCATION_LINE_3" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
     <Property Name="JOB_LOCATION_LINE_4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="JOB_REFERENCE" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="JOB_CONTACT" Type="Int32" />
+    <Property Name="JOB_CONTACT" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
     <Property Name="PROJECT_MANAGER" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
     <Property Name="CUSTOMER_PO_" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="SUBMITTED_AMOUNT" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
@@ -1073,9 +1074,29 @@
     <Property Name="SORT_DATE" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
     <Property Name="JOB_START_DATE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
     <Property Name="JOB_END_DATE" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="USER_DEFINED_1" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="USER_DEFINED_1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="USER_DEFINED_2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="USER_DEFINED_3" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="USER_DEFINED_4" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="USER_DEFINED_4" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="error_and_comments_view">
+    <Key>
+      <PropertyRef Name="guid" />
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="comment_datetime" />
+      <PropertyRef Name="userguid" />
+      <PropertyRef Name="active" />
+      <PropertyRef Name="ratings" />
+    </Key>
+    <Property Name="guid" Type="Guid" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="comment_datetime" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="userguid" Type="Guid" Nullable="false" />
+    <Property Name="active" Type="Boolean" Nullable="false" />
+    <Property Name="ratings" Type="Int32" Nullable="false" />
+    <Property Name="user_full_name" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
+    <Property Name="service_location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

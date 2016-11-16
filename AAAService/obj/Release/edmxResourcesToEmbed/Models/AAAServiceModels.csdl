@@ -202,6 +202,7 @@
     <EntitySet Name="ReportBuilder_View" EntityType="aaahelpModel.ReportBuilder_View" />
     <EntitySet Name="Calendars" EntityType="aaahelpModel.Calendar" />
     <EntitySet Name="ExportToCFs" EntityType="aaahelpModel.ExportToCF" />
+    <EntitySet Name="error_and_comments_view" EntityType="aaahelpModel.error_and_comments_view" />
   </EntityContainer>
   <EntityType Name="service_boardNew">
     <Key>
@@ -1077,5 +1078,25 @@
     <Property Name="USER_DEFINED_2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="USER_DEFINED_3" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
     <Property Name="USER_DEFINED_4" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="error_and_comments_view">
+    <Key>
+      <PropertyRef Name="guid" />
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="comment_datetime" />
+      <PropertyRef Name="userguid" />
+      <PropertyRef Name="active" />
+      <PropertyRef Name="ratings" />
+    </Key>
+    <Property Name="guid" Type="Guid" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="comment_datetime" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="userguid" Type="Guid" Nullable="false" />
+    <Property Name="active" Type="Boolean" Nullable="false" />
+    <Property Name="ratings" Type="Int32" Nullable="false" />
+    <Property Name="user_full_name" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
+    <Property Name="service_location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

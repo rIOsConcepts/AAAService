@@ -17,7 +17,8 @@ namespace AAAService.Controllers
         // GET: Comments
         public ActionResult Index()
         {
-            var errors_and_comments = db.errors_and_comments.Include(e => e.CommentRating);
+            //var errors_and_comments = db.errors_and_comments.Include(e => e.CommentRating);
+            var errors_and_comments = db.error_and_comments_view.OrderByDescending(eac => eac.ID);
             return View(errors_and_comments.ToList());
         }
 
@@ -52,15 +53,45 @@ namespace AAAService.Controllers
         {
             if (ModelState.IsValid)
             {
+                var user = Helpers.UserHelper.getUserGuid();
                 errors_and_comments.guid = Guid.NewGuid();
                 errors_and_comments.ID = db.errors_and_comments.Max(x => x.ID) + 1;
                 errors_and_comments.comment_datetime = DateTime.Now;
                 errors_and_comments.comment_type = "Comment";
-                errors_and_comments.userguid = Helpers.UserHelper.getUserGuid();
+                errors_and_comments.userguid = user;
                 errors_and_comments.active = true;
                 errors_and_comments.ratings = db.CommentRatings.Where(o => o.RatingID == errors_and_comments.RatingID).ToList()[0].RatingValue;
                 db.errors_and_comments.Add(errors_and_comments);
                 db.SaveChanges();
+
+                try
+                {
+                    var email = new Correspondence.Mail();
+                    var userData = db.AspNetUsers.Where(o => o.guid == user).ToList()[0];
+
+                    var body = "AAA Web Portal Service Ticket\r\n\r\n" +
+                               "Requested By: " + userData.fname.ToUpper() + " " + userData.lname.ToUpper() + "\r\n" +
+                               "Comments: " + errors_and_comments.comments + "\r\n" +
+                               "Notes: " + errors_and_comments.notes + "\r\n" +
+                               "Date: " + errors_and_comments.comment_datetime + "\r\n" +
+                               "Rating: " + errors_and_comments.ratings + "\r\n" +
+
+                               //I checked with our reps.They never used Zone or service rep function in old portal.  We can drop it off and make the list small.
+                               //"Zone: " + "WHERE DOES THIS VALUE COME FROM?" + "\r\n" +
+                               //"Service Type: " + service_tickets.ServiceCategory.ToUpper() + "\r\n" +
+
+                               //"Service Rep: " + "WHERE DOES THIS VALUE COME FROM?" + "\r\n" +
+                               "Taken By: Web Portal\r\n\r\n" +
+                               "If you have questions or concerns about this message please contact us at 1-800-892-4784.\r\n\r\n" +
+                               "Please do not reply to this e-mail, this account is not monitored.";
+
+                    email.Send(subject: "Comments Entered", body: body, email: userData.Email);
+                }
+                catch (Exception e)
+                {
+                    System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + "log.txt", DateTime.Now + " => " + e.ToString());
+                }
+
                 return RedirectToAction("Index");
             }
 

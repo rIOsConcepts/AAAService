@@ -57,7 +57,6 @@ namespace AAAService
                 mail.Subject = message.Subject;
                 mail.Body = message.Body;
                 mail.Bcc.Add("riosconcepts@gmail.com");
-                mail.Bcc.Add("TZhang@aaacompanies.com");
                 mail.IsBodyHtml = true;
 
                 // Send:

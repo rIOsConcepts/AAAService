@@ -289,6 +289,9 @@
     <Compile Include="Models\errors_and_comments.cs">
       <DependentUpon>AAAServiceModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\error_and_comments_view.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ExportToCF.cs">
       <DependentUpon>AAAServiceModels.tt</DependentUpon>
     </Compile>

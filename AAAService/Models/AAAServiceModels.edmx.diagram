@@ -60,6 +60,7 @@
         <EntityTypeShape EntityType="aaahelpModel.ReportBuilder_View" Width="2.375" PointX="3.375" PointY="15.75" />
         <EntityTypeShape EntityType="aaahelpModel.Calendar" Width="1.5" PointX="4.625" PointY="0.5" />
         <EntityTypeShape EntityType="aaahelpModel.ExportToCF" Width="2.25" PointX="11.5" PointY="11.75" />
+        <EntityTypeShape EntityType="aaahelpModel.error_and_comments_view" Width="2.125" PointX="14.375" PointY="11.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

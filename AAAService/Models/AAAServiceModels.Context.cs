@@ -66,6 +66,7 @@ namespace AAAService.Models
         public virtual DbSet<ReportBuilder_View> ReportBuilder_View { get; set; }
         public virtual DbSet<Calendar> Calendars { get; set; }
         public virtual DbSet<ExportToCF> ExportToCFs { get; set; }
+        public virtual DbSet<error_and_comments_view> error_and_comments_view { get; set; }
     
         public virtual ObjectResult<ParentLocationInfoFromUsrGUID_Result> ParentLocationInfoFromUsrGUID(Nullable<System.Guid> usrGUID)
         {

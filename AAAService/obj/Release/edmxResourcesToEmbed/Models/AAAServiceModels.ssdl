@@ -454,6 +454,28 @@ warning 6002: The table/view 'DB_105883_prod.dbo.Emails_Log_ViewMVC' does not ha
     <Property Name="who_to" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_105883_prod.dbo.error_and_comments_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="error_and_comments_view">
+    <Key>
+      <PropertyRef Name="guid" />
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="comment_datetime" />
+      <PropertyRef Name="userguid" />
+      <PropertyRef Name="active" />
+      <PropertyRef Name="ratings" />
+    </Key>
+    <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="comments" Type="text" />
+    <Property Name="notes" Type="text" />
+    <Property Name="comment_datetime" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="userguid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="active" Type="bit" Nullable="false" />
+    <Property Name="ratings" Type="int" Nullable="false" />
+    <Property Name="user_full_name" Type="varchar" MaxLength="41" />
+    <Property Name="service_location" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
 warning 6002: The table/view 'DB_105883_prod.dbo.ExportToCF' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ExportToCF">
     <Key>
@@ -1057,6 +1079,20 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
     [Emails_Log_ViewMVC].[guid] AS [guid], 
     [Emails_Log_ViewMVC].[who_to] AS [who_to]
     FROM [dbo].[Emails_Log_ViewMVC] AS [Emails_Log_ViewMVC]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="error_and_comments_view" EntityType="Self.error_and_comments_view" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [error_and_comments_view].[guid] AS [guid], 
+    [error_and_comments_view].[ID] AS [ID], 
+    [error_and_comments_view].[comments] AS [comments], 
+    [error_and_comments_view].[notes] AS [notes], 
+    [error_and_comments_view].[comment_datetime] AS [comment_datetime], 
+    [error_and_comments_view].[userguid] AS [userguid], 
+    [error_and_comments_view].[active] AS [active], 
+    [error_and_comments_view].[ratings] AS [ratings], 
+    [error_and_comments_view].[user_full_name] AS [user_full_name], 
+    [error_and_comments_view].[service_location] AS [service_location]
+    FROM [dbo].[error_and_comments_view] AS [error_and_comments_view]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ExportToCF" EntityType="Self.ExportToCF" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 

@@ -164,7 +164,6 @@ namespace AAAService.Correspondence
                 }
 
                 eMail.Bcc.Add("riosconcepts@gmail.com");
-                eMail.Bcc.Add("TZhang@aaacompanies.com");
 
                 //When ticket is first entered – email goes to order@aaacompanies.com, erios@aaacompanies.com, sdollen@aaacompanies.com, bhiggins@aaacompanies.com, the user that entered the ticket and every user attached to that site / location.
 
@@ -173,6 +172,12 @@ namespace AAAService.Correspondence
                 if (subject == "Web Portal Service Ticket Entered")
                 {
                     eMail.To.Add("order@aaacompanies.com");
+                }
+
+                if (subject == "Comments Entered")
+                {
+                    eMail.CC.Add("schristopulos@aaacompanies.com");
+                    eMail.CC.Add("JKatinos@AAACompanies.com");
                 }
 
                 if (subject != "Web Portal User Invitation")

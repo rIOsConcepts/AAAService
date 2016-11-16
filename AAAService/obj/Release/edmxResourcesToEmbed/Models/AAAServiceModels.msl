@@ -724,5 +724,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="error_and_comments_view">
+      <EntityTypeMapping TypeName="aaahelpModel.error_and_comments_view">
+        <MappingFragment StoreEntitySet="error_and_comments_view">
+          <ScalarProperty Name="service_location" ColumnName="service_location" />
+          <ScalarProperty Name="user_full_name" ColumnName="user_full_name" />
+          <ScalarProperty Name="ratings" ColumnName="ratings" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="userguid" ColumnName="userguid" />
+          <ScalarProperty Name="comment_datetime" ColumnName="comment_datetime" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="comments" ColumnName="comments" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
