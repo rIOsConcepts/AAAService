@@ -174,7 +174,7 @@ namespace AAAService.Correspondence
                     eMail.To.Add("order@aaacompanies.com");
                 }
 
-                if (subject == "Comments Entered")
+                if (subject == "AAAWebPortalCommentsErrors")
                 {
                     eMail.CC.Add("schristopulos@aaacompanies.com");
                     eMail.CC.Add("JKatinos@AAACompanies.com");

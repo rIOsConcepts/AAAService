@@ -248,7 +248,8 @@ namespace AAAService.Controllers
                 myNotes3 = myProblems;
             }
 
-            var myStatus = Request.Form["mStatusName"];
+            //var myStatus = Request.Form["mStatusName"];
+            var myStatus = db.StatusLists.Where(sl => sl.ID == ticketToUpdate.StatusID).ToList()[0].Name;
             var myVNotes = Request.Form["ResNotes"];
             var myVNotes2 = "Updated " + mytime + System.Environment.NewLine + myVNotes;
             var myVProblems = Request.Form["notes"];

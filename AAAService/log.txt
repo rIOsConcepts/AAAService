@@ -1,4 +1,4 @@
-8/30/2016 9:23:58 PM => System.NotSupportedException: LINQ to Entities does not recognize the method 'AAAService.Models.AspNetUser get_Item(Int32)' method, and this method cannot be translated into a store expression.
+11/16/2016 9:24:58 PM => System.NotSupportedException: LINQ to Entities does not recognize the method 'AAAService.Models.user_to_location get_Item(Int32)' method, and this method cannot be translated into a store expression.
    at System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.DefaultTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
    at System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
    at System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
@@ -37,4 +37,4 @@
    at System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[TResult](Expression expression)
    at System.Data.Entity.Internal.Linq.DbQueryProvider.Execute[TResult](Expression expression)
    at System.Linq.Queryable.Count[TSource](IQueryable`1 source)
-   at AAAService.Correspondence.Mail.Send(String subject, String body, String emailAddress, Boolean isHTML, String email) in C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\Email\Email.cs:line 193
+   at AAAService.Controllers.CommentsController.Create(errors_and_comments errors_and_comments) in C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\Controllers\CommentsController.cs:line 80

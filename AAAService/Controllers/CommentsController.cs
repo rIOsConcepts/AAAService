@@ -68,24 +68,38 @@ namespace AAAService.Controllers
                 {
                     var email = new Correspondence.Mail();
                     var userData = db.AspNetUsers.Where(o => o.guid == user).ToList()[0];
+                    var rating = db.CommentRatings.Where(cr => cr.RatingID == errors_and_comments.RatingID);
+                    var phoneNum = db.phone_num.Where(pn => pn.user_guid == userData.guid);
+                    var userToLocationData = db.user_to_location.Where(utl => utl.user_guid == userData.guid);
+                    locationinfo location = null;
 
-                    var body = "AAA Web Portal Service Ticket\r\n\r\n" +
-                               "Requested By: " + userData.fname.ToUpper() + " " + userData.lname.ToUpper() + "\r\n" +
+                    if (userToLocationData.Count() > 0)
+                    {
+                        var userToLocation = userToLocationData.ToList()[0];
+                        var locationData = db.locationinfoes.Where(l => l.guid == userToLocation.location_guid);
+
+                        if (locationData.Count() > 0)
+                        {
+                            location = locationData.ToList()[0];
+                        }
+                    }
+
+                    var body = "Comment Or Error From AAA Web Portal" + "\r\n" +
+                               "Comment Type: " + errors_and_comments.comment_type + "\r\n" +
+                               "Comment Rating: " + (rating.Count() > 0 ? rating.ToList()[0].Name : "") + "\r\n" +
                                "Comments: " + errors_and_comments.comments + "\r\n" +
-                               "Notes: " + errors_and_comments.notes + "\r\n" +
-                               "Date: " + errors_and_comments.comment_datetime + "\r\n" +
-                               "Rating: " + errors_and_comments.ratings + "\r\n" +
+                               "Comment date and time: " + errors_and_comments.comment_datetime + "\r\n" +
+                               "Comment Made By: " + userData.fname + " " + userData.lname + "\r\n" +
+                               "Users Email: " + userData.Email + "\r\n" +
+                               "Day Phone: " + (phoneNum.Count() > 0 ? phoneNum.ToList()[0].phone_day : "") + "\r\n" +
+                               "Night Phone: " + (phoneNum.Count() > 0 ? phoneNum.ToList()[0].phone_night : "") + "\r\n" +
+                               "Users Site: " + (location != null ? location.name : "") + "\r\n" +
+                               "Site Address: " + (location != null ? location.addressline1 : "") + "\r\n" +
+                               "Site Address: " + (location != null ? location.city + ", " + location.state + " " + location.zip : "") + "\r\n" +
+                               "User Came From Page: http://assetsaaa.com/Comments/Create" + "\r\n" +
+                               "This Is Comment Number: " + errors_and_comments.ID;
 
-                               //I checked with our reps.They never used Zone or service rep function in old portal.  We can drop it off and make the list small.
-                               //"Zone: " + "WHERE DOES THIS VALUE COME FROM?" + "\r\n" +
-                               //"Service Type: " + service_tickets.ServiceCategory.ToUpper() + "\r\n" +
-
-                               //"Service Rep: " + "WHERE DOES THIS VALUE COME FROM?" + "\r\n" +
-                               "Taken By: Web Portal\r\n\r\n" +
-                               "If you have questions or concerns about this message please contact us at 1-800-892-4784.\r\n\r\n" +
-                               "Please do not reply to this e-mail, this account is not monitored.";
-
-                    email.Send(subject: "Comments Entered", body: body, email: userData.Email);
+                    email.Send(subject: "AAAWebPortalCommentsErrors", body: body, email: userData.Email);
                 }
                 catch (Exception e)
                 {
@@ -132,11 +146,57 @@ namespace AAAService.Controllers
             {
                 try
                 {                    
-                    errors_and_comments.comment_datetime = DateTime.Now;
+                    //Per Tim's request on 11/16/2016, not to overwrite original date the comment was created
+                    //errors_and_comments.comment_datetime = DateTime.Now;
                     errors_and_comments.comment_type = "Comment";
-                    errors_and_comments.userguid = Helpers.UserHelper.getUserGuid();
+                    //Per Tim's request on 11/16/2016, not to overwrite original user that created the comment
+                    //errors_and_comments.userguid = Helpers.UserHelper.getUserGuid();
                     db.Entry(errors_and_comments).State = EntityState.Modified;
                     db.SaveChanges();
+
+                    try
+                    {
+                        var email = new Correspondence.Mail();
+                        var userData = db.AspNetUsers.Where(o => o.guid == errors_and_comments.userguid).ToList()[0];
+                        var rating = db.CommentRatings.Where(cr => cr.RatingID == errors_and_comments.RatingID);
+                        var phoneNum = db.phone_num.Where(pn => pn.user_guid == userData.guid);
+                        var userToLocationData = db.user_to_location.Where(utl => utl.user_guid == userData.guid);
+                        locationinfo location = null;
+
+                        if (userToLocationData.Count() > 0)
+                        {
+                            var userToLocation = userToLocationData.ToList()[0];
+                            var locationData = db.locationinfoes.Where(l => l.guid == userToLocation.location_guid);
+
+                            if (locationData.Count() > 0)
+                            {
+                                location = locationData.ToList()[0];
+                            }
+                        }
+
+                        var body = "Comment Or Error From AAA Web Portal" + "\r\n" +
+                                   "Comment Type: " + errors_and_comments.comment_type + "\r\n" +
+                                   "Comment Rating: " + (rating.Count() > 0 ? rating.ToList()[0].Name : "") + "\r\n" +
+                                   "Comments: " + errors_and_comments.comments + "\r\n" +
+                                   "Comment date and time: " + errors_and_comments.comment_datetime + "\r\n" +
+                                   "Comment Made By: " + userData.fname + " " + userData.lname + "\r\n" +
+                                   "Notes: " + errors_and_comments.notes + "\r\n" +
+                                   "Users Email: " + userData.Email + "\r\n" +
+                                   "Day Phone: " + (phoneNum.Count() > 0 ? phoneNum.ToList()[0].phone_day : "") + "\r\n" +
+                                   "Night Phone: " + (phoneNum.Count() > 0 ? phoneNum.ToList()[0].phone_night : "") + "\r\n" +
+                                   "Users Site: " + (location != null ? location.name : "") + "\r\n" +
+                                   "Site Address: " + (location != null ? location.addressline1 : "") + "\r\n" +
+                                   "Site Address: " + (location != null ? location.city + ", " + location.state + " " + location.zip : "") + "\r\n" +
+                                   "User Came From Page: http://assetsaaa.com/Comments/Create" + "\r\n" +
+                                   "This Is Comment Number: " + errors_and_comments.ID;
+
+                        email.Send(subject: "AAAWebPortalCommentsErrors", body: body, email: userData.Email);
+                    }
+                    catch (Exception e)
+                    {
+                        System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + "log.txt", DateTime.Now + " => " + e.ToString());
+                    }
+
                     return RedirectToAction("Index");
                 }
                 catch (System.Data.Entity.Validation.DbEntityValidationException e)

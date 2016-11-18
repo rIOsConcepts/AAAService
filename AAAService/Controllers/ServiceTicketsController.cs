@@ -342,6 +342,8 @@ namespace AAAService.Controllers
                 service_tickets.Region = LocationRegion;
                 service_tickets.City = LocationCity;
                 service_tickets.guid = ticketGuid;
+                //Clearing the notest column because it comes with some prepopulated stuff in it
+                service_tickets.notes = "";
 
                 if (TempData.Peek("TicketGuid") == null)
                 {
