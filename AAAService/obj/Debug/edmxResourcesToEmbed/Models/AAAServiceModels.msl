@@ -325,76 +325,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="bid_requests">
-      <EntityTypeMapping TypeName="aaahelpModel.bid_requests">
-        <MappingFragment StoreEntitySet="bid_requests">
-          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
-          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
-          <ScalarProperty Name="PriorityID" ColumnName="PriorityID" />
-          <ScalarProperty Name="PriorityStatus" ColumnName="PriorityStatus" />
-          <ScalarProperty Name="active" ColumnName="active" />
-          <ScalarProperty Name="closed_datetime" ColumnName="closed_datetime" />
-          <ScalarProperty Name="notes" ColumnName="notes" />
-          <ScalarProperty Name="location_contact_phone_night" ColumnName="location_contact_phone_night" />
-          <ScalarProperty Name="location_contact_phone" ColumnName="location_contact_phone" />
-          <ScalarProperty Name="location_contact_name" ColumnName="location_contact_name" />
-          <ScalarProperty Name="problem_details" ColumnName="problem_details" />
-          <ScalarProperty Name="problem_summary" ColumnName="problem_summary" />
-          <ScalarProperty Name="last_updated_by_user_guid" ColumnName="last_updated_by_user_guid" />
-          <ScalarProperty Name="created_by_user_guid" ColumnName="created_by_user_guid" />
-          <ScalarProperty Name="service_location_guid" ColumnName="service_location_guid" />
-          <ScalarProperty Name="parent_company_guid" ColumnName="parent_company_guid" />
-          <ScalarProperty Name="last_update_datetime" ColumnName="last_update_datetime" />
-          <ScalarProperty Name="complete_datetime" ColumnName="complete_datetime" />
-          <ScalarProperty Name="order_datetime" ColumnName="order_datetime" />
-          <ScalarProperty Name="guid" ColumnName="guid" />
-          <ScalarProperty Name="bid_num" ColumnName="bid_num" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="service_tickets">
-      <EntityTypeMapping TypeName="aaahelpModel.service_tickets">
-        <MappingFragment StoreEntitySet="service_tickets">
-          <ScalarProperty Name="City" ColumnName="City" />
-          <ScalarProperty Name="Location" ColumnName="Location" />
-          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
-          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
-          <ScalarProperty Name="PriorityID" ColumnName="PriorityID" />
-          <ScalarProperty Name="PriorityStatus" ColumnName="PriorityStatus" />
-          <ScalarProperty Name="Region" ColumnName="Region" />
-          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-          <ScalarProperty Name="ServiceCategory" ColumnName="ServiceCategory" />
-          <ScalarProperty Name="total_billing" ColumnName="total_billing" />
-          <ScalarProperty Name="cust_po_num" ColumnName="cust_po_num" />
-          <ScalarProperty Name="internal_notes" ColumnName="internal_notes" />
-          <ScalarProperty Name="accepted_datetime" ColumnName="accepted_datetime" />
-          <ScalarProperty Name="dispatch_datetime" ColumnName="dispatch_datetime" />
-          <ScalarProperty Name="service_provider" ColumnName="service_provider" />
-          <ScalarProperty Name="EQProbDesc" ColumnName="EQProbDesc" />
-          <ScalarProperty Name="EQserial" ColumnName="EQserial" />
-          <ScalarProperty Name="EQmodel" ColumnName="EQmodel" />
-          <ScalarProperty Name="cost_code" ColumnName="cost_code" />
-          <ScalarProperty Name="active" ColumnName="active" />
-          <ScalarProperty Name="closed_datetime" ColumnName="closed_datetime" />
-          <ScalarProperty Name="notes" ColumnName="notes" />
-          <ScalarProperty Name="location_contact_phone_night" ColumnName="location_contact_phone_night" />
-          <ScalarProperty Name="location_contact_phone" ColumnName="location_contact_phone" />
-          <ScalarProperty Name="location_contact_name" ColumnName="location_contact_name" />
-          <ScalarProperty Name="problem_details" ColumnName="problem_details" />
-          <ScalarProperty Name="problem_summary" ColumnName="problem_summary" />
-          <ScalarProperty Name="last_updated_by_user_guid" ColumnName="last_updated_by_user_guid" />
-          <ScalarProperty Name="created_by_user_guid" ColumnName="created_by_user_guid" />
-          <ScalarProperty Name="service_location_guid" ColumnName="service_location_guid" />
-          <ScalarProperty Name="parent_company_guid" ColumnName="parent_company_guid" />
-          <ScalarProperty Name="last_update_datetime" ColumnName="last_update_datetime" />
-          <ScalarProperty Name="complete_datetime" ColumnName="complete_datetime" />
-          <ScalarProperty Name="order_datetime" ColumnName="order_datetime" />
-          <ScalarProperty Name="job_number" ColumnName="job_number" />
-          <ScalarProperty Name="guid" ColumnName="guid" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="user_viewable_locations">
       <EntityTypeMapping TypeName="aaahelpModel.user_viewable_locations">
         <MappingFragment StoreEntitySet="user_viewable_locations">
@@ -422,29 +352,6 @@
           <ScalarProperty Name="phone_type" ColumnName="phone_type" />
           <ScalarProperty Name="phone_num" ColumnName="phone_num" />
           <ScalarProperty Name="owner_guid" ColumnName="owner_guid" />
-          <ScalarProperty Name="guid" ColumnName="guid" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="errors_and_comments">
-      <EntityTypeMapping TypeName="aaahelpModel.errors_and_comments">
-        <MappingFragment StoreEntitySet="errors_and_comments">
-          <ScalarProperty Name="RatingID" ColumnName="RatingID" />
-          <ScalarProperty Name="ratings" ColumnName="ratings" />
-          <ScalarProperty Name="notes" ColumnName="notes" />
-          <ScalarProperty Name="closed" ColumnName="closed" />
-          <ScalarProperty Name="active" ColumnName="active" />
-          <ScalarProperty Name="fileupload" ColumnName="fileupload" />
-          <ScalarProperty Name="comments" ColumnName="comments" />
-          <ScalarProperty Name="userguid" ColumnName="userguid" />
-          <ScalarProperty Name="comment_type" ColumnName="comment_type" />
-          <ScalarProperty Name="comment_datetime" ColumnName="comment_datetime" />
-          <ScalarProperty Name="REMOTE_USER" ColumnName="REMOTE_USER" />
-          <ScalarProperty Name="REMOTE_HOST" ColumnName="REMOTE_HOST" />
-          <ScalarProperty Name="REMOTE_ADDR" ColumnName="REMOTE_ADDR" />
-          <ScalarProperty Name="HTTP_USER_AGENT" ColumnName="HTTP_USER_AGENT" />
-          <ScalarProperty Name="HTTP_REFERER" ColumnName="HTTP_REFERER" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="guid" ColumnName="guid" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -737,6 +644,104 @@
           <ScalarProperty Name="comments" ColumnName="comments" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="guid" ColumnName="guid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="errors_and_comments">
+      <EntityTypeMapping TypeName="aaahelpModel.errors_and_comments">
+        <MappingFragment StoreEntitySet="errors_and_comments">
+          <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+          <ScalarProperty Name="LocationGUID" ColumnName="LocationGUID" />
+          <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+          <ScalarProperty Name="ratings" ColumnName="ratings" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="closed" ColumnName="closed" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="fileupload" ColumnName="fileupload" />
+          <ScalarProperty Name="comments" ColumnName="comments" />
+          <ScalarProperty Name="userguid" ColumnName="userguid" />
+          <ScalarProperty Name="comment_type" ColumnName="comment_type" />
+          <ScalarProperty Name="comment_datetime" ColumnName="comment_datetime" />
+          <ScalarProperty Name="REMOTE_USER" ColumnName="REMOTE_USER" />
+          <ScalarProperty Name="REMOTE_HOST" ColumnName="REMOTE_HOST" />
+          <ScalarProperty Name="REMOTE_ADDR" ColumnName="REMOTE_ADDR" />
+          <ScalarProperty Name="HTTP_USER_AGENT" ColumnName="HTTP_USER_AGENT" />
+          <ScalarProperty Name="HTTP_REFERER" ColumnName="HTTP_REFERER" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="service_tickets">
+      <EntityTypeMapping TypeName="aaahelpModel.service_tickets">
+        <MappingFragment StoreEntitySet="service_tickets">
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <ScalarProperty Name="PriorityID" ColumnName="PriorityID" />
+          <ScalarProperty Name="PriorityStatus" ColumnName="PriorityStatus" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="ServiceCategory" ColumnName="ServiceCategory" />
+          <ScalarProperty Name="total_billing" ColumnName="total_billing" />
+          <ScalarProperty Name="cust_po_num" ColumnName="cust_po_num" />
+          <ScalarProperty Name="internal_notes" ColumnName="internal_notes" />
+          <ScalarProperty Name="accepted_datetime" ColumnName="accepted_datetime" />
+          <ScalarProperty Name="dispatch_datetime" ColumnName="dispatch_datetime" />
+          <ScalarProperty Name="service_provider" ColumnName="service_provider" />
+          <ScalarProperty Name="EQProbDesc" ColumnName="EQProbDesc" />
+          <ScalarProperty Name="EQserial" ColumnName="EQserial" />
+          <ScalarProperty Name="EQmodel" ColumnName="EQmodel" />
+          <ScalarProperty Name="cost_code" ColumnName="cost_code" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="closed_datetime" ColumnName="closed_datetime" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="location_contact_phone_night" ColumnName="location_contact_phone_night" />
+          <ScalarProperty Name="location_contact_phone" ColumnName="location_contact_phone" />
+          <ScalarProperty Name="location_contact_name" ColumnName="location_contact_name" />
+          <ScalarProperty Name="problem_details" ColumnName="problem_details" />
+          <ScalarProperty Name="problem_summary" ColumnName="problem_summary" />
+          <ScalarProperty Name="last_updated_by_user_guid" ColumnName="last_updated_by_user_guid" />
+          <ScalarProperty Name="created_by_user_guid" ColumnName="created_by_user_guid" />
+          <ScalarProperty Name="service_location_guid" ColumnName="service_location_guid" />
+          <ScalarProperty Name="parent_company_guid" ColumnName="parent_company_guid" />
+          <ScalarProperty Name="last_update_datetime" ColumnName="last_update_datetime" />
+          <ScalarProperty Name="complete_datetime" ColumnName="complete_datetime" />
+          <ScalarProperty Name="order_datetime" ColumnName="order_datetime" />
+          <ScalarProperty Name="job_number" ColumnName="job_number" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="bid_requests">
+      <EntityTypeMapping TypeName="aaahelpModel.bid_requests">
+        <MappingFragment StoreEntitySet="bid_requests">
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <ScalarProperty Name="PriorityID" ColumnName="PriorityID" />
+          <ScalarProperty Name="PriorityStatus" ColumnName="PriorityStatus" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="closed_datetime" ColumnName="closed_datetime" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="location_contact_phone_night" ColumnName="location_contact_phone_night" />
+          <ScalarProperty Name="location_contact_phone" ColumnName="location_contact_phone" />
+          <ScalarProperty Name="location_contact_name" ColumnName="location_contact_name" />
+          <ScalarProperty Name="problem_details" ColumnName="problem_details" />
+          <ScalarProperty Name="problem_summary" ColumnName="problem_summary" />
+          <ScalarProperty Name="last_updated_by_user_guid" ColumnName="last_updated_by_user_guid" />
+          <ScalarProperty Name="created_by_user_guid" ColumnName="created_by_user_guid" />
+          <ScalarProperty Name="service_location_guid" ColumnName="service_location_guid" />
+          <ScalarProperty Name="parent_company_guid" ColumnName="parent_company_guid" />
+          <ScalarProperty Name="last_update_datetime" ColumnName="last_update_datetime" />
+          <ScalarProperty Name="complete_datetime" ColumnName="complete_datetime" />
+          <ScalarProperty Name="order_datetime" ColumnName="order_datetime" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
+          <ScalarProperty Name="bid_num" ColumnName="bid_num" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

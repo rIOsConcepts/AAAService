@@ -18,7 +18,6 @@ namespace AAAService.Models
         public locationinfo()
         {
             this.user_to_location = new HashSet<user_to_location>();
-            this.bid_requests = new HashSet<bid_requests>();
             this.user_viewable_locations = new HashSet<user_viewable_locations>();
         }
     
@@ -41,8 +40,6 @@ namespace AAAService.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<user_to_location> user_to_location { get; set; }
         public virtual Region Region1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<bid_requests> bid_requests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<user_viewable_locations> user_viewable_locations { get; set; }
         public virtual Company Company { get; set; }

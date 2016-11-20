@@ -20,8 +20,7 @@ namespace AAAService.Models
             this.service_ticket_files = new HashSet<service_ticket_files>();
             this.ST_SL_Edits = new HashSet<ST_SL_Edits>();
         }
-
-        public string Company { get; set; }
+    
         public int id { get; set; }
         public System.Guid guid { get; set; }
         public int job_number { get; set; }
@@ -59,13 +58,14 @@ namespace AAAService.Models
         public Nullable<int> StatusID { get; set; }
         public string Location { get; set; }
         public string City { get; set; }
+        public string Company { get; set; }
     
         public virtual PriorityList PriorityList { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<service_ticket_files> service_ticket_files { get; set; }
+        public virtual ServiceCategory ServiceCategory1 { get; set; }
         public virtual StatusList StatusList { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ST_SL_Edits> ST_SL_Edits { get; set; }
-        public virtual ServiceCategory ServiceCategory1 { get; set; }
     }
 }

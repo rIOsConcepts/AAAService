@@ -17,7 +17,6 @@ namespace AAAService.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public StatusList()
         {
-            this.bid_requests = new HashSet<bid_requests>();
             this.service_tickets = new HashSet<service_tickets>();
         }
     
@@ -27,8 +26,6 @@ namespace AAAService.Models
         public Nullable<int> list_num { get; set; }
         public Nullable<bool> active { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<bid_requests> bid_requests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<service_tickets> service_tickets { get; set; }
     }

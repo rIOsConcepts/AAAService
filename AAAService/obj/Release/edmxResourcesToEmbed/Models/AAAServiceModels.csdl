@@ -35,7 +35,6 @@
     <NavigationProperty Name="Location_Service_Provider" Relationship="aaahelpModel.FK_Location_Service_Provider_locationinfo" FromRole="locationinfo" ToRole="Location_Service_Provider" />
     <NavigationProperty Name="user_to_location" Relationship="aaahelpModel.FK_user_to_location_locationinfo" FromRole="locationinfo" ToRole="user_to_location" />
     <NavigationProperty Name="Region1" Relationship="aaahelpModel.FK_locationinfo_Region" FromRole="locationinfo" ToRole="Region" />
-    <NavigationProperty Name="bid_requests" Relationship="aaahelpModel.FK_bid_requests_locationinfo" FromRole="locationinfo" ToRole="bid_requests" />
     <NavigationProperty Name="user_viewable_locations" Relationship="aaahelpModel.FK_user_viewable_locations_locationinfo" FromRole="locationinfo" ToRole="user_viewable_locations" />
     <NavigationProperty Name="Company" Relationship="aaahelpModel.FK_locationinfo_Company" FromRole="locationinfo" ToRole="Company" />
   </EntityType>
@@ -48,7 +47,6 @@
     <Property Name="code" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
     <Property Name="list_num" Type="Int32" />
     <Property Name="active" Type="Boolean" />
-    <NavigationProperty Name="bid_requests" Relationship="aaahelpModel.FK_bid_requests_priority" FromRole="PriorityList" ToRole="bid_requests" />
     <NavigationProperty Name="service_tickets" Relationship="aaahelpModel.FK_service_tickets_priority" FromRole="PriorityList" ToRole="service_tickets" />
   </EntityType>
   <EntityType Name="Region">
@@ -86,7 +84,6 @@
     <Property Name="code" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
     <Property Name="list_num" Type="Int32" />
     <Property Name="active" Type="Boolean" />
-    <NavigationProperty Name="bid_requests" Relationship="aaahelpModel.FK_bid_requests_Status" FromRole="StatusList" ToRole="bid_requests" />
     <NavigationProperty Name="service_tickets" Relationship="aaahelpModel.FK_service_tickets_Status" FromRole="StatusList" ToRole="service_tickets" />
   </EntityType>
   <EntityContainer Name="aaahelpEntities" annotation:LazyLoadingEnabled="true">
@@ -127,36 +124,6 @@
       <End Role="Region" EntitySet="Regions" />
       <End Role="locationinfo" EntitySet="locationinfoes" />
     </AssociationSet>
-    <EntitySet Name="bid_requests" EntityType="aaahelpModel.bid_requests" />
-    <EntitySet Name="service_tickets" EntityType="aaahelpModel.service_tickets" />
-    <AssociationSet Name="FK_bid_requests_locationinfo" Association="aaahelpModel.FK_bid_requests_locationinfo">
-      <End Role="locationinfo" EntitySet="locationinfoes" />
-      <End Role="bid_requests" EntitySet="bid_requests" />
-    </AssociationSet>
-    <AssociationSet Name="FK_bid_requests_priority" Association="aaahelpModel.FK_bid_requests_priority">
-      <End Role="PriorityList" EntitySet="PriorityLists" />
-      <End Role="bid_requests" EntitySet="bid_requests" />
-    </AssociationSet>
-    <AssociationSet Name="FK_bid_requests_Status" Association="aaahelpModel.FK_bid_requests_Status">
-      <End Role="StatusList" EntitySet="StatusLists" />
-      <End Role="bid_requests" EntitySet="bid_requests" />
-    </AssociationSet>
-    <AssociationSet Name="FK_service_tickets_priority" Association="aaahelpModel.FK_service_tickets_priority">
-      <End Role="PriorityList" EntitySet="PriorityLists" />
-      <End Role="service_tickets" EntitySet="service_tickets" />
-    </AssociationSet>
-    <AssociationSet Name="FK_service_ticket_files_service_tickets" Association="aaahelpModel.FK_service_ticket_files_service_tickets">
-      <End Role="service_tickets" EntitySet="service_tickets" />
-      <End Role="service_ticket_files" EntitySet="service_ticket_files" />
-    </AssociationSet>
-    <AssociationSet Name="FK_service_tickets_Status" Association="aaahelpModel.FK_service_tickets_Status">
-      <End Role="StatusList" EntitySet="StatusLists" />
-      <End Role="service_tickets" EntitySet="service_tickets" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ST_SL_Edits_service_tickets" Association="aaahelpModel.FK_ST_SL_Edits_service_tickets">
-      <End Role="service_tickets" EntitySet="service_tickets" />
-      <End Role="ST_SL_Edits" EntitySet="ST_SL_Edits" />
-    </AssociationSet>
     <EntitySet Name="user_viewable_locations" EntityType="aaahelpModel.user_viewable_locations" />
     <AssociationSet Name="FK_user_viewable_locations_locationinfo" Association="aaahelpModel.FK_user_viewable_locations_locationinfo">
       <End Role="locationinfo" EntitySet="locationinfoes" />
@@ -164,29 +131,16 @@
     </AssociationSet>
     <EntitySet Name="phone_num" EntityType="aaahelpModel.phone_num" />
     <EntitySet Name="Phone_Numbers" EntityType="aaahelpModel.Phone_Numbers" />
-    <EntitySet Name="errors_and_comments" EntityType="aaahelpModel.errors_and_comments" />
     <EntitySet Name="CommentRatings" EntityType="aaahelpModel.CommentRating" />
-    <AssociationSet Name="FK_errors_and_comments_RatingID" Association="aaahelpModel.FK_errors_and_comments_RatingID">
-      <End Role="CommentRating" EntitySet="CommentRatings" />
-      <End Role="errors_and_comments" EntitySet="errors_and_comments" />
-    </AssociationSet>
     <EntitySet Name="Site_Lists_Hide_Item" EntityType="aaahelpModel.Site_Lists_Hide_Item" />
     <EntitySet Name="EmailSetups" EntityType="aaahelpModel.EmailSetup" />
     <EntitySet Name="LocationEmails_viewMVC1" EntityType="aaahelpModel.LocationEmails_viewMVC1" />
     <EntitySet Name="service_tickets_viewMVC" EntityType="aaahelpModel.service_tickets_viewMVC" />
     <EntitySet Name="Companies" EntityType="aaahelpModel.Company" />
     <EntitySet Name="ServiceCategories" EntityType="aaahelpModel.ServiceCategory" />
-    <AssociationSet Name="FK_bid_requests_Company" Association="aaahelpModel.FK_bid_requests_Company">
-      <End Role="Company" EntitySet="Companies" />
-      <End Role="bid_requests" EntitySet="bid_requests" />
-    </AssociationSet>
     <AssociationSet Name="FK_locationinfo_Company" Association="aaahelpModel.FK_locationinfo_Company">
       <End Role="Company" EntitySet="Companies" />
       <End Role="locationinfo" EntitySet="locationinfoes" />
-    </AssociationSet>
-    <AssociationSet Name="FK_service_tickets_category" Association="aaahelpModel.FK_service_tickets_category">
-      <End Role="ServiceCategory" EntitySet="ServiceCategories" />
-      <End Role="service_tickets" EntitySet="service_tickets" />
     </AssociationSet>
     <EntitySet Name="OtherStatusLists" EntityType="aaahelpModel.OtherStatusList" />
     <EntitySet Name="AspNetUsers" EntityType="aaahelpModel.AspNetUser" />
@@ -203,6 +157,33 @@
     <EntitySet Name="Calendars" EntityType="aaahelpModel.Calendar" />
     <EntitySet Name="ExportToCFs" EntityType="aaahelpModel.ExportToCF" />
     <EntitySet Name="error_and_comments_view" EntityType="aaahelpModel.error_and_comments_view" />
+    <EntitySet Name="errors_and_comments" EntityType="aaahelpModel.errors_and_comments" />
+    <AssociationSet Name="FK_errors_and_comments_RatingID" Association="aaahelpModel.FK_errors_and_comments_RatingID">
+      <End Role="CommentRating" EntitySet="CommentRatings" />
+      <End Role="errors_and_comments" EntitySet="errors_and_comments" />
+    </AssociationSet>
+    <EntitySet Name="service_tickets" EntityType="aaahelpModel.service_tickets" />
+    <AssociationSet Name="FK_service_tickets_priority" Association="aaahelpModel.FK_service_tickets_priority">
+      <End Role="PriorityList" EntitySet="PriorityLists" />
+      <End Role="service_tickets" EntitySet="service_tickets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_service_ticket_files_service_tickets" Association="aaahelpModel.FK_service_ticket_files_service_tickets">
+      <End Role="service_tickets" EntitySet="service_tickets" />
+      <End Role="service_ticket_files" EntitySet="service_ticket_files" />
+    </AssociationSet>
+    <AssociationSet Name="FK_service_tickets_category" Association="aaahelpModel.FK_service_tickets_category">
+      <End Role="ServiceCategory" EntitySet="ServiceCategories" />
+      <End Role="service_tickets" EntitySet="service_tickets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_service_tickets_Status" Association="aaahelpModel.FK_service_tickets_Status">
+      <End Role="StatusList" EntitySet="StatusLists" />
+      <End Role="service_tickets" EntitySet="service_tickets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ST_SL_Edits_service_tickets" Association="aaahelpModel.FK_ST_SL_Edits_service_tickets">
+      <End Role="service_tickets" EntitySet="service_tickets" />
+      <End Role="ST_SL_Edits" EntitySet="ST_SL_Edits" />
+    </AssociationSet>
+    <EntitySet Name="bid_requests" EntityType="aaahelpModel.bid_requests" />
   </EntityContainer>
   <EntityType Name="service_boardNew">
     <Key>
@@ -470,167 +451,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="bid_requests">
-    <Key>
-      <PropertyRef Name="guid" />
-    </Key>
-    <Property Name="bid_num" Type="Int32" Nullable="false" />
-    <Property Name="guid" Type="Guid" Nullable="false" />
-    <Property Name="order_datetime" Type="DateTime" Nullable="false" Precision="7" />
-    <Property Name="complete_datetime" Type="DateTime" Precision="7" />
-    <Property Name="last_update_datetime" Type="DateTime" Nullable="false" Precision="7" />
-    <Property Name="parent_company_guid" Type="Guid" Nullable="false" />
-    <Property Name="service_location_guid" Type="Guid" Nullable="false" />
-    <Property Name="created_by_user_guid" Type="Guid" Nullable="false" />
-    <Property Name="last_updated_by_user_guid" Type="Guid" Nullable="false" />
-    <Property Name="problem_summary" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="problem_details" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="location_contact_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="location_contact_phone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="location_contact_phone_night" Type="String" Nullable="true" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="closed_datetime" Type="DateTime" Precision="7" />
-    <Property Name="active" Type="Boolean" Nullable="false" />
-    <Property Name="PriorityStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="PriorityID" Type="Int32" />
-    <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="StatusID" Type="Int32" />
-    <NavigationProperty Name="locationinfo" Relationship="aaahelpModel.FK_bid_requests_locationinfo" FromRole="bid_requests" ToRole="locationinfo" />
-    <NavigationProperty Name="PriorityList" Relationship="aaahelpModel.FK_bid_requests_priority" FromRole="bid_requests" ToRole="PriorityList" />
-    <NavigationProperty Name="StatusList" Relationship="aaahelpModel.FK_bid_requests_Status" FromRole="bid_requests" ToRole="StatusList" />
-    <NavigationProperty Name="Company" Relationship="aaahelpModel.FK_bid_requests_Company" FromRole="bid_requests" ToRole="Company" />
-  </EntityType>
-  <EntityType Name="service_tickets">
-    <Key>
-      <PropertyRef Name="guid" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
-    <Property Name="guid" Type="Guid" Nullable="false" />
-    <Property Name="job_number" Type="Int32" Nullable="false" />
-    <Property Name="order_datetime" Type="DateTime" Nullable="false" Precision="7" />
-    <Property Name="complete_datetime" Type="DateTime" Precision="7" />
-    <Property Name="last_update_datetime" Type="DateTime" Nullable="false" Precision="7" />
-    <Property Name="parent_company_guid" Type="Guid" Nullable="false" />
-    <Property Name="service_location_guid" Type="Guid" Nullable="false" />
-    <Property Name="created_by_user_guid" Type="Guid" Nullable="false" />
-    <Property Name="last_updated_by_user_guid" Type="Guid" Nullable="false" />
-    <Property Name="problem_summary" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="problem_details" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="location_contact_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="location_contact_phone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="location_contact_phone_night" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="closed_datetime" Type="DateTime" Precision="7" />
-    <Property Name="active" Type="Boolean" Nullable="false" />
-    <Property Name="cost_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="EQmodel" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Name="EQserial" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Name="EQProbDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="service_provider" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Name="dispatch_datetime" Type="DateTime" Precision="7" />
-    <Property Name="accepted_datetime" Type="DateTime" Precision="7" />
-    <Property Name="internal_notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="cust_po_num" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="total_billing" Type="Int64" />
-    <Property Name="ServiceCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="CategoryID" Type="Int32" />
-    <Property Name="Region" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="PriorityStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="PriorityID" Type="Int32" />
-    <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="StatusID" Type="Int32" />
-    <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="PriorityList" Relationship="aaahelpModel.FK_service_tickets_priority" FromRole="service_tickets" ToRole="PriorityList" />
-    <NavigationProperty Name="service_ticket_files" Relationship="aaahelpModel.FK_service_ticket_files_service_tickets" FromRole="service_tickets" ToRole="service_ticket_files" />
-    <NavigationProperty Name="StatusList" Relationship="aaahelpModel.FK_service_tickets_Status" FromRole="service_tickets" ToRole="StatusList" />
-    <NavigationProperty Name="ST_SL_Edits" Relationship="aaahelpModel.FK_ST_SL_Edits_service_tickets" FromRole="service_tickets" ToRole="ST_SL_Edits" />
-    <NavigationProperty Name="ServiceCategory1" Relationship="aaahelpModel.FK_service_tickets_category" FromRole="service_tickets" ToRole="ServiceCategory" />
-  </EntityType>
-  <Association Name="FK_bid_requests_locationinfo">
-    <End Type="aaahelpModel.locationinfo" Role="locationinfo" Multiplicity="1" />
-    <End Type="aaahelpModel.bid_requests" Role="bid_requests" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="locationinfo">
-        <PropertyRef Name="guid" />
-      </Principal>
-      <Dependent Role="bid_requests">
-        <PropertyRef Name="service_location_guid" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_bid_requests_priority">
-    <End Type="aaahelpModel.PriorityList" Role="PriorityList" Multiplicity="0..1" />
-    <End Type="aaahelpModel.bid_requests" Role="bid_requests" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="PriorityList">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="bid_requests">
-        <PropertyRef Name="PriorityID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_bid_requests_Status">
-    <End Type="aaahelpModel.StatusList" Role="StatusList" Multiplicity="0..1" />
-    <End Type="aaahelpModel.bid_requests" Role="bid_requests" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="StatusList">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="bid_requests">
-        <PropertyRef Name="StatusID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_service_tickets_priority">
-    <End Type="aaahelpModel.PriorityList" Role="PriorityList" Multiplicity="0..1" />
-    <End Type="aaahelpModel.service_tickets" Role="service_tickets" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="PriorityList">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="service_tickets">
-        <PropertyRef Name="PriorityID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_service_ticket_files_service_tickets">
-    <End Type="aaahelpModel.service_tickets" Role="service_tickets" Multiplicity="1" />
-    <End Type="aaahelpModel.service_ticket_files" Role="service_ticket_files" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="service_tickets">
-        <PropertyRef Name="guid" />
-      </Principal>
-      <Dependent Role="service_ticket_files">
-        <PropertyRef Name="ticket_guid" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_service_tickets_Status">
-    <End Type="aaahelpModel.StatusList" Role="StatusList" Multiplicity="0..1" />
-    <End Type="aaahelpModel.service_tickets" Role="service_tickets" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="StatusList">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="service_tickets">
-        <PropertyRef Name="StatusID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ST_SL_Edits_service_tickets">
-    <End Type="aaahelpModel.service_tickets" Role="service_tickets" Multiplicity="1" />
-    <End Type="aaahelpModel.ST_SL_Edits" Role="ST_SL_Edits" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="service_tickets">
-        <PropertyRef Name="guid" />
-      </Principal>
-      <Dependent Role="ST_SL_Edits">
-        <PropertyRef Name="ticket_guid" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityType Name="user_viewable_locations">
     <Key>
       <PropertyRef Name="guid" />
@@ -672,29 +492,6 @@
     <Property Name="active" Type="Boolean" Nullable="false" />
     <Property Name="last_modified" Type="DateTime" Nullable="false" Precision="7" />
   </EntityType>
-  <EntityType Name="errors_and_comments">
-    <Key>
-      <PropertyRef Name="guid" />
-    </Key>
-    <Property Name="guid" Type="Guid" Nullable="false" />
-    <Property Name="ID" Type="Int32" Nullable="false" />
-    <Property Name="HTTP_REFERER" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="HTTP_USER_AGENT" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="REMOTE_ADDR" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="REMOTE_HOST" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="REMOTE_USER" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Name="comment_datetime" Type="DateTime" Nullable="false" Precision="7" />
-    <Property Name="comment_type" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-    <Property Name="userguid" Type="Guid" Nullable="false" />
-    <Property Name="comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="fileupload" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="active" Type="Boolean" Nullable="false" />
-    <Property Name="closed" Type="DateTime" Precision="7" />
-    <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="ratings" Type="Int32" Nullable="false" />
-    <Property Name="RatingID" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="CommentRating" Relationship="aaahelpModel.FK_errors_and_comments_RatingID" FromRole="errors_and_comments" ToRole="CommentRating" />
-  </EntityType>
   <EntityType Name="CommentRating">
     <Key>
       <PropertyRef Name="RatingID" />
@@ -704,18 +501,6 @@
     <Property Name="RatingValue" Type="Int32" Nullable="false" />
     <NavigationProperty Name="errors_and_comments" Relationship="aaahelpModel.FK_errors_and_comments_RatingID" FromRole="CommentRating" ToRole="errors_and_comments" />
   </EntityType>
-  <Association Name="FK_errors_and_comments_RatingID">
-    <End Type="aaahelpModel.CommentRating" Role="CommentRating" Multiplicity="1" />
-    <End Type="aaahelpModel.errors_and_comments" Role="errors_and_comments" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CommentRating">
-        <PropertyRef Name="RatingID" />
-      </Principal>
-      <Dependent Role="errors_and_comments">
-        <PropertyRef Name="RatingID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityType Name="Site_Lists_Hide_Item">
     <Key>
       <PropertyRef Name="guid" />
@@ -840,7 +625,6 @@
     <Property Name="email_all_members" Type="Boolean" />
     <Property Name="active" Type="Boolean" Nullable="false" />
     <Property Name="AcctMgrEmail" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="bid_requests" Relationship="aaahelpModel.FK_bid_requests_Company" FromRole="Company" ToRole="bid_requests" />
     <NavigationProperty Name="locationinfoes" Relationship="aaahelpModel.FK_locationinfo_Company" FromRole="Company" ToRole="locationinfo" />
   </EntityType>
   <EntityType Name="ServiceCategory">
@@ -858,18 +642,6 @@
     <Property Name="AlertMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="service_tickets" Relationship="aaahelpModel.FK_service_tickets_category" FromRole="ServiceCategory" ToRole="service_tickets" />
   </EntityType>
-  <Association Name="FK_bid_requests_Company">
-    <End Type="aaahelpModel.Company" Role="Company" Multiplicity="1" />
-    <End Type="aaahelpModel.bid_requests" Role="bid_requests" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Company">
-        <PropertyRef Name="guid" />
-      </Principal>
-      <Dependent Role="bid_requests">
-        <PropertyRef Name="parent_company_guid" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_locationinfo_Company">
     <End Type="aaahelpModel.Company" Role="Company" Multiplicity="0..1" />
     <End Type="aaahelpModel.locationinfo" Role="locationinfo" Multiplicity="*" />
@@ -879,18 +651,6 @@
       </Principal>
       <Dependent Role="locationinfo">
         <PropertyRef Name="parentguid" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_service_tickets_category">
-    <End Type="aaahelpModel.ServiceCategory" Role="ServiceCategory" Multiplicity="0..1" />
-    <End Type="aaahelpModel.service_tickets" Role="service_tickets" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ServiceCategory">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="service_tickets">
-        <PropertyRef Name="CategoryID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1098,5 +858,178 @@
     <Property Name="ratings" Type="Int32" Nullable="false" />
     <Property Name="user_full_name" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
     <Property Name="service_location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="errors_and_comments">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="guid" Type="Guid" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="HTTP_REFERER" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="HTTP_USER_AGENT" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="REMOTE_ADDR" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="REMOTE_HOST" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="REMOTE_USER" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="comment_datetime" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="comment_type" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="userguid" Type="Guid" Nullable="false" />
+    <Property Name="comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="fileupload" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="active" Type="Boolean" Nullable="false" />
+    <Property Name="closed" Type="DateTime" Precision="7" />
+    <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ratings" Type="Int32" Nullable="false" />
+    <Property Name="RatingID" Type="Int32" Nullable="false" />
+    <Property Name="LocationGUID" Type="Guid" />
+    <Property Name="LocationName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="CommentRating" Relationship="aaahelpModel.FK_errors_and_comments_RatingID" FromRole="errors_and_comments" ToRole="CommentRating" />
+  </EntityType>
+  <Association Name="FK_errors_and_comments_RatingID">
+    <End Type="aaahelpModel.CommentRating" Role="CommentRating" Multiplicity="1" />
+    <End Type="aaahelpModel.errors_and_comments" Role="errors_and_comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CommentRating">
+        <PropertyRef Name="RatingID" />
+      </Principal>
+      <Dependent Role="errors_and_comments">
+        <PropertyRef Name="RatingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="service_tickets">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="guid" Type="Guid" Nullable="false" />
+    <Property Name="job_number" Type="Int32" Nullable="false" />
+    <Property Name="order_datetime" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="complete_datetime" Type="DateTime" Precision="7" />
+    <Property Name="last_update_datetime" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="parent_company_guid" Type="Guid" Nullable="false" />
+    <Property Name="service_location_guid" Type="Guid" Nullable="false" />
+    <Property Name="created_by_user_guid" Type="Guid" Nullable="false" />
+    <Property Name="last_updated_by_user_guid" Type="Guid" Nullable="false" />
+    <Property Name="problem_summary" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="problem_details" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="location_contact_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="location_contact_phone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="location_contact_phone_night" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="closed_datetime" Type="DateTime" Precision="7" />
+    <Property Name="active" Type="Boolean" Nullable="false" />
+    <Property Name="cost_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="EQmodel" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="EQserial" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="EQProbDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="service_provider" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="dispatch_datetime" Type="DateTime" Precision="7" />
+    <Property Name="accepted_datetime" Type="DateTime" Precision="7" />
+    <Property Name="internal_notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="cust_po_num" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="total_billing" Type="Int64" />
+    <Property Name="ServiceCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CategoryID" Type="Int32" />
+    <Property Name="Region" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PriorityStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PriorityID" Type="Int32" />
+    <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="StatusID" Type="Int32" />
+    <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Company" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PriorityList" Relationship="aaahelpModel.FK_service_tickets_priority" FromRole="service_tickets" ToRole="PriorityList" />
+    <NavigationProperty Name="service_ticket_files" Relationship="aaahelpModel.FK_service_ticket_files_service_tickets" FromRole="service_tickets" ToRole="service_ticket_files" />
+    <NavigationProperty Name="ServiceCategory1" Relationship="aaahelpModel.FK_service_tickets_category" FromRole="service_tickets" ToRole="ServiceCategory" />
+    <NavigationProperty Name="StatusList" Relationship="aaahelpModel.FK_service_tickets_Status" FromRole="service_tickets" ToRole="StatusList" />
+    <NavigationProperty Name="ST_SL_Edits" Relationship="aaahelpModel.FK_ST_SL_Edits_service_tickets" FromRole="service_tickets" ToRole="ST_SL_Edits" />
+  </EntityType>
+  <Association Name="FK_service_tickets_priority">
+    <End Type="aaahelpModel.PriorityList" Role="PriorityList" Multiplicity="0..1" />
+    <End Type="aaahelpModel.service_tickets" Role="service_tickets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PriorityList">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="service_tickets">
+        <PropertyRef Name="PriorityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_service_ticket_files_service_tickets">
+    <End Type="aaahelpModel.service_tickets" Role="service_tickets" Multiplicity="1" />
+    <End Type="aaahelpModel.service_ticket_files" Role="service_ticket_files" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="service_tickets">
+        <PropertyRef Name="guid" />
+      </Principal>
+      <Dependent Role="service_ticket_files">
+        <PropertyRef Name="ticket_guid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_service_tickets_category">
+    <End Type="aaahelpModel.ServiceCategory" Role="ServiceCategory" Multiplicity="0..1" />
+    <End Type="aaahelpModel.service_tickets" Role="service_tickets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ServiceCategory">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="service_tickets">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_service_tickets_Status">
+    <End Type="aaahelpModel.StatusList" Role="StatusList" Multiplicity="0..1" />
+    <End Type="aaahelpModel.service_tickets" Role="service_tickets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatusList">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="service_tickets">
+        <PropertyRef Name="StatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ST_SL_Edits_service_tickets">
+    <End Type="aaahelpModel.service_tickets" Role="service_tickets" Multiplicity="1" />
+    <End Type="aaahelpModel.ST_SL_Edits" Role="ST_SL_Edits" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="service_tickets">
+        <PropertyRef Name="guid" />
+      </Principal>
+      <Dependent Role="ST_SL_Edits">
+        <PropertyRef Name="ticket_guid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="bid_requests">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="bid_num" Type="Int32" Nullable="false" />
+    <Property Name="guid" Type="Guid" Nullable="false" />
+    <Property Name="order_datetime" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="complete_datetime" Type="DateTime" Precision="7" />
+    <Property Name="last_update_datetime" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="parent_company_guid" Type="Guid" Nullable="false" />
+    <Property Name="service_location_guid" Type="Guid" Nullable="false" />
+    <Property Name="created_by_user_guid" Type="Guid" Nullable="false" />
+    <Property Name="last_updated_by_user_guid" Type="Guid" Nullable="false" />
+    <Property Name="problem_summary" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="problem_details" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="location_contact_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="location_contact_phone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="location_contact_phone_night" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="closed_datetime" Type="DateTime" Precision="7" />
+    <Property Name="active" Type="Boolean" Nullable="false" />
+    <Property Name="PriorityStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PriorityID" Type="Int32" />
+    <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="StatusID" Type="Int32" />
+    <Property Name="LocationName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

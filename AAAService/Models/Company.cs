@@ -17,7 +17,6 @@ namespace AAAService.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Company()
         {
-            this.bid_requests = new HashSet<bid_requests>();
             this.locationinfoes = new HashSet<locationinfo>();
         }
     
@@ -35,8 +34,6 @@ namespace AAAService.Models
         public bool active { get; set; }
         public string AcctMgrEmail { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<bid_requests> bid_requests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<locationinfo> locationinfoes { get; set; }
     }

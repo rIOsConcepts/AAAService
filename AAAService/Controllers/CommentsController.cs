@@ -10,6 +10,7 @@ using AAAService.Models;
 
 namespace AAAService.Controllers
 {
+    [Authorize]
     public class CommentsController : Controller
     {
         private aaahelpEntities db = new aaahelpEntities();
@@ -20,6 +21,32 @@ namespace AAAService.Controllers
             //var errors_and_comments = db.errors_and_comments.Include(e => e.CommentRating);
             var errors_and_comments = db.error_and_comments_view.OrderByDescending(eac => eac.ID);
             return View(errors_and_comments.ToList());
+        }
+
+        //Action result for ajax call
+        [HttpPost]
+        public ActionResult GetServiceLocation(string companyGUID)
+        {
+            SelectList obg;
+
+            if (User.IsInRole("CorpAdmin"))
+            {
+                obg = new SelectList(db.locationinfoes.Where(o => o.parentguid.ToString() == companyGUID && o.active == true).OrderBy(o => o.name), "guid", "Name");
+            }
+            else
+            {
+                var userGUID = Helpers.UserHelper.getUserGuid();
+                var locationsOfUser = db.user_to_location.Where(o => o.user_guid == userGUID).Select(o => o.location_guid.ToString()).ToList();
+                obg = new SelectList(db.locationinfoes.Where(o => o.parentguid.ToString() == companyGUID && o.active == true && locationsOfUser.Contains(o.guid.ToString())).OrderBy(o => o.name), "guid", "Name");
+            }
+
+            return Json(obg);
+        }
+
+        public ActionResult SetServiceLocation(string locationGUID)
+        {
+            TempData["LocationGuid"] = locationGUID;
+            return null;
         }
 
         // GET: Comments/Details/5
@@ -40,8 +67,38 @@ namespace AAAService.Controllers
         // GET: Comments/Create
         public ActionResult Create()
         {
+            var view = new errors_and_comments();
             ViewBag.RatingID = new SelectList(db.CommentRatings, "RatingID", "Name");
-            return View();
+            var userGUID = Helpers.UserHelper.getUserGuid();
+            var locationsOfUser = db.user_to_location.Where(o => o.user_guid == userGUID);
+
+            if (locationsOfUser.Count() > 1)
+            {
+                TempData["LocationGuid"] = "0";
+                TempData["SeveralLocations"] = true;
+                var locationsOfUserGUID = Guid.Parse(locationsOfUser.ToList()[0].location_guid.ToString());
+                var locationInfo = db.locationinfoes.Where(o => o.active == true && o.guid == locationsOfUserGUID);
+
+                if (locationInfo.Count() > 0)
+                {
+                    var locationInfoToList = locationInfo.ToList()[0];
+                    var companyGUID = locationInfoToList.parentguid;
+                    ViewBag.CompanyGUID = companyGUID;
+                }
+            }
+            else
+            {
+                if (locationsOfUser.Count() == 1)
+                {
+                    var locationGUID = locationsOfUser.ToList()[0].location_guid;
+                    view.LocationGUID = locationGUID;
+                    view.LocationName = db.locationinfoes.Where(li => li.guid == locationGUID).ToList()[0].name;
+                    TempData["LocationGuid"] = locationsOfUser.ToList()[0].location_guid;
+                    TempData["SeveralLocations"] = false;
+                }                
+            }
+
+            return View(view);
         }
 
         // POST: Comments/Create
@@ -49,7 +106,7 @@ namespace AAAService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "guid,ID,HTTP_REFERER,HTTP_USER_AGENT,REMOTE_ADDR,REMOTE_HOST,REMOTE_USER,comment_datetime,comment_type,userguid,comments,fileupload,active,closed,notes,ratings,RatingID")] errors_and_comments errors_and_comments)
+        public ActionResult Create([Bind(Include = "guid,ID,comments,ratings,RatingID,LocationGUID")] errors_and_comments errors_and_comments)
         {
             if (ModelState.IsValid)
             {
@@ -61,7 +118,15 @@ namespace AAAService.Controllers
                 errors_and_comments.userguid = user;
                 errors_and_comments.active = true;
                 errors_and_comments.ratings = db.CommentRatings.Where(o => o.RatingID == errors_and_comments.RatingID).ToList()[0].RatingValue;
-                db.errors_and_comments.Add(errors_and_comments);
+
+                if (errors_and_comments.LocationGUID == null)
+                {
+                    var locationGUID = TempData.Peek("LocationGuid");
+                    errors_and_comments.LocationGUID = Guid.Parse(locationGUID.ToString());
+                }
+
+                errors_and_comments.LocationName = db.locationinfoes.Where(li => li.guid == errors_and_comments.LocationGUID).ToList()[0].name;
+                db.errors_and_comments.Add(errors_and_comments);               
                 db.SaveChanges();
 
                 try

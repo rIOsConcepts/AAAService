@@ -46,12 +46,9 @@ namespace AAAService.Models
         public virtual DbSet<user_to_location> user_to_location { get; set; }
         public virtual DbSet<service_ticket_files> service_ticket_files { get; set; }
         public virtual DbSet<email_log> email_log { get; set; }
-        public virtual DbSet<bid_requests> bid_requests { get; set; }
-        public virtual DbSet<service_tickets> service_tickets { get; set; }
         public virtual DbSet<user_viewable_locations> user_viewable_locations { get; set; }
         public virtual DbSet<phone_num> phone_num { get; set; }
         public virtual DbSet<Phone_Numbers> Phone_Numbers { get; set; }
-        public virtual DbSet<errors_and_comments> errors_and_comments { get; set; }
         public virtual DbSet<CommentRating> CommentRatings { get; set; }
         public virtual DbSet<Site_Lists_Hide_Item> Site_Lists_Hide_Item { get; set; }
         public virtual DbSet<EmailSetup> EmailSetups { get; set; }
@@ -67,6 +64,9 @@ namespace AAAService.Models
         public virtual DbSet<Calendar> Calendars { get; set; }
         public virtual DbSet<ExportToCF> ExportToCFs { get; set; }
         public virtual DbSet<error_and_comments_view> error_and_comments_view { get; set; }
+        public virtual DbSet<errors_and_comments> errors_and_comments { get; set; }
+        public virtual DbSet<service_tickets> service_tickets { get; set; }
+        public virtual DbSet<bid_requests> bid_requests { get; set; }
     
         public virtual ObjectResult<ParentLocationInfoFromUsrGUID_Result> ParentLocationInfoFromUsrGUID(Nullable<System.Guid> usrGUID)
         {

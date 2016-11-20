@@ -57,6 +57,8 @@
     <Property Name="PriorityID" Type="int" />
     <Property Name="StatusName" Type="varchar" MaxLength="50" />
     <Property Name="StatusID" Type="int" />
+    <Property Name="LocationName" Type="varchar" MaxLength="50" />
+    <Property Name="CompanyName" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Calendars">
     <Key>
@@ -155,6 +157,8 @@
     <Property Name="notes" Type="text" />
     <Property Name="ratings" Type="int" Nullable="false" />
     <Property Name="RatingID" Type="int" Nullable="false" />
+    <Property Name="LocationGUID" Type="uniqueidentifier" />
+    <Property Name="LocationName" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Location_Service_Provider">
     <Key>
@@ -305,6 +309,7 @@ warning 6002: The table/view 'DB_105883_prod.dbo.ReportBuilderFields' does not h
     <Property Name="StatusID" Type="int" />
     <Property Name="Location" Type="varchar" MaxLength="50" />
     <Property Name="City" Type="varchar" MaxLength="50" />
+    <Property Name="Company" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="ServiceCategory">
     <Key>
@@ -769,54 +774,6 @@ warning 6002: The table/view 'DB_105883_prod.dbo.user_viewable_locations_view' d
     <Property Name="user_guid" Type="uniqueidentifier" Nullable="false" />
     <Property Name="parentguid" Type="uniqueidentifier" />
   </EntityType>
-  <Association Name="FK_bid_requests_Company">
-    <End Role="Company" Type="Self.Company" Multiplicity="1" />
-    <End Role="bid_requests" Type="Self.bid_requests" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Company">
-        <PropertyRef Name="guid" />
-      </Principal>
-      <Dependent Role="bid_requests">
-        <PropertyRef Name="parent_company_guid" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_bid_requests_locationinfo">
-    <End Role="locationinfo" Type="Self.locationinfo" Multiplicity="1" />
-    <End Role="bid_requests" Type="Self.bid_requests" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="locationinfo">
-        <PropertyRef Name="guid" />
-      </Principal>
-      <Dependent Role="bid_requests">
-        <PropertyRef Name="service_location_guid" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_bid_requests_priority">
-    <End Role="PriorityList" Type="Self.PriorityList" Multiplicity="0..1" />
-    <End Role="bid_requests" Type="Self.bid_requests" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="PriorityList">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="bid_requests">
-        <PropertyRef Name="PriorityID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_bid_requests_Status">
-    <End Role="StatusList" Type="Self.StatusList" Multiplicity="0..1" />
-    <End Role="bid_requests" Type="Self.bid_requests" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="StatusList">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="bid_requests">
-        <PropertyRef Name="StatusID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -1310,22 +1267,6 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
     [user_viewable_locations_view].[parentguid] AS [parentguid]
     FROM [dbo].[user_viewable_locations_view] AS [user_viewable_locations_view]</DefiningQuery>
     </EntitySet>
-    <AssociationSet Name="FK_bid_requests_Company" Association="Self.FK_bid_requests_Company">
-      <End Role="Company" EntitySet="Company" />
-      <End Role="bid_requests" EntitySet="bid_requests" />
-    </AssociationSet>
-    <AssociationSet Name="FK_bid_requests_locationinfo" Association="Self.FK_bid_requests_locationinfo">
-      <End Role="locationinfo" EntitySet="locationinfo" />
-      <End Role="bid_requests" EntitySet="bid_requests" />
-    </AssociationSet>
-    <AssociationSet Name="FK_bid_requests_priority" Association="Self.FK_bid_requests_priority">
-      <End Role="PriorityList" EntitySet="PriorityList" />
-      <End Role="bid_requests" EntitySet="bid_requests" />
-    </AssociationSet>
-    <AssociationSet Name="FK_bid_requests_Status" Association="Self.FK_bid_requests_Status">
-      <End Role="StatusList" EntitySet="StatusList" />
-      <End Role="bid_requests" EntitySet="bid_requests" />
-    </AssociationSet>
     <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />

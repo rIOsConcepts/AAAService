@@ -31,6 +31,8 @@ namespace AAAService.Models
         public string notes { get; set; }
         public int ratings { get; set; }
         public int RatingID { get; set; }
+        public Nullable<System.Guid> LocationGUID { get; set; }
+        public string LocationName { get; set; }
     
         public virtual CommentRating CommentRating { get; set; }
     }

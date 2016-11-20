@@ -1,5 +1,9 @@
 ﻿@model AAAService.Models.errors_and_comments
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
 @{
     ViewBag.Title = "Create";
 }
@@ -13,6 +17,32 @@
     <div class="form-horizontal">
         <h4>Please use this form to tell us how we're doing</h4>
         <hr />
+
+        <div class="form-group" hidden>
+            <div class="col-md-10" hidden>
+                @Html.TextBoxFor(model => model.LocationGUID, new { @class = "form-control", @readonly = true })
+            </div>
+        </div>
+        
+        @if (User.IsInRole("CorpAdmin") || bool.Parse(TempData.Peek("SeveralLocations").ToString()))
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.LocationName, "Service Location", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <select class="form-control" id="ddlservicelocation" name="ddlservicelocation" style="width: 200px" onchange="javascript:SetServiceLocation(this.value)"></select>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.LocationName, "Service Location", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.LocationName, new { @class = "form-control", @readonly = true })
+                </div>
+            </div>
+        }
+
         <div class="form-group">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.LabelFor(model => model.RatingID, "Rate us on how we're doing", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -30,8 +60,6 @@
             </div>
         </div>
 
-       
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
@@ -43,3 +71,62 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+<script language="javascript" type="text/javascript">
+    $(document).ready(function () {
+      GetServiceLocation("@ViewBag.CompanyGUID");
+    });
+
+    function GetServiceLocation(_companyGUID) {
+        var procemessage = "<option value='0'> Please wait...</option>";
+        $("#ddlservicelocation").html(procemessage).show();
+        var url = "/Comments/GetServiceLocation/";
+
+        $.ajax({
+            url: url,
+            data: { companyGUID: _companyGUID },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                var markup = "";
+
+                if ("@TempData.Peek("LocationGuid")" == "") {
+                    markup = "<option value='0' selected>Please Choose</option>";
+                }
+                else {
+                        markup = "<option value='0'>Please Choose</option>";
+                }
+
+                    for (var x = 0; x < data.length; x++) {
+                        if (data[x].Value == "@TempData.Peek("LocationGuid")") {
+                            markup += "<option value=" + data[x].Value + " selected>" + data[x].Text + "</option>";
+                        }
+                    else {
+                            markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                    }
+                }
+
+                $("#ddlservicelocation").html(markup).show();
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+    }
+
+    function SetServiceLocation(_locationGUID) {
+        var url = "/Comments/SetServiceLocation/";
+
+        $.ajax({
+            url: url,
+            data: { locationGUID: _locationGUID },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+    }
+</script>

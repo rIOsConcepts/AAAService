@@ -14,8 +14,6 @@ namespace AAAService.Models
     
     public partial class bid_requests
     {
-        public string CompanyName { get; set; }
-        public string LocationName { get; set; }
         public int bid_num { get; set; }
         public System.Guid guid { get; set; }
         public System.DateTime order_datetime { get; set; }
@@ -37,7 +35,8 @@ namespace AAAService.Models
         public Nullable<int> PriorityID { get; set; }
         public string StatusName { get; set; }
         public Nullable<int> StatusID { get; set; }
-    
+        public string LocationName { get; set; }
+        public string CompanyName { get; set; }
         public virtual locationinfo locationinfo { get; set; }
         public virtual PriorityList PriorityList { get; set; }
         public virtual StatusList StatusList { get; set; }
