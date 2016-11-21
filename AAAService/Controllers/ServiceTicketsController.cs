@@ -179,6 +179,11 @@ namespace AAAService.Controllers
             }
 
             var view = new service_tickets();
+            view.accepted_datetime = null;
+            view.dispatch_datetime = null;
+            view.complete_datetime = null;
+            view.closed_datetime = null;
+            view.internal_notes = null;
             ViewBag.Id = id;
             //var myguid = id;            
             var userGUID = Helpers.UserHelper.getUserGuid();
