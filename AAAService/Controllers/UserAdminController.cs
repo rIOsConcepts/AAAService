@@ -93,11 +93,15 @@ namespace AAAService.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             var user = await UserManager.FindByIdAsync(id);
-
+            //ViewBag.PhoneNumbers = db.phone_num.Where(pn => pn.user_guid == user.guid);
+            var userToLocation = db.user_to_location.Where(utl => utl.user_guid == user.guid).Include(l => l.locationinfo).ToList();
+            var locationsOfUser = userToLocation.Select(o => o.location_guid.ToString()).ToList();
+            var locations = db.locationinfoes.Where(l => locationsOfUser.Contains(l.guid.ToString())).OrderBy(l => l.name).ToList();
+            
             ViewBag.RoleNames = await UserManager.GetRolesAsync(user.Id);
-
-            return View(user);
+            return View(new Tuple<ApplicationUser, List<locationinfo>>(user, locations));
         }
 
         //

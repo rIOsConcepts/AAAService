@@ -46,7 +46,9 @@ namespace AAAService.Controllers
         public ActionResult SetServiceLocation(string locationGUID)
         {
             TempData["LocationGuid"] = locationGUID;
-            return null;
+            var LocationGUID = Guid.Parse(locationGUID);
+            var locationsInfo = db.locationinfoes.Where(o => o.guid == LocationGUID).ToList()[0];
+            return Json(locationsInfo);
         }
 
         public ActionResult Upload()
@@ -188,18 +190,25 @@ namespace AAAService.Controllers
             //var myguid = id;            
             var userGUID = Helpers.UserHelper.getUserGuid();
             var locationsOfUser = db.user_to_location.Where(o => o.user_guid == userGUID).Select(o => o.location_guid.ToString());
-            var parentGUID = db.locationinfoes.Where(o => o.guid == id).Select(o => o.parentguid).FirstOrDefault();
+            var locationsInfo = db.locationinfoes.Where(o => o.guid == id).ToList();
+            var parentGUID = locationsInfo[0].parentguid;            
             TempData["ParentGuid"] = parentGUID;
 
             if (locationsOfUser.Count() > 1)
             {
                 TempData["LocationGuid"] = "0";
                 TempData["SeveralLocations"] = true;
+                ViewBag.Address = "A";
+                ViewBag.City = "B";
+                ViewBag.Zip = "C";
             }
             else
             {
                 TempData["LocationGuid"] = id;
                 TempData["SeveralLocations"] = false;
+                ViewBag.Address = locationsInfo[0].addressline1 + " " + locationsInfo[0].addressline2;
+                ViewBag.City = locationsInfo[0].city;
+                ViewBag.Zip = locationsInfo[0].zip.ToString();
             }
 
             //var myloc = Helpers.SvcHelper.getParentGuid(id);

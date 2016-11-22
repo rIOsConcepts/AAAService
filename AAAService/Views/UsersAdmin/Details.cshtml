@@ -1,4 +1,5 @@
-﻿@model AAAService.Models.ApplicationUser
+﻿@*@model AAAService.Models.ApplicationUser*@
+@model Tuple<AAAService.Models.ApplicationUser, List<AAAService.Models.locationinfo>>
 
 @{
     ViewBag.Title = "Details";
@@ -11,31 +12,96 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.fname)
+            @Html.DisplayNameFor(model => model.Item1.fname)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.fname)
+            @Html.DisplayFor(model => model.Item1.fname)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.lname)
+            @Html.DisplayNameFor(model => model.Item1.lname)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.lname)
+            @Html.DisplayFor(model => model.Item1.lname)
+        </dd>        
+        <dt>
+            @Html.DisplayNameFor(model => model.Item1.UserName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Item1.UserName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.title)
+            @Html.DisplayNameFor(model => model.Item1.title)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.title)
+            @Html.DisplayFor(model => model.Item1.title)
         </dd>
+
+        @*@if (ViewBag.PhoneNumbers.Count() == 0)
+        {
+            <hr />
+            <p>No phone numbers found for this user.</p>
+        }
+        else
+        {
+            foreach (var item in ViewBag.PhoneNumbers)
+            {
+                <dt>
+                    @Html.Display("Business Phone Number")
+                </dt>
+                <dd>
+                    @item.phone_day)
+                </dd>
+                <dt>
+                    @Html.Display("After Hours Phone Number")
+                </dt>
+                <dd>
+                    @@item.phone_night)
+                </dd>
+            }
+        }*@
+
         <dt>
-            @Html.DisplayNameFor(model => model.UserName)
+            @Html.DisplayNameFor(model => model.Item1.account_status)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.UserName)
+            @*@Html.DisplayFor(model => model.Item1.account_status))*@
+            @if (Model.Item1.account_status == 1)
+            {
+                @("Active")
+            }
+            else
+            {
+                @("Inactive")
+            }
+            
         </dd>
     </dl>
 </div>
+
+<h4>List of locations for this user</h4>
+@if (Model.Item2.Count == 0)
+{
+    <hr />
+    <p>No locations found for this user.</p>
+}
+
+<table class="table">
+
+    @foreach (var item in Model.Item2)
+    {
+        <tr>
+            <td>
+                @item.name@(":")                
+                @item.addressline1
+                @item.addressline2@(",")
+                @item.city@(",")
+                @item.state
+                @item.zip
+            </td>
+        </tr>
+    }
+</table>
+
 <h4>List of roles for this user</h4>
 @if (ViewBag.RoleNames.Count == 0)
 {
@@ -55,9 +121,6 @@
     }
 </table>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Item1.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
-
-
-
