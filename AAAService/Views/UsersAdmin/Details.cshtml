@@ -1,5 +1,11 @@
 ﻿@*@model AAAService.Models.ApplicationUser*@
-@model Tuple<AAAService.Models.ApplicationUser, List<AAAService.Models.locationinfo>>
+@model Tuple<AAAService.Models.ApplicationUser, IEnumerable<AAAService.Models.locationinfo>>
+@using GridMvc.Html
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+<script src="~/Scripts/jquery-2.2.0.min.js"></script>
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+<script src="@Url.Content("~/Scripts/gridmvc.customwidgets.js")"></script>
 
 @{
     ViewBag.Title = "Details";
@@ -77,29 +83,62 @@
     </dl>
 </div>
 
-<h4>List of locations for this user</h4>
-@if (Model.Item2.Count == 0)
-{
-    <hr />
-    <p>No locations found for this user.</p>
-}
+<h4>List of users for this location</h4>
 
-<table class="table">
-
-    @foreach (var item in Model.Item2)
+<div style="width:auto">
+    @helper CustomRenderingOfColumn(AAAService.Models.locationinfo model)
     {
-        <tr>
-            <td>
-                @item.name@(":")
-                @item.addressline1
-                @item.addressline2@(",")
-                @item.city@(",")
-                @item.state
-                @item.zip
-            </td>
-        </tr>
+        if (model.active)
+        {
+                <text>Active</text>
+        }
+        else
+        {
+                <text>Inactive</text>
+        }
     }
-</table>
+
+    @Html.Grid(Model.Item2).Named("LocationsPerUser").Columns(columns =>
+    {
+        columns.Add(o => o.name)
+                .Sortable(true)
+                .Filterable(true)
+                .Titled("Name");
+
+        columns.Add(o => o.addressline1)
+                .Sortable(true)
+                .Filterable(true)
+                .Titled("Address 1");
+
+        columns.Add(o => o.addressline2)
+                .Sortable(true)
+                .Filterable(true)
+                .Titled("Address 2");
+
+        columns.Add(o => o.city)
+                .Sortable(true)
+                .Filterable(true)
+                .Titled("City");
+
+        columns.Add(o => o.state)
+                .Sortable(true)
+                .Filterable(true)
+                .Titled("State");
+
+        columns.Add(o => o.zip)
+                .Sortable(true)
+                .Filterable(true)
+                .Titled("Zip");
+
+        columns.Add(o => o.active)
+                .Titled("Status")
+                .Sortable(true)
+                .Filterable(true)
+                .RenderValueAs(model => CustomRenderingOfColumn(model))
+                .SetFilterWidgetType("CustomUserStatusFilterWidget");
+
+    }).Sortable().Filterable().WithMultipleFilters()
+</div>
 
 <h4>List of roles for this user</h4>
 @if (ViewBag.RoleNames.Count == 0)
@@ -123,3 +162,9 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.Item1.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+<script>
+    $(document).ready(function(){
+        pageGrids.LocationsPerUser.addFilterWidget(new UserStatusesFilterWidget());
+    });
+</script>

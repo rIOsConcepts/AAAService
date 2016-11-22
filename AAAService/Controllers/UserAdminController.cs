@@ -101,7 +101,7 @@ namespace AAAService.Controllers
             var locations = db.locationinfoes.Where(l => locationsOfUser.Contains(l.guid.ToString())).OrderBy(l => l.name).ToList();
             
             ViewBag.RoleNames = await UserManager.GetRolesAsync(user.Id);
-            return View(new Tuple<ApplicationUser, List<locationinfo>>(user, locations));
+            return View(new Tuple<ApplicationUser, IEnumerable<locationinfo>>(user, locations));
         }
 
         //
