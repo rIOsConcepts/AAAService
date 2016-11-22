@@ -29,12 +29,20 @@ namespace AAAService.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             locationinfo locationinfo = db.locationinfoes.Find(id);
+
             if (locationinfo == null)
             {
                 return HttpNotFound();
             }
-            return View(locationinfo);
+
+            var userToLocation = db.user_to_location.Where(utl => utl.location_guid == id).ToList();
+            var locationsOfUser = userToLocation.Select(o => o.user_guid.ToString()).ToList();
+            var aspNetUsers = db.AspNetUsers.Where(u => locationsOfUser.Contains(u.guid.ToString())).OrderBy(u => u.lname).ThenBy(u => u.fname).ToList();
+
+            //return View(locationinfo);
+            return View(new Tuple<locationinfo, IEnumerable<AspNetUser>>(locationinfo, aspNetUsers));
         }
 
         // GET: locationinfoes/Create

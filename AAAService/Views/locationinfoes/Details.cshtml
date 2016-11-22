@@ -1,4 +1,11 @@
-﻿@model AAAService.Models.locationinfo
+﻿@*@model AAAService.Models.locationinfo*@
+@model Tuple<AAAService.Models.locationinfo, IEnumerable<AAAService.Models.AspNetUser>>
+@using GridMvc.Html
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+<script src="~/Scripts/jquery-2.2.0.min.js"></script>
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+<script src="@Url.Content("~/Scripts/gridmvc.customwidgets.js")"></script>
 
 @{
     ViewBag.Title = "Details";
@@ -11,120 +18,187 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.name)
+            @Html.DisplayNameFor(model => model.Item1.name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.name)
+            @Html.DisplayFor(model => model.Item1.name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.addressline1)
+            @Html.DisplayNameFor(model => model.Item1.addressline1)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.addressline1)
+            @Html.DisplayFor(model => model.Item1.addressline1)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.addressline2)
+            @Html.DisplayNameFor(model => model.Item1.addressline2)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.addressline2)
+            @Html.DisplayFor(model => model.Item1.addressline2)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.city)
+            @Html.DisplayNameFor(model => model.Item1.city)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.city)
+            @Html.DisplayFor(model => model.Item1.city)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.state)
+            @Html.DisplayNameFor(model => model.Item1.state)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.state)
+            @Html.DisplayFor(model => model.Item1.state)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.zip)
+            @Html.DisplayNameFor(model => model.Item1.zip)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.zip)
+            @Html.DisplayFor(model => model.Item1.zip)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.cf_location_num)
+            @Html.DisplayNameFor(model => model.Item1.cf_location_num)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.cf_location_num)
+            @Html.DisplayFor(model => model.Item1.cf_location_num)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.cf_company_num)
+            @Html.DisplayNameFor(model => model.Item1.cf_company_num)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.cf_company_num)
+            @Html.DisplayFor(model => model.Item1.cf_company_num)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.region)
+            @Html.DisplayNameFor(model => model.Item1.region)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.region)
+            @Html.DisplayFor(model => model.Item1.region)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.email_all_members)
+            @Html.DisplayNameFor(model => model.Item1.email_all_members)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.email_all_members)
+            @Html.DisplayFor(model => model.Item1.email_all_members)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.active)
+            @Html.DisplayNameFor(model => model.Item1.active)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.active)
+            @Html.DisplayFor(model => model.Item1.active)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.RegionID)
+            @Html.DisplayNameFor(model => model.Item1.RegionID)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.RegionID)
+            @Html.DisplayFor(model => model.Item1.RegionID)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Company.name)
+            @Html.DisplayNameFor(model => model.Item1.Company.name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Company.name)
+            @Html.DisplayFor(model => model.Item1.Company.name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Location_Service_Provider.guid)
+            @Html.DisplayNameFor(model => model.Item1.Location_Service_Provider.guid)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Location_Service_Provider.guid)
+            @Html.DisplayFor(model => model.Item1.Location_Service_Provider.guid)
         </dd>
-
     </dl>
 </div>
+
+<h4>List of users for this location</h4>
+
+<div style="width:auto">
+    @helper CustomRenderingOfColumn1(AAAService.Models.AspNetUser model)
+    {
+        if (model.is_manager)
+        {
+            <text>Yes</text>
+        }
+        else
+        {
+            <text>No</text>
+        }
+    }
+
+    @helper CustomRenderingOfColumn2(AAAService.Models.AspNetUser model)
+    {
+        if (model.account_status == 1)
+        {
+                    <text>Active</text>
+        }
+        else
+        {
+                    <text>Inactive</text>
+        }
+    }
+
+    @Html.Grid(Model.Item2).Named("UsersPerLocation").Columns(columns =>
+{
+    columns.Add(o => o.lname)
+            .Sortable(true)
+            .Filterable(true)
+            .Titled("Last Name");
+
+    columns.Add(o => o.fname)
+            .Sortable(true)
+            .Filterable(true)
+            .Titled("First Name");
+
+    columns.Add(o => o.UserName)
+            .Sortable(true)
+            .Filterable(true)
+            .Titled("Username");
+
+    columns.Add(o => o.is_manager)
+            .Titled("Is Mananger?")
+            .Sortable(true)
+            .Filterable(true)
+            .RenderValueAs(model => CustomRenderingOfColumn1(model));
+
+    /* Adding "Acct Status" column: */
+    columns.Add(o => o.account_status)
+            .Titled("Status")
+            .Sortable(true)
+            .Filterable(true)
+            .RenderValueAs(model => CustomRenderingOfColumn2(model))
+            .SetFilterWidgetType("CustomUserStatusFilterWidget");
+
+}).Sortable().Filterable().WithMultipleFilters()
+</div>
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.guid }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Item1.guid }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+<script>
+    $(document).ready(function(){
+        pageGrids.UsersPerLocation.addFilterWidget(new UserStatusesFilterWidget());
+    });
+</script>
