@@ -1,4 +1,5 @@
-﻿@model AAAService.Models.service_tickets
+﻿@*@model AAAService.Models.service_tickets*@
+@model AAAService.Models.TupleAlternative
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
@@ -17,51 +18,72 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.service_location_guid,"Location", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ServiceTickets.service_location_guid, "Location", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-               @Html.DropDownList("LocationDD", null, "", htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.service_location_guid, "", new { @class = "text-danger" })
+                @Html.DropDownList("LocationDD", null, null, htmlAttributes: new { @class = "form-control", @onchange = "javascript:SetServiceLocation(this.value)" })
+                @Html.ValidationMessageFor(model => model.ServiceTickets.service_location_guid, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div id="Addressline1" class="form-group" @(Model.LocationInfo.addressline1 == null ? "style=display:none" : "")>
+            @Html.LabelFor(model => model.LocationInfo.addressline1, "Address 1", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.LocationInfo.addressline1, new { @class = "form-control", @readonly = true })
+            </div>
+        </div>
+        <div id="Addressline2" class="form-group" @(Model.LocationInfo.addressline1 == null ? "style=display:none" : "")>
+            @Html.LabelFor(model => model.LocationInfo.addressline2, "Address 2", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.LocationInfo.addressline2, new { @class = "form-control", @readonly = true })
+            </div>
+        </div>
+        <div id="City" class="form-group" @(Model.LocationInfo.addressline1 == null ? "style=display:none" : "")>
+            @Html.LabelFor(model => model.LocationInfo.city, "City", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.LocationInfo.city, new { @class = "form-control", @readonly = true })
+            </div>
+        </div>
+        <div id="Zip" class="form-group" @(Model.LocationInfo.addressline1 == null ? "style=display:none" : "")>
+            @Html.LabelFor(model => model.LocationInfo.zip, "Zip", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.LocationInfo.zip, new { @class = "form-control", @readonly = true })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.StatusID, "Status", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ServiceTickets.StatusID, "Status", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("StatusID", null, htmlAttributes: new { @id = "StatusID", @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.StatusID, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.ServiceTickets.StatusID, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.accepted_datetime, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ServiceTickets.accepted_datetime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.accepted_datetime, new { htmlAttributes = new { @class = "form-control",
+                @Html.EditorFor(model => model.ServiceTickets.accepted_datetime, new { htmlAttributes = new { @class = "form-control",
                @onclick = "javascript:SetStatus(1);" } })
-                @Html.ValidationMessageFor(model => model.accepted_datetime, "", new { @class = "text-danger" })
-
-
+                @Html.ValidationMessageFor(model => model.ServiceTickets.accepted_datetime, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.dispatch_datetime, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ServiceTickets.dispatch_datetime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.dispatch_datetime, new { htmlAttributes = new { @class = "form-control",
+                @Html.EditorFor(model => model.ServiceTickets.dispatch_datetime, new { htmlAttributes = new { @class = "form-control",
                @onclick = "javascript:SetStatus(6);" } })
-                @Html.ValidationMessageFor(model => model.dispatch_datetime, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.ServiceTickets.dispatch_datetime, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
-            @Html.LabelFor(model => model.complete_datetime, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ServiceTickets.complete_datetime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.complete_datetime, new { htmlAttributes = new { @class = "form-control",
+                @Html.EditorFor(model => model.ServiceTickets.complete_datetime, new { htmlAttributes = new { @class = "form-control",
                @onclick = "javascript:SetStatus(5);" } })
-                @Html.ValidationMessageFor(model => model.complete_datetime, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.ServiceTickets.complete_datetime, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.service_provider, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ServiceTickets.service_provider, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.service_provider, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.service_provider, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ServiceTickets.service_provider, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ServiceTickets.service_provider, "", new { @class = "text-danger" })
             </div>
         </div>
         <div id="monikersam" style = "display:none";>
@@ -81,94 +103,90 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.cost_code, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ServiceTickets.cost_code, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.cost_code, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cost_code, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ServiceTickets.cost_code, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ServiceTickets.cost_code, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.cust_po_num, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ServiceTickets.cust_po_num, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.cust_po_num, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cust_po_num, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ServiceTickets.cust_po_num, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ServiceTickets.cust_po_num, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.total_billing, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ServiceTickets.total_billing, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.total_billing, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.total_billing, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ServiceTickets.total_billing, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ServiceTickets.total_billing, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.location_contact_name, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ServiceTickets.location_contact_name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.location_contact_name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.location_contact_name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.location_contact_phone, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.location_contact_phone, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.location_contact_phone, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ServiceTickets.location_contact_name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ServiceTickets.location_contact_name, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.location_contact_phone_night, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ServiceTickets.location_contact_phone, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.location_contact_phone_night, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.location_contact_phone_night, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.PriorityStatus, "Priority Level", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PriorityStatus, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly"} })
-                @Html.ValidationMessageFor(model => model.PriorityStatus, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ServiceTickets.location_contact_phone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ServiceTickets.location_contact_phone, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ServiceCategory, "Service Category", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ServiceTickets.location_contact_phone_night, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ServiceCategory, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                @Html.ValidationMessageFor(model => model.ServiceCategory, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ServiceTickets.location_contact_phone_night, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ServiceTickets.location_contact_phone_night, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.problem_summary, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ServiceTickets.PriorityStatus, "Priority Level", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.problem_summary, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                @Html.ValidationMessageFor(model => model.problem_summary, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ServiceTickets.PriorityStatus, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly"} })
+                @Html.ValidationMessageFor(model => model.ServiceTickets.PriorityStatus, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.problem_details, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ServiceTickets.ServiceCategory, "Service Category", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.problem_details, htmlAttributes: new { @class = "form-control", @rows = "7", @readonly = "readonly" })
-                @Html.ValidationMessageFor(model => model.problem_details, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ServiceTickets.ServiceCategory, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.ServiceTickets.ServiceCategory, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ServiceTickets.problem_summary, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ServiceTickets.problem_summary, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.ServiceTickets.problem_summary, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ServiceTickets.problem_details, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.ServiceTickets.problem_details, htmlAttributes: new { @class = "form-control", @rows = "7", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.ServiceTickets.problem_details, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             @Html.Label("Add Details", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.TextArea("ProbSum", htmlAttributes: new { @class = "form-control", @rows = "3" })
-
             </div>
         </div>
-
-
-
         <div class="form-group">
-            @Html.LabelFor(model => model.notes, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ServiceTickets.notes, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.notes, htmlAttributes: new { @class = "form-control", @rows = "7", @readonly = "readonly" })
-                @Html.ValidationMessageFor(model => model.notes, "", new { @class = "text-danger" })
+                @Html.TextAreaFor(model => model.ServiceTickets.notes, htmlAttributes: new { @class = "form-control", @rows = "7", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.ServiceTickets.notes, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
@@ -179,28 +197,28 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.closed_datetime, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ServiceTickets.closed_datetime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.closed_datetime, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.closed_datetime, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ServiceTickets.closed_datetime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ServiceTickets.closed_datetime, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.active, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ServiceTickets.active, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.active)
-                    @Html.ValidationMessageFor(model => model.active, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.ServiceTickets.active)
+                    @Html.ValidationMessageFor(model => model.ServiceTickets.active, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.internal_notes, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ServiceTickets.internal_notes, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.internal_notes, htmlAttributes: new { @class = "form-control", @rows = "7"})
-                @Html.ValidationMessageFor(model => model.internal_notes, "", new { @class = "text-danger" })
+                @Html.TextAreaFor(model => model.ServiceTickets.internal_notes, htmlAttributes: new { @class = "form-control", @rows = "7"})
+                @Html.ValidationMessageFor(model => model.ServiceTickets.internal_notes, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -266,40 +284,37 @@
     </fieldset>
 }
 
-
-
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
 @section scripts {
     <script type="text/javascript">
         $(function () {
-            $('#accepted_datetime').datetimepicker({
-                defaultDate: '@Model.accepted_datetime',
+            $('#ServiceTickets_accepted_datetime').datetimepicker({
+                defaultDate: '@Model.ServiceTickets.accepted_datetime',
                 showClose: true,
                 showClear: true,
                 toolbarPlacement: 'top'
             });
-            $('#dispatch_datetime').datetimepicker({
-                defaultDate: '@Model.dispatch_datetime',
+            $('#ServiceTickets_dispatch_datetime').datetimepicker({
+                defaultDate: '@Model.ServiceTickets.dispatch_datetime',
                 showClose: true,
                 showClear: true,
                 toolbarPlacement: 'top',
                 
             });
-            $('#complete_datetime').datetimepicker({
-                defaultDate: '@Model.complete_datetime',
+            $('#ServiceTickets_complete_datetime').datetimepicker({
+                defaultDate: '@Model.ServiceTickets.complete_datetime',
                 showClose: true,
                 showClear: true,
                 toolbarPlacement: 'top',
                
             });
-            $('#closed_datetime').datetimepicker({
-                defaultDate: '@Model.closed_datetime',
+            $('#ServiceTickets_closed_datetime').datetimepicker({
+                defaultDate: '@Model.ServiceTickets.closed_datetime',
                 showClose: true,
                 showClear: true,
                 toolbarPlacement: 'top',
-              
             });
         });
     </script>
@@ -330,5 +345,37 @@ function SetStatus(_statusID) {
     $("#StatusID").val(_statusID);
     var newText = $("#StatusID option:selected").text();
     $('#mStatusName').text(newText);
+}
+
+function SetServiceLocation(_locationGUID) {
+    var url = "/AdminTickets/SetServiceLocation/";
+
+    $.ajax({
+        url: url,
+        data: { locationGUID: _locationGUID },
+        cache: false,
+        type: "POST",
+        success: function (data) {
+            if (data != "") {
+                $("#Addressline1").show();
+                $("#LocationInfo_addressline1").val(data.addressline1);
+                $("#Addressline2").show();
+                $("#LocationInfo_addressline2").val(data.addressline2);
+                $("#City").show();
+                $("#LocationInfo_city").val(data.city);
+                $("#Zip").show();
+                $("#LocationInfo_zip").val(data.zip);
+            }
+            else {
+                $("#Addressline1").hide();
+                $("#Addressline2").hide();
+                $("#City").hide();
+                $("#Zip").hide();
+            }
+        },
+        error: function (reponse) {
+            alert("error : " + reponse);
+        }
+    });
 }
 </script>

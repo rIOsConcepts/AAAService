@@ -211,9 +211,14 @@ namespace AAAService.Controllers
             ViewBag.FileList = from s in db.service_ticket_files
                                where s.ticket_guid == id
                                orderby s.date_in descending
-                               select s;            
+                               select s;
 
-            return View(service_tickets);
+            //return View(service_tickets);
+            var tupleAlternative = new TupleAlternative();            
+            tupleAlternative.ServiceTickets = service_tickets;
+            var locationInfo = db.locationinfoes.Where(o => o.active == true && o.guid == service_tickets.service_location_guid);
+            tupleAlternative.LocationInfo = locationInfo.ToList()[0];
+            return View(tupleAlternative);
         }
 
         // POST: AdminTickets/Edit/5
@@ -239,7 +244,7 @@ namespace AAAService.Controllers
             var mytime = DateTime.Now.ToString();
             var myNotes = Request.Form["ProbSum"];
             var myNotes2 = "Updated " + mytime + System.Environment.NewLine + myNotes;
-            var myProblems = Request.Form["problem_details"];
+            var myProblems = Request.Form["ServiceTickets.problem_details"];
             string myNotes3 = "";
 
             if (myNotes != "")
@@ -254,7 +259,8 @@ namespace AAAService.Controllers
             //var myStatus = Request.Form["mStatusName"];            
             var myVNotes = Request.Form["ResNotes"];
             var myVNotes2 = "Updated " + mytime + System.Environment.NewLine + myVNotes;
-            var myVProblems = Request.Form["notes"];
+            var myVProblems = Request.Form["ServiceTickets.notes"];
+            var internalNotes = Request.Form["ServiceTickets.internal_notes"];
             string myVNotes3 = "";
 
             if (myVNotes != "")
@@ -273,6 +279,13 @@ namespace AAAService.Controllers
                 {
                     var myStatus = db.StatusLists.Where(sl => sl.ID == ticketToUpdate.StatusID).ToList()[0].Name;
 
+                    ticketToUpdate.service_provider = Request.Form["ServiceTickets.service_provider"];
+                    ticketToUpdate.cost_code = Request.Form["ServiceTickets.cost_code"];
+                    ticketToUpdate.cust_po_num = Request.Form["ServiceTickets.cust_po_num"];
+                    ticketToUpdate.total_billing = Request.Form["ServiceTickets.total_billing"] != "" ? int.Parse(Request.Form["ServiceTickets.total_billing"]) : 0;
+                    ticketToUpdate.location_contact_name = Request.Form["ServiceTickets.location_contact_name"];
+                    ticketToUpdate.location_contact_phone = Request.Form["ServiceTickets.location_contact_phone"];
+                    ticketToUpdate.location_contact_phone_night = Request.Form["ServiceTickets.location_contact_phone_night"];
                     ticketToUpdate.problem_details = myNotes3;
                     ticketToUpdate.StatusName = myStatus;
                     ticketToUpdate.service_location_guid = mylocguid;
@@ -280,6 +293,28 @@ namespace AAAService.Controllers
                     ticketToUpdate.City = myCity;
                     ticketToUpdate.Region = myLocxRegion;
                     ticketToUpdate.notes = myVNotes3;
+                    ticketToUpdate.internal_notes = internalNotes;
+
+                    if (Request.Form["ServiceTickets.accepted_datetime"] != "")
+                    {
+                        ticketToUpdate.accepted_datetime =  DateTime.Parse(Request.Form["ServiceTickets.accepted_datetime"]);
+                    }
+
+                    if (Request.Form["ServiceTickets.dispatch_datetime"] != "")
+                    {
+                        ticketToUpdate.dispatch_datetime = DateTime.Parse(Request.Form["ServiceTickets.dispatch_datetime"]);
+                    }
+
+                    if (Request.Form["ServiceTickets.complete_datetime"] != "")
+                    {
+                        ticketToUpdate.complete_datetime = DateTime.Parse(Request.Form["ServiceTickets.complete_datetime"]);
+                    }
+
+                    if (Request.Form["ServiceTickets.closed_datetime"] != "")
+                    {
+                        ticketToUpdate.closed_datetime = DateTime.Parse(Request.Form["ServiceTickets.closed_datetime"]);
+                    }
+
                     ticketToUpdate.last_update_datetime = DateTime.Now;
                     ticketToUpdate.last_updated_by_user_guid = lastuserguid;
                     db.SaveChanges();
@@ -288,42 +323,6 @@ namespace AAAService.Controllers
                     {
                         var email = new Correspondence.Mail();
                         var user = db.AspNetUsers.Where(o => o.guid == ticketToUpdate.last_updated_by_user_guid).ToList()[0];
-
-                        //var body = "AAA Web Portal Service Ticket\r\n\r\n" +
-                        //           "Requested By: " + user.fname.ToUpper() + " " + user.lname.ToUpper() + "\r\n" +
-                        //           "Customer Number " + found.cf_location_num + "\r\n" +
-                        //           "Cost Code " + ticketToUpdate.cost_code + "\r\n" +
-                        //           "Customer PO# " + ticketToUpdate.cust_po_num + "\r\n" +
-                        //           "Service Provider " + ticketToUpdate.service_provider + "\r\n" +
-                        //           "Service Location: " + ticketToUpdate.Location.ToUpper() + "\r\n" +
-                        //           "Address Line 1: " + found.addressline1.ToUpper() + "\r\n" +
-                        //           "Address Line 2: " + found.addressline2.ToUpper() + "\r\n" +
-                        //           "City: " + found.city.ToUpper() + "\r\n" +
-                        //           "State: " + found.state.ToUpper() + "\r\n" +
-                        //           "Zip: " + found.zip + "\r\n" +
-                        //           "Job Number: " + ticketToUpdate.job_number + "\r\n" +
-                        //           "Contact Name: " + found.name.ToUpper() + "\r\n" +
-                        //           "Contact Number: " + ticketToUpdate.location_contact_phone + "\r\n" +
-                        //           "Contact After Hours Number: " + ticketToUpdate.location_contact_phone_night + "\r\n" +
-                        //           "Priority Code: " + ticketToUpdate.PriorityID + " - " + db.PriorityLists.Where(o => o.ID == ticketToUpdate.PriorityID).ToList()[0].Name.ToUpper() + "\r\n" +
-                        //           "Priority Code: " + ticketToUpdate.PriorityID + "\r\n" +
-                        //           "Order Date: " + ticketToUpdate.order_datetime.ToShortDateString() + "\r\n" +
-                        //           "Order Time: " + ticketToUpdate.order_datetime.ToShortTimeString() + "\r\n" +
-                        //           "Category: " + ticketToUpdate.ServiceCategory + "\r\n" +
-                        //           "Request Summary\r\n" +
-                        //           ticketToUpdate.problem_summary.ToUpper() + "\r\n" +
-                        //           "Request Details\r\n" +
-                        //           ticketToUpdate.problem_details.ToUpper() + "\r\n" +
-                        //           "Status Code: " + ticketToUpdate.StatusName.ToUpper() + "\r\n" +
-
-                        //           //I checked with our reps.They never used Zone or service rep function in old portal.  We can drop it off and make the list small.
-                        //           //"Zone: " + "WHERE DOES THIS VALUE COME FROM?" + "\r\n" +
-                        //           //"Service Type: " + service_tickets.ServiceCategory.ToUpper() + "\r\n" +
-
-                        //           //"Service Rep: " + "WHERE DOES THIS VALUE COME FROM?" + "\r\n" +
-                        //           "Taken By: Web Portal\r\n\r\n" +
-                        //           "If you have questions or concerns about this message please contact us at 1-800-892-4784.\r\n\r\n" +
-                        //           "Please do not reply to this e-mail, this account is not monitored.";
 
                         var body = "AAA Web Portal Service Ticket\r\n\r\n" +
                                    "The Service Request number: " + ticketToUpdate.job_number + " for location " + db.locationinfoes.Where(o => o.guid == ticketToUpdate.service_location_guid).ToList()[0].name.ToUpper() + " has been updated." + "\r\n" +
@@ -351,10 +350,11 @@ namespace AAAService.Controllers
 
                     return RedirectToAction("Index");
                 }
-                catch (DataException /* dex */)
+                //catch (DataException /* dex */)
+                catch (DataException dex)
                 {
                     //Log the error (uncomment dex variable name and add a line here to write a log.
-                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator." + dex.Message);
                 }
             }
 
@@ -363,7 +363,9 @@ namespace AAAService.Controllers
             ViewBag.StatusID = new SelectList(db.StatusLists, "ID", "Name", ticketToUpdate.StatusID);
             ViewBag.CategoryID = new SelectList(db.ServiceCategories, "ID", "Name", ticketToUpdate.CategoryID);
             ViewBag.LocationDD = new SelectList(db.locationinfoes.Where(o => o.parentguid == gparentGuid).Where(s => s.active == true).OrderBy(s => s.name), "guid", "name", ticketToUpdate.service_location_guid);
-            return View(ticketToUpdate);
+            //return View(ticketToUpdate);
+            var locationInfo = db.locationinfoes.Where(o => o.active == true && o.guid == ticketToUpdate.service_location_guid);
+            return View(new TupleAlternative { ServiceTickets = ticketToUpdate, LocationInfo = locationInfo.ToList()[0] });
         }
 
         // GET: AdminTickets/Delete/5
@@ -399,6 +401,23 @@ namespace AAAService.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult SetServiceLocation(string locationGUID)
+        {
+            TempData["LocationGuid"] = locationGUID;
+
+            if (locationGUID != "0")
+            {
+                var LocationGUID = Guid.Parse(locationGUID);
+                var locationsInfo = db.locationinfoes.Where(o => o.guid == LocationGUID).ToList()[0];
+                var result = new { locationsInfo.addressline1, locationsInfo.addressline2, locationsInfo.city, locationsInfo.zip };
+                return Json(result);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

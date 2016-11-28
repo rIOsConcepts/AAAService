@@ -8,7 +8,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AAAService.Models;
-using AAAService.Helpers;
 
 namespace AAAService.Controllers
 {
@@ -46,9 +45,18 @@ namespace AAAService.Controllers
         public ActionResult SetServiceLocation(string locationGUID)
         {
             TempData["LocationGuid"] = locationGUID;
-            var LocationGUID = Guid.Parse(locationGUID);
-            var locationsInfo = db.locationinfoes.Where(o => o.guid == LocationGUID).ToList()[0];
-            return Json(locationsInfo);
+
+            if (locationGUID != "0")
+            {
+                var LocationGUID = Guid.Parse(locationGUID);
+                var locationsInfo = db.locationinfoes.Where(o => o.guid == LocationGUID).ToList()[0];
+                var result = new { locationsInfo.addressline1, locationsInfo.addressline2, locationsInfo.city, locationsInfo.zip };
+                return Json(result);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public ActionResult Upload()
@@ -193,22 +201,16 @@ namespace AAAService.Controllers
             var locationsInfo = db.locationinfoes.Where(o => o.guid == id).ToList();
             var parentGUID = locationsInfo[0].parentguid;            
             TempData["ParentGuid"] = parentGUID;
-
+            
             if (locationsOfUser.Count() > 1)
             {
                 TempData["LocationGuid"] = "0";
                 TempData["SeveralLocations"] = true;
-                ViewBag.Address = "A";
-                ViewBag.City = "B";
-                ViewBag.Zip = "C";
             }
             else
             {
                 TempData["LocationGuid"] = id;
-                TempData["SeveralLocations"] = false;
-                ViewBag.Address = locationsInfo[0].addressline1 + " " + locationsInfo[0].addressline2;
-                ViewBag.City = locationsInfo[0].city;
-                ViewBag.Zip = locationsInfo[0].zip.ToString();
+                TempData["SeveralLocations"] = false;                
             }
 
             //var myloc = Helpers.SvcHelper.getParentGuid(id);
@@ -254,8 +256,21 @@ namespace AAAService.Controllers
                                select s;
 
             //return View();
-            return View(view);
-            //return View(new Tuple<AAAService.Models.CountryModel, AAAService.Models.service_tickets>(objcountrymodel, new service_tickets()));
+            //return View(view);
+            var tupleAlternative = new TupleAlternative();
+
+            if (locationsOfUser.Count() > 1)
+            {
+                tupleAlternative.ServiceTickets = view;
+                tupleAlternative.LocationInfo = new locationinfo();
+            }
+            else
+            {
+                tupleAlternative.ServiceTickets = view;
+                tupleAlternative.LocationInfo = locationInfo.ToList()[0];
+            }
+
+            return View(tupleAlternative);
         }
 
         internal List<SelectListItem> CompanyList(Guid? companyGUID)
@@ -279,7 +294,7 @@ namespace AAAService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "problem_summary,problem_details,CompanyID,LocationID,Company,Location,location_contact_name,location_contact_phone,location_contact_phone_night,cost_code,EQmodel,EQserial,EQProbDesc,service_provider,cust_po_num,CategoryID,Region,PriorityID,StatusName,StatusID,Location,City")] service_tickets service_tickets)
+        public ActionResult Create([Bind(Prefix = "ServiceTickets", Include = "problem_summary,problem_details,CompanyID,LocationID,Company,Location,location_contact_name,location_contact_phone,location_contact_phone_night,cost_code,EQmodel,EQserial,EQProbDesc,service_provider,cust_po_num,CategoryID,Region,PriorityID,StatusName,StatusID,Location,City")] service_tickets service_tickets)
         {
             var id = TempData.Peek("LocationGuid");
             var parentGUID = Guid.Parse(TempData.Peek("ParentGuid").ToString());
@@ -290,6 +305,30 @@ namespace AAAService.Controllers
                 ModelState.AddModelError("", "Please select a location");
             }
 
+            if (service_tickets.PriorityID == null)
+            {
+                service_tickets.PriorityID = Request.Form["PriorityID"] != "" ? int.Parse(Request.Form["PriorityID"]) : service_tickets.PriorityID;
+
+                if (service_tickets.PriorityID != null)
+                {
+                    //service_tickets.PriorityStatus = db.PriorityLists.Where(o => o.active == true && o.ID == service_tickets.PriorityID).ToList()[0].Name;
+                    ModelState["ServiceTickets.PriorityID"].Errors.Clear();                    
+                }
+            }
+
+            if (service_tickets.CategoryID == null)
+            {
+                service_tickets.CategoryID = Request.Form["CategoryID"] != "" ? int.Parse(Request.Form["CategoryID"]) : service_tickets.CategoryID;
+
+                if (service_tickets.CategoryID != null)
+                {
+                    //service_tickets.ServiceCategory = db.ServiceCategories.Where(o => o.active == true && o.ID == service_tickets.CategoryID).ToList()[0].Name;
+                    ModelState["ServiceTickets.CategoryID"].Errors.Clear();
+                }
+            }
+
+            Guid locationGUID = Guid.Parse(idString);
+
             if (!ModelState.IsValid)
             {
                 ViewBag.CompanyGUID = parentGUID;
@@ -299,10 +338,10 @@ namespace AAAService.Controllers
                 ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true), "ID", "Name", service_tickets.PriorityStatus);
                 ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.active == true), "ID", "Name", service_tickets.ServiceCategory);
                 ViewBag.StatusID = new SelectList(db.StatusLists.Where(o => o.active == true), "ID", "Name", service_tickets.StatusName);
-                return View(service_tickets);
+                var locationInfoQuery = db.locationinfoes.Where(o => o.active == true && o.guid == locationGUID);
+                return View(new TupleAlternative() { ServiceTickets = service_tickets, LocationInfo = locationInfoQuery.ToList()[0] });
             }
-
-            Guid locationGUID = Guid.Parse(idString);
+            
             var mySvcCat = Request.Form["SvcCat"];
             var myPriStatus = Request.Form["PriStatus"];
             var myPriorityID = string.IsNullOrEmpty(Request.Form["PriorityID"]) ? 0 : int.Parse(Request.Form["PriorityID"]);
@@ -444,7 +483,8 @@ namespace AAAService.Controllers
             ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true), "ID", "Name", service_tickets.PriorityStatus);
             ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.active == true), "ID", "Name", service_tickets.ServiceCategory);
             ViewBag.StatusID = new SelectList(db.StatusLists.Where(o => o.active == true), "ID", "Name", service_tickets.StatusName);
-            return View(service_tickets);
+            var locationInfo = db.locationinfoes.Where(o => o.active == true && o.guid == service_tickets.service_location_guid);
+            return View(new TupleAlternative { ServiceTickets = service_tickets, LocationInfo = locationInfo.ToList()[0] });
         }
 
         // GET: ServiceTickets/Edit/5

@@ -369,6 +369,7 @@
     <Compile Include="Models\ST_SL_Edits.cs">
       <DependentUpon>AAAServiceModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TupleAlternative.cs" />
     <Compile Include="Models\User_Assigned_Locations_View.cs">
       <DependentUpon>AAAServiceModels.tt</DependentUpon>
     </Compile>
