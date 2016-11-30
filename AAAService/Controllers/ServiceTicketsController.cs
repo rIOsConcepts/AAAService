@@ -433,11 +433,11 @@ namespace AAAService.Controllers
                                "Customer PO# " + service_tickets.cust_po_num + "\r\n" +
                                "Service Provider " + service_tickets.service_provider + "\r\n" +
                                "Service Location: " + service_tickets.Location.ToUpper() + "\r\n" +
-                               "Address Line 1: " + found.addressline1.ToUpper() + "\r\n" +
-                               "Address Line 2: " + found.addressline2.ToUpper() + "\r\n" +
-                               "City: " + found.city.ToUpper() + "\r\n" +
-                               "State: " + found.state.ToUpper() + "\r\n" +
-                               "Zip: " + found.zip + "\r\n" +
+                               "Address Line 1: " + (found.addressline1 != null ? found.addressline1.ToUpper() : "") + "\r\n" +
+                               "Address Line 2: " + (found.addressline2 != null ? found.addressline2.ToUpper() : "") + "\r\n" +
+                               "City: " + (found.city != null ? found.city.ToUpper() : "") + "\r\n" +
+                               "State: " + (found.state != null ? found.state.ToUpper() : "") + "\r\n" +
+                               "Zip: " + (found.zip > 0 ? found.zip.ToString() : "") + "\r\n" +
                                "Job Number: " + service_tickets.job_number + "\r\n" +
                                "Contact Name: " + found.name.ToUpper() + "\r\n" +
                                "Contact Number: " + service_tickets.location_contact_phone + "\r\n" +

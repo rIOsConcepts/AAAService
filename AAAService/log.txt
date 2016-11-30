@@ -1,2 +1,2 @@
-11/21/2016 11:39:10 AM => System.NullReferenceException: Object reference not set to an instance of an object.
-   at AAAService.Controllers.ServiceTicketsController.Create(service_tickets service_tickets)
+11/28/2016 6:52:51 PM => System.NullReferenceException: Object reference not set to an instance of an object.
+   at AAAService.Controllers.ServiceTicketsController.Create(service_tickets service_tickets) in C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\Controllers\ServiceTicketsController.cs:line 429

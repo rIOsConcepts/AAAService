@@ -171,6 +171,55 @@ namespace AAAService.Controllers
                 service_tickets.guid = Guid.NewGuid();
                 db.service_tickets.Add(service_tickets);
                 db.SaveChanges();
+
+                try
+                {
+                    var email = new Correspondence.Mail();
+                    var user = db.AspNetUsers.Where(o => o.guid == service_tickets.last_updated_by_user_guid).ToList()[0];
+
+                    var body = "AAA Web Portal Service Ticket\r\n\r\n" +
+                               "Requested By: " + user.fname.ToUpper() + " " + user.lname.ToUpper() + "\r\n" +
+                               "Customer Number " + found.cf_location_num + "\r\n" +
+                               "Cost Code " + service_tickets.cost_code + "\r\n" +
+                               "Customer PO# " + service_tickets.cust_po_num + "\r\n" +
+                               "Service Provider " + service_tickets.service_provider + "\r\n" +
+                               "Service Location: " + service_tickets.Location.ToUpper() + "\r\n" +
+                               "Address Line 1: " + (found.addressline1 != null ? found.addressline1.ToUpper() : "") + "\r\n" +
+                               "Address Line 2: " + (found.addressline2 != null ? found.addressline2.ToUpper() : "") + "\r\n" +
+                               "City: " + (found.city != null ? found.city.ToUpper() : "") + "\r\n" +
+                               "State: " + (found.state != null ? found.state.ToUpper() : "") + "\r\n" +
+                               "Zip: " + (found.zip > 0 ? found.zip.ToString() : "") + "\r\n" +
+                               "Job Number: " + service_tickets.job_number + "\r\n" +
+                               "Contact Name: " + found.name.ToUpper() + "\r\n" +
+                               "Contact Number: " + service_tickets.location_contact_phone + "\r\n" +
+                               "Contact After Hours Number: " + service_tickets.location_contact_phone_night + "\r\n" +
+                               "Priority Code: " + service_tickets.PriorityID + " - " + db.PriorityLists.Where(o => o.ID == service_tickets.PriorityID).ToList()[0].Name.ToUpper() + "\r\n" +
+                               "Priority Code: " + service_tickets.PriorityID + "\r\n" +
+                               "Order Date: " + service_tickets.order_datetime.ToShortDateString() + "\r\n" +
+                               "Order Time: " + service_tickets.order_datetime.ToShortTimeString() + "\r\n" +
+                               "Category: " + service_tickets.ServiceCategory + "\r\n" +
+                               "Request Summary\r\n" +
+                               service_tickets.problem_summary.ToUpper() + "\r\n" +
+                               "Request Details\r\n" +
+                               service_tickets.problem_details.ToUpper() + "\r\n" +
+                               "Status Code: " + service_tickets.StatusName.ToUpper() + "\r\n" +
+
+                               //I checked with our reps.They never used Zone or service rep function in old portal.  We can drop it off and make the list small.
+                               //"Zone: " + "WHERE DOES THIS VALUE COME FROM?" + "\r\n" +
+                               //"Service Type: " + service_tickets.ServiceCategory.ToUpper() + "\r\n" +
+
+                               //"Service Rep: " + "WHERE DOES THIS VALUE COME FROM?" + "\r\n" +
+                               "Taken By: Web Portal\r\n\r\n" +
+                               "If you have questions or concerns about this message please contact us at 1-800-892-4784.\r\n\r\n" +
+                               "Please do not reply to this e-mail, this account is not monitored.";
+
+                    email.Send(subject: "Web Portal Service Ticket Entered", body: body, email: user.Email);
+                }
+                catch (Exception e)
+                {
+                    System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + "log.txt", DateTime.Now + " => " + e.ToString());
+                }
+
                 return RedirectToAction("Index");
             }
 
