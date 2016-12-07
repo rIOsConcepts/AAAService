@@ -42,10 +42,14 @@ namespace AAAService.Correspondence
                     eMail.To.Add("order@aaacompanies.com");
                 }
 
-                if (subject == "AAAWebPortalCommentsErrors")
+                if (subject == "Web Portal Bid Request Submitted" || subject == "Web Portal Bid Request Updated" || subject == "AAAWebPortalCommentsErrors")
                 {
-                    eMail.CC.Add("schristopulos@aaacompanies.com");
-                    eMail.CC.Add("JKatinos@AAACompanies.com");
+                    eMail.CC.Add("SChristopulos@AAACompanies.com");
+
+                    if (subject == "AAAWebPortalCommentsErrors")
+                    {
+                        eMail.CC.Add("JKatinos@AAACompanies.com");
+                    }
                 }
 
                 if (subject != "Web Portal User Invitation")
@@ -87,7 +91,7 @@ namespace AAAService.Correspondence
 
                                                 foreach (var user in listOfUsersGUIDsOnThatLocation)
                                                 {
-                                                    var emailOfUserOfThatLocation = db.AspNetUsers.Where(o => o.Id == user.user_guid.ToString() && o.account_status == 1);
+                                                    var emailOfUserOfThatLocation = db.AspNetUsers.Where(o => o.guid == user.user_guid && o.account_status == 1);
 
                                                     if (emailOfUserOfThatLocation.Count() > 0)
                                                     {
