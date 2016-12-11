@@ -243,9 +243,9 @@ namespace AAAService.Controllers
             
             //ViewBag.LocationName = db.locationinfoes.Where(o => o.active == true && o.guid.ToString() == id.ToString()).ToList()[0].name;
             ViewBag.LocationName = id;
-            //ViewBag.LocationDD = new SelectList(db.locationinfoes.Where(o => o.active == true).OrderBy(o => o.name), "guid", "name", service_tickets.service_location_guid);            
+            //ViewBag.LocationDD = new SelectList(db.locationinfoes.Where(o => o.active == true).OrderBy(o => o.name), "guid", "name", service_tickets.service_location_guid);
             ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true).OrderBy(o => o.list_num), "ID", "Name");
-            ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.active == true), "ID", "Name");
+            ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.active == true).OrderBy(o => o.Name), "ID", "Name");
             ViewBag.StatusID = new SelectList(db.StatusLists.Where(o => o.active == true), "ID", "Name");
 
             var ticketGuid = TempData.Peek("TicketGuid") != null ? Guid.Parse(TempData.Peek("TicketGuid").ToString()) : new Guid();

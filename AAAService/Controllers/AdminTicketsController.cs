@@ -115,9 +115,9 @@ namespace AAAService.Controllers
         // GET: AdminTickets/Create
         public ActionResult Create()
         {
-            ViewBag.PriorityID = new SelectList(db.PriorityLists, "ID", "Name");
             ViewBag.StatusID = new SelectList(db.StatusLists.Where(o => o.active == true), "ID", "Name");
-            ViewBag.CategoryID = new SelectList(db.ServiceCategories, "ID", "Name");
+            ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true).OrderBy(o => o.list_num), "ID", "Name");
+            ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.active == true).OrderBy(o => o.Name), "ID", "Name");
             ViewBag.CompanyID = new SelectList(db.Companies.Where(o => o.active == true).OrderBy(o =>o.name), "guid", "name");
             ViewBag.LocationDD = new SelectList(db.locationinfoes.Where(o => o.active == true).OrderBy(o => o.name), "guid", "name");
             ViewBag.FullName = Helpers.UserHelper.getUserName();
@@ -223,9 +223,9 @@ namespace AAAService.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.PriorityID = new SelectList(db.PriorityLists, "ID", "Name", service_tickets.PriorityID);
             ViewBag.StatusID = new SelectList(db.StatusLists.Where(o => o.active == true), "ID", "Name", service_tickets.StatusID);
-            ViewBag.CategoryID = new SelectList(db.ServiceCategories, "ID", "Name", service_tickets.CategoryID);
+            ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true).OrderBy(o => o.list_num), "ID", "Name", service_tickets.PriorityID);            
+            ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.active == true).OrderBy(o => o.Name), "ID", "Name", service_tickets.CategoryID);
             ViewBag.CompanyID = new SelectList(db.Companies.Where(o => o.active == true).OrderBy(o => o.name), "guid", "name", service_tickets.parent_company_guid);
             ViewBag.LocationDD = new SelectList(db.locationinfoes.Where(o => o.active == true).OrderBy(o => o.name), "guid", "name", service_tickets.service_location_guid);
             return View(service_tickets);
@@ -252,9 +252,9 @@ namespace AAAService.Controllers
             }
 
             var gparentGuid = service_tickets.parent_company_guid;
-            ViewBag.PriorityID = new SelectList(db.PriorityLists, "ID", "Name", service_tickets.PriorityID);
             ViewBag.StatusID = new SelectList(db.StatusLists.Where(o => o.active == true), "ID", "Name", service_tickets.StatusID);
-            ViewBag.CategoryID = new SelectList(db.ServiceCategories, "ID", "Name", service_tickets.CategoryID);
+            ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true).OrderBy(o => o.list_num), "ID", "Name", service_tickets.PriorityID);            
+            ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.active == true).OrderBy(o => o.Name), "ID", "Name", service_tickets.CategoryID);
             ViewBag.LocationDD = new SelectList(db.locationinfoes.Where(o => o.parentguid == gparentGuid).Where(s => s.active == true).OrderBy( s => s.name), "guid", "name", service_tickets.service_location_guid);
 
             ViewBag.FileList = from s in db.service_ticket_files
@@ -321,6 +321,10 @@ namespace AAAService.Controllers
                 myVNotes3 = myVProblems;
             }
 
+            ticketToUpdate.PriorityID = Request.Form["PriorityID"] != "" ? int.Parse(Request.Form["PriorityID"]) : ticketToUpdate.PriorityID;
+
+            ticketToUpdate.CategoryID = Request.Form["CategoryID"] != "" ? int.Parse(Request.Form["CategoryID"]) : ticketToUpdate.CategoryID;
+
             if (TryUpdateModel(ticketToUpdate, "",
             new string[] { "service_location_guid", "StatusID", "complete_datetime", "service_provider", "cost_code", "cust_po_num", "total_billing", "location_contact_name", "accepted_datetime", "dispatch_datetime", "problem_details", "location_contact_phone", "location_contact_phone_night", "closed_datetime", "notes", "active", "internal_notes" }))
             {
@@ -343,6 +347,19 @@ namespace AAAService.Controllers
                     ticketToUpdate.Region = myLocxRegion;
                     ticketToUpdate.notes = myVNotes3;
                     ticketToUpdate.internal_notes = internalNotes;
+
+                    if (ticketToUpdate.CategoryID == 19 || ticketToUpdate.CategoryID == 21 || ticketToUpdate.CategoryID == 22)
+                    {
+                        ticketToUpdate.EQmodel = Request.Form["ServiceTickets.EQmodel"];
+                        ticketToUpdate.EQserial = Request.Form["ServiceTickets.EQserial"];
+                        ticketToUpdate.EQProbDesc = Request.Form["ServiceTickets.EQProbDesc"];
+                    }
+                    else
+                    {
+                        ticketToUpdate.EQmodel = "";
+                        ticketToUpdate.EQserial = "";
+                        ticketToUpdate.EQProbDesc = "";
+                    }
 
                     if (Request.Form["ServiceTickets.accepted_datetime"] != "")
                     {
@@ -408,9 +425,9 @@ namespace AAAService.Controllers
             }
 
             var gparentGuid = ticketToUpdate.parent_company_guid;
-            ViewBag.PriorityID = new SelectList(db.PriorityLists, "ID", "Name", ticketToUpdate.PriorityID);
             ViewBag.StatusID = new SelectList(db.StatusLists, "ID", "Name", ticketToUpdate.StatusID);
-            ViewBag.CategoryID = new SelectList(db.ServiceCategories, "ID", "Name", ticketToUpdate.CategoryID);
+            ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true).OrderBy(o => o.list_num), "ID", "Name", ticketToUpdate.PriorityID);            
+            ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.active == true).OrderBy(o => o.Name), "ID", "Name", ticketToUpdate.CategoryID);
             ViewBag.LocationDD = new SelectList(db.locationinfoes.Where(o => o.parentguid == gparentGuid).Where(s => s.active == true).OrderBy(s => s.name), "guid", "name", ticketToUpdate.service_location_guid);
             //return View(ticketToUpdate);
             var locationInfo = db.locationinfoes.Where(o => o.active == true && o.guid == ticketToUpdate.service_location_guid);

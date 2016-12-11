@@ -1,0 +1,174 @@
+﻿@model AAAService.Models.bid_requests
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Administrator - Create New Bid Request</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.parent_company_guid, "Parent Company", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("CompanyID", null, "Please Choose", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.parent_company_guid, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.service_location_guid, "Service Location", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("LocationDD", null, "Please Choose", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.service_location_guid, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.location_contact_name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.location_contact_name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.location_contact_name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.location_contact_phone, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.location_contact_phone, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.location_contact_phone, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.location_contact_phone_night, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.location_contact_phone_night, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.location_contact_phone_night, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div id="monikersam" display none;>
+        <div class="form-group">
+            @Html.Label("Priority Level", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextArea("PriStatus", htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PriorityID, "Priority Level", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("PriorityID", null, "Please Choose", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.PriorityID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.problem_summary, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.problem_summary, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.problem_summary, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.problem_details, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.problem_details, htmlAttributes: new { @class = "form-control", @rows = "10" })
+            @Html.ValidationMessageFor(model => model.problem_details, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @*<input type="submit" value="Create" class="btn btn-default" />*@
+            <input type="submit" value="Create" class="btn btn-success" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.RouteLink("Back to List", new { controller = "BidRequestsBoard", action = "Index", id = "" })
+</div>
+
+<script>
+    $(document).ready(
+      function () {
+          $("#monikersam").hide();
+          $("#PriorityID").change(function () {
+              $(this).find("option:selected");
+              var newText = $("#PriorityID option:selected").text();
+              $('#PriStatus').text(newText);
+              $("#monikersam").hide();
+          })
+
+          GetServiceLocation("@ViewBag.CompanyGUID");
+      });
+
+    function GetServiceLocation(_companyGUID) {
+        var procemessage = "<option value='0'> Please wait...</option>";
+        $("#ddlservicelocation").html(procemessage).show();
+        var url = "/BidRequests/GetServiceLocation/";
+
+        $.ajax({
+            url: url,
+            data: { companyGUID: _companyGUID },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                var markup = "";
+
+                if ("@TempData.Peek("LocationGuid")" == "") {
+                    markup = "<option value='0' selected>Please Choose</option>";
+                }
+                else {
+                    markup = "<option value='0'>Please Choose</option>";
+                }
+
+                for (var x = 0; x < data.length; x++) {
+                    if (data[x].Value == "@TempData.Peek("LocationGuid")") {
+                        markup += "<option value=" + data[x].Value + " selected>" + data[x].Text + "</option>";
+                    }
+                    else {
+                        markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                    }
+                }
+
+                $("#ddlservicelocation").html(markup).show();
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+    }
+
+    function SetServiceLocation(_locationGUID) {
+        var url = "/BidRequests/SetServiceLocation/";
+
+        $.ajax({
+            url: url,
+            data: { locationGUID: _locationGUID },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                $("#location_contact_name").val(data.Name);
+                $("#location_contact_phone").val(data.PhoneDay);
+                $("#location_contact_phone_night").val(data.PhoneNight);
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+    }
+</script>

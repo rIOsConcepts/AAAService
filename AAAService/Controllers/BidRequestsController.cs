@@ -151,6 +151,9 @@ namespace AAAService.Controllers
                 bid_requests.StatusName = "Open";
                 bid_requests.created_by_user_guid = LastUserGUID;
                 bid_requests.guid = Guid.NewGuid();
+                bid_requests.PriorityStatus = db.PriorityLists.Where(o => o.ID == bid_requests.PriorityID).Select(o => o.Name).ToList()[0];
+                bid_requests.LocationName = db.locationinfoes.Where(o => o.guid == bid_requests.service_location_guid).Select(o => o.name).ToList()[0];
+                bid_requests.CompanyName = db.Companies.Where(o => o.guid == bid_requests.parent_company_guid).Select(o => o.name).ToList()[0];
                 db.bid_requests.Add(bid_requests);
                 db.SaveChanges();
                 //return RedirectToAction("Index");
