@@ -321,11 +321,11 @@ namespace AAAService.Controllers
                 myVNotes3 = myVProblems;
             }
 
-            ticketToUpdate.PriorityID = Request.Form["PriorityID"] != "" ? int.Parse(Request.Form["PriorityID"]) : ticketToUpdate.PriorityID;
+            ticketToUpdate.PriorityID = Request.Form["PriorityID"] != null ? Request.Form["PriorityID"] != "" ? int.Parse(Request.Form["PriorityID"]) : ticketToUpdate.PriorityID : ticketToUpdate.PriorityID;
 
             ticketToUpdate.PriorityStatus = db.PriorityLists.Where(o => o.ID == ticketToUpdate.PriorityID).Select(o => o.Name).ToList()[0];
 
-            ticketToUpdate.CategoryID = Request.Form["CategoryID"] != "" ? int.Parse(Request.Form["CategoryID"]) : ticketToUpdate.CategoryID;
+            ticketToUpdate.CategoryID = Request.Form["CategoryID"] != null ? Request.Form["CategoryID"] != "" ? int.Parse(Request.Form["CategoryID"]) : ticketToUpdate.CategoryID : ticketToUpdate.CategoryID;
 
             ticketToUpdate.ServiceCategory = db.ServiceCategories.Where(o => o.ID == ticketToUpdate.CategoryID).Select(o => o.Name).ToList()[0];
 

@@ -150,32 +150,16 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ServiceTickets.PriorityStatus, "Priority Level", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @if (User.IsInRole("CorpAdmin"))
-                {
-                    @Html.DropDownList("PriorityID", null, "Please Choose", htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.ServiceTickets.PriorityID, "", new { @class = "text-danger" })
-                }
-                else
-                {
-                    @Html.EditorFor(model => model.ServiceTickets.PriorityStatus, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                    @Html.ValidationMessageFor(model => model.ServiceTickets.PriorityStatus, "", new { @class = "text-danger" })
-                }
+                @Html.DropDownList("PriorityID", null, "Please Choose", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ServiceTickets.PriorityID, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.ServiceTickets.ServiceCategory, "Service Category", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @if (User.IsInRole("CorpAdmin"))
-                {
-                    @Html.DropDownList("CategoryID", null, "Please Choose", htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.ServiceTickets.CategoryID, "", new { @class = "text-danger" })
-                }
-                else
-                {
-                    @Html.EditorFor(model => model.ServiceTickets.ServiceCategory, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                    @Html.ValidationMessageFor(model => model.ServiceTickets.ServiceCategory, "", new { @class = "text-danger" })
-                }
+                @Html.DropDownList("CategoryID", null, "Please Choose", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ServiceTickets.CategoryID, "", new { @class = "text-danger" })
             </div>
         </div>
         <div id="EQ" display none;>
