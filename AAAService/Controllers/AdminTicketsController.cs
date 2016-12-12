@@ -323,7 +323,11 @@ namespace AAAService.Controllers
 
             ticketToUpdate.PriorityID = Request.Form["PriorityID"] != "" ? int.Parse(Request.Form["PriorityID"]) : ticketToUpdate.PriorityID;
 
+            ticketToUpdate.PriorityStatus = db.PriorityLists.Where(o => o.ID == ticketToUpdate.PriorityID).Select(o => o.Name).ToList()[0];
+
             ticketToUpdate.CategoryID = Request.Form["CategoryID"] != "" ? int.Parse(Request.Form["CategoryID"]) : ticketToUpdate.CategoryID;
+
+            ticketToUpdate.ServiceCategory = db.ServiceCategories.Where(o => o.ID == ticketToUpdate.CategoryID).Select(o => o.Name).ToList()[0];
 
             if (TryUpdateModel(ticketToUpdate, "",
             new string[] { "service_location_guid", "StatusID", "complete_datetime", "service_provider", "cost_code", "cust_po_num", "total_billing", "location_contact_name", "accepted_datetime", "dispatch_datetime", "problem_details", "location_contact_phone", "location_contact_phone_night", "closed_datetime", "notes", "active", "internal_notes" }))
