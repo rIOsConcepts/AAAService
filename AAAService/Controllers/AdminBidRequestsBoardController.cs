@@ -106,15 +106,13 @@ namespace AAAService.Controllers
                                "Request Time: " + bid_requests.order_datetime.ToShortTimeString() + "\r\n" +
                                "CF Data Company #: " + (parentCompanyName.Count() > 0 ? parentCompanyName.ToList()[0].cf_company_num : "") + "\r\n" +
                                "Parent Company Name: " + (parentCompanyName.Count() > 0 ? parentCompanyName.ToList()[0].name : "") + "\r\n" +
-                               "\r\n" +
                                "CF Data Service Location #: " + found.cf_location_num + "\r\n" +
                                "Service Location Name: " + found.cf_location_num + "\r\n" +
-                               "Service Location Address Line 1: " + found.addressline1.ToUpper() + "\r\n" +
-                               "Service Location Address Line 2: " + found.addressline2.ToUpper() + "\r\n" +
-                               "Service Location City: " + found.city.ToUpper() + "\r\n" +
-                               "Service Location State: " + found.state.ToUpper() + "\r\n" +
-                               "Service Location Zip: " + found.zip + "\r\n" +
-                               "\r\n" +
+                               "Service Location Address Line 1: " + (found.addressline1 != null ? found.addressline1.ToUpper() : "") + "\r\n" +
+                               "Service Location Address Line 2: " + (found.addressline2 != null ? found.addressline2.ToUpper() : "") + "\r\n" +
+                               "Service Location City: " + (found.city != null ? found.city.ToUpper() : "") + "\r\n" +
+                               "Service Location State: " + (found.state != null ? found.state.ToUpper() : "") + "\r\n" +
+                               "Service Location Zip: " + (found.zip > 0 ? found.zip.ToString() : "") + "\r\n" +
                                "Request Priority Code: " + bid_requests.PriorityID + "\r\n" +
                                "Request Summary: " + bid_requests.problem_summary.ToUpper() + "\r\n" +
                                "Request Details: " + bid_requests.problem_details.ToUpper() + "\r\n" +
@@ -224,16 +222,13 @@ namespace AAAService.Controllers
                                    "Request Time: " + bid_requests.order_datetime.ToShortTimeString() + "\r\n" +
                                    "CF Data Company #: " + (parentCompanyName.Count() > 0 ? parentCompanyName.ToList()[0].cf_company_num : "") + "\r\n" +
                                    "Parent Company Name: " + (parentCompanyName.Count() > 0 ? parentCompanyName.ToList()[0].name : "") + "\r\n" +
-                                   "\r\n" +
                                    "CF Data Service Location #: " + found.cf_location_num + "\r\n" +
                                    "Service Location Name: " + found.cf_location_num + "\r\n" +
-                                   "Service Location Address Line 1: " + found.addressline1.ToUpper() + "\r\n" +
-                                   "Service Location Address Line 2: " + found.addressline2.ToUpper() + "\r\n" +
-                                   "Service Location City: " + found.city.ToUpper() + "\r\n" +
-                                   "Service Location State: " + found.state.ToUpper() + "\r\n" +
-                                   "Service Location Zip: " + found.zip + "\r\n" +
-                                   "\r\n" +
-                                   "Request Priority Code: " + bid_requests.PriorityID + "\r\n" +
+                                   "Service Location Address Line 1: " + (found.addressline1 != null ? found.addressline1.ToUpper() : "") + "\r\n" +
+                                   "Service Location Address Line 2: " + (found.addressline2 != null ? found.addressline2.ToUpper() : "") + "\r\n" +
+                                   "Service Location City: " + (found.city != null ? found.city.ToUpper() : "") + "\r\n" +
+                                   "Service Location State: " + (found.state != null ? found.state.ToUpper() : "") + "\r\n" +
+                                   "Service Location Zip: " + (found.zip > 0 ? found.zip.ToString() : "") + "\r\n" +
                                    "Request Summary: " + bid_requests.problem_summary.ToUpper() + "\r\n" +
                                    "Request Details: " + bid_requests.problem_details.ToUpper() + "\r\n" +
                                    "Request Created By: " + user.fname.ToUpper() + " " + user.lname.ToUpper() + "\r\n" +

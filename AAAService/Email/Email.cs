@@ -19,7 +19,7 @@ namespace AAAService.Correspondence
         }
 
         //public async void Send(string subject)
-        public void Send(string subject, string body, string emailAddress = "", bool isHTML = false, string email = "")
+        public void Send(string subject, string body, string emailAddress = "", bool isHTML = false, string email = "", Guid location = new Guid())
         {
             try
             {                
@@ -58,32 +58,33 @@ namespace AAAService.Correspondence
                     eMail.CC.Add("sdollen@aaacompanies.com");
                     eMail.CC.Add("bhiggins@aaacompanies.com");
 
-                    if (email != "")
+                    //if (email != "")
+                    if (location != Guid.Empty)
                     {
-                        var query = db.AspNetUsers.Where(o => o.Email == email);
+                        //var query = db.AspNetUsers.Where(o => o.Email == email);
 
-                        if (query.Count() > 0)
-                        {
-                            var userGUID = query.ToList()[0].guid;
-                            var userLocationGUID = db.user_to_location.Where(o => o.user_guid == userGUID);
+                        //if (query.Count() > 0)
+                        //{
+                        //    var userGUID = query.ToList()[0].guid;
+                        //    var userLocationGUID = db.user_to_location.Where(o => o.user_guid == userGUID);
 
-                            if (userLocationGUID.Count() > 0)
-                            {
-                                var userLocationGUIDs = userLocationGUID.ToList()[0].location_guid;
-                                var location = db.locationinfoes.Where(o => o.guid == userLocationGUIDs);
+                        //    if (userLocationGUID.Count() > 0)
+                        //    {
+                        //        var userLocationGUIDs = userLocationGUID.ToList()[0].location_guid;
+                        //        var locationInfo = db.locationinfoes.Where(o => o.guid == userLocationGUIDs);
 
-                                if (location.Count() > 0)
-                                {
-                                    var parentGUID = location.ToList()[0].parentguid;
-                                    var parentCompany = db.Companies.Where(o => o.guid == parentGUID);
+                                //if (locationInfo.Count() > 0)
+                                //{
+                                //    var parentGUID = locationInfo.ToList()[0].parentguid;
+                                //    var parentCompany = db.Companies.Where(o => o.guid == parentGUID);
 
-                                    if (parentCompany.Count() > 0)
-                                    {
-                                        var isAAA = parentCompany.ToList()[0].guid.ToString() == "04846763-5aa2-442f-9ae1-b4dc36f32388";
+                                //    if (parentCompany.Count() > 0)
+                                //    {
+                                //        var isAAA = parentCompany.ToList()[0].guid.ToString() == "04846763-5aa2-442f-9ae1-b4dc36f32388";
 
-                                        if (!isAAA)
-                                        {
-                                            var usersGUIDsOnThatLocation = db.user_to_location.Where(o => o.location_guid == userLocationGUIDs);
+                                //        if (!isAAA)
+                                //        {
+                                            var usersGUIDsOnThatLocation = db.user_to_location.Where(o => o.location_guid == location);
 
                                             if (usersGUIDsOnThatLocation.Count() > 0)
                                             {
@@ -105,11 +106,11 @@ namespace AAAService.Correspondence
                                                     }
                                                 }
                                             }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                                        //}
+                                    //}
+                                //}
+                            //}
+                        //}
                     }
                 }
 
