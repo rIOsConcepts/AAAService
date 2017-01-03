@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AAAService.Models.ServiceCategory>
+﻿@model IEnumerable<AAAService.Models.ServiceCategoryExtended>
 @using GridMvc.Html
 <link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
@@ -31,6 +31,12 @@
     columns.Add().Titled("Details").Encoded(false).Sanitized(false).RenderValueAs(c => @Html.ActionLink("Details", "Details", new { id = c.ID }));
     columns.Add().Titled("Edit").Encoded(false).Sanitized(false).RenderValueAs(c => @Html.ActionLink("Edit", "Edit", new { id = c.ID }));
     columns.Add().Titled("Delete").Encoded(false).Sanitized(false).RenderValueAs(c => @Html.ActionLink("Delete", "Delete", new { id = c.ID }));
+
+    /* Adding "Company" column: */
+    columns.Add(o => o.CompanyName)
+                .Titled("Company")
+                .Filterable(true)
+                .SetWidth(100);
 
     /* Adding "Name" column: */
     columns.Add(o => o.Name)

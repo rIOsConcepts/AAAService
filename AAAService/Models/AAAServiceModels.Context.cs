@@ -55,7 +55,6 @@ namespace AAAService.Models
         public virtual DbSet<LocationEmails_viewMVC1> LocationEmails_viewMVC1 { get; set; }
         public virtual DbSet<service_tickets_viewMVC> service_tickets_viewMVC { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
-        public virtual DbSet<ServiceCategory> ServiceCategories { get; set; }
         public virtual DbSet<OtherStatusList> OtherStatusLists { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<ReportBuilderField> ReportBuilderFields { get; set; }
@@ -67,6 +66,7 @@ namespace AAAService.Models
         public virtual DbSet<errors_and_comments> errors_and_comments { get; set; }
         public virtual DbSet<service_tickets> service_tickets { get; set; }
         public virtual DbSet<bid_requests> bid_requests { get; set; }
+        public virtual DbSet<ServiceCategory> ServiceCategories { get; set; }
     
         public virtual ObjectResult<ParentLocationInfoFromUsrGUID_Result> ParentLocationInfoFromUsrGUID(Nullable<System.Guid> usrGUID)
         {

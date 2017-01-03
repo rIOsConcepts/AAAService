@@ -1,2 +1,18 @@
-12/19/2016 6:59:51 PM => System.NullReferenceException: Object reference not set to an instance of an object.
-   at AAAService.Controllers.AdminBidRequestsBoardController.Create(bid_requests bid_requests) in C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\Controllers\AdminBidRequestsBoardController.cs:line 104
+1/2/2017 11:20:07 AM => System.Net.Mail.SmtpException: Failure sending mail. ---> System.IO.IOException: Unable to write data to the transport connection: An existing connection was forcibly closed by the remote host. ---> System.Net.Sockets.SocketException: An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.Send(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   at System.Net.Sockets.NetworkStream.Write(Byte[] buffer, Int32 offset, Int32 size)
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.NetworkStream.Write(Byte[] buffer, Int32 offset, Int32 size)
+   at System.Net.PooledStream.Write(Byte[] buffer, Int32 offset, Int32 size)
+   at System.Net.Mail.SmtpPooledStream.Dispose(Boolean disposing)
+   at System.IO.Stream.Close()
+   at System.IO.Stream.Dispose()
+   at System.Net.ConnectionPool.Destroy(PooledStream pooledStream)
+   at System.Net.ConnectionPool.PutConnection(PooledStream pooledStream, Object owningObject, Int32 creationTimeout, Boolean canReuse)
+   at System.Net.Mail.SmtpConnection.GetConnection(ServicePoint servicePoint)
+   at System.Net.Mail.SmtpTransport.GetConnection(ServicePoint servicePoint)
+   at System.Net.Mail.SmtpClient.GetConnection()
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   --- End of inner exception stack trace ---
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at AAAService.Correspondence.Mail.Send(String subject, String body, String emailAddress, Boolean isHTML, String email, Guid location) in C:\Projects\AAACompanies\Webportal\aaacompanies\AAAService\AAAService\Email\Email.cs:line 104

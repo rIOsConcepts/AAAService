@@ -303,6 +303,7 @@
     <Compile Include="Models\ReportBuilder_View.cs">
       <DependentUpon>AAAServiceModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ServiceCategoryExtended.cs" />
     <Compile Include="Models\StateModel.cs" />
     <Compile Include="Models\StronglyTyped.cs" />
     <Compile Include="Models\IdentityModels.cs" />

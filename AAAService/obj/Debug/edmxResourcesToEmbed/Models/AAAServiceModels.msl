@@ -474,21 +474,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ServiceCategories">
-      <EntityTypeMapping TypeName="aaahelpModel.ServiceCategory">
-        <MappingFragment StoreEntitySet="ServiceCategory">
-          <ScalarProperty Name="AlertMessage" ColumnName="AlertMessage" />
-          <ScalarProperty Name="isAlert" ColumnName="isAlert" />
-          <ScalarProperty Name="active" ColumnName="active" />
-          <ScalarProperty Name="list_num" ColumnName="list_num" />
-          <ScalarProperty Name="OldCode" ColumnName="OldCode" />
-          <ScalarProperty Name="CfdataCode" ColumnName="CfdataCode" />
-          <ScalarProperty Name="code" ColumnName="code" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="OtherStatusLists">
       <EntityTypeMapping TypeName="aaahelpModel.OtherStatusList">
         <MappingFragment StoreEntitySet="OtherStatusList">
@@ -742,6 +727,22 @@
           <ScalarProperty Name="order_datetime" ColumnName="order_datetime" />
           <ScalarProperty Name="guid" ColumnName="guid" />
           <ScalarProperty Name="bid_num" ColumnName="bid_num" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServiceCategories">
+      <EntityTypeMapping TypeName="aaahelpModel.ServiceCategory">
+        <MappingFragment StoreEntitySet="ServiceCategory">
+          <ScalarProperty Name="AlertMessage" ColumnName="AlertMessage" />
+          <ScalarProperty Name="isAlert" ColumnName="isAlert" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="list_num" ColumnName="list_num" />
+          <ScalarProperty Name="OldCode" ColumnName="OldCode" />
+          <ScalarProperty Name="CfdataCode" ColumnName="CfdataCode" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -17,7 +17,27 @@ namespace AAAService.Controllers
         // GET: ServiceCategories
         public ActionResult Index()
         {
-            return View(db.ServiceCategories.ToList());
+            var serviceCategoryExtended = new List<ServiceCategoryExtended>();
+            var serviceCategories = db.ServiceCategories;
+
+            foreach (var serviceCategory in serviceCategories)
+            {
+                var data = db.Companies.Where(o => o.guid == serviceCategory.Company).Select(o => o.name);
+                var companyName = "";
+
+                if (data.Count() > 0)
+                {
+                    companyName = data.ToList()[0];
+                }
+
+                serviceCategoryExtended.Add(new ServiceCategoryExtended(serviceCategory)
+                {                    
+                    CompanyName = companyName                    
+                });
+            }
+
+            serviceCategoryExtended = serviceCategoryExtended.OrderBy(o => o.CompanyName).ThenBy(o => o.ID).ToList();
+            return View(serviceCategoryExtended);
         }
 
         // GET: ServiceCategories/Details/5
@@ -27,17 +47,31 @@ namespace AAAService.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            
             ServiceCategory serviceCategory = db.ServiceCategories.Find(id);
+
             if (serviceCategory == null)
-            {
+            {                
                 return HttpNotFound();
             }
-            return View(serviceCategory);
+
+            var serviceCategoryExtended = new ServiceCategoryExtended(serviceCategory);
+            var data = db.Companies.Where(o => o.guid == serviceCategory.Company).Select(o => o.name);
+            var companyName = "";
+
+            if (data.Count() > 0)
+            {
+                companyName = data.ToList()[0];
+            }
+
+            serviceCategoryExtended.CompanyName = companyName;
+            return View(serviceCategoryExtended);
         }
 
         // GET: ServiceCategories/Create
         public ActionResult Create()
         {
+            ViewBag.CompanyDropDown = new SelectList(db.Companies.Where(o => o.active == true).OrderBy(o => o.name), "guid", "name");
             return View();
         }
 
@@ -50,12 +84,14 @@ namespace AAAService.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.ServiceCategories.Add(serviceCategory);
+                serviceCategory.Company = Request.Form["CompanyDropDown"] != "" ? Guid.Parse(Request.Form["CompanyDropDown"]) : serviceCategory.Company;
+                db.ServiceCategories.Add(serviceCategory);                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(serviceCategory);
+            var serviceCategoryExtended = new ServiceCategoryExtended(serviceCategory);
+            return View(serviceCategoryExtended);
         }
 
         // GET: ServiceCategories/Edit/5
@@ -65,12 +101,27 @@ namespace AAAService.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             ServiceCategory serviceCategory = db.ServiceCategories.Find(id);
+
             if (serviceCategory == null)
             {
                 return HttpNotFound();
             }
-            return View(serviceCategory);
+
+            var serviceCategoryExtended = new ServiceCategoryExtended(serviceCategory);
+            var data = db.Companies.Where(o => o.guid == serviceCategory.Company).Select(o => o.name);
+            var companyName = "";
+
+            if (data.Count() > 0)
+            {
+                companyName = data.ToList()[0];
+            }
+
+            serviceCategoryExtended.CompanyName = companyName;
+            ViewBag.Company = serviceCategoryExtended.Company;
+            ViewBag.CompanyDropDown = new SelectList(db.Companies.Where(o => o.active == true).OrderBy(o => o.name), "guid", "name");
+            return View(serviceCategoryExtended);
         }
 
         // POST: ServiceCategories/Edit/5
@@ -82,10 +133,12 @@ namespace AAAService.Controllers
         {
             if (ModelState.IsValid)
             {
+                serviceCategory.Company = Request.Form["CompanyDropDown"] != "" ? Guid.Parse(Request.Form["CompanyDropDown"]) : serviceCategory.Company;
                 db.Entry(serviceCategory).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(serviceCategory);
         }
 
@@ -96,12 +149,25 @@ namespace AAAService.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             ServiceCategory serviceCategory = db.ServiceCategories.Find(id);
+
             if (serviceCategory == null)
             {
                 return HttpNotFound();
             }
-            return View(serviceCategory);
+
+            var serviceCategoryExtended = new ServiceCategoryExtended(serviceCategory);
+            var data = db.Companies.Where(o => o.guid == serviceCategory.Company).Select(o => o.name);
+            var companyName = "";
+
+            if (data.Count() > 0)
+            {
+                companyName = data.ToList()[0];
+            }
+
+            serviceCategoryExtended.CompanyName = companyName;
+            return View(serviceCategoryExtended);
         }
 
         // POST: ServiceCategories/Delete/5

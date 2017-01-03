@@ -35,12 +35,12 @@ namespace AAAService.Models
         public Nullable<int> PriorityID { get; set; }
         public string StatusName { get; set; }
         public Nullable<int> StatusID { get; set; }
-        public string LocationName { get; set; }
-        public string CompanyName { get; set; }
 
         public virtual locationinfo locationinfo { get; set; }
         public virtual PriorityList PriorityList { get; set; }
         public virtual StatusList StatusList { get; set; }
         public virtual Company Company { get; set; }
+        public string LocationName { get; set; }
+        public string CompanyName { get; set; }
     }
 }

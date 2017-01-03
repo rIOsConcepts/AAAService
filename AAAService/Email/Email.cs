@@ -58,59 +58,42 @@ namespace AAAService.Correspondence
                     eMail.CC.Add("sdollen@aaacompanies.com");
                     eMail.CC.Add("bhiggins@aaacompanies.com");
 
-                    //if (email != "")
                     if (location != Guid.Empty)
                     {
-                        //var query = db.AspNetUsers.Where(o => o.Email == email);
+                        var locationInfo = db.locationinfoes.Where(o => o.guid == location);
 
-                        //if (query.Count() > 0)
-                        //{
-                        //    var userGUID = query.ToList()[0].guid;
-                        //    var userLocationGUID = db.user_to_location.Where(o => o.user_guid == userGUID);
+                        if (locationInfo.Count() > 0)
+                        {
+                            var isAAA = locationInfo.ToList()[0].parentguid.ToString() == "04846763-5aa2-442f-9ae1-b4dc36f32388";
 
-                        //    if (userLocationGUID.Count() > 0)
-                        //    {
-                        //        var userLocationGUIDs = userLocationGUID.ToList()[0].location_guid;
-                        //        var locationInfo = db.locationinfoes.Where(o => o.guid == userLocationGUIDs);
+                            if (!isAAA)
+                            {
+                                var usersGUIDsOnThatLocation = db.user_to_location.Where(o => o.location_guid == location);
 
-                                //if (locationInfo.Count() > 0)
-                                //{
-                                //    var parentGUID = locationInfo.ToList()[0].parentguid;
-                                //    var parentCompany = db.Companies.Where(o => o.guid == parentGUID);
+                                if (usersGUIDsOnThatLocation.Count() > 0)
+                                {
+                                    var listOfUsersGUIDsOnThatLocation = usersGUIDsOnThatLocation.Select(o => o.user_guid).ToList();
 
-                                //    if (parentCompany.Count() > 0)
-                                //    {
-                                //        var isAAA = parentCompany.ToList()[0].guid.ToString() == "04846763-5aa2-442f-9ae1-b4dc36f32388";
+                                    if (listOfUsersGUIDsOnThatLocation.Count > 0)
+                                    {
+                                        var emailOfUsersOfThatLocation = db.AspNetUsers.Where(o => listOfUsersGUIDsOnThatLocation.Contains(o.guid) && o.account_status == 1).OrderBy(o => o.Email);
 
-                                //        if (!isAAA)
-                                //        {
-                                            var usersGUIDsOnThatLocation = db.user_to_location.Where(o => o.location_guid == location);
-
-                                            if (usersGUIDsOnThatLocation.Count() > 0)
+                                        if (emailOfUsersOfThatLocation.Count() > 0)
+                                        {
+                                            foreach (var user in emailOfUsersOfThatLocation)
                                             {
-                                                var listOfUsersGUIDsOnThatLocation = usersGUIDsOnThatLocation.ToList();
+                                                var isCorpAdmin = db.AspNetUserRoles.Where(o => o.UserId == user.Id && o.RoleId == "0b2e4862-7ed4-4c3d-9af7-069ab7ba9a25");
 
-                                                foreach (var user in listOfUsersGUIDsOnThatLocation)
+                                                if (isCorpAdmin.Count() == 0)
                                                 {
-                                                    var emailOfUserOfThatLocation = db.AspNetUsers.Where(o => o.guid == user.user_guid && o.account_status == 1);
-
-                                                    if (emailOfUserOfThatLocation.Count() > 0)
-                                                    {
-                                                        var userOfThatLocation = emailOfUserOfThatLocation.ToList()[0];
-                                                        var isCorpAdmin = db.AspNetUserRoles.Where(o => o.UserId == userOfThatLocation.Id && o.RoleId == "0b2e4862-7ed4-4c3d-9af7-069ab7ba9a25");
-
-                                                        if (isCorpAdmin.Count() == 0)
-                                                        {
-                                                            eMail.CC.Add(emailOfUserOfThatLocation.ToList()[0].Email);
-                                                        }
-                                                    }
+                                                    eMail.CC.Add(user.Email);
                                                 }
                                             }
-                                        //}
-                                    //}
-                                //}
-                            //}
-                        //}
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
 

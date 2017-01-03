@@ -137,7 +137,6 @@
     <EntitySet Name="LocationEmails_viewMVC1" EntityType="aaahelpModel.LocationEmails_viewMVC1" />
     <EntitySet Name="service_tickets_viewMVC" EntityType="aaahelpModel.service_tickets_viewMVC" />
     <EntitySet Name="Companies" EntityType="aaahelpModel.Company" />
-    <EntitySet Name="ServiceCategories" EntityType="aaahelpModel.ServiceCategory" />
     <AssociationSet Name="FK_locationinfo_Company" Association="aaahelpModel.FK_locationinfo_Company">
       <End Role="Company" EntitySet="Companies" />
       <End Role="locationinfo" EntitySet="locationinfoes" />
@@ -171,10 +170,6 @@
       <End Role="service_tickets" EntitySet="service_tickets" />
       <End Role="service_ticket_files" EntitySet="service_ticket_files" />
     </AssociationSet>
-    <AssociationSet Name="FK_service_tickets_category" Association="aaahelpModel.FK_service_tickets_category">
-      <End Role="ServiceCategory" EntitySet="ServiceCategories" />
-      <End Role="service_tickets" EntitySet="service_tickets" />
-    </AssociationSet>
     <AssociationSet Name="FK_service_tickets_Status" Association="aaahelpModel.FK_service_tickets_Status">
       <End Role="StatusList" EntitySet="StatusLists" />
       <End Role="service_tickets" EntitySet="service_tickets" />
@@ -184,6 +179,7 @@
       <End Role="ST_SL_Edits" EntitySet="ST_SL_Edits" />
     </AssociationSet>
     <EntitySet Name="bid_requests" EntityType="aaahelpModel.bid_requests" />
+    <EntitySet Name="ServiceCategories" EntityType="aaahelpModel.ServiceCategory" />
   </EntityContainer>
   <EntityType Name="service_boardNew">
     <Key>
@@ -627,21 +623,6 @@
     <Property Name="AcctMgrEmail" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="locationinfoes" Relationship="aaahelpModel.FK_locationinfo_Company" FromRole="Company" ToRole="locationinfo" />
   </EntityType>
-  <EntityType Name="ServiceCategory">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="code" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-    <Property Name="CfdataCode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-    <Property Name="OldCode" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-    <Property Name="list_num" Type="Int32" />
-    <Property Name="active" Type="Boolean" />
-    <Property Name="isAlert" Type="Boolean" />
-    <Property Name="AlertMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="service_tickets" Relationship="aaahelpModel.FK_service_tickets_category" FromRole="ServiceCategory" ToRole="service_tickets" />
-  </EntityType>
   <Association Name="FK_locationinfo_Company">
     <End Type="aaahelpModel.Company" Role="Company" Multiplicity="0..1" />
     <End Type="aaahelpModel.locationinfo" Role="locationinfo" Multiplicity="*" />
@@ -940,7 +921,6 @@
     <Property Name="Company" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="PriorityList" Relationship="aaahelpModel.FK_service_tickets_priority" FromRole="service_tickets" ToRole="PriorityList" />
     <NavigationProperty Name="service_ticket_files" Relationship="aaahelpModel.FK_service_ticket_files_service_tickets" FromRole="service_tickets" ToRole="service_ticket_files" />
-    <NavigationProperty Name="ServiceCategory1" Relationship="aaahelpModel.FK_service_tickets_category" FromRole="service_tickets" ToRole="ServiceCategory" />
     <NavigationProperty Name="StatusList" Relationship="aaahelpModel.FK_service_tickets_Status" FromRole="service_tickets" ToRole="StatusList" />
     <NavigationProperty Name="ST_SL_Edits" Relationship="aaahelpModel.FK_ST_SL_Edits_service_tickets" FromRole="service_tickets" ToRole="ST_SL_Edits" />
   </EntityType>
@@ -965,18 +945,6 @@
       </Principal>
       <Dependent Role="service_ticket_files">
         <PropertyRef Name="ticket_guid" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_service_tickets_category">
-    <End Type="aaahelpModel.ServiceCategory" Role="ServiceCategory" Multiplicity="0..1" />
-    <End Type="aaahelpModel.service_tickets" Role="service_tickets" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ServiceCategory">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="service_tickets">
-        <PropertyRef Name="CategoryID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1031,5 +999,20 @@
     <Property Name="StatusID" Type="Int32" />
     <Property Name="LocationName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="ServiceCategory">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Company" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="code" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="CfdataCode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="OldCode" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="list_num" Type="Int32" />
+    <Property Name="active" Type="Boolean" />
+    <Property Name="isAlert" Type="Boolean" />
+    <Property Name="AlertMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

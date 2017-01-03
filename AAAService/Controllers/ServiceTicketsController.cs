@@ -226,11 +226,12 @@ namespace AAAService.Controllers
             }
 
             var locationInfo = db.locationinfoes.Where(o => o.active == true && o.guid == id);
+            var companyGUID = Guid.Empty;
 
             if (locationInfo.Count() > 0)
             {
                 var locationInfoToList = locationInfo.ToList()[0];
-                var companyGUID = locationInfoToList.parentguid;
+                companyGUID = Guid.Parse(locationInfoToList.parentguid.ToString());
                 view.Location = locationInfoToList.name;
                 var companyName = db.Companies.Where(o => o.active == true && o.guid == companyGUID).ToList()[0].name;
                 view.Company = companyName;
@@ -245,7 +246,7 @@ namespace AAAService.Controllers
             ViewBag.LocationName = id;
             //ViewBag.LocationDD = new SelectList(db.locationinfoes.Where(o => o.active == true).OrderBy(o => o.name), "guid", "name", service_tickets.service_location_guid);
             ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true).OrderBy(o => o.list_num), "ID", "Name");
-            ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.active == true).OrderBy(o => o.Name), "ID", "Name");
+            ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.Company == companyGUID && o.active == true).OrderBy(o => o.Name), "ID", "Name");
             ViewBag.StatusID = new SelectList(db.StatusLists.Where(o => o.active == true), "ID", "Name");
 
             var ticketGuid = TempData.Peek("TicketGuid") != null ? Guid.Parse(TempData.Peek("TicketGuid").ToString()) : new Guid();
@@ -336,7 +337,7 @@ namespace AAAService.Controllers
                 ViewBag.DayPhone = service_tickets.location_contact_phone;
                 ViewBag.NightPhone = service_tickets.location_contact_phone_night;
                 ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true), "ID", "Name", service_tickets.PriorityStatus);
-                ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.active == true), "ID", "Name", service_tickets.ServiceCategory);
+                ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.Company == parentGUID && o.active == true), "ID", "Name", service_tickets.ServiceCategory);
                 ViewBag.StatusID = new SelectList(db.StatusLists.Where(o => o.active == true), "ID", "Name", service_tickets.StatusName);
                 var locationInfoQuery = db.locationinfoes.Where(o => o.active == true && o.guid == locationGUID);
                 return View(new TupleAlternative() { ServiceTickets = service_tickets, LocationInfo = locationInfoQuery.ToList()[0] });
@@ -462,7 +463,7 @@ namespace AAAService.Controllers
                                "If you have questions or concerns about this message please contact us at 1-800-892-4784.\r\n\r\n" +
                                "Please do not reply to this e-mail, this account is not monitored.";
 
-                    email.Send(subject:"Web Portal Service Ticket Entered", body:body, email:user.Email);
+                    email.Send(subject:"Web Portal Service Ticket Entered", body:body, email:user.Email, location: locationGUID);
                 }
                 catch (Exception e)
                 {
@@ -481,7 +482,7 @@ namespace AAAService.Controllers
             ViewBag.DayPhone = service_tickets.location_contact_phone;
             ViewBag.NightPhone = service_tickets.location_contact_phone_night;
             ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true), "ID", "Name", service_tickets.PriorityStatus);
-            ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.active == true), "ID", "Name", service_tickets.ServiceCategory);
+            ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.Company == parentGUID && o.active == true), "ID", "Name", service_tickets.ServiceCategory);
             ViewBag.StatusID = new SelectList(db.StatusLists.Where(o => o.active == true), "ID", "Name", service_tickets.StatusName);
             var locationInfo = db.locationinfoes.Where(o => o.active == true && o.guid == service_tickets.service_location_guid);
             return View(new TupleAlternative { ServiceTickets = service_tickets, LocationInfo = locationInfo.ToList()[0] });
@@ -506,7 +507,7 @@ namespace AAAService.Controllers
             }
 
             ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true), "ID", "Name", service_tickets.PriorityID);
-            ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.active == true), "ID", "Name", service_tickets.CategoryID);
+            ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.Company == service_tickets.parent_company_guid && o.active == true), "ID", "Name", service_tickets.CategoryID);
             ViewBag.StatusID = new SelectList(db.StatusLists.Where(o => o.active == true), "ID", "Name", service_tickets.StatusID);
 
             ViewBag.FileList = from s in db.service_ticket_files
@@ -581,7 +582,7 @@ namespace AAAService.Controllers
                                        "If you have questions or concerns about this message please contact us at 1-800-892-4784.\r\n\r\n" +
                                        "Please do not reply to this e-mail, this account is not monitored.";
 
-                            email.Send(subject:"Web Portal Service Ticket Update", body:body, email: user.Email);
+                            email.Send(subject:"Web Portal Service Ticket Update", body:body, email: user.Email, location: ticketToUpdate.service_location_guid);
                         }
                         catch (Exception e)
                         {
@@ -603,7 +604,7 @@ namespace AAAService.Controllers
             }
 
             ViewBag.PriorityID = new SelectList(db.PriorityLists.Where(o => o.active == true), "ID", "Name", ticketToUpdate.PriorityID);
-            ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.active == true), "ID", "Name", ticketToUpdate.CategoryID);
+            ViewBag.CategoryID = new SelectList(db.ServiceCategories.Where(o => o.Company == ticketToUpdate.parent_company_guid && o.active == true), "ID", "Name", ticketToUpdate.CategoryID);
             ViewBag.StatusID = new SelectList(db.StatusLists.Where(o => o.active == true), "ID", "Name", ticketToUpdate.StatusID);
             return View(ticketToUpdate);
         }

@@ -316,6 +316,7 @@ warning 6002: The table/view 'DB_105883_prod.dbo.ReportBuilderFields' does not h
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Company" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="code" Type="varchar" MaxLength="40" />
     <Property Name="CfdataCode" Type="varchar" MaxLength="15" />
@@ -857,18 +858,6 @@ warning 6035: The relationship 'FK_phone_num_user_login' has columns that are no
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_service_tickets_category">
-    <End Role="ServiceCategory" Type="Self.ServiceCategory" Multiplicity="0..1" />
-    <End Role="service_tickets" Type="Self.service_tickets" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ServiceCategory">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="service_tickets">
-        <PropertyRef Name="CategoryID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_service_tickets_priority">
     <End Role="PriorityList" Type="Self.PriorityList" Multiplicity="0..1" />
     <End Role="service_tickets" Type="Self.service_tickets" Multiplicity="*" />
@@ -1290,10 +1279,6 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
     <AssociationSet Name="FK_service_ticket_files_service_tickets" Association="Self.FK_service_ticket_files_service_tickets">
       <End Role="service_tickets" EntitySet="service_tickets" />
       <End Role="service_ticket_files" EntitySet="service_ticket_files" />
-    </AssociationSet>
-    <AssociationSet Name="FK_service_tickets_category" Association="Self.FK_service_tickets_category">
-      <End Role="ServiceCategory" EntitySet="ServiceCategory" />
-      <End Role="service_tickets" EntitySet="service_tickets" />
     </AssociationSet>
     <AssociationSet Name="FK_service_tickets_priority" Association="Self.FK_service_tickets_priority">
       <End Role="PriorityList" EntitySet="PriorityList" />

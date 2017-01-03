@@ -18,7 +18,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.parent_company_guid, "Parent Company", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("CompanyID", null, "Please Choose", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("CompanyID", null, "Please Choose", htmlAttributes: new { @class = "form-control", @onchange = "javascript:GetServiceCategories(this.value);" })
                 @Html.ValidationMessageFor(model => model.parent_company_guid, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -117,7 +117,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.CategoryID, "Service Category", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("CategoryID", null, "Please Choose", htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("CategoryID", null, "Please Choose Company", htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -359,6 +359,31 @@ $(document).ready(
       $("#monikersam").hide();
   })
 });
+</script>
 
+<script language="javascript" type="text/javascript">
+    function GetServiceCategories(_companyGUID) {
+      var procemessage = "<option value='0'> Please wait...</option>";
+      $("#CategoryID").html(procemessage).show();
+      var url = "/AdminTickets/GetServiceCategories/";      
 
+      $.ajax({
+          url: url,
+          data: { companyGUID: _companyGUID },
+          cache: false,
+          type: "POST",
+          success: function (data) {
+              var markup = "<option value='0' selected>Please Choose</option>";
+
+              for (var x = 0; x < data.length; x++) {
+                markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+              }
+
+              $("#CategoryID").html(markup).show();
+            },
+            error: function (reponse) {
+            alert("error : " + reponse);
+            }
+        });
+    }
 </script>

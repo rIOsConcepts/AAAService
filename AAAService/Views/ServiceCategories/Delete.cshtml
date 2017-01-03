@@ -1,4 +1,4 @@
-﻿@model AAAService.Models.ServiceCategory
+﻿@model AAAService.Models.ServiceCategoryExtended
 
 @{
     ViewBag.Title = "Delete";
@@ -11,6 +11,14 @@
     <h4>ServiceCategory</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CompanyName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompanyName)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>

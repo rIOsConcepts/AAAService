@@ -63,9 +63,9 @@ namespace AAAService.Models
         public virtual PriorityList PriorityList { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<service_ticket_files> service_ticket_files { get; set; }
-        public virtual ServiceCategory ServiceCategory1 { get; set; }
         public virtual StatusList StatusList { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ST_SL_Edits> ST_SL_Edits { get; set; }
+        public virtual ServiceCategory ServiceCategory1 { get; set; }
     }
 }
