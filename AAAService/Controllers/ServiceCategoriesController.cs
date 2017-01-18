@@ -85,6 +85,7 @@ namespace AAAService.Controllers
             if (ModelState.IsValid)
             {
                 serviceCategory.Company = Request.Form["CompanyDropDown"] != "" ? Guid.Parse(Request.Form["CompanyDropDown"]) : serviceCategory.Company;
+                serviceCategory.list_num = 1;
                 db.ServiceCategories.Add(serviceCategory);                
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -134,6 +135,7 @@ namespace AAAService.Controllers
             if (ModelState.IsValid)
             {
                 serviceCategory.Company = Request.Form["CompanyDropDown"] != "" ? Guid.Parse(Request.Form["CompanyDropDown"]) : serviceCategory.Company;
+                serviceCategory.list_num = 1;
                 db.Entry(serviceCategory).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

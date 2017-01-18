@@ -87,20 +87,14 @@
     columns.Add(o => o.AcctMgrEmail)
             .Titled("Acct Mgr Email");
 
-
     /* Adding "Email All" column: */
     columns.Add(o => o.email_all_members)
             .Titled("Email All");
-
 
     /* Adding "Active" column: */
     columns.Add(o => o.active)
             .Titled("Active")
             .Filterable(true);
 
-
-
-
-
-}).WithPaging(20).Sortable(true)
+}).WithPaging(20).Sortable().Filterable().WithMultipleFilters()
 </div>

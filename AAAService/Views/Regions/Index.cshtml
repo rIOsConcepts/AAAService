@@ -48,8 +48,6 @@
     columns.Add(o => o.active)
             .Titled("Active")
             .Filterable(true)
-            .SetWidth(125);
-
- 
-}).WithPaging(20).Sortable(true)
+            .SetWidth(125); 
+}).WithPaging(20).Sortable().Filterable().WithMultipleFilters()
 </div>

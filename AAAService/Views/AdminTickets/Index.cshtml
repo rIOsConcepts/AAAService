@@ -96,6 +96,7 @@
     /* Adding "Problem Summary" column: */
     columns.Add(o => o.problem_summary)
             .Titled("Problem Summary")
+            .Filterable(true)
             .SetWidth(250);
 
     /* Adding "Date Requested" column: */
@@ -131,8 +132,7 @@
             .Titled("Customer PO#")
             .Filterable(true)
             .SetWidth(150);
-
-}).WithPaging(20).Sortable(true)
+}).WithPaging(20).Sortable().Filterable().WithMultipleFilters()
 </div>
 
 <script>

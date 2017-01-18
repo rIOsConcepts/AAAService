@@ -66,5 +66,5 @@
        columns.Add(o => o.service_location)
                .Filterable(true)
                .Titled("Location");
-   }).WithPaging(20).Sortable(true)
+   }).WithPaging(20).Sortable().Filterable().WithMultipleFilters()
 </div>
