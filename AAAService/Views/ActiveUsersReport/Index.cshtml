@@ -1,0 +1,122 @@
+﻿@model IEnumerable<AAAService.Models.ActiveUsersReportView>
+
+@using GridMvc.Html
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+<script src="~/Scripts/jquery-2.2.0.min.js"></script>
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+<script src="@Url.Content("~/Scripts/gridmvc.customwidgets.js")"></script>
+<link rel="stylesheet" href="https://jqueryui.com/resources/demos/style.css">
+<script src="/Scripts/bootstrap-datepicker.js"></script>
+<link href="/Content/gridmvc.datepicker.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Active Users Report</h2>
+
+<p>
+    @Html.ActionLink("Export to Excel", "ExportToExcel")
+</p>
+
+<div style="width:auto">
+@helper CustomRenderingOfColumn(AAAService.Models.ActiveUsersReportView model)
+{
+    if (model.Status == 1)
+    {
+            <text>Active</text>
+    }
+    else
+    {
+            <text>Inactive</text>
+    }
+}
+
+@Html.Grid(Model).Named("activeUsersReport").Columns(columns =>
+{
+    columns.Add(o => o.Email)
+                .Titled("Email")
+                .Sortable(true)
+                .Filterable(true);
+
+    columns.Add(o => o.PhoneDay)
+                .Titled("Phone Day")
+                .Sortable(true)
+                .Filterable(true);
+
+    columns.Add(o => o.PhoneNight)
+                .Titled("Phone Night")
+                .Sortable(true)
+                .Filterable(true);
+
+    columns.Add(o => o.UserName)
+                .Titled("User Name")
+                .Sortable(true)
+                .Filterable(true);
+
+    columns.Add(o => o.FirstName)
+                .Titled("Last Name")
+                .Sortable(true)
+                .Filterable(true);
+
+    columns.Add(o => o.LatName)
+                .Titled("First Name")
+                .Sortable(true)
+                .Filterable(true);
+
+    columns.Add(o => o.Title)
+                .Titled("Title")
+                .Filterable(true)
+                .Sortable(true);
+
+    columns.Add(o => o.Company)
+                .Titled("Company")
+                .Filterable(true)
+                .Sortable(true);
+
+    columns.Add(o => o.Location)
+                .Titled("Location")
+                .Sortable(true)
+                .Filterable(true);
+
+    columns.Add(o => o.AddressLine1)
+                .Titled("Address Line 1")
+                .Sortable(true)
+                .Filterable(true);
+
+    columns.Add(o => o.AddressLine2)
+                .Titled("Address Line 2")
+                .Sortable(true)
+                .Filterable(true);
+
+    columns.Add(o => o.City)
+                .Titled("City")
+                .Sortable(true)
+                .Filterable(true);
+
+    columns.Add(o => o.State)
+                .Titled("State")
+                .Sortable(true)
+                .Filterable(true);
+
+    columns.Add(o => o.Zip)
+                .Titled("Zip")
+                .Sortable(true)
+                .Filterable(true);
+
+    columns.Add(o => o.Status)
+                .Titled("Status")
+                .Filterable(true)
+                .Sortable(true)
+                .SetFilterWidgetType("CustomUserStatusFilterWidget")
+                .RenderValueAs(model => CustomRenderingOfColumn(model));
+
+}).Sortable().Filterable().WithMultipleFilters()
+</div>
+
+<script>
+    $(document).ready(function () {
+        pageGrids.activeUsersReport.addFilterWidget(new UserStatusesFilterWidget());
+    });
+</script>

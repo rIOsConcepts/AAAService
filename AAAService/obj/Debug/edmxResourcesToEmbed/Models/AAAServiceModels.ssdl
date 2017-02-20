@@ -391,6 +391,31 @@ warning 6002: The table/view 'DB_105883_prod.aaaadmin.LocationEmails_viewMVC' do
     <Property Name="account_status" Type="int" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_105883_prod.dbo.ActiveUsersReportView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ActiveUsersReportView">
+    <Key>
+      <PropertyRef Name="UserName" />
+      <PropertyRef Name="FirstName" />
+      <PropertyRef Name="LatName" />
+      <PropertyRef Name="Status" />
+    </Key>
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="PhoneDay" Type="varchar" MaxLength="25" />
+    <Property Name="PhoneNight" Type="varchar" MaxLength="25" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="LatName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="50" />
+    <Property Name="Company" Type="varchar" MaxLength="50" />
+    <Property Name="Location" Type="varchar" MaxLength="50" />
+    <Property Name="AddressLine1" Type="varchar" MaxLength="50" />
+    <Property Name="AddressLine2" Type="varchar" MaxLength="50" />
+    <Property Name="City" Type="varchar" MaxLength="50" />
+    <Property Name="State" Type="char" MaxLength="2" />
+    <Property Name="Zip" Type="int" />
+    <Property Name="Status" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
 warning 6002: The table/view 'DB_105883_prod.dbo.Bid_Requests_View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="Bid_Requests_View">
     <Key>
@@ -858,6 +883,18 @@ warning 6035: The relationship 'FK_phone_num_user_login' has columns that are no
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_service_tickets_category">
+    <End Role="ServiceCategory" Type="Self.ServiceCategory" Multiplicity="0..1" />
+    <End Role="service_tickets" Type="Self.service_tickets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ServiceCategory">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="service_tickets">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_service_tickets_priority">
     <End Role="PriorityList" Type="Self.PriorityList" Multiplicity="0..1" />
     <End Role="service_tickets" Type="Self.service_tickets" Multiplicity="*" />
@@ -972,6 +1009,25 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
     [LocationEmails_viewMVC].[email_all_members] AS [email_all_members], 
     [LocationEmails_viewMVC].[account_status] AS [account_status]
     FROM [aaaadmin].[LocationEmails_viewMVC] AS [LocationEmails_viewMVC]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ActiveUsersReportView" EntityType="Self.ActiveUsersReportView" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ActiveUsersReportView].[Email] AS [Email], 
+    [ActiveUsersReportView].[PhoneDay] AS [PhoneDay], 
+    [ActiveUsersReportView].[PhoneNight] AS [PhoneNight], 
+    [ActiveUsersReportView].[UserName] AS [UserName], 
+    [ActiveUsersReportView].[FirstName] AS [FirstName], 
+    [ActiveUsersReportView].[LatName] AS [LatName], 
+    [ActiveUsersReportView].[Title] AS [Title], 
+    [ActiveUsersReportView].[Company] AS [Company], 
+    [ActiveUsersReportView].[Location] AS [Location], 
+    [ActiveUsersReportView].[AddressLine1] AS [AddressLine1], 
+    [ActiveUsersReportView].[AddressLine2] AS [AddressLine2], 
+    [ActiveUsersReportView].[City] AS [City], 
+    [ActiveUsersReportView].[State] AS [State], 
+    [ActiveUsersReportView].[Zip] AS [Zip], 
+    [ActiveUsersReportView].[Status] AS [Status]
+    FROM [dbo].[ActiveUsersReportView] AS [ActiveUsersReportView]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="Bid_Requests_View" EntityType="Self.Bid_Requests_View" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -1279,6 +1335,10 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
     <AssociationSet Name="FK_service_ticket_files_service_tickets" Association="Self.FK_service_ticket_files_service_tickets">
       <End Role="service_tickets" EntitySet="service_tickets" />
       <End Role="service_ticket_files" EntitySet="service_ticket_files" />
+    </AssociationSet>
+    <AssociationSet Name="FK_service_tickets_category" Association="Self.FK_service_tickets_category">
+      <End Role="ServiceCategory" EntitySet="ServiceCategory" />
+      <End Role="service_tickets" EntitySet="service_tickets" />
     </AssociationSet>
     <AssociationSet Name="FK_service_tickets_priority" Association="Self.FK_service_tickets_priority">
       <End Role="PriorityList" EntitySet="PriorityList" />

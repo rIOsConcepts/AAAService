@@ -199,6 +199,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ActiveUsersReportController.cs" />
     <Compile Include="Controllers\AdminBidRequestsBoardController.cs" />
     <Compile Include="Controllers\AdminTicketsController.cs" />
     <Compile Include="Controllers\BidRequestsBoardController.cs" />
@@ -248,6 +249,9 @@
       <DependentUpon>AAAServiceModels.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ActiveUsersReportView.cs">
+      <DependentUpon>AAAServiceModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\AspNetUser.cs">
       <DependentUpon>AAAServiceModels.tt</DependentUpon>
@@ -661,6 +665,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\ActiveUsersReport\Index.cshtml" />
     <None Include="Views\AdminBidRequestsBoard\Create.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

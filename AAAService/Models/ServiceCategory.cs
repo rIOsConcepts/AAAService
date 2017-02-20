@@ -14,6 +14,12 @@ namespace AAAService.Models
     
     public partial class ServiceCategory
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ServiceCategory()
+        {
+            this.service_tickets = new HashSet<service_tickets>();
+        }
+    
         public int ID { get; set; }
         public System.Guid Company { get; set; }
         public string Name { get; set; }
@@ -24,5 +30,8 @@ namespace AAAService.Models
         public Nullable<bool> active { get; set; }
         public Nullable<bool> isAlert { get; set; }
         public string AlertMessage { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<service_tickets> service_tickets { get; set; }
     }
 }

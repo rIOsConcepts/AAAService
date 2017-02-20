@@ -396,6 +396,31 @@ warning 6002: The table/view 'DB_105883_prod.aaaadmin.LocationEmails_viewMVC' do
           <Property Name="account_status" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_105883_prod.dbo.ActiveUsersReportView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ActiveUsersReportView">
+          <Key>
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LatName" />
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="PhoneDay" Type="varchar" MaxLength="25" />
+          <Property Name="PhoneNight" Type="varchar" MaxLength="25" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LatName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="Company" Type="varchar" MaxLength="50" />
+          <Property Name="Location" Type="varchar" MaxLength="50" />
+          <Property Name="AddressLine1" Type="varchar" MaxLength="50" />
+          <Property Name="AddressLine2" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="State" Type="char" MaxLength="2" />
+          <Property Name="Zip" Type="int" />
+          <Property Name="Status" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'DB_105883_prod.dbo.Bid_Requests_View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Bid_Requests_View">
           <Key>
@@ -891,6 +916,18 @@ warning 6035: The relationship 'FK_phone_num_user_login' has columns that are no
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_service_tickets_category">
+          <End Role="ServiceCategory" Type="Self.ServiceCategory" Multiplicity="0..1" />
+          <End Role="service_tickets" Type="Self.service_tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiceCategory">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="service_tickets">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_service_tickets_priority">
           <End Role="PriorityList" Type="Self.PriorityList" Multiplicity="0..1" />
           <End Role="service_tickets" Type="Self.service_tickets" Multiplicity="*" />
@@ -1005,6 +1042,25 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
     [LocationEmails_viewMVC].[email_all_members] AS [email_all_members], 
     [LocationEmails_viewMVC].[account_status] AS [account_status]
     FROM [aaaadmin].[LocationEmails_viewMVC] AS [LocationEmails_viewMVC]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ActiveUsersReportView" EntityType="Self.ActiveUsersReportView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ActiveUsersReportView].[Email] AS [Email], 
+    [ActiveUsersReportView].[PhoneDay] AS [PhoneDay], 
+    [ActiveUsersReportView].[PhoneNight] AS [PhoneNight], 
+    [ActiveUsersReportView].[UserName] AS [UserName], 
+    [ActiveUsersReportView].[FirstName] AS [FirstName], 
+    [ActiveUsersReportView].[LatName] AS [LatName], 
+    [ActiveUsersReportView].[Title] AS [Title], 
+    [ActiveUsersReportView].[Company] AS [Company], 
+    [ActiveUsersReportView].[Location] AS [Location], 
+    [ActiveUsersReportView].[AddressLine1] AS [AddressLine1], 
+    [ActiveUsersReportView].[AddressLine2] AS [AddressLine2], 
+    [ActiveUsersReportView].[City] AS [City], 
+    [ActiveUsersReportView].[State] AS [State], 
+    [ActiveUsersReportView].[Zip] AS [Zip], 
+    [ActiveUsersReportView].[Status] AS [Status]
+    FROM [dbo].[ActiveUsersReportView] AS [ActiveUsersReportView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Bid_Requests_View" EntityType="Self.Bid_Requests_View" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -1313,6 +1369,10 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
             <End Role="service_tickets" EntitySet="service_tickets" />
             <End Role="service_ticket_files" EntitySet="service_ticket_files" />
           </AssociationSet>
+          <AssociationSet Name="FK_service_tickets_category" Association="Self.FK_service_tickets_category">
+            <End Role="ServiceCategory" EntitySet="ServiceCategory" />
+            <End Role="service_tickets" EntitySet="service_tickets" />
+          </AssociationSet>
           <AssociationSet Name="FK_service_tickets_priority" Association="Self.FK_service_tickets_priority">
             <End Role="PriorityList" EntitySet="PriorityList" />
             <End Role="service_tickets" EntitySet="service_tickets" />
@@ -1518,6 +1578,11 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
           </AssociationSet>
           <EntitySet Name="bid_requests" EntityType="aaahelpModel.bid_requests" />
           <EntitySet Name="ServiceCategories" EntityType="aaahelpModel.ServiceCategory" />
+          <AssociationSet Name="FK_service_tickets_category" Association="aaahelpModel.FK_service_tickets_category">
+            <End Role="ServiceCategory" EntitySet="ServiceCategories" />
+            <End Role="service_tickets" EntitySet="service_tickets" />
+          </AssociationSet>
+          <EntitySet Name="ActiveUsersReportViews" EntityType="aaahelpModel.ActiveUsersReportView" />
           </EntityContainer>
         <EntityType Name="service_boardNew">
           <Key>
@@ -2261,6 +2326,7 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
           <NavigationProperty Name="service_ticket_files" Relationship="aaahelpModel.FK_service_ticket_files_service_tickets" FromRole="service_tickets" ToRole="service_ticket_files" />
           <NavigationProperty Name="StatusList" Relationship="aaahelpModel.FK_service_tickets_Status" FromRole="service_tickets" ToRole="StatusList" />
           <NavigationProperty Name="ST_SL_Edits" Relationship="aaahelpModel.FK_ST_SL_Edits_service_tickets" FromRole="service_tickets" ToRole="ST_SL_Edits" />
+          <NavigationProperty Name="ServiceCategory1" Relationship="aaahelpModel.FK_service_tickets_category" FromRole="service_tickets" ToRole="ServiceCategory" />
         </EntityType>
         <Association Name="FK_service_tickets_priority">
           <End Type="aaahelpModel.PriorityList" Role="PriorityList" Multiplicity="0..1" />
@@ -2352,6 +2418,42 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
           <Property Name="active" Type="Boolean" />
           <Property Name="isAlert" Type="Boolean" />
           <Property Name="AlertMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="service_tickets" Relationship="aaahelpModel.FK_service_tickets_category" FromRole="ServiceCategory" ToRole="service_tickets" />
+        </EntityType>
+        <Association Name="FK_service_tickets_category">
+          <End Type="aaahelpModel.ServiceCategory" Role="ServiceCategory" Multiplicity="0..1" />
+          <End Type="aaahelpModel.service_tickets" Role="service_tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiceCategory">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="service_tickets">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ActiveUsersReportView">
+          <Key>
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LatName" />
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneDay" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNight" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LatName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Company" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AddressLine1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AddressLine2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Zip" Type="Int32" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -3101,6 +3203,27 @@ warning 6035: The relationship 'FK_user_to_location_user_login' has columns that
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Company" ColumnName="Company" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActiveUsersReportViews">
+            <EntityTypeMapping TypeName="aaahelpModel.ActiveUsersReportView">
+              <MappingFragment StoreEntitySet="ActiveUsersReportView">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="LatName" ColumnName="LatName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="PhoneNight" ColumnName="PhoneNight" />
+                <ScalarProperty Name="PhoneDay" ColumnName="PhoneDay" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

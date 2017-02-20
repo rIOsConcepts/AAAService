@@ -180,6 +180,11 @@
     </AssociationSet>
     <EntitySet Name="bid_requests" EntityType="aaahelpModel.bid_requests" />
     <EntitySet Name="ServiceCategories" EntityType="aaahelpModel.ServiceCategory" />
+    <AssociationSet Name="FK_service_tickets_category" Association="aaahelpModel.FK_service_tickets_category">
+      <End Role="ServiceCategory" EntitySet="ServiceCategories" />
+      <End Role="service_tickets" EntitySet="service_tickets" />
+    </AssociationSet>
+    <EntitySet Name="ActiveUsersReportViews" EntityType="aaahelpModel.ActiveUsersReportView" />
   </EntityContainer>
   <EntityType Name="service_boardNew">
     <Key>
@@ -923,6 +928,7 @@
     <NavigationProperty Name="service_ticket_files" Relationship="aaahelpModel.FK_service_ticket_files_service_tickets" FromRole="service_tickets" ToRole="service_ticket_files" />
     <NavigationProperty Name="StatusList" Relationship="aaahelpModel.FK_service_tickets_Status" FromRole="service_tickets" ToRole="StatusList" />
     <NavigationProperty Name="ST_SL_Edits" Relationship="aaahelpModel.FK_ST_SL_Edits_service_tickets" FromRole="service_tickets" ToRole="ST_SL_Edits" />
+    <NavigationProperty Name="ServiceCategory1" Relationship="aaahelpModel.FK_service_tickets_category" FromRole="service_tickets" ToRole="ServiceCategory" />
   </EntityType>
   <Association Name="FK_service_tickets_priority">
     <End Type="aaahelpModel.PriorityList" Role="PriorityList" Multiplicity="0..1" />
@@ -1014,5 +1020,41 @@
     <Property Name="active" Type="Boolean" />
     <Property Name="isAlert" Type="Boolean" />
     <Property Name="AlertMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="service_tickets" Relationship="aaahelpModel.FK_service_tickets_category" FromRole="ServiceCategory" ToRole="service_tickets" />
+  </EntityType>
+  <Association Name="FK_service_tickets_category">
+    <End Type="aaahelpModel.ServiceCategory" Role="ServiceCategory" Multiplicity="0..1" />
+    <End Type="aaahelpModel.service_tickets" Role="service_tickets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ServiceCategory">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="service_tickets">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ActiveUsersReportView">
+    <Key>
+      <PropertyRef Name="UserName" />
+      <PropertyRef Name="FirstName" />
+      <PropertyRef Name="LatName" />
+      <PropertyRef Name="Status" />
+    </Key>
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneDay" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNight" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="LatName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Company" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AddressLine1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AddressLine2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+    <Property Name="Zip" Type="Int32" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
   </EntityType>
 </Schema>

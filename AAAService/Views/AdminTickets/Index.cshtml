@@ -107,6 +107,14 @@
             .Filterable(true)
             .SetWidth(80);
 
+    /* Adding "Date Accepted" column: */
+    columns.Add(o => o.accepted_datetime)
+            .Titled("Date Accepted")
+            //.RenderValueAs(o => string.Format("{0:MM/dd/yyyy}", o.accepted_datetime))
+            .Format("{0:MM/dd/yyyy}")
+            .Filterable(true)
+            .SetWidth(80);
+
     /* Adding "Date Dispatched" column: */
     columns.Add(o => o.dispatch_datetime)
             .Titled("Date Dispatched")
