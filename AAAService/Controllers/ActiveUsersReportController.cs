@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.IO;
 using System.Linq;
 using System.Web.UI;
@@ -17,7 +18,7 @@ namespace AAAService.Controllers
 
         public ActionResult Index()
         {
-            var activeUsersReport = (from aur in db.ActiveUsersReportViews
+            var activeUsersReport = (from aur in db.ActiveUsersReportViews.AsNoTracking()
                                      orderby aur.Email ascending
                                      select aur);
 
