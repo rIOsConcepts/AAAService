@@ -1587,7 +1587,7 @@ pre code {
 }
 .container {
   margin-right: auto;
-  margin-left: auto;
+  margin-left: 0px; /*auto*/
   padding-left: 15px;
   padding-right: 15px;
 }
@@ -1608,7 +1608,7 @@ pre code {
 }
 .container-fluid {
   margin-right: auto;
-  margin-left: auto;
+  margin-left: 0px; /*auto*/
   padding-left: 15px;
   padding-right: 15px;
 }

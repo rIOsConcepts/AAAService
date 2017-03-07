@@ -365,24 +365,41 @@ namespace AAAService.Controllers
                         ticketToUpdate.EQProbDesc = "";
                     }
 
+                    //Tim requested to be able to clear all dates
                     if (Request.Form["ServiceTickets.accepted_datetime"] != "")
                     {
                         ticketToUpdate.accepted_datetime =  DateTime.Parse(Request.Form["ServiceTickets.accepted_datetime"]);
+                    }
+                    else
+                    {
+                        ticketToUpdate.accepted_datetime = null;
                     }
 
                     if (Request.Form["ServiceTickets.dispatch_datetime"] != "")
                     {
                         ticketToUpdate.dispatch_datetime = DateTime.Parse(Request.Form["ServiceTickets.dispatch_datetime"]);
                     }
+                    else
+                    {
+                        ticketToUpdate.dispatch_datetime = null;
+                    }
 
                     if (Request.Form["ServiceTickets.complete_datetime"] != "")
                     {
                         ticketToUpdate.complete_datetime = DateTime.Parse(Request.Form["ServiceTickets.complete_datetime"]);
                     }
+                    else
+                    {
+                        ticketToUpdate.complete_datetime = null;
+                    }
 
                     if (Request.Form["ServiceTickets.closed_datetime"] != "")
                     {
                         ticketToUpdate.closed_datetime = DateTime.Parse(Request.Form["ServiceTickets.closed_datetime"]);
+                    }
+                    else
+                    {
+                        ticketToUpdate.closed_datetime = null;
                     }
 
                     ticketToUpdate.last_update_datetime = DateTime.Now;
