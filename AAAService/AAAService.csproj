@@ -804,6 +804,7 @@
     <Content Include="Views\AdminBidRequestsBoard\Delete.cshtml" />
     <Content Include="Views\AdminBidRequestsBoard\Edit.cshtml" />
     <Content Include="Views\UpLoadToCalendar\Error.cshtml" />
+    <Content Include="Views\Home\NewClient.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />

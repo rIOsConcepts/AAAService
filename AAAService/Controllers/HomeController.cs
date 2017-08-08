@@ -53,6 +53,14 @@ namespace AAAService.Controllers
         }
 
         [Authorize]
+        public ActionResult NewClient()
+        {
+            ViewBag.Message = "New Client Calendar";
+
+            return View();
+        }
+
+        [Authorize]
         public ActionResult FireExt()
         {
             ViewBag.Message = "Annual Fire Extinguisher Service Calendar";
