@@ -53,9 +53,9 @@ namespace AAAService.Controllers
         }
 
         [Authorize]
-        public ActionResult NewClient()
+        public ActionResult PestControl()
         {
-            ViewBag.Message = "New Client Calendar";
+            ViewBag.Message = "Pest Control";
 
             return View();
         }
